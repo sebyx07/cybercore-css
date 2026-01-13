@@ -1,146 +1,46 @@
 // ============================================================
-// Neon Border Effect - Animated gradient border with glow
+// Neon Border Effect - Animated rainbow gradient border with blur
 // ============================================================
 
 @layer components {
   .cyber-neon-border {
-    --neon-border-width: 2px;
-    --neon-blur: 10px;
-    --neon-duration: 3s;
-    --neon-color-1: var(--cyber-cyan-500, #00f0ff);
-    --neon-color-2: var(--cyber-magenta-500, #ff2a6d);
-    --neon-color-3: var(--cyber-yellow-500, #fcee0a);
-    --neon-color-4: var(--cyber-green-500, #05ffa1);
-
     position: relative;
-    background: var(--color-bg-secondary, #15171e);
 
-    // Gradient border using background-clip technique
+    // Rainbow gradient border with blur glow
     &::before {
       content: "";
       position: absolute;
-      padding: var(--neon-border-width);
-      border-radius: inherit;
-      background: linear-gradient(
-        90deg,
-        var(--neon-color-1),
-        var(--neon-color-2),
-        var(--neon-color-3),
-        var(--neon-color-4),
-        var(--neon-color-1)
-      );
-      background-size: 300% 100%;
-      animation: cyber-neon-border-flow var(--neon-duration) linear infinite;
-      inset: 0;
-      mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-      mask-composite: xor;
-      mask-composite: exclude;
-    }
-
-    // Glow layer
-    &::after {
-      content: "";
-      position: absolute;
       z-index: -1;
-      padding: var(--neon-border-width);
-      border-radius: inherit;
       background: linear-gradient(
         90deg,
-        var(--neon-color-1),
-        var(--neon-color-2),
-        var(--neon-color-3),
-        var(--neon-color-4),
-        var(--neon-color-1)
+        var(--cyber-cyan-500, #00f0ff),
+        var(--cyber-magenta-500, #ff2a6d),
+        var(--cyber-yellow-500, #fcee0a),
+        var(--cyber-green-500, #05ffa1),
+        var(--cyber-cyan-500, #00f0ff)
       );
-      background-size: 300% 100%;
-      opacity: 60%;
-      animation: cyber-neon-border-flow var(--neon-duration) linear infinite;
-      filter: blur(var(--neon-blur));
-      inset: calc(var(--neon-border-width) * -1);
-      mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-      mask-composite: xor;
-      mask-composite: exclude;
-    }
-
-    // Thin border variant
-    &--thin {
-      --neon-border-width: 1px;
-      --neon-blur: 6px;
-    }
-
-    // Thick border variant
-    &--thick {
-      --neon-border-width: 4px;
-      --neon-blur: 15px;
-    }
-
-    // Fast animation
-    &--fast {
-      --neon-duration: 1.5s;
-    }
-
-    // Slow animation
-    &--slow {
-      --neon-duration: 6s;
-    }
-
-    // Cyan only
-    &--cyan {
-      --neon-color-1: var(--cyber-cyan-500, #00f0ff);
-      --neon-color-2: var(--cyber-cyan-300, oklch(75% 0.15 195deg));
-      --neon-color-3: var(--cyber-cyan-500, #00f0ff);
-      --neon-color-4: var(--cyber-cyan-700, oklch(45% 0.12 195deg));
-    }
-
-    // Magenta only
-    &--magenta {
-      --neon-color-1: var(--cyber-magenta-500, #ff2a6d);
-      --neon-color-2: var(--cyber-magenta-300, oklch(75% 0.15 350deg));
-      --neon-color-3: var(--cyber-magenta-500, #ff2a6d);
-      --neon-color-4: var(--cyber-magenta-700, oklch(40% 0.15 350deg));
-    }
-
-    // Pulse effect instead of flow
-    &--pulse {
-      &::before,
-      &::after {
-        animation: cyber-neon-border-pulse var(--neon-duration) ease-in-out infinite;
-      }
+      background-size: 400% 100%;
+      opacity: 70%;
+      animation: neon-flow 4s linear infinite;
+      filter: blur(6px);
+      inset: -3px;
     }
   }
 
-  @keyframes cyber-neon-border-flow {
+  @keyframes neon-flow {
     0% {
       background-position: 0% 50%;
     }
 
     100% {
-      background-position: 300% 50%;
-    }
-  }
-
-  @keyframes cyber-neon-border-pulse {
-    0%,
-    100% {
-      opacity: 40%;
-      filter: blur(var(--neon-blur));
-    }
-
-    50% {
-      opacity: 100%;
-      filter: blur(calc(var(--neon-blur) * 1.5));
+      background-position: 400% 50%;
     }
   }
 
   // Respect reduced motion preference
   @media (prefers-reduced-motion: reduce) {
     .cyber-neon-border {
-      &::before,
-      &::after {
+      &::before {
         background-position: 0% 50%;
         animation: none;
       }

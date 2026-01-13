@@ -1,51 +1,50 @@
 // ============================================================
 // Cards Component
-// .cyber-card with cut corners and variants
+// .cyber-card with cut corners, bracket decorations, and variants
 // ============================================================
 
 @layer components {
-  // Corner cut clip-paths
-  $card-clip: polygon(
-    0 0,
-    calc(100% - 20px) 0,
-    100% 20px,
-    100% 100%,
-    20px 100%,
-    0 calc(100% - 20px)
-  );
-  $card-clip-sm: polygon(
-    0 0,
-    calc(100% - 12px) 0,
-    100% 12px,
-    100% 100%,
-    12px 100%,
-    0 calc(100% - 12px)
-  );
-
   .cyber-card {
+    --card-accent: var(--cyber-cyan-500);
+
     position: relative;
     display: flex;
     flex-direction: column;
     padding: var(--space-md);
-    border: var(--border-thin) solid var(--color-border-default);
+    border: 1px solid var(--color-border-default);
     background: var(--color-bg-secondary);
-    transition:
-      border-color var(--transition-base),
-      box-shadow var(--transition-base),
-      transform var(--transition-base);
-    clip-path: #{$card-clip};
+    clip-path: polygon(
+      0 0,
+      calc(100% - 20px) 0,
+      100% 20px,
+      100% 100%,
+      20px 100%,
+      0 calc(100% - 20px)
+    );
 
-    // Decorative corner accent
-    &::before {
+    // Corner bracket decorations
+    &::before,
+    &::after {
       content: "";
       position: absolute;
-      top: 0;
-      right: 0;
-      width: 20px;
-      height: 20px;
-      background: linear-gradient(135deg, var(--cyber-cyan-500) 50%, transparent 50%);
-      opacity: 60%;
-      transition: opacity var(--transition-fast);
+      width: 30px;
+      height: 30px;
+      border: 2px solid var(--card-accent);
+      pointer-events: none;
+    }
+
+    &::before {
+      top: -1px;
+      left: -1px;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    &::after {
+      right: -1px;
+      bottom: -1px;
+      border-top: none;
+      border-left: none;
     }
 
     // --------------------------------------------------------
@@ -56,30 +55,21 @@
       display: flex;
       gap: var(--space-sm);
       align-items: center;
-      margin-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
       padding-bottom: var(--space-sm);
-      border-bottom: var(--border-thin) solid var(--color-border-default);
-    }
-
-    &__title {
-      margin: 0;
-      font-family: var(--font-display);
-      font-size: var(--text-lg);
-      font-weight: 600;
-      letter-spacing: var(--tracking-wide);
-      color: var(--color-text-primary);
+      border-bottom: 1px solid var(--color-border-default);
     }
 
     &__icon {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 2.5rem;
-      height: 2.5rem;
-      border: var(--border-thin) solid var(--cyber-cyan-500);
-      color: var(--cyber-cyan-500);
-      background: color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent);
-      clip-path: #{$card-clip-sm};
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--card-accent);
+      font-size: var(--text-lg);
+      color: var(--card-accent);
+      background: color-mix(in srgb, var(--card-accent) 15%, transparent);
 
       svg {
         width: 1.25rem;
@@ -87,15 +77,24 @@
       }
     }
 
+    &__title {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--card-accent);
+    }
+
     &__badge {
       margin-left: auto;
       padding: var(--space-3xs) var(--space-xs);
-      border: var(--border-thin) solid var(--cyber-cyan-500);
       font-family: var(--font-mono);
       font-size: var(--text-xs);
-      text-transform: uppercase;
-      color: var(--cyber-cyan-500);
-      background: color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
+      font-weight: 700;
+      color: var(--cyber-void-500);
+      background: var(--card-accent);
     }
 
     &__body {
@@ -110,7 +109,7 @@
       align-items: center;
       margin-top: var(--space-md);
       padding-top: var(--space-sm);
-      border-top: var(--border-thin) solid var(--color-border-default);
+      border-top: 1px solid var(--color-border-default);
     }
 
     // --------------------------------------------------------
@@ -118,61 +117,42 @@
     // --------------------------------------------------------
 
     &--interactive {
+      transition: all var(--duration-normal);
       cursor: pointer;
 
       &:hover {
-        border-color: var(--cyber-cyan-500);
         box-shadow:
-          0 4px 20px color-mix(in srgb, var(--cyber-cyan-500) 30%, transparent),
-          inset 0 1px 0 color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
-        transform: translateY(-4px);
-
-        &::before {
-          opacity: 100%;
-        }
-      }
-
-      &:active {
+          inset 0 0 30px color-mix(in srgb, var(--card-accent) 10%, transparent),
+          0 0 30px color-mix(in srgb, var(--card-accent) 30%, transparent);
         transform: translateY(-2px);
       }
 
+      &:active {
+        transform: translateY(-1px);
+      }
+
       &:focus-visible {
-        outline: 2px solid var(--cyber-cyan-500);
+        outline: 2px solid var(--card-accent);
         outline-offset: 4px;
       }
     }
 
     // --------------------------------------------------------
-    // Holo variant - holographic shimmer effect
+    // Holographic variant - animated gradient background
     // --------------------------------------------------------
 
     &--holo {
-      border-color: var(--cyber-cyan-500);
       overflow: hidden;
       background: linear-gradient(
         135deg,
         var(--color-bg-secondary) 0%,
-        color-mix(in srgb, var(--cyber-cyan-500) 5%, var(--color-bg-secondary)) 50%,
+        color-mix(in srgb, var(--cyber-cyan-500) 5%, var(--color-bg-secondary)) 25%,
+        color-mix(in srgb, var(--cyber-magenta-500) 5%, var(--color-bg-secondary)) 50%,
+        color-mix(in srgb, var(--cyber-green-500) 5%, var(--color-bg-secondary)) 75%,
         var(--color-bg-secondary) 100%
       );
-
-      // Animated shimmer overlay
-      &::after {
-        content: "";
-        position: absolute;
-        background: linear-gradient(
-          105deg,
-          transparent 40%,
-          color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent) 45%,
-          color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent) 50%,
-          color-mix(in srgb, var(--cyber-yellow-500) 20%, transparent) 55%,
-          transparent 60%
-        );
-        background-size: 200% 100%;
-        animation: holo-shimmer 3s ease-in-out infinite;
-        pointer-events: none;
-        inset: 0;
-      }
+      background-size: 400% 400%;
+      animation: holo-shift 8s ease infinite;
     }
 
     // --------------------------------------------------------
@@ -180,81 +160,53 @@
     // --------------------------------------------------------
 
     &--magenta {
-      border-color: var(--cyber-magenta-500);
-
-      &::before {
-        background: linear-gradient(135deg, var(--cyber-magenta-500) 50%, transparent 50%);
-      }
-
-      .cyber-card__icon {
-        border-color: var(--cyber-magenta-500);
-        color: var(--cyber-magenta-500);
-        background: color-mix(in srgb, var(--cyber-magenta-500) 15%, transparent);
-      }
-
-      .cyber-card__badge {
-        border-color: var(--cyber-magenta-500);
-        color: var(--cyber-magenta-500);
-        background: color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent);
-      }
-
-      &.cyber-card--interactive:hover {
-        border-color: var(--cyber-magenta-500);
-        box-shadow:
-          0 4px 20px color-mix(in srgb, var(--cyber-magenta-500) 30%, transparent),
-          inset 0 1px 0 color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent);
-      }
+      --card-accent: var(--cyber-magenta-500);
     }
 
     &--yellow {
-      border-color: var(--cyber-yellow-500);
-
-      &::before {
-        background: linear-gradient(135deg, var(--cyber-yellow-500) 50%, transparent 50%);
-      }
-
-      .cyber-card__icon {
-        border-color: var(--cyber-yellow-500);
-        color: var(--cyber-yellow-500);
-        background: color-mix(in srgb, var(--cyber-yellow-500) 15%, transparent);
-      }
-
-      .cyber-card__badge {
-        border-color: var(--cyber-yellow-500);
-        color: var(--cyber-yellow-500);
-        background: color-mix(in srgb, var(--cyber-yellow-500) 20%, transparent);
-      }
+      --card-accent: var(--cyber-yellow-500);
     }
 
     &--green {
-      border-color: var(--cyber-green-500);
-
-      &::before {
-        background: linear-gradient(135deg, var(--cyber-green-500) 50%, transparent 50%);
-      }
-
-      .cyber-card__icon {
-        border-color: var(--cyber-green-500);
-        color: var(--cyber-green-500);
-        background: color-mix(in srgb, var(--cyber-green-500) 15%, transparent);
-      }
-
-      .cyber-card__badge {
-        border-color: var(--cyber-green-500);
-        color: var(--cyber-green-500);
-        background: color-mix(in srgb, var(--cyber-green-500) 20%, transparent);
-      }
+      --card-accent: var(--cyber-green-500);
     }
   }
 
-  // Holo shimmer animation
-  @keyframes holo-shimmer {
-    0% {
-      background-position: 200% 0;
+  // Holographic shift animation
+  @keyframes holo-shift {
+    0%,
+    100% {
+      background-position: 0% 50%;
     }
 
-    100% {
-      background-position: -200% 0;
+    25% {
+      background-position: 100% 50%;
+    }
+
+    50% {
+      background-position: 100% 100%;
+    }
+
+    75% {
+      background-position: 0% 100%;
+    }
+  }
+
+  // --------------------------------------------------------
+  // Reduced motion support
+  // --------------------------------------------------------
+
+  @media (prefers-reduced-motion: reduce) {
+    .cyber-card--holo {
+      animation: none;
+    }
+
+    .cyber-card--interactive {
+      transition: none;
+
+      &:hover {
+        transform: none;
+      }
     }
   }
 }

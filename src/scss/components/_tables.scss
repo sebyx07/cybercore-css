@@ -6,10 +6,8 @@
 @layer components {
   .cyber-table {
     width: 100%;
-    border: var(--border-thin) solid var(--color-border-default);
-    font-family: var(--font-body);
+    font-family: var(--font-mono);
     font-size: var(--text-sm);
-    background: var(--color-bg-secondary);
     border-collapse: collapse;
 
     // Table header
@@ -17,14 +15,13 @@
       background: var(--color-bg-tertiary);
 
       th {
-        padding: var(--space-sm) var(--space-md);
-        border-bottom: var(--border-medium) solid var(--cyber-cyan-500);
+        padding: var(--space-sm);
+        border-bottom: 2px solid var(--cyber-cyan-500);
         font-family: var(--font-display);
-        font-weight: 600;
-        letter-spacing: var(--tracking-wide);
+        font-weight: 700;
+        letter-spacing: 0.05em;
         text-align: left;
         text-transform: uppercase;
-        white-space: nowrap;
         color: var(--cyber-cyan-500);
 
         // Sortable header indicator
@@ -66,12 +63,7 @@
     // Table body
     tbody {
       tr {
-        border-bottom: var(--border-thin) solid var(--color-border-default);
-        transition: background var(--transition-fast);
-
-        &:last-child {
-          border-bottom: none;
-        }
+        transition: background var(--duration-fast);
 
         &:hover {
           background: color-mix(in srgb, var(--cyber-cyan-500) 5%, transparent);
@@ -79,9 +71,8 @@
       }
 
       td {
-        padding: var(--space-sm) var(--space-md);
-        color: var(--color-text-secondary);
-        vertical-align: middle;
+        padding: var(--space-sm);
+        border-bottom: 1px solid var(--color-border-default);
       }
     }
 
@@ -90,8 +81,8 @@
       background: var(--color-bg-tertiary);
 
       td {
-        padding: var(--space-sm) var(--space-md);
-        border-top: var(--border-thin) solid var(--color-border-default);
+        padding: var(--space-sm);
+        border-top: 1px solid var(--color-border-default);
         font-weight: 600;
         color: var(--color-text-primary);
       }
@@ -137,7 +128,7 @@
       thead th,
       tbody td,
       tfoot td {
-        padding: var(--space-xs) var(--space-sm);
+        padding: var(--space-xs);
       }
     }
 

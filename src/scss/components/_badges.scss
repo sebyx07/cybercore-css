@@ -10,14 +10,14 @@
     align-items: center;
     padding: var(--space-3xs) var(--space-xs);
     border: var(--border-thin) solid var(--cyber-cyan-500);
-    font-family: var(--font-mono);
+    font-family: var(--font-display);
     font-size: var(--text-xs);
-    font-weight: 600;
-    letter-spacing: var(--tracking-wide);
+    font-weight: 700;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     white-space: nowrap;
     color: var(--cyber-cyan-500);
-    background: color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent);
+    background: color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
     transition:
       background var(--transition-fast),
       box-shadow var(--transition-fast);
@@ -37,41 +37,25 @@
     &--magenta {
       border-color: var(--cyber-magenta-500);
       color: var(--cyber-magenta-500);
-      background: color-mix(in srgb, var(--cyber-magenta-500) 15%, transparent);
-
-      &.cyber-badge--pulse::before {
-        background: var(--cyber-magenta-500);
-      }
+      background: color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent);
     }
 
     &--yellow {
       border-color: var(--cyber-yellow-500);
       color: var(--cyber-yellow-500);
-      background: color-mix(in srgb, var(--cyber-yellow-500) 15%, transparent);
-
-      &.cyber-badge--pulse::before {
-        background: var(--cyber-yellow-500);
-      }
+      background: color-mix(in srgb, var(--cyber-yellow-500) 20%, transparent);
     }
 
     &--green {
       border-color: var(--cyber-green-500);
       color: var(--cyber-green-500);
-      background: color-mix(in srgb, var(--cyber-green-500) 15%, transparent);
-
-      &.cyber-badge--pulse::before {
-        background: var(--cyber-green-500);
-      }
+      background: color-mix(in srgb, var(--cyber-green-500) 20%, transparent);
     }
 
     &--chrome {
       border-color: var(--cyber-chrome-500);
       color: var(--cyber-chrome-300);
-      background: color-mix(in srgb, var(--cyber-chrome-500) 15%, transparent);
-
-      &.cyber-badge--pulse::before {
-        background: var(--cyber-chrome-400);
-      }
+      background: color-mix(in srgb, var(--cyber-chrome-500) 20%, transparent);
     }
 
     // --------------------------------------------------------
@@ -110,27 +94,11 @@
 
     // --------------------------------------------------------
     // Pulse Animation Variant
+    // Uses box-shadow animation on the badge itself
     // --------------------------------------------------------
 
     &--pulse {
-      position: relative;
-
-      // Adjust padding for pulse dot
-      padding-left: calc(var(--space-xs) + 12px);
-      overflow: visible;
-
-      &::before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: var(--space-xs);
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--cyber-cyan-500);
-        transform: translateY(-50%);
-        animation: badge-pulse 2s ease-in-out infinite;
-      }
+      animation: badge-pulse 2s ease-in-out infinite;
     }
 
     // --------------------------------------------------------
@@ -166,7 +134,7 @@
     &--online {
       border-color: var(--cyber-green-500);
       color: var(--cyber-green-500);
-      background: color-mix(in srgb, var(--cyber-green-500) 15%, transparent);
+      background: color-mix(in srgb, var(--cyber-green-500) 20%, transparent);
 
       &::before {
         content: "";
@@ -181,7 +149,7 @@
     &--offline {
       border-color: var(--cyber-chrome-500);
       color: var(--cyber-chrome-500);
-      background: color-mix(in srgb, var(--cyber-chrome-500) 15%, transparent);
+      background: color-mix(in srgb, var(--cyber-chrome-500) 20%, transparent);
 
       &::before {
         content: "";
@@ -195,7 +163,7 @@
     &--busy {
       border-color: var(--cyber-magenta-500);
       color: var(--cyber-magenta-500);
-      background: color-mix(in srgb, var(--cyber-magenta-500) 15%, transparent);
+      background: color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent);
 
       &::before {
         content: "";
@@ -208,17 +176,15 @@
     }
   }
 
-  // Pulse animation
+  // Pulse animation - box-shadow animation matching demo
   @keyframes badge-pulse {
     0%,
     100% {
       box-shadow: 0 0 0 0 currentcolor;
-      opacity: 100%;
     }
 
     50% {
-      box-shadow: 0 0 0 4px transparent;
-      opacity: 60%;
+      box-shadow: 0 0 0 6px transparent;
     }
   }
 

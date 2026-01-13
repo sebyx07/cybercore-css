@@ -73,8 +73,6 @@ describe('CSS Custom Properties', () => {
 
     it('should define border color tokens', () => {
       expect(css).toMatch(/--color-border-default/);
-      expect(css).toMatch(/--color-border-accent/);
-      expect(css).toMatch(/--color-border-glow/);
     });
   });
 
@@ -88,9 +86,6 @@ describe('CSS Custom Properties', () => {
 
     it('should define text glow variables', () => {
       expect(css).toMatch(/--glow-text-cyan/);
-      expect(css).toMatch(/--glow-text-magenta/);
-      expect(css).toMatch(/--glow-text-yellow/);
-      expect(css).toMatch(/--glow-text-green/);
     });
   });
 

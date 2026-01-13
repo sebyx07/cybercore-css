@@ -6,55 +6,46 @@
   .cyber-scanlines {
     position: fixed;
     z-index: 9998;
-    opacity: var(--scanline-opacity, 4%);
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgb(0 0 0 / 30%) 2px,
+      rgb(0 0 0 / 30%) 4px
+    );
+    opacity: var(--scanline-opacity);
     pointer-events: none;
     inset: 0;
 
-    &::before {
-      content: "";
-      position: absolute;
+    // Finer scanlines variant
+    &--fine {
       background: repeating-linear-gradient(
         0deg,
         transparent,
         transparent 1px,
-        rgb(0 0 0 / 30%) 1px,
-        rgb(0 0 0 / 30%) 2px
+        rgb(0 0 0 / 20%) 1px,
+        rgb(0 0 0 / 20%) 2px
       );
-      background-size: 100% 2px;
-      inset: 0;
-    }
-
-    // Finer scanlines variant
-    &--fine::before {
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 0.5px,
-        rgb(0 0 0 / 20%) 0.5px,
-        rgb(0 0 0 / 20%) 1px
-      );
-      background-size: 100% 1px;
     }
 
     // Thicker, more visible scanlines
-    &--heavy::before {
+    &--heavy {
       background: repeating-linear-gradient(
         0deg,
         transparent,
-        transparent 2px,
-        rgb(0 0 0 / 40%) 2px,
-        rgb(0 0 0 / 40%) 4px
+        transparent 3px,
+        rgb(0 0 0 / 40%) 3px,
+        rgb(0 0 0 / 40%) 6px
       );
-      background-size: 100% 4px;
     }
 
     // Animated flickering scanlines
-    &--flicker::before {
+    &--flicker {
       animation: cyber-scanline-flicker 0.15s infinite;
     }
 
     // Scrolling scanlines effect
-    &--scroll::before {
+    &--scroll {
       animation: cyber-scanline-scroll 8s linear infinite;
     }
   }
@@ -62,11 +53,11 @@
   @keyframes cyber-scanline-flicker {
     0%,
     100% {
-      opacity: 100%;
+      opacity: var(--scanline-opacity);
     }
 
     50% {
-      opacity: 98%;
+      opacity: calc(var(--scanline-opacity) * 98%);
     }
   }
 
@@ -82,8 +73,8 @@
 
   // Respect reduced motion preference
   @media (prefers-reduced-motion: reduce) {
-    .cyber-scanlines--flicker::before,
-    .cyber-scanlines--scroll::before {
+    .cyber-scanlines--flicker,
+    .cyber-scanlines--scroll {
       animation: none;
     }
   }

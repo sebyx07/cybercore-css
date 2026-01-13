@@ -1,39 +1,31 @@
 // ============================================================
 // Terminal Component
-// Terminal window with window chrome and blinking cursor
+// Terminal window with header bar, dots, and blinking cursor
 // ============================================================
 
 @layer components {
   .cyber-terminal {
-    display: flex;
-    flex-direction: column;
-    border: var(--border-thin) solid var(--color-border-default);
+    border: 1px solid var(--cyber-green-700);
     overflow: hidden;
     font-family: var(--font-mono);
     font-size: var(--text-sm);
-    background: var(--cyber-void-500);
+    background: var(--color-bg-secondary);
 
-    // Window chrome (title bar)
-    &__chrome {
+    // Header bar with dots and title
+    &__header {
       display: flex;
       gap: var(--space-xs);
       align-items: center;
       padding: var(--space-xs) var(--space-sm);
-      border-bottom: var(--border-thin) solid var(--color-border-default);
-      background: var(--color-bg-tertiary);
+      border-bottom: 1px solid var(--cyber-green-700);
+      background: var(--cyber-green-900);
     }
 
     // Traffic light dots
-    &__dots {
-      display: flex;
-      gap: 6px;
-    }
-
     &__dot {
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
-      background: var(--cyber-chrome-600);
 
       &--red {
         background: var(--cyber-magenta-500);
@@ -48,30 +40,43 @@
       }
     }
 
-    // Window title
+    // Window title (positioned to the right)
     &__title {
-      flex: 1;
+      margin-left: auto;
       font-size: var(--text-xs);
-      letter-spacing: var(--tracking-wide);
-      text-align: center;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--color-text-muted);
+      color: var(--cyber-green-500);
     }
 
-    // Terminal body
+    // Terminal body with green-themed text
     &__body {
-      flex: 1;
-      min-height: 200px;
-      max-height: 500px;
-      padding: var(--space-sm);
-      overflow: auto;
+      padding: var(--space-md);
+      line-height: 1.8;
+      color: var(--cyber-green-400);
+    }
+
+    // Prompt styling with cyan color
+    &__prompt {
+      color: var(--cyber-cyan-500);
+    }
+
+    // Blinking cursor
+    &__cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1em;
+      margin-left: 2px;
+      background: var(--cyber-green-500);
+      animation: blink 1s step-end infinite;
+      vertical-align: text-bottom;
     }
 
     // Terminal line
     &__line {
       display: flex;
       gap: var(--space-xs);
-      line-height: var(--leading-relaxed);
+      line-height: 1.8;
       white-space: pre-wrap;
       word-break: break-word;
 
@@ -100,36 +105,9 @@
       }
     }
 
-    // Prompt
-    &__prompt {
-      flex-shrink: 0;
-      color: var(--cyber-cyan-500);
-      user-select: none;
-    }
-
     // Command text
     &__command {
       color: var(--color-text-primary);
-    }
-
-    // Blinking cursor
-    &__cursor {
-      display: inline-block;
-      width: 8px;
-      height: 1.2em;
-      background: var(--cyber-cyan-500);
-      animation: cursor-blink 1s step-end infinite;
-      vertical-align: text-bottom;
-
-      &--block {
-        width: 0.6em;
-      }
-
-      &--underscore {
-        width: 0.6em;
-        height: 2px;
-        vertical-align: baseline;
-      }
     }
 
     // Input line (for interactive terminals)
@@ -138,7 +116,7 @@
       gap: var(--space-xs);
       align-items: center;
       padding: var(--space-sm);
-      border-top: var(--border-thin) solid var(--color-border-default);
+      border-top: 1px solid var(--cyber-green-700);
       background: var(--color-bg-tertiary);
     }
 
@@ -222,8 +200,8 @@
     // Style Variants
     // --------------------------------------------------------
 
-    &--no-chrome {
-      .cyber-terminal__chrome {
+    &--no-header {
+      .cyber-terminal__header {
         display: none;
       }
     }
@@ -231,25 +209,20 @@
     &--rounded {
       border-radius: var(--radius-lg);
 
-      .cyber-terminal__chrome {
+      .cyber-terminal__header {
         border-radius: var(--radius-lg) var(--radius-lg) 0 0;
       }
     }
 
     &--glow {
       box-shadow:
-        0 0 20px color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent),
-        inset 0 0 60px color-mix(in srgb, var(--cyber-cyan-500) 5%, transparent);
+        0 0 20px color-mix(in srgb, var(--cyber-green-500) 20%, transparent),
+        inset 0 0 60px color-mix(in srgb, var(--cyber-green-500) 5%, transparent);
     }
   }
 
-  // Cursor blink animation
-  @keyframes cursor-blink {
-    0%,
-    100% {
-      opacity: 100%;
-    }
-
+  // Blink animation for cursor
+  @keyframes blink {
     50% {
       opacity: 0%;
     }
@@ -262,7 +235,7 @@
     white-space: nowrap;
     animation:
       typing 2s steps(30, end),
-      cursor-blink 1s step-end infinite;
+      blink 1s step-end infinite;
 
     @keyframes typing {
       from {

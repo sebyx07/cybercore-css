@@ -4,25 +4,12 @@
 // ============================================================
 
 @layer components {
-  // Corner cut clip-path for cyber aesthetic
-  $corner-cut-sm: polygon(
-    0 0,
-    calc(100% - 8px) 0,
-    100% 8px,
-    100% 100%,
-    8px 100%,
-    0 calc(100% - 8px)
-  );
-  $corner-cut-md: polygon(
-    0 0,
-    calc(100% - 12px) 0,
-    100% 12px,
-    100% 100%,
-    12px 100%,
-    0 calc(100% - 12px)
-  );
-
   .cyber-btn {
+    // Custom properties for easy theming
+    --btn-color: var(--cyber-cyan-500);
+    --btn-bg: transparent;
+    --btn-glow: var(--glow-cyan);
+
     // Base styles
     position: relative;
     display: inline-flex;
@@ -30,35 +17,63 @@
     align-items: center;
     justify-content: center;
     padding: var(--space-xs) var(--space-md);
-    border: var(--border-medium) solid var(--cyber-cyan-500);
+    border: var(--border-medium) solid var(--btn-color);
+    border-radius: var(--radius-cyber);
+    overflow: hidden;
     font-family: var(--font-display);
     font-size: var(--text-sm);
-    font-weight: 600;
-    letter-spacing: var(--tracking-wider);
+    font-weight: 700;
+    letter-spacing: 0.1em;
     text-decoration: none;
     text-transform: uppercase;
-    color: var(--cyber-cyan-500);
-    background: transparent;
-    transition:
-      background var(--transition-fast),
-      color var(--transition-fast),
-      border-color var(--transition-fast),
-      box-shadow var(--transition-fast),
-      transform var(--transition-fast);
+    color: var(--btn-color);
+    background: var(--btn-bg);
+    transition: all var(--duration-fast) var(--ease-cyber);
     cursor: pointer;
-    clip-path: #{$corner-cut-sm};
+    isolation: isolate;
 
-    // Focus visible outline
-    &:focus-visible {
-      outline: 2px solid var(--cyber-cyan-500);
-      outline-offset: 4px;
+    // Hover fill animation - slides in from left
+    &::before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      background: var(--btn-color);
+      transform: translateX(-101%);
+      transition: transform var(--duration-normal) var(--ease-cyber);
+      inset: 0;
+    }
+
+    // Cyber corner cut-off effect
+    &::after {
+      content: '';
+      position: absolute;
+      right: -2px;
+      bottom: -2px;
+      width: 12px;
+      height: 12px;
+      border: var(--border-medium) solid var(--btn-color);
+      border-top: none;
+      border-left: none;
+      background: var(--color-bg-primary);
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
     }
 
     // Hover state
-    &:hover {
-      background: color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent);
-      box-shadow: var(--glow-cyan);
-      transform: translateY(-2px);
+    &:hover,
+    &:focus-visible {
+      color: var(--cyber-void-500);
+      box-shadow: var(--btn-glow);
+    }
+
+    &:hover::before,
+    &:focus-visible::before {
+      transform: translateX(0);
+    }
+
+    // Focus visible outline
+    &:focus-visible {
+      outline: 2px solid var(--btn-color);
+      outline-offset: 4px;
     }
 
     // Active state
@@ -80,84 +95,39 @@
     // --------------------------------------------------------
 
     &--magenta {
-      border-color: var(--cyber-magenta-500);
-      color: var(--cyber-magenta-500);
-
-      &:hover {
-        background: color-mix(in srgb, var(--cyber-magenta-500) 15%, transparent);
-        box-shadow: var(--glow-magenta);
-      }
-
-      &.cyber-btn--filled {
-        color: var(--cyber-void-500);
-        background: var(--cyber-magenta-500);
-
-        &:hover {
-          background: var(--cyber-magenta-400);
-        }
-      }
+      --btn-color: var(--cyber-magenta-500);
+      --btn-glow: var(--glow-magenta);
     }
 
     &--yellow {
-      border-color: var(--cyber-yellow-500);
-      color: var(--cyber-yellow-500);
-
-      &:hover {
-        background: color-mix(in srgb, var(--cyber-yellow-500) 15%, transparent);
-        box-shadow: var(--glow-yellow);
-      }
-
-      &.cyber-btn--filled {
-        color: var(--cyber-void-500);
-        background: var(--cyber-yellow-500);
-
-        &:hover {
-          background: var(--cyber-yellow-400);
-        }
-      }
+      --btn-color: var(--cyber-yellow-500);
+      --btn-glow: var(--glow-yellow);
     }
 
     &--green {
-      border-color: var(--cyber-green-500);
-      color: var(--cyber-green-500);
-
-      &:hover {
-        background: color-mix(in srgb, var(--cyber-green-500) 15%, transparent);
-        box-shadow: var(--glow-green);
-      }
-
-      &.cyber-btn--filled {
-        color: var(--cyber-void-500);
-        background: var(--cyber-green-500);
-
-        &:hover {
-          background: var(--cyber-green-400);
-        }
-      }
+      --btn-color: var(--cyber-green-500);
+      --btn-glow: var(--glow-green);
     }
 
     // --------------------------------------------------------
     // Style Variants
     // --------------------------------------------------------
 
-    &--filled {
-      color: var(--cyber-void-500);
-      background: var(--cyber-cyan-500);
-
-      &:hover {
-        background: var(--cyber-cyan-400);
-        box-shadow: var(--glow-cyan);
-      }
+    &--ghost {
+      border-style: dashed;
     }
 
-    &--ghost {
-      border-color: transparent;
-      background: transparent;
+    &--filled {
+      color: var(--cyber-void-500);
+      background: var(--btn-color);
 
-      &:hover {
-        border-color: currentcolor;
-        background: color-mix(in srgb, currentcolor 10%, transparent);
-        box-shadow: none;
+      &::before {
+        background: var(--cyber-void-500);
+      }
+
+      &:hover,
+      &:focus-visible {
+        color: var(--btn-color);
       }
     }
 
@@ -166,22 +136,13 @@
     // --------------------------------------------------------
 
     &--sm {
-      padding: var(--space-2xs) var(--space-sm);
+      padding: var(--space-3xs) var(--space-sm);
       font-size: var(--text-xs);
-      clip-path: polygon(
-        0 0,
-        calc(100% - 6px) 0,
-        100% 6px,
-        100% 100%,
-        6px 100%,
-        0 calc(100% - 6px)
-      );
     }
 
     &--lg {
       padding: var(--space-sm) var(--space-lg);
-      font-size: var(--text-base);
-      clip-path: #{$corner-cut-md};
+      font-size: var(--text-lg);
     }
 
     // --------------------------------------------------------
@@ -203,15 +164,23 @@
 
     .cyber-btn {
       border-radius: 0;
-      clip-path: none;
     }
 
     .cyber-btn:first-child {
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+      border-radius: 0 0 0 var(--radius-sm);
     }
 
     .cyber-btn:last-child {
-      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+      border-radius: 0 var(--radius-sm) 0 0;
+    }
+  }
+
+  // Reduced motion support
+  @media (prefers-reduced-motion: reduce) {
+    .cyber-btn {
+      &::before {
+        transition: none;
+      }
     }
   }
 }

@@ -1,12 +1,13 @@
 // ============================================================
 // Skeleton Component
-// Shimmer loading placeholders
+// Shimmer loading placeholders with cyberpunk aesthetics
 // ============================================================
 
 @layer components {
   .cyber-skeleton {
-    --skeleton-base: var(--cyber-void-300);
-    --skeleton-shine: var(--cyber-void-100);
+    --skeleton-base: var(--cyber-void-400);
+    --skeleton-shine: color-mix(in srgb, var(--cyber-cyan-500) 15%, var(--cyber-void-200));
+    --skeleton-glow: color-mix(in srgb, var(--cyber-cyan-500) 8%, transparent);
 
     position: relative;
     display: block;
@@ -14,18 +15,20 @@
     overflow: hidden;
     background: var(--skeleton-base);
 
-    // Shimmer animation overlay
+    // Shimmer animation overlay with cyan tint
     &::after {
       content: "";
       position: absolute;
       background: linear-gradient(
         90deg,
         transparent 0%,
+        var(--skeleton-glow) 25%,
         var(--skeleton-shine) 50%,
+        var(--skeleton-glow) 75%,
         transparent 100%
       );
       transform: translateX(-100%);
-      animation: skeleton-shimmer 1.5s ease-in-out infinite;
+      animation: skeleton-shimmer 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
       inset: 0;
     }
 
@@ -104,13 +107,27 @@
     // --------------------------------------------------------
 
     &--cyan {
-      --skeleton-base: color-mix(in srgb, var(--cyber-cyan-500) 10%, var(--cyber-void-400));
-      --skeleton-shine: color-mix(in srgb, var(--cyber-cyan-500) 20%, var(--cyber-void-300));
+      --skeleton-base: color-mix(in srgb, var(--cyber-cyan-500) 8%, var(--cyber-void-400));
+      --skeleton-shine: color-mix(in srgb, var(--cyber-cyan-500) 25%, var(--cyber-void-200));
+      --skeleton-glow: color-mix(in srgb, var(--cyber-cyan-500) 12%, transparent);
     }
 
     &--magenta {
-      --skeleton-base: color-mix(in srgb, var(--cyber-magenta-500) 10%, var(--cyber-void-400));
-      --skeleton-shine: color-mix(in srgb, var(--cyber-magenta-500) 20%, var(--cyber-void-300));
+      --skeleton-base: color-mix(in srgb, var(--cyber-magenta-500) 8%, var(--cyber-void-400));
+      --skeleton-shine: color-mix(in srgb, var(--cyber-magenta-500) 25%, var(--cyber-void-200));
+      --skeleton-glow: color-mix(in srgb, var(--cyber-magenta-500) 12%, transparent);
+    }
+
+    &--yellow {
+      --skeleton-base: color-mix(in srgb, var(--cyber-yellow-500) 8%, var(--cyber-void-400));
+      --skeleton-shine: color-mix(in srgb, var(--cyber-yellow-500) 25%, var(--cyber-void-200));
+      --skeleton-glow: color-mix(in srgb, var(--cyber-yellow-500) 12%, transparent);
+    }
+
+    &--green {
+      --skeleton-base: color-mix(in srgb, var(--cyber-green-500) 8%, var(--cyber-void-400));
+      --skeleton-shine: color-mix(in srgb, var(--cyber-green-500) 25%, var(--cyber-void-200));
+      --skeleton-glow: color-mix(in srgb, var(--cyber-green-500) 12%, transparent);
     }
 
     // --------------------------------------------------------
@@ -118,7 +135,7 @@
     // --------------------------------------------------------
 
     &--pulse {
-      animation: skeleton-pulse 2s ease-in-out infinite;
+      animation: skeleton-pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 
       &::after {
         display: none;
@@ -130,12 +147,29 @@
         background: linear-gradient(
           90deg,
           transparent 0%,
-          color-mix(in srgb, var(--skeleton-shine) 50%, transparent) 20%,
+          var(--skeleton-glow) 15%,
+          color-mix(in srgb, var(--skeleton-shine) 70%, transparent) 35%,
           var(--skeleton-shine) 50%,
-          color-mix(in srgb, var(--skeleton-shine) 50%, transparent) 80%,
+          color-mix(in srgb, var(--skeleton-shine) 70%, transparent) 65%,
+          var(--skeleton-glow) 85%,
           transparent 100%
         );
-        animation: skeleton-wave 2s linear infinite;
+        animation: skeleton-wave 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      }
+    }
+
+    &--glow {
+      box-shadow: 0 0 8px var(--skeleton-glow);
+      animation: skeleton-glow 2s ease-in-out infinite;
+
+      &::after {
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          var(--skeleton-shine) 50%,
+          transparent 100%
+        );
+        animation: skeleton-shimmer 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
       }
     }
 
@@ -146,7 +180,7 @@
     }
   }
 
-  // Shimmer animation
+  // Shimmer animation - smooth sweep effect
   @keyframes skeleton-shimmer {
     0% {
       transform: translateX(-100%);
@@ -157,7 +191,7 @@
     }
   }
 
-  // Pulse animation
+  // Pulse animation - subtle fade
   @keyframes skeleton-pulse {
     0%,
     100% {
@@ -165,19 +199,47 @@
     }
 
     50% {
-      opacity: 50%;
+      opacity: 60%;
     }
   }
 
-  // Wave animation
+  // Wave animation - continuous flow
   @keyframes skeleton-wave {
     0% {
       transform: translateX(-100%);
     }
 
-    50%,
     100% {
       transform: translateX(100%);
+    }
+  }
+
+  // Glow animation - pulsing box shadow
+  @keyframes skeleton-glow {
+    0%,
+    100% {
+      box-shadow: 0 0 8px var(--skeleton-glow);
+    }
+
+    50% {
+      box-shadow: 0 0 16px var(--skeleton-glow), 0 0 24px var(--skeleton-glow);
+    }
+  }
+
+  // Reduced motion support
+  @media (prefers-reduced-motion: reduce) {
+    .cyber-skeleton {
+      &::after {
+        background: var(--skeleton-shine);
+        opacity: 50%;
+        transform: none;
+        animation: none;
+      }
+
+      &--pulse,
+      &--glow {
+        animation: none;
+      }
     }
   }
 

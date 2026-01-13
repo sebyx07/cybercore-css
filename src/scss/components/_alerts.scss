@@ -5,253 +5,71 @@
 
 @layer components {
   .cyber-alert {
+    --alert-color: var(--cyber-cyan-500);
+
     position: relative;
-    display: flex;
-    gap: var(--space-sm);
-    align-items: flex-start;
-    padding: var(--space-sm) var(--space-md);
-    border: var(--border-thin) solid var(--color-border-default);
-    border-left: var(--border-thick) solid var(--cyber-cyan-500);
-    background: var(--color-bg-secondary);
+    padding: var(--space-md);
+    padding-left: var(--space-xl);
+    border: var(--border-thin) solid var(--alert-color);
+    border-left: 4px solid var(--alert-color);
+    background: color-mix(in srgb, var(--alert-color) 10%, var(--color-bg-secondary));
 
-    // Icon badge
-    &__icon {
+    // Icon badge via ::before pseudo-element
+    &::before {
+      content: "!";
+      position: absolute;
+      top: 50%;
+      left: var(--space-sm);
       display: flex;
-      flex-shrink: 0;
       align-items: center;
       justify-content: center;
-      width: 2rem;
-      height: 2rem;
-      border: var(--border-thin) solid var(--cyber-cyan-500);
-      color: var(--cyber-cyan-500);
-      background: color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent);
-
-      svg {
-        width: 1.25rem;
-        height: 1.25rem;
-      }
-    }
-
-    // Content wrapper
-    &__content {
-      flex: 1;
-      min-width: 0;
-    }
-
-    &__title {
-      margin: 0 0 var(--space-3xs);
+      width: 24px;
+      height: 24px;
       font-family: var(--font-display);
-      font-size: var(--text-base);
-      font-weight: 600;
-      color: var(--color-text-primary);
-    }
-
-    &__message {
-      margin: 0;
       font-size: var(--text-sm);
-      line-height: var(--leading-relaxed);
-      color: var(--color-text-secondary);
+      font-weight: 700;
+      color: var(--cyber-void-500);
+      background: var(--alert-color);
+      transform: translateY(-50%);
     }
 
-    // Close button
-    &__close {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 1.5rem;
-      height: 1.5rem;
-      margin-left: auto;
-      padding: 0;
-      border: none;
-      color: var(--color-text-muted);
-      background: transparent;
-      transition: color var(--transition-fast);
-      cursor: pointer;
-
-      &:hover {
-        color: var(--color-text-primary);
-      }
-
-      svg {
-        width: 1rem;
-        height: 1rem;
-      }
-    }
-
-    // Actions area
-    &__actions {
-      display: flex;
-      gap: var(--space-xs);
-      margin-top: var(--space-sm);
+    // Alert title
+    &__title {
+      margin-bottom: var(--space-2xs);
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--alert-color);
     }
 
     // --------------------------------------------------------
     // Semantic Variants
     // --------------------------------------------------------
 
-    &--success {
-      border-left-color: var(--cyber-green-500);
-
-      .cyber-alert__icon {
-        border-color: var(--cyber-green-500);
-        color: var(--cyber-green-500);
-        background: color-mix(in srgb, var(--cyber-green-500) 15%, transparent);
-      }
-    }
-
     &--warning {
-      border-left-color: var(--cyber-yellow-500);
+      --alert-color: var(--cyber-yellow-500);
 
-      .cyber-alert__icon {
-        border-color: var(--cyber-yellow-500);
-        color: var(--cyber-yellow-500);
-        background: color-mix(in srgb, var(--cyber-yellow-500) 15%, transparent);
+      &::before {
+        content: "\26A0"; // ⚠
       }
     }
 
     &--error {
-      border-left-color: var(--cyber-magenta-500);
+      --alert-color: var(--cyber-magenta-500);
 
-      .cyber-alert__icon {
-        border-color: var(--cyber-magenta-500);
-        color: var(--cyber-magenta-500);
-        background: color-mix(in srgb, var(--cyber-magenta-500) 15%, transparent);
+      &::before {
+        content: "\2715"; // ✕
       }
     }
 
-    &--info {
-      border-left-color: var(--cyber-cyan-500);
+    &--success {
+      --alert-color: var(--cyber-green-500);
 
-      // Default styling
-    }
-
-    // --------------------------------------------------------
-    // Style Variants
-    // --------------------------------------------------------
-
-    &--filled {
-      border-color: var(--cyber-cyan-500);
-      background: color-mix(in srgb, var(--cyber-cyan-500) 10%, var(--color-bg-secondary));
-
-      &.cyber-alert--success {
-        border-color: var(--cyber-green-500);
-        background: color-mix(in srgb, var(--cyber-green-500) 10%, var(--color-bg-secondary));
+      &::before {
+        content: "\2713"; // ✓
       }
-
-      &.cyber-alert--warning {
-        border-color: var(--cyber-yellow-500);
-        background: color-mix(in srgb, var(--cyber-yellow-500) 10%, var(--color-bg-secondary));
-      }
-
-      &.cyber-alert--error {
-        border-color: var(--cyber-magenta-500);
-        background: color-mix(in srgb, var(--cyber-magenta-500) 10%, var(--color-bg-secondary));
-      }
-    }
-
-    &--compact {
-      gap: var(--space-xs);
-      padding: var(--space-xs) var(--space-sm);
-
-      .cyber-alert__icon {
-        width: 1.5rem;
-        height: 1.5rem;
-
-        svg {
-          width: 1rem;
-          height: 1rem;
-        }
-      }
-
-      .cyber-alert__title {
-        font-size: var(--text-sm);
-      }
-
-      .cyber-alert__message {
-        font-size: var(--text-xs);
-      }
-    }
-
-    // --------------------------------------------------------
-    // Dismissible with animation
-    // --------------------------------------------------------
-
-    &--dismissible {
-      animation: alert-enter var(--transition-base) var(--ease-out-expo);
-
-      &[data-dismissed] {
-        animation: alert-exit var(--transition-fast) ease-in forwards;
-      }
-    }
-
-    // --------------------------------------------------------
-    // Banner style (full width, no left border)
-    // --------------------------------------------------------
-
-    &--banner {
-      border-bottom: var(--border-medium) solid var(--cyber-cyan-500);
-      border-left: none;
-      border-radius: 0;
-
-      &.cyber-alert--success {
-        border-bottom-color: var(--cyber-green-500);
-      }
-
-      &.cyber-alert--warning {
-        border-bottom-color: var(--cyber-yellow-500);
-      }
-
-      &.cyber-alert--error {
-        border-bottom-color: var(--cyber-magenta-500);
-      }
-    }
-  }
-
-  // Alert animations
-  @keyframes alert-enter {
-    from {
-      opacity: 0%;
-      transform: translateY(-10px);
-    }
-
-    to {
-      opacity: 100%;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes alert-exit {
-    from {
-      opacity: 100%;
-      transform: translateX(0);
-    }
-
-    to {
-      opacity: 0%;
-      transform: translateX(20px);
-    }
-  }
-
-  // Alert container for stacking
-  .cyber-alert-container {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-
-    &--top-right {
-      position: fixed;
-      top: var(--space-md);
-      right: var(--space-md);
-      z-index: var(--z-tooltip);
-      max-width: 400px;
-    }
-
-    &--bottom-right {
-      position: fixed;
-      right: var(--space-md);
-      bottom: var(--space-md);
-      z-index: var(--z-tooltip);
-      max-width: 400px;
     }
   }
 }

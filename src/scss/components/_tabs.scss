@@ -6,16 +6,16 @@
 @layer components {
   .cyber-tabs {
     display: flex;
-    flex-direction: column;
-    gap: 0;
+    gap: 2px;
+    padding: 2px;
+    background: var(--color-border-default);
 
-    // Tab list container
+    // Tab list container (for semantic list usage)
     &__list {
       display: flex;
-      gap: var(--space-3xs);
+      gap: 2px;
       margin: 0;
       padding: 0;
-      border-bottom: var(--border-thin) solid var(--color-border-default);
       list-style: none;
     }
 
@@ -39,30 +39,25 @@
     // --------------------------------------------------------
 
     &--vertical {
-      flex-direction: row;
+      flex-direction: column;
       gap: var(--space-md);
+      padding: 0;
+      background: transparent;
 
       .cyber-tabs__list {
         flex-direction: column;
-        padding-right: var(--space-md);
-        border-right: var(--border-thin) solid var(--color-border-default);
-        border-bottom: none;
+        gap: 2px;
+        padding: 2px;
+        background: var(--color-border-default);
       }
 
       .cyber-tab {
-        padding: var(--space-xs) var(--space-md) var(--space-xs) var(--space-sm);
-        border-right: var(--border-medium) solid transparent;
-        border-bottom: none;
+        flex: none;
 
-        &--active {
-          border-bottom: none;
-          border-right-color: var(--cyber-cyan-500);
-
-          &::after {
-            width: 2px;
-            height: 100%;
-            inset: 0 0 0 auto;
-          }
+        &--active::after {
+          width: 3px;
+          height: 100%;
+          inset: 0 0 0 auto;
         }
       }
 
@@ -73,14 +68,18 @@
     }
 
     &--pills {
+      gap: var(--space-xs);
+      padding: 0;
+      background: transparent;
+
       .cyber-tabs__list {
         gap: var(--space-xs);
-        border-bottom: none;
+        background: transparent;
       }
 
       .cyber-tab {
+        flex: none;
         border: var(--border-thin) solid var(--color-border-default);
-        border-radius: 0;
         clip-path: polygon(
           0 0,
           calc(100% - 8px) 0,
@@ -117,28 +116,26 @@
   .cyber-tab {
     position: relative;
     display: inline-flex;
+    flex: 1;
     gap: var(--space-xs);
     align-items: center;
+    justify-content: center;
     padding: var(--space-sm) var(--space-md);
     border: none;
-    border-bottom: var(--border-medium) solid transparent;
     font-family: var(--font-display);
     font-size: var(--text-sm);
-    font-weight: 500;
-    letter-spacing: var(--tracking-wide);
+    font-weight: 700;
+    letter-spacing: 0.05em;
     text-decoration: none;
     text-transform: uppercase;
     color: var(--color-text-secondary);
-    background: transparent;
-    transition:
-      color var(--transition-fast),
-      background var(--transition-fast),
-      border-color var(--transition-fast);
+    background: var(--color-bg-secondary);
+    transition: all var(--duration-fast);
     cursor: pointer;
 
     &:hover {
       color: var(--color-text-primary);
-      background: color-mix(in srgb, var(--cyber-cyan-500) 5%, transparent);
+      background: var(--color-bg-tertiary);
     }
 
     &:focus-visible {
@@ -149,18 +146,18 @@
     // Active state
     &--active {
       color: var(--cyber-cyan-500);
-      border-bottom-color: var(--cyber-cyan-500);
+      background: var(--color-bg-tertiary);
 
       // Glow line under active tab
       &::after {
         content: "";
         position: absolute;
         right: 0;
-        bottom: -1px;
+        bottom: 0;
         left: 0;
-        height: 2px;
+        height: 3px;
         background: var(--cyber-cyan-500);
-        box-shadow: var(--glow-text-cyan);
+        box-shadow: 0 0 10px var(--cyber-cyan-500);
       }
     }
 
@@ -197,11 +194,10 @@
     &--magenta {
       &.cyber-tab--active {
         color: var(--cyber-magenta-500);
-        border-bottom-color: var(--cyber-magenta-500);
 
         &::after {
           background: var(--cyber-magenta-500);
-          box-shadow: var(--glow-text-magenta);
+          box-shadow: 0 0 10px var(--cyber-magenta-500);
         }
       }
 
@@ -215,11 +211,10 @@
     &--yellow {
       &.cyber-tab--active {
         color: var(--cyber-yellow-500);
-        border-bottom-color: var(--cyber-yellow-500);
 
         &::after {
           background: var(--cyber-yellow-500);
-          box-shadow: var(--glow-text-yellow);
+          box-shadow: 0 0 10px var(--cyber-yellow-500);
         }
       }
     }
@@ -227,11 +222,10 @@
     &--green {
       &.cyber-tab--active {
         color: var(--cyber-green-500);
-        border-bottom-color: var(--cyber-green-500);
 
         &::after {
           background: var(--cyber-green-500);
-          box-shadow: var(--glow-text-green);
+          box-shadow: 0 0 10px var(--cyber-green-500);
         }
       }
     }

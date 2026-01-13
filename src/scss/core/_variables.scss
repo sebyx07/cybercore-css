@@ -9,70 +9,70 @@
     // --------------------------------------------------------
 
     // Cyber Cyan - Primary actions, links, tech/neutral
-    --cyber-cyan-100: oklch(95% 0.05 195deg);
-    --cyber-cyan-200: oklch(85% 0.1 195deg);
-    --cyber-cyan-300: oklch(75% 0.15 195deg);
-    --cyber-cyan-400: oklch(65% 0.2 195deg);
+    --cyber-cyan-100: #e0fcff;
+    --cyber-cyan-200: #bef8fd;
+    --cyber-cyan-300: #87eaf2;
+    --cyber-cyan-400: #54d1db;
     --cyber-cyan-500: #00f0ff;
-    --cyber-cyan-600: oklch(55% 0.15 195deg);
-    --cyber-cyan-700: oklch(45% 0.12 195deg);
-    --cyber-cyan-800: oklch(35% 0.1 195deg);
-    --cyber-cyan-900: oklch(25% 0.08 195deg);
+    --cyber-cyan-600: #00c4cc;
+    --cyber-cyan-700: #0097a7;
+    --cyber-cyan-800: #007a87;
+    --cyber-cyan-900: #005d6a;
 
     // Cyber Magenta - Danger, errors, alerts
-    --cyber-magenta-100: oklch(95% 0.05 0deg);
-    --cyber-magenta-200: oklch(85% 0.1 0deg);
-    --cyber-magenta-300: oklch(75% 0.15 350deg);
-    --cyber-magenta-400: oklch(65% 0.2 350deg);
+    --cyber-magenta-100: #ffe0f0;
+    --cyber-magenta-200: #ffb8d9;
+    --cyber-magenta-300: #ff8cc2;
+    --cyber-magenta-400: #ff5caa;
     --cyber-magenta-500: #ff2a6d;
-    --cyber-magenta-600: oklch(50% 0.18 350deg);
-    --cyber-magenta-700: oklch(40% 0.15 350deg);
-    --cyber-magenta-800: oklch(30% 0.12 350deg);
-    --cyber-magenta-900: oklch(20% 0.08 350deg);
+    --cyber-magenta-600: #d91a5a;
+    --cyber-magenta-700: #b31248;
+    --cyber-magenta-800: #8c0b37;
+    --cyber-magenta-900: #660527;
 
     // Cyber Yellow - Warnings, highlights
-    --cyber-yellow-100: oklch(98% 0.05 100deg);
-    --cyber-yellow-200: oklch(95% 0.1 100deg);
-    --cyber-yellow-300: oklch(90% 0.15 100deg);
-    --cyber-yellow-400: oklch(85% 0.2 100deg);
+    --cyber-yellow-100: #fff9db;
+    --cyber-yellow-200: #fff3b8;
+    --cyber-yellow-300: #ffec8a;
+    --cyber-yellow-400: #ffe55c;
     --cyber-yellow-500: #fcee0a;
-    --cyber-yellow-600: oklch(70% 0.18 100deg);
-    --cyber-yellow-700: oklch(55% 0.15 100deg);
-    --cyber-yellow-800: oklch(40% 0.12 100deg);
-    --cyber-yellow-900: oklch(25% 0.08 100deg);
+    --cyber-yellow-600: #d4c908;
+    --cyber-yellow-700: #aca406;
+    --cyber-yellow-800: #857f04;
+    --cyber-yellow-900: #5d5a03;
 
     // Cyber Green - Success, confirmation
-    --cyber-green-100: oklch(95% 0.05 160deg);
-    --cyber-green-200: oklch(90% 0.1 160deg);
-    --cyber-green-300: oklch(80% 0.15 160deg);
-    --cyber-green-400: oklch(70% 0.2 160deg);
+    --cyber-green-100: #d0ffe0;
+    --cyber-green-200: #a1ffc1;
+    --cyber-green-300: #72ffa2;
+    --cyber-green-400: #43ff83;
     --cyber-green-500: #05ffa1;
-    --cyber-green-600: oklch(60% 0.18 160deg);
-    --cyber-green-700: oklch(45% 0.15 160deg);
-    --cyber-green-800: oklch(30% 0.12 160deg);
-    --cyber-green-900: oklch(20% 0.08 160deg);
+    --cyber-green-600: #04d485;
+    --cyber-green-700: #03a969;
+    --cyber-green-800: #027e4d;
+    --cyber-green-900: #015331;
 
     // Cyber Void - Ultra-dark backgrounds
     --cyber-void-100: #2a2d3a;
-    --cyber-void-200: #232631;
-    --cyber-void-300: #1c1f28;
-    --cyber-void-400: #15171e;
+    --cyber-void-200: #1f2230;
+    --cyber-void-300: #181a25;
+    --cyber-void-400: #12141d;
     --cyber-void-500: #0d0e14;
     --cyber-void-600: #0a0b10;
     --cyber-void-700: #07080c;
     --cyber-void-800: #040508;
-    --cyber-void-900: #020304;
+    --cyber-void-900: #010204;
 
     // Cyber Chrome - Metallic grays
     --cyber-chrome-100: #f0f1f5;
-    --cyber-chrome-200: #d8dae2;
-    --cyber-chrome-300: #b8bcc8;
-    --cyber-chrome-400: #9499a8;
-    --cyber-chrome-500: #6e7485;
-    --cyber-chrome-600: #555b6b;
-    --cyber-chrome-700: #3f4452;
-    --cyber-chrome-800: #2c303a;
-    --cyber-chrome-900: #1a1d24;
+    --cyber-chrome-200: #d1d4de;
+    --cyber-chrome-300: #b2b7c7;
+    --cyber-chrome-400: #939ab0;
+    --cyber-chrome-500: #747d99;
+    --cyber-chrome-600: #5c647a;
+    --cyber-chrome-700: #444b5c;
+    --cyber-chrome-800: #2c323d;
+    --cyber-chrome-900: #14191f;
 
     // --------------------------------------------------------
     // Semantic Color Tokens
@@ -91,67 +91,49 @@
     --color-text-accent: var(--cyber-cyan-500);
 
     // Borders
-    --color-border-default: var(--cyber-chrome-700);
-    --color-border-accent: var(--cyber-cyan-500);
-    --color-border-glow: var(--cyber-cyan-500);
+    --color-border-default: var(--cyber-void-100);
 
     // --------------------------------------------------------
     // Glow Effects
     // --------------------------------------------------------
 
     --glow-cyan:
-      0 0 5px var(--cyber-cyan-500),
-      0 0 20px color-mix(in srgb, var(--cyber-cyan-500) 60%, transparent),
-      0 0 40px color-mix(in srgb, var(--cyber-cyan-500) 40%, transparent),
-      0 0 80px color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
+      0 0 20px var(--cyber-cyan-500),
+      0 0 40px color-mix(in srgb, var(--cyber-cyan-500) 50%, transparent),
+      0 0 80px color-mix(in srgb, var(--cyber-cyan-500) 25%, transparent);
     --glow-magenta:
-      0 0 5px var(--cyber-magenta-500),
-      0 0 20px color-mix(in srgb, var(--cyber-magenta-500) 60%, transparent),
-      0 0 40px color-mix(in srgb, var(--cyber-magenta-500) 40%, transparent),
-      0 0 80px color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent);
+      0 0 20px var(--cyber-magenta-500),
+      0 0 40px color-mix(in srgb, var(--cyber-magenta-500) 50%, transparent);
     --glow-yellow:
-      0 0 5px var(--cyber-yellow-500),
-      0 0 20px color-mix(in srgb, var(--cyber-yellow-500) 60%, transparent),
-      0 0 40px color-mix(in srgb, var(--cyber-yellow-500) 40%, transparent),
-      0 0 80px color-mix(in srgb, var(--cyber-yellow-500) 20%, transparent);
+      0 0 20px var(--cyber-yellow-500),
+      0 0 40px color-mix(in srgb, var(--cyber-yellow-500) 50%, transparent);
     --glow-green:
-      0 0 5px var(--cyber-green-500),
-      0 0 20px color-mix(in srgb, var(--cyber-green-500) 60%, transparent),
-      0 0 40px color-mix(in srgb, var(--cyber-green-500) 40%, transparent),
-      0 0 80px color-mix(in srgb, var(--cyber-green-500) 20%, transparent);
+      0 0 20px var(--cyber-green-500),
+      0 0 40px color-mix(in srgb, var(--cyber-green-500) 50%, transparent);
 
     // Text glows (smaller)
     --glow-text-cyan:
       0 0 10px var(--cyber-cyan-500),
-      0 0 20px color-mix(in srgb, var(--cyber-cyan-500) 50%, transparent);
-    --glow-text-magenta:
-      0 0 10px var(--cyber-magenta-500),
-      0 0 20px color-mix(in srgb, var(--cyber-magenta-500) 50%, transparent);
-    --glow-text-yellow:
-      0 0 10px var(--cyber-yellow-500),
-      0 0 20px color-mix(in srgb, var(--cyber-yellow-500) 50%, transparent);
-    --glow-text-green:
-      0 0 10px var(--cyber-green-500),
-      0 0 20px color-mix(in srgb, var(--cyber-green-500) 50%, transparent);
+      0 0 20px color-mix(in srgb, var(--cyber-cyan-500) 60%, transparent);
 
     // --------------------------------------------------------
     // Typography
     // --------------------------------------------------------
 
-    --font-display: "Rajdhani", "Orbitron", "Share Tech Mono", system-ui, sans-serif;
-    --font-body: "Exo 2", "Roboto", system-ui, sans-serif;
-    --font-mono: "JetBrains Mono", "Fira Code", "SF Mono", monospace;
+    --font-display: "Rajdhani", "Orbitron", system-ui, sans-serif;
+    --font-body: "Exo 2", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
 
-    // Fluid type scale (Perfect Fourth - 1.333)
-    --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.75rem);
-    --text-sm: clamp(0.8rem, 0.75rem + 0.25vw, 0.875rem);
-    --text-base: clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
-    --text-lg: clamp(1.1rem, 1rem + 0.5vw, 1.25rem);
-    --text-xl: clamp(1.3rem, 1.1rem + 0.75vw, 1.563rem);
-    --text-2xl: clamp(1.5rem, 1.25rem + 1vw, 1.953rem);
-    --text-3xl: clamp(1.8rem, 1.4rem + 1.5vw, 2.441rem);
-    --text-4xl: clamp(2.2rem, 1.6rem + 2vw, 3.052rem);
-    --text-5xl: clamp(2.8rem, 2rem + 2.5vw, 3.815rem);
+    // Fluid type scale
+    --text-xs: clamp(0.64rem, 0.59rem + 0.24vw, 0.75rem);
+    --text-sm: clamp(0.8rem, 0.74rem + 0.32vw, 0.94rem);
+    --text-base: clamp(1rem, 0.93rem + 0.37vw, 1.18rem);
+    --text-lg: clamp(1.25rem, 1.16rem + 0.47vw, 1.47rem);
+    --text-xl: clamp(1.56rem, 1.45rem + 0.59vw, 1.84rem);
+    --text-2xl: clamp(1.95rem, 1.81rem + 0.74vw, 2.3rem);
+    --text-3xl: clamp(2.44rem, 2.26rem + 0.92vw, 2.87rem);
+    --text-4xl: clamp(3.05rem, 2.83rem + 1.15vw, 3.58rem);
+    --text-5xl: clamp(3.81rem, 3.54rem + 1.44vw, 4.48rem);
     --leading-tight: 1.2;
     --leading-normal: 1.6;
     --leading-relaxed: 1.8;
@@ -165,13 +147,13 @@
     // Spacing Scale (Fluid)
     // --------------------------------------------------------
 
-    --space-3xs: clamp(0.2rem, 0.15rem + 0.25vw, 0.25rem);
-    --space-2xs: clamp(0.4rem, 0.35rem + 0.25vw, 0.5rem);
-    --space-xs: clamp(0.6rem, 0.5rem + 0.5vw, 0.75rem);
-    --space-sm: clamp(0.8rem, 0.7rem + 0.5vw, 1rem);
-    --space-md: clamp(1.2rem, 1rem + 1vw, 1.5rem);
-    --space-lg: clamp(1.6rem, 1.4rem + 1vw, 2rem);
-    --space-xl: clamp(2.4rem, 2rem + 2vw, 3rem);
+    --space-3xs: clamp(0.25rem, 0.23rem + 0.09vw, 0.31rem);
+    --space-2xs: clamp(0.5rem, 0.46rem + 0.18vw, 0.63rem);
+    --space-xs: clamp(0.75rem, 0.7rem + 0.28vw, 0.94rem);
+    --space-sm: clamp(1rem, 0.93rem + 0.37vw, 1.25rem);
+    --space-md: clamp(1.5rem, 1.39rem + 0.56vw, 1.88rem);
+    --space-lg: clamp(2rem, 1.86rem + 0.74vw, 2.5rem);
+    --space-xl: clamp(3rem, 2.78rem + 1.11vw, 3.75rem);
     --space-2xl: clamp(3.2rem, 2.5rem + 3vw, 4rem);
     --space-3xl: clamp(4.8rem, 4rem + 4vw, 6rem);
 
@@ -193,6 +175,11 @@
     // Transitions & Animation
     // --------------------------------------------------------
 
+    --ease-cyber: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --duration-fast: 150ms;
+    --duration-normal: 300ms;
+    --duration-slow: 500ms;
     --transition-fast: 150ms ease;
     --transition-base: 250ms ease;
     --transition-slow: 400ms ease;
@@ -213,11 +200,12 @@
     --z-tooltip: 700;
 
     // --------------------------------------------------------
-    // Effects Opacity
+    // Effects
     // --------------------------------------------------------
 
     --noise-opacity: 0.03;
     --scanline-opacity: 0.04;
+    --chromatic-offset: 2px;
   }
 
   // --------------------------------------------------------

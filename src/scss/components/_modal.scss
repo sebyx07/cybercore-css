@@ -6,6 +6,8 @@
 @layer components {
   // Modal backdrop
   .cyber-modal {
+    --modal-accent: var(--cyber-cyan-500);
+
     position: fixed;
     z-index: var(--z-modal-backdrop);
     display: flex;
@@ -45,7 +47,8 @@
       background: var(--color-bg-secondary);
       box-shadow:
         0 25px 50px -12px color-mix(in srgb, var(--cyber-void-900) 80%, transparent),
-        0 0 0 1px color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
+        0 0 20px color-mix(in srgb, var(--modal-accent) 30%, transparent),
+        0 0 40px color-mix(in srgb, var(--modal-accent) 15%, transparent);
       opacity: 0%;
       transform: translateY(-20px) scale(0.95);
       transition:
@@ -53,22 +56,37 @@
         transform var(--transition-base) var(--ease-out-expo);
       clip-path: polygon(
         0 0,
-        calc(100% - 24px) 0,
-        100% 24px,
+        calc(100% - 20px) 0,
+        100% 20px,
         100% 100%,
-        24px 100%,
-        0 calc(100% - 24px)
+        20px 100%,
+        0 calc(100% - 20px)
       );
 
-      // Corner accent decoration
-      &::before {
+      // Corner bracket decorations (matching cards)
+      &::before,
+      &::after {
         content: "";
         position: absolute;
-        top: 0;
-        right: 0;
-        width: 24px;
-        height: 24px;
-        background: linear-gradient(135deg, var(--cyber-cyan-500) 50%, transparent 50%);
+        z-index: 1;
+        width: 30px;
+        height: 30px;
+        border: 2px solid var(--modal-accent);
+        pointer-events: none;
+      }
+
+      &::before {
+        top: -1px;
+        left: -1px;
+        border-right: none;
+        border-bottom: none;
+      }
+
+      &::after {
+        right: -1px;
+        bottom: -1px;
+        border-top: none;
+        border-left: none;
       }
     }
 
@@ -86,9 +104,11 @@
       margin: 0;
       font-family: var(--font-display);
       font-size: var(--text-lg);
-      font-weight: 600;
-      letter-spacing: var(--tracking-wide);
-      color: var(--color-text-primary);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--modal-accent);
+      text-shadow: 0 0 10px color-mix(in srgb, var(--modal-accent) 60%, transparent);
     }
 
     // Close button
@@ -172,39 +192,15 @@
     // --------------------------------------------------------
 
     &--magenta {
-      .cyber-modal__dialog::before {
-        background: linear-gradient(135deg, var(--cyber-magenta-500) 50%, transparent 50%);
-      }
-
-      .cyber-modal__dialog {
-        box-shadow:
-          0 25px 50px -12px color-mix(in srgb, var(--cyber-void-900) 80%, transparent),
-          0 0 0 1px color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent);
-      }
+      --modal-accent: var(--cyber-magenta-500);
     }
 
     &--yellow {
-      .cyber-modal__dialog::before {
-        background: linear-gradient(135deg, var(--cyber-yellow-500) 50%, transparent 50%);
-      }
-
-      .cyber-modal__dialog {
-        box-shadow:
-          0 25px 50px -12px color-mix(in srgb, var(--cyber-void-900) 80%, transparent),
-          0 0 0 1px color-mix(in srgb, var(--cyber-yellow-500) 20%, transparent);
-      }
+      --modal-accent: var(--cyber-yellow-500);
     }
 
     &--green {
-      .cyber-modal__dialog::before {
-        background: linear-gradient(135deg, var(--cyber-green-500) 50%, transparent 50%);
-      }
-
-      .cyber-modal__dialog {
-        box-shadow:
-          0 25px 50px -12px color-mix(in srgb, var(--cyber-void-900) 80%, transparent),
-          0 0 0 1px color-mix(in srgb, var(--cyber-green-500) 20%, transparent);
-      }
+      --modal-accent: var(--cyber-green-500);
     }
 
     // --------------------------------------------------------
@@ -246,6 +242,7 @@
       border: var(--border-medium) solid var(--cyber-cyan-500);
       color: var(--cyber-cyan-500);
       background: color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent);
+      box-shadow: 0 0 15px color-mix(in srgb, var(--cyber-cyan-500) 40%, transparent);
 
       svg {
         width: 2rem;
@@ -256,18 +253,21 @@
         border-color: var(--cyber-yellow-500);
         color: var(--cyber-yellow-500);
         background: color-mix(in srgb, var(--cyber-yellow-500) 15%, transparent);
+        box-shadow: 0 0 15px color-mix(in srgb, var(--cyber-yellow-500) 40%, transparent);
       }
 
       &--error {
         border-color: var(--cyber-magenta-500);
         color: var(--cyber-magenta-500);
         background: color-mix(in srgb, var(--cyber-magenta-500) 15%, transparent);
+        box-shadow: 0 0 15px color-mix(in srgb, var(--cyber-magenta-500) 40%, transparent);
       }
 
       &--success {
         border-color: var(--cyber-green-500);
         color: var(--cyber-green-500);
         background: color-mix(in srgb, var(--cyber-green-500) 15%, transparent);
+        box-shadow: 0 0 15px color-mix(in srgb, var(--cyber-green-500) 40%, transparent);
       }
     }
 
@@ -275,13 +275,29 @@
       margin: 0 0 var(--space-xs);
       font-family: var(--font-display);
       font-size: var(--text-xl);
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
       color: var(--color-text-primary);
     }
 
     &__message {
       margin: 0;
       color: var(--color-text-secondary);
+    }
+  }
+
+  // --------------------------------------------------------
+  // Reduced motion support
+  // --------------------------------------------------------
+
+  @media (prefers-reduced-motion: reduce) {
+    .cyber-modal {
+      transition: none;
+
+      &__dialog {
+        transition: none;
+      }
     }
   }
 }

@@ -4,172 +4,30 @@
 
 @layer components {
   .cyber-datastream {
-    --stream-color-1: var(--cyber-cyan-500, #00f0ff);
-    --stream-color-2: var(--cyber-green-500, #05ffa1);
-    --stream-duration: 2s;
-    --stream-width: 100%;
-    --stream-opacity: 0.15;
-
-    position: relative;
-    overflow: hidden;
-
-    &::before {
-      content: "";
-      position: absolute;
-      width: var(--stream-width);
-      background: linear-gradient(
-        180deg,
-        transparent 0%,
-        color-mix(in srgb, var(--stream-color-1) 20%, transparent) 10%,
-        transparent 20%,
-        color-mix(in srgb, var(--stream-color-2) 30%, transparent) 30%,
-        transparent 40%,
-        color-mix(in srgb, var(--stream-color-1) 15%, transparent) 50%,
-        transparent 60%,
-        color-mix(in srgb, var(--stream-color-2) 25%, transparent) 70%,
-        transparent 80%,
-        color-mix(in srgb, var(--stream-color-1) 10%, transparent) 90%,
-        transparent 100%
-      );
-      background-size: 100% 200%;
-      opacity: var(--stream-opacity);
-      animation: cyber-datastream-flow var(--stream-duration) linear infinite;
-      pointer-events: none;
-      inset: 0;
-    }
-
-    // Binary rain effect with additional pseudo-element
-    &::after {
-      content: "";
-      position: absolute;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent 0,
-        transparent 2px,
-        color-mix(in srgb, var(--stream-color-1) 5%, transparent) 2px,
-        color-mix(in srgb, var(--stream-color-1) 5%, transparent) 4px
-      );
-      opacity: calc(var(--stream-opacity) * 50%);
-      animation: cyber-datastream-flow calc(var(--stream-duration) * 0.7) linear infinite;
-      pointer-events: none;
-      inset: 0;
-    }
-
-    // Faster stream
-    &--fast {
-      --stream-duration: 1s;
-    }
-
-    // Slower stream
-    &--slow {
-      --stream-duration: 4s;
-    }
-
-    // More visible
-    &--intense {
-      --stream-opacity: 0.3;
-    }
-
-    // Subtle variant
-    &--subtle {
-      --stream-opacity: 0.08;
-    }
-
-    // Magenta color scheme
-    &--magenta {
-      --stream-color-1: var(--cyber-magenta-500, #ff2a6d);
-      --stream-color-2: var(--cyber-yellow-500, #fcee0a);
-    }
-
-    // Reverse direction (upward flow)
-    &--reverse {
-      &::before,
-      &::after {
-        animation-direction: reverse;
-      }
-    }
-
-    // Horizontal datastream
-    &--horizontal {
-      &::before {
-        background: linear-gradient(
-          90deg,
-          transparent 0%,
-          color-mix(in srgb, var(--stream-color-1) 20%, transparent) 10%,
-          transparent 20%,
-          color-mix(in srgb, var(--stream-color-2) 30%, transparent) 30%,
-          transparent 40%,
-          color-mix(in srgb, var(--stream-color-1) 15%, transparent) 50%,
-          transparent 60%,
-          color-mix(in srgb, var(--stream-color-2) 25%, transparent) 70%,
-          transparent 80%,
-          color-mix(in srgb, var(--stream-color-1) 10%, transparent) 90%,
-          transparent 100%
-        );
-        background-size: 200% 100%;
-        animation: cyber-datastream-flow-horizontal var(--stream-duration) linear infinite;
-      }
-
-      &::after {
-        background: repeating-linear-gradient(
-          90deg,
-          transparent 0,
-          transparent 2px,
-          color-mix(in srgb, var(--stream-color-1) 5%, transparent) 2px,
-          color-mix(in srgb, var(--stream-color-1) 5%, transparent) 4px
-        );
-        animation: cyber-datastream-flow-horizontal calc(var(--stream-duration) * 0.7) linear
-          infinite;
-      }
-    }
-
-    // Column-based data streams
-    &--columns {
-      &::before {
-        background:
-          repeating-linear-gradient(
-            90deg,
-            transparent,
-            transparent 20px,
-            color-mix(in srgb, var(--stream-color-1) 10%, transparent) 20px,
-            color-mix(in srgb, var(--stream-color-1) 10%, transparent) 21px
-          ),
-          linear-gradient(180deg, transparent 0%, var(--stream-color-1) 50%, transparent 100%);
-        background-size:
-          100% 100%,
-          100% 200%;
-        animation: cyber-datastream-flow var(--stream-duration) linear infinite;
-      }
-    }
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent) 50%,
+      transparent 100%
+    );
+    background-size: 100% 200%;
+    animation: datastream 3s linear infinite;
   }
 
-  @keyframes cyber-datastream-flow {
+  @keyframes datastream {
     0% {
-      background-position: 0 0;
+      background-position: 0% 0%;
     }
 
     100% {
-      background-position: 0 200%;
-    }
-  }
-
-  @keyframes cyber-datastream-flow-horizontal {
-    0% {
-      background-position: 0 0;
-    }
-
-    100% {
-      background-position: 200% 0;
+      background-position: 0% 200%;
     }
   }
 
   // Respect reduced motion preference
   @media (prefers-reduced-motion: reduce) {
     .cyber-datastream {
-      &::before,
-      &::after {
-        animation: none;
-      }
+      animation: none;
     }
   }
 }
