@@ -6,10 +6,11 @@
   "module": "dist/cybercore.css",
   "style": "dist/cybercore.css",
   "sass": "src/scss/cybercore.scss",
-  "types": "dist/cybercore.d.ts",
+  "types": "src/cybercore.d.ts",
   "files": [
     "dist",
     "src/scss",
+    "src/cybercore.d.ts",
     "README.md",
     "LICENSE"
   ],

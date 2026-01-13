@@ -3,7 +3,7 @@
   "changelog": [
     "@changesets/changelog-github",
     {
-      "repo": "your-username/cybercore-css"
+      "repo": "sebyx07/cybercore-css"
     }
   ],
   "commit": false,
