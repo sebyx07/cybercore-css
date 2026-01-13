@@ -37,17 +37,13 @@
 
     // Decorative corner accent
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       right: 0;
       width: 20px;
       height: 20px;
-      background: linear-gradient(
-        135deg,
-        var(--cyber-cyan-500) 50%,
-        transparent 50%
-      );
+      background: linear-gradient(135deg, var(--cyber-cyan-500) 50%, transparent 50%);
       opacity: 60%;
       transition: opacity var(--transition-fast);
     }
@@ -162,7 +158,7 @@
 
       // Animated shimmer overlay
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         background: linear-gradient(
           105deg,
@@ -187,11 +183,7 @@
       border-color: var(--cyber-magenta-500);
 
       &::before {
-        background: linear-gradient(
-          135deg,
-          var(--cyber-magenta-500) 50%,
-          transparent 50%
-        );
+        background: linear-gradient(135deg, var(--cyber-magenta-500) 50%, transparent 50%);
       }
 
       .cyber-card__icon {
@@ -218,11 +210,7 @@
       border-color: var(--cyber-yellow-500);
 
       &::before {
-        background: linear-gradient(
-          135deg,
-          var(--cyber-yellow-500) 50%,
-          transparent 50%
-        );
+        background: linear-gradient(135deg, var(--cyber-yellow-500) 50%, transparent 50%);
       }
 
       .cyber-card__icon {
@@ -242,11 +230,7 @@
       border-color: var(--cyber-green-500);
 
       &::before {
-        background: linear-gradient(
-          135deg,
-          var(--cyber-green-500) 50%,
-          transparent 50%
-        );
+        background: linear-gradient(135deg, var(--cyber-green-500) 50%, transparent 50%);
       }
 
       .cyber-card__icon {

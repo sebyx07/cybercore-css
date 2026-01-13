@@ -79,7 +79,9 @@
     }
 
     50% {
-      box-shadow: 0 0 20px currentcolor, 0 0 40px currentcolor;
+      box-shadow:
+        0 0 20px currentcolor,
+        0 0 40px currentcolor;
       filter: brightness(1.2);
     }
   }
@@ -207,8 +209,7 @@
 
   .cyber-transition {
     transition-duration: var(--transition-base);
-    transition-property: color, background-color, border-color, box-shadow,
-      transform, opacity;
+    transition-property: color, background-color, border-color, box-shadow, transform, opacity;
   }
 
   .cyber-transition-fast {

@@ -9,9 +9,12 @@
 
 **🎮 A cyberpunk-inspired CSS framework for building futuristic interfaces**
 
-*Inspired by Cyberpunk 2077, Blade Runner, and the neon-soaked streets of Night City*
+_Inspired by Cyberpunk 2077, Blade Runner, and the neon-soaked streets of Night
+City_
 
-[🚀 **Live Demo**](https://sebyx07.github.io/cybercore-css) • [📖 **Documentation**](https://sebyx07.github.io/cybercore-css/#/docs) • [💻 **GitHub**](https://github.com/sebyx07/cybercore-css)
+[🚀 **Live Demo**](https://sebyx07.github.io/cybercore-css) •
+[📖 **Documentation**](https://sebyx07.github.io/cybercore-css/#/docs) •
+[💻 **GitHub**](https://github.com/sebyx07/cybercore-css)
 
 </div>
 
@@ -28,7 +31,10 @@ npm install cybercore-css
 ### CDN (Coming Soon)
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/cybercore-css@latest/dist/cybercore.min.css">
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/cybercore-css@latest/dist/cybercore.min.css"
+/>
 ```
 
 ### Import in Your Project
@@ -46,16 +52,16 @@ npm install cybercore-css
 
 ## 🎯 Features
 
-| Feature | Description |
-|---------|-------------|
-| 🎨 **Pure CSS** | Zero JavaScript dependencies - just CSS/SCSS |
-| 🧩 **Modular** | Import only what you need |
-| 🌙 **Dark Theme** | Designed for dark interfaces |
-| 🔧 **Customizable** | CSS variables for easy theming |
-| ♿ **Accessible** | Respects `prefers-reduced-motion` |
-| 🤖 **AI-Friendly** | Simple, predictable class names |
-| ⚡ **Modern CSS** | CSS Layers, Container Queries, color-mix() |
-| 📱 **Responsive** | Mobile-first approach |
+| Feature             | Description                                  |
+| ------------------- | -------------------------------------------- |
+| 🎨 **Pure CSS**     | Zero JavaScript dependencies - just CSS/SCSS |
+| 🧩 **Modular**      | Import only what you need                    |
+| 🌙 **Dark Theme**   | Designed for dark interfaces                 |
+| 🔧 **Customizable** | CSS variables for easy theming               |
+| ♿ **Accessible**   | Respects `prefers-reduced-motion`            |
+| 🤖 **AI-Friendly**  | Simple, predictable class names              |
+| ⚡ **Modern CSS**   | CSS Layers, Container Queries, color-mix()   |
+| 📱 **Responsive**   | Mobile-first approach                        |
 
 ---
 
@@ -96,9 +102,7 @@ npm install cybercore-css
   <div class="cyber-card__header">
     <h3 class="cyber-card__title">SYSTEM STATUS</h3>
   </div>
-  <div class="cyber-card__body">
-    All systems operational.
-  </div>
+  <div class="cyber-card__body">All systems operational.</div>
 </div>
 
 <!-- Interactive card -->
@@ -115,12 +119,12 @@ npm install cybercore-css
 ### Inputs
 
 ```html
-<input type="text" class="cyber-input" placeholder="Enter data...">
+<input type="text" class="cyber-input" placeholder="Enter data..." />
 
 <!-- With field wrapper -->
 <div class="cyber-field">
   <label class="cyber-field__label">USERNAME</label>
-  <input type="text" class="cyber-input">
+  <input type="text" class="cyber-input" />
   <span class="cyber-field__helper">Enter your handle</span>
 </div>
 ```
@@ -171,37 +175,27 @@ npm install cybercore-css
 ### Neon Border
 
 ```html
-<div class="cyber-neon-border">
-  Glowing border effect
-</div>
+<div class="cyber-neon-border">Glowing border effect</div>
 
-<div class="cyber-neon-border cyber-neon-border--magenta">
-  Magenta variant
-</div>
+<div class="cyber-neon-border cyber-neon-border--magenta">Magenta variant</div>
 ```
 
 ### Scanlines
 
 ```html
-<div class="cyber-scanlines">
-  CRT monitor effect
-</div>
+<div class="cyber-scanlines">CRT monitor effect</div>
 ```
 
 ### Noise Overlay
 
 ```html
-<div class="cyber-noise">
-  Static noise texture
-</div>
+<div class="cyber-noise">Static noise texture</div>
 ```
 
 ### Datastream
 
 ```html
-<div class="cyber-datastream">
-  Animated light sweep
-</div>
+<div class="cyber-datastream">Animated light sweep</div>
 ```
 
 ---
@@ -333,13 +327,13 @@ npm run format
 ## 🚀 Browser Support
 
 | Browser | Version |
-|---------|---------|
-| Chrome | 105+ |
-| Firefox | 121+ |
-| Safari | 15.4+ |
-| Edge | 105+ |
+| ------- | ------- |
+| Chrome  | 105+    |
+| Firefox | 121+    |
+| Safari  | 15.4+   |
+| Edge    | 105+    |
 
-*Requires CSS Layers, color-mix(), and container queries support*
+_Requires CSS Layers, color-mix(), and container queries support_
 
 ---
 
@@ -363,7 +357,10 @@ MIT License - Use it, hack it, share it.
 
 **⚡ Built for the future. Styled for Night City. ⚡**
 
-[🚀 Demo](https://sebyx07.github.io/cybercore-css) • [📖 Docs](https://sebyx07.github.io/cybercore-css/#/docs) • [🐛 Issues](https://github.com/sebyx07/cybercore-css/issues) • [💬 Discussions](https://github.com/sebyx07/cybercore-css/discussions)
+[🚀 Demo](https://sebyx07.github.io/cybercore-css) •
+[📖 Docs](https://sebyx07.github.io/cybercore-css/#/docs) •
+[🐛 Issues](https://github.com/sebyx07/cybercore-css/issues) •
+[💬 Discussions](https://github.com/sebyx07/cybercore-css/discussions)
 
 </div>
 

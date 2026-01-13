@@ -120,7 +120,7 @@
       overflow: visible;
 
       &::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 50%;
         left: var(--space-xs);
@@ -169,7 +169,7 @@
       background: color-mix(in srgb, var(--cyber-green-500) 15%, transparent);
 
       &::before {
-        content: '';
+        content: "";
         width: 6px;
         height: 6px;
         border-radius: 50%;
@@ -184,7 +184,7 @@
       background: color-mix(in srgb, var(--cyber-chrome-500) 15%, transparent);
 
       &::before {
-        content: '';
+        content: "";
         width: 6px;
         height: 6px;
         border-radius: 50%;
@@ -198,7 +198,7 @@
       background: color-mix(in srgb, var(--cyber-magenta-500) 15%, transparent);
 
       &::before {
-        content: '';
+        content: "";
         width: 6px;
         height: 6px;
         border-radius: 50%;
@@ -210,7 +210,8 @@
 
   // Pulse animation
   @keyframes badge-pulse {
-    0%, 100% {
+    0%,
+    100% {
       box-shadow: 0 0 0 0 currentcolor;
       opacity: 100%;
     }

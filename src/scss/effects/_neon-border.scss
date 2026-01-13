@@ -17,7 +17,7 @@
 
     // Gradient border using background-clip technique
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       padding: var(--neon-border-width);
       border-radius: inherit;
@@ -41,7 +41,7 @@
 
     // Glow layer
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       z-index: -1;
       padding: var(--neon-border-width);

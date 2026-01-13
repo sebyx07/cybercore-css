@@ -27,7 +27,7 @@
 
       // Animated stripes
       &::before {
-        content: '';
+        content: "";
         position: absolute;
         background: repeating-linear-gradient(
           -45deg,
@@ -42,17 +42,13 @@
 
       // Glow effect on edge
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         right: 0;
         width: 20px;
         height: 100%;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          color-mix(in srgb, white 50%, transparent)
-        );
+        background: linear-gradient(90deg, transparent, color-mix(in srgb, white 50%, transparent));
         animation: progress-glow 1.5s ease-in-out infinite;
       }
     }
@@ -159,7 +155,8 @@
 
   // Glow pulse animation
   @keyframes progress-glow {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 50%;
     }
 

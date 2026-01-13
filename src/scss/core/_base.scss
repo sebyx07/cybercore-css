@@ -94,10 +94,6 @@
   mark {
     padding: 0.125em 0.25em;
     color: var(--color-text-primary);
-    background-color: color-mix(
-      in srgb,
-      var(--cyber-yellow-500) 30%,
-      transparent
-    );
+    background-color: color-mix(in srgb, var(--cyber-yellow-500) 30%, transparent);
   }
 }

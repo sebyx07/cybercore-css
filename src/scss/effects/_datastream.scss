@@ -14,7 +14,7 @@
     overflow: hidden;
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       width: var(--stream-width);
       background: linear-gradient(
@@ -40,7 +40,7 @@
 
     // Binary rain effect with additional pseudo-element
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       background: repeating-linear-gradient(
         0deg,
@@ -118,26 +118,23 @@
           color-mix(in srgb, var(--stream-color-1) 5%, transparent) 2px,
           color-mix(in srgb, var(--stream-color-1) 5%, transparent) 4px
         );
-        animation: cyber-datastream-flow-horizontal calc(var(--stream-duration) * 0.7) linear infinite;
+        animation: cyber-datastream-flow-horizontal calc(var(--stream-duration) * 0.7) linear
+          infinite;
       }
     }
 
     // Column-based data streams
     &--columns {
       &::before {
-        background: repeating-linear-gradient(
+        background:
+          repeating-linear-gradient(
             90deg,
             transparent,
             transparent 20px,
             color-mix(in srgb, var(--stream-color-1) 10%, transparent) 20px,
             color-mix(in srgb, var(--stream-color-1) 10%, transparent) 21px
           ),
-          linear-gradient(
-            180deg,
-            transparent 0%,
-            var(--stream-color-1) 50%,
-            transparent 100%
-          );
+          linear-gradient(180deg, transparent 0%, var(--stream-color-1) 50%, transparent 100%);
         background-size:
           100% 100%,
           100% 200%;

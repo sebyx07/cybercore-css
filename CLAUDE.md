@@ -1,10 +1,12 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with
+code in this repository.
 
 ## Project Overview
 
-CYBERCORE CSS is a pure CSS/SCSS cyberpunk design framework. No JavaScript in the framework itself—React is only used for the demo site.
+CYBERCORE CSS is a pure CSS/SCSS cyberpunk design framework. No JavaScript in
+the framework itself—React is only used for the demo site.
 
 ## Commands
 
@@ -40,6 +42,7 @@ npm run typecheck        # TypeScript check for demo
 ### CSS Framework (`src/scss/`)
 
 Uses CSS `@layer` for cascade control with this priority order:
+
 ```
 @layer reset, base, theme, components, utilities;
 ```
@@ -47,16 +50,22 @@ Uses CSS `@layer` for cascade control with this priority order:
 Entry point: `cybercore.scss` imports everything via `@use`.
 
 **Structure:**
-- `core/` - Variables (CSS custom properties), reset, base, typography, layer definitions
-- `components/` - UI components (buttons, cards, inputs, modal, terminal, etc.)
-- `effects/` - Visual effects (glitch, neon-border, scanlines, noise, datastream)
-- `utilities/` - Helper classes (display, flex, grid, spacing, text, animation, accessibility)
 
-All styles reference CSS custom properties from `_variables.scss`. Every component/utility wraps its styles in the appropriate `@layer`.
+- `core/` - Variables (CSS custom properties), reset, base, typography, layer
+  definitions
+- `components/` - UI components (buttons, cards, inputs, modal, terminal, etc.)
+- `effects/` - Visual effects (glitch, neon-border, scanlines, noise,
+  datastream)
+- `utilities/` - Helper classes (display, flex, grid, spacing, text, animation,
+  accessibility)
+
+All styles reference CSS custom properties from `_variables.scss`. Every
+component/utility wraps its styles in the appropriate `@layer`.
 
 ### Class Naming Convention
 
 All classes use `cyber-` prefix with BEM-style modifiers:
+
 - Base: `.cyber-btn`, `.cyber-card`, `.cyber-input`
 - Modifiers: `.cyber-btn--magenta`, `.cyber-btn--ghost`
 - Elements: `.cyber-card__header`, `.cyber-card__body`
@@ -64,18 +73,21 @@ All classes use `cyber-` prefix with BEM-style modifiers:
 ### Color System
 
 Four accent colors with 100-900 scales:
+
 - `--cyber-cyan-*` - Primary (tech/neutral)
 - `--cyber-magenta-*` - Danger/errors
 - `--cyber-yellow-*` - Warnings
 - `--cyber-green-*` - Success
 
 Background/neutral scales:
+
 - `--cyber-void-*` - Dark backgrounds
 - `--cyber-chrome-*` - Metallic grays
 
 ### Demo Site (`demo/`)
 
-React + Vite + TypeScript using HashRouter for GitHub Pages compatibility. Imports the framework from `../../src/scss/cybercore.scss`.
+React + Vite + TypeScript using HashRouter for GitHub Pages compatibility.
+Imports the framework from `../../src/scss/cybercore.scss`.
 
 ### Tests (`tests/`)
 
@@ -87,12 +99,15 @@ React + Vite + TypeScript using HashRouter for GitHub Pages compatibility. Impor
 ## Linting Rules
 
 **SCSS (Stylelint):**
+
 - BEM class naming pattern enforced
-- CSS property order: position → display → box model → typography → visual → animation
+- CSS property order: position → display → box model → typography → visual →
+  animation
 - Max nesting depth: 4 (media queries don't count)
 - Max specificity: `0,4,2`
 
 **TypeScript (ESLint):**
+
 - Strict TypeScript with type checking
 - Consistent type imports (`import type`)
 - Import order: builtins → external → internal → parent → sibling → type

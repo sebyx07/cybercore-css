@@ -33,7 +33,7 @@
           user-select: none;
 
           &::after {
-            content: '';
+            content: "";
             display: inline-block;
             width: 0;
             height: 0;
@@ -152,7 +152,7 @@
       // Fade edges to indicate scroll
       &::before,
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         bottom: 0;
@@ -196,7 +196,7 @@
       align-items: center;
 
       &::before {
-        content: '';
+        content: "";
         width: 8px;
         height: 8px;
         border-radius: 50%;
@@ -241,7 +241,8 @@
   }
 
   @keyframes status-pulse {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 100%;
     }
 

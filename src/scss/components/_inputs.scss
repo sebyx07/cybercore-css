@@ -101,7 +101,7 @@
 
     // Required indicator
     &--required .cyber-field__label::after {
-      content: ' *';
+      content: " *";
       color: var(--cyber-magenta-500);
     }
   }
@@ -215,8 +215,7 @@
       }
 
       &:focus-visible + .cyber-checkbox__box {
-        box-shadow:
-          0 0 0 3px color-mix(in srgb, var(--cyber-cyan-500) 30%, transparent);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--cyber-cyan-500) 30%, transparent);
       }
 
       &:disabled + .cyber-checkbox__box {
@@ -241,7 +240,7 @@
 
       // Checkmark
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         width: 6px;
         height: 10px;
@@ -292,8 +291,7 @@
       }
 
       &:focus-visible + .cyber-radio__circle {
-        box-shadow:
-          0 0 0 3px color-mix(in srgb, var(--cyber-cyan-500) 30%, transparent);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--cyber-cyan-500) 30%, transparent);
       }
     }
 
@@ -312,7 +310,7 @@
         box-shadow var(--transition-fast);
 
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         width: 8px;
         height: 8px;
@@ -364,8 +362,7 @@
       }
 
       &:focus-visible + .cyber-toggle__track {
-        box-shadow:
-          0 0 0 3px color-mix(in srgb, var(--cyber-cyan-500) 30%, transparent);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--cyber-cyan-500) 30%, transparent);
       }
     }
 

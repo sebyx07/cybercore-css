@@ -99,41 +99,48 @@
     // Glow Effects
     // --------------------------------------------------------
 
-    --glow-cyan: 0 0 5px var(--cyber-cyan-500),
+    --glow-cyan:
+      0 0 5px var(--cyber-cyan-500),
       0 0 20px color-mix(in srgb, var(--cyber-cyan-500) 60%, transparent),
       0 0 40px color-mix(in srgb, var(--cyber-cyan-500) 40%, transparent),
       0 0 80px color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
-    --glow-magenta: 0 0 5px var(--cyber-magenta-500),
+    --glow-magenta:
+      0 0 5px var(--cyber-magenta-500),
       0 0 20px color-mix(in srgb, var(--cyber-magenta-500) 60%, transparent),
       0 0 40px color-mix(in srgb, var(--cyber-magenta-500) 40%, transparent),
       0 0 80px color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent);
-    --glow-yellow: 0 0 5px var(--cyber-yellow-500),
+    --glow-yellow:
+      0 0 5px var(--cyber-yellow-500),
       0 0 20px color-mix(in srgb, var(--cyber-yellow-500) 60%, transparent),
       0 0 40px color-mix(in srgb, var(--cyber-yellow-500) 40%, transparent),
       0 0 80px color-mix(in srgb, var(--cyber-yellow-500) 20%, transparent);
-    --glow-green: 0 0 5px var(--cyber-green-500),
+    --glow-green:
+      0 0 5px var(--cyber-green-500),
       0 0 20px color-mix(in srgb, var(--cyber-green-500) 60%, transparent),
       0 0 40px color-mix(in srgb, var(--cyber-green-500) 40%, transparent),
       0 0 80px color-mix(in srgb, var(--cyber-green-500) 20%, transparent);
 
     // Text glows (smaller)
-    --glow-text-cyan: 0 0 10px var(--cyber-cyan-500),
+    --glow-text-cyan:
+      0 0 10px var(--cyber-cyan-500),
       0 0 20px color-mix(in srgb, var(--cyber-cyan-500) 50%, transparent);
-    --glow-text-magenta: 0 0 10px var(--cyber-magenta-500),
+    --glow-text-magenta:
+      0 0 10px var(--cyber-magenta-500),
       0 0 20px color-mix(in srgb, var(--cyber-magenta-500) 50%, transparent);
-    --glow-text-yellow: 0 0 10px var(--cyber-yellow-500),
+    --glow-text-yellow:
+      0 0 10px var(--cyber-yellow-500),
       0 0 20px color-mix(in srgb, var(--cyber-yellow-500) 50%, transparent);
-    --glow-text-green: 0 0 10px var(--cyber-green-500),
+    --glow-text-green:
+      0 0 10px var(--cyber-green-500),
       0 0 20px color-mix(in srgb, var(--cyber-green-500) 50%, transparent);
 
     // --------------------------------------------------------
     // Typography
     // --------------------------------------------------------
 
-    --font-display: 'Rajdhani', 'Orbitron', 'Share Tech Mono', system-ui,
-      sans-serif;
-    --font-body: 'Exo 2', 'Roboto', system-ui, sans-serif;
-    --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+    --font-display: "Rajdhani", "Orbitron", "Share Tech Mono", system-ui, sans-serif;
+    --font-body: "Exo 2", "Roboto", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", "Fira Code", "SF Mono", monospace;
 
     // Fluid type scale (Perfect Fourth - 1.333)
     --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.75rem);

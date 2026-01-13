@@ -71,9 +71,7 @@ function Layout() {
 
       <footer className="demo-footer">
         <div className="demo-container">
-          <p className="cyber-mono">
-            CYBERCORE CSS v1.0.0 // Built with pure CSS // MIT License
-          </p>
+          <p className="cyber-mono">CYBERCORE CSS v1.0.0 // Built with pure CSS // MIT License</p>
         </div>
       </footer>
     </div>

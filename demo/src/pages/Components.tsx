@@ -12,8 +12,8 @@ function Components() {
           <p className="demo-subtitle">&gt; COMPONENT_LIBRARY_</p>
           <h1 className="cyber-h1 cyber-text-glow">Components</h1>
           <p className="cyber-lead">
-            Ready-to-use UI components with cyberpunk aesthetics.
-            Just add the class names to your HTML elements.
+            Ready-to-use UI components with cyberpunk aesthetics. Just add the class names to your
+            HTML elements.
           </p>
         </div>
       </header>
@@ -22,7 +22,17 @@ function Components() {
         {/* Tabs Navigation */}
         <nav className="cyber-tabs" style={{ marginBottom: 'var(--space-xl)' }}>
           <ul className="cyber-tabs__list">
-            {['buttons', 'inputs', 'cards', 'badges', 'alerts', 'progress', 'tables', 'terminal', 'misc'].map((tab) => (
+            {[
+              'buttons',
+              'inputs',
+              'cards',
+              'badges',
+              'alerts',
+              'progress',
+              'tables',
+              'terminal',
+              'misc',
+            ].map((tab) => (
               <li key={tab}>
                 <button
                   className={`cyber-tabs__tab ${activeTab === tab ? 'cyber-tabs__tab--active' : ''}`}
@@ -95,7 +105,9 @@ function Components() {
 
             <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
               <div className="demo-preview">
-                <button className="cyber-btn" disabled>Disabled</button>
+                <button className="cyber-btn" disabled>
+                  Disabled
+                </button>
               </div>
               <CodeBlock
                 title="Disabled State"
@@ -114,7 +126,10 @@ function Components() {
             </h2>
 
             <div className="demo-code-preview">
-              <div className="demo-preview" style={{ flexDirection: 'column', alignItems: 'stretch' }}>
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', alignItems: 'stretch' }}
+              >
                 <input type="text" className="cyber-input" placeholder="Enter your handle..." />
               </div>
               <CodeBlock
@@ -125,9 +140,20 @@ function Components() {
             </div>
 
             <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
-              <div className="demo-preview" style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-sm)' }}>
-                <input type="text" className="cyber-input cyber-input--success" placeholder="Valid input" />
-                <input type="text" className="cyber-input cyber-input--error" placeholder="Invalid input" />
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-sm)' }}
+              >
+                <input
+                  type="text"
+                  className="cyber-input cyber-input--success"
+                  placeholder="Valid input"
+                />
+                <input
+                  type="text"
+                  className="cyber-input cyber-input--error"
+                  placeholder="Invalid input"
+                />
               </div>
               <CodeBlock
                 title="Validation States"
@@ -138,7 +164,10 @@ function Components() {
             </div>
 
             <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
-              <div className="demo-preview" style={{ flexDirection: 'column', alignItems: 'stretch' }}>
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', alignItems: 'stretch' }}
+              >
                 <textarea className="cyber-textarea" placeholder="Enter your message..." />
               </div>
               <CodeBlock
@@ -149,7 +178,10 @@ function Components() {
             </div>
 
             <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
-              <div className="demo-preview" style={{ flexDirection: 'column', alignItems: 'stretch' }}>
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', alignItems: 'stretch' }}
+              >
                 <select className="cyber-select">
                   <option>Select protocol...</option>
                   <option>HTTP/3</option>
@@ -213,8 +245,13 @@ function Components() {
               <div className="demo-preview" style={{ alignItems: 'stretch' }}>
                 <div className="cyber-card" style={{ width: '100%', maxWidth: '300px' }}>
                   <div className="cyber-card__body">
-                    <h4 className="cyber-h5" style={{ marginBottom: 'var(--space-sm)' }}>Simple Card</h4>
-                    <p>A basic card with just body content. Perfect for displaying information blocks.</p>
+                    <h4 className="cyber-h5" style={{ marginBottom: 'var(--space-sm)' }}>
+                      Simple Card
+                    </h4>
+                    <p>
+                      A basic card with just body content. Perfect for displaying information
+                      blocks.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -283,7 +320,10 @@ function Components() {
             </h2>
 
             <div className="demo-code-preview">
-              <div className="demo-preview" style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-md)' }}>
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-md)' }}
+              >
                 <div className="cyber-alert">
                   <strong>Info:</strong> System update available. Prepare for maintenance window.
                 </div>
@@ -291,7 +331,8 @@ function Components() {
                   <strong>Success:</strong> Connection established. Data sync complete.
                 </div>
                 <div className="cyber-alert cyber-alert--warning">
-                  <strong>Warning:</strong> High network latency detected. Performance may be impacted.
+                  <strong>Warning:</strong> High network latency detected. Performance may be
+                  impacted.
                 </div>
                 <div className="cyber-alert cyber-alert--error">
                   <strong>Error:</strong> Authentication failed. Access denied.
@@ -328,7 +369,10 @@ function Components() {
             </h2>
 
             <div className="demo-code-preview">
-              <div className="demo-preview" style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-md)' }}>
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-md)' }}
+              >
                 <div>
                   <span className="cyber-label">25%</span>
                   <div className="cyber-progress" style={{ marginTop: 'var(--space-xs)' }}>
@@ -387,25 +431,33 @@ function Components() {
                     <tr>
                       <td className="cyber-mono">001</td>
                       <td>ghost_runner</td>
-                      <td><span className="cyber-badge cyber-badge--green">Active</span></td>
+                      <td>
+                        <span className="cyber-badge cyber-badge--green">Active</span>
+                      </td>
                       <td>Admin</td>
                     </tr>
                     <tr>
                       <td className="cyber-mono">002</td>
                       <td>netwatch_42</td>
-                      <td><span className="cyber-badge cyber-badge--green">Active</span></td>
+                      <td>
+                        <span className="cyber-badge cyber-badge--green">Active</span>
+                      </td>
                       <td>Operator</td>
                     </tr>
                     <tr>
                       <td className="cyber-mono">003</td>
                       <td>zero_cool</td>
-                      <td><span className="cyber-badge cyber-badge--yellow">Pending</span></td>
+                      <td>
+                        <span className="cyber-badge cyber-badge--yellow">Pending</span>
+                      </td>
                       <td>User</td>
                     </tr>
                     <tr>
                       <td className="cyber-mono">004</td>
                       <td>crash_override</td>
-                      <td><span className="cyber-badge cyber-badge--magenta">Locked</span></td>
+                      <td>
+                        <span className="cyber-badge cyber-badge--magenta">Locked</span>
+                      </td>
                       <td>User</td>
                     </tr>
                   </tbody>
@@ -453,13 +505,17 @@ function Components() {
                   <div className="cyber-terminal__body">
                     <span className="cyber-terminal__prompt">$</span> npm install cybercore-css
                     <br />
-                    <span style={{ color: 'var(--color-text-muted)' }}>Installing dependencies...</span>
+                    <span style={{ color: 'var(--color-text-muted)' }}>
+                      Installing dependencies...
+                    </span>
                     <br />
                     <span style={{ color: 'var(--cyber-green-500)' }}>+ cybercore-css@1.0.0</span>
                     <br />
                     <span style={{ color: 'var(--cyber-green-500)' }}>added 1 package in 2.3s</span>
-                    <br /><br />
-                    <span className="cyber-terminal__prompt">$</span> <span className="cyber-terminal__cursor" />
+                    <br />
+                    <br />
+                    <span className="cyber-terminal__prompt">$</span>{' '}
+                    <span className="cyber-terminal__cursor" />
                   </div>
                 </div>
               </div>
@@ -491,7 +547,9 @@ function Components() {
             </h2>
 
             {/* Spinner */}
-            <h3 className="cyber-h4" style={{ marginBottom: 'var(--space-md)' }}>Spinner</h3>
+            <h3 className="cyber-h4" style={{ marginBottom: 'var(--space-md)' }}>
+              Spinner
+            </h3>
             <div className="demo-code-preview">
               <div className="demo-preview">
                 <div className="cyber-spinner" />
@@ -504,9 +562,17 @@ function Components() {
             </div>
 
             {/* Skeleton */}
-            <h3 className="cyber-h4" style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}>Skeleton Loaders</h3>
+            <h3
+              className="cyber-h4"
+              style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}
+            >
+              Skeleton Loaders
+            </h3>
             <div className="demo-code-preview">
-              <div className="demo-preview" style={{ flexDirection: 'column', alignItems: 'stretch' }}>
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', alignItems: 'stretch' }}
+              >
                 <div style={{ display: 'flex', gap: 'var(--space-md)', alignItems: 'center' }}>
                   <div className="cyber-skeleton cyber-skeleton--avatar" />
                   <div style={{ flex: 1 }}>
@@ -526,9 +592,17 @@ function Components() {
             </div>
 
             {/* Typography */}
-            <h3 className="cyber-h4" style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}>Typography Classes</h3>
+            <h3
+              className="cyber-h4"
+              style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}
+            >
+              Typography Classes
+            </h3>
             <div className="demo-code-preview">
-              <div className="demo-preview" style={{ flexDirection: 'column', alignItems: 'start', gap: 'var(--space-sm)' }}>
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', alignItems: 'start', gap: 'var(--space-sm)' }}
+              >
                 <span className="cyber-display">Display</span>
                 <span className="cyber-h1">Heading 1</span>
                 <span className="cyber-h2">Heading 2</span>

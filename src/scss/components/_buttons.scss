@@ -207,23 +207,11 @@
     }
 
     .cyber-btn:first-child {
-      clip-path: polygon(
-        0 0,
-        100% 0,
-        100% 100%,
-        8px 100%,
-        0 calc(100% - 8px)
-      );
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 8px 100%, 0 calc(100% - 8px));
     }
 
     .cyber-btn:last-child {
-      clip-path: polygon(
-        0 0,
-        calc(100% - 8px) 0,
-        100% 8px,
-        100% 100%,
-        0 100%
-      );
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
     }
   }
 }

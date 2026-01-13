@@ -29,9 +29,7 @@ function CodeBlock({ code, language = 'html', title }: CodeBlockProps) {
       )}
       <div className="code-block__content">
         <pre className="code-block__pre">
-          <code className={`code-block__code language-${language}`}>
-            {code.trim()}
-          </code>
+          <code className={`code-block__code language-${language}`}>{code.trim()}</code>
         </pre>
         <button
           className="code-block__copy cyber-btn cyber-btn--ghost cyber-btn--sm"

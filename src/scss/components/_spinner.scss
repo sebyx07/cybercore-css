@@ -18,7 +18,7 @@
 
     // Outer ring (clockwise)
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       border: var(--spinner-thickness) solid transparent;
       border-radius: 50%;
@@ -30,7 +30,7 @@
 
     // Inner ring (counter-clockwise)
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       border: var(--spinner-thickness) solid transparent;
       border-radius: 50%;
@@ -157,7 +157,8 @@
 
   // Pulse animation
   @keyframes spinner-pulse {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 100%;
       transform: scale(1);
     }
@@ -215,7 +216,9 @@
   }
 
   @keyframes spinner-dots-bounce {
-    0%, 80%, 100% {
+    0%,
+    80%,
+    100% {
       opacity: 50%;
       transform: scale(0.6);
     }
@@ -263,7 +266,9 @@
   }
 
   @keyframes spinner-bars-scale {
-    0%, 40%, 100% {
+    0%,
+    40%,
+    100% {
       transform: scaleY(0.4);
     }
 

@@ -8,8 +8,8 @@ function Effects() {
           <p className="demo-subtitle">&gt; VISUAL_EFFECTS_</p>
           <h1 className="cyber-h1 cyber-text-glow">Effects</h1>
           <p className="cyber-lead">
-            Cyberpunk visual effects to add atmosphere and style.
-            Glitches, neon glows, scanlines, and more.
+            Cyberpunk visual effects to add atmosphere and style. Glitches, neon glows, scanlines,
+            and more.
           </p>
         </div>
       </header>
@@ -43,10 +43,12 @@ function Effects() {
           </div>
 
           <div className="demo-box" style={{ marginTop: 'var(--space-lg)' }}>
-            <h4 className="cyber-label" style={{ marginBottom: 'var(--space-sm)' }}>How it works</h4>
+            <h4 className="cyber-label" style={{ marginBottom: 'var(--space-sm)' }}>
+              How it works
+            </h4>
             <p>
-              The glitch effect uses CSS pseudo-elements (::before and ::after) with clip-path
-              and animations to create a digital distortion effect. The <code>data-text</code> attribute
+              The glitch effect uses CSS pseudo-elements (::before and ::after) with clip-path and
+              animations to create a digital distortion effect. The <code>data-text</code> attribute
               is required to duplicate the text content for the pseudo-elements.
             </p>
           </div>
@@ -197,11 +199,29 @@ function Effects() {
           </h2>
 
           <div className="demo-code-preview">
-            <div className="demo-preview" style={{ flexDirection: 'column', gap: 'var(--space-lg)' }}>
+            <div
+              className="demo-preview"
+              style={{ flexDirection: 'column', gap: 'var(--space-lg)' }}
+            >
               <span className="cyber-h2 cyber-text-glow">Cyan Glow</span>
-              <span className="cyber-h2 cyber-text-glow--magenta" style={{ textShadow: 'var(--glow-text-magenta)' }}>Magenta Glow</span>
-              <span className="cyber-h2 cyber-text-glow--yellow" style={{ textShadow: 'var(--glow-text-yellow)' }}>Yellow Glow</span>
-              <span className="cyber-h2 cyber-text-glow--green" style={{ textShadow: 'var(--glow-text-green)' }}>Green Glow</span>
+              <span
+                className="cyber-h2 cyber-text-glow--magenta"
+                style={{ textShadow: 'var(--glow-text-magenta)' }}
+              >
+                Magenta Glow
+              </span>
+              <span
+                className="cyber-h2 cyber-text-glow--yellow"
+                style={{ textShadow: 'var(--glow-text-yellow)' }}
+              >
+                Yellow Glow
+              </span>
+              <span
+                className="cyber-h2 cyber-text-glow--green"
+                style={{ textShadow: 'var(--glow-text-green)' }}
+              >
+                Green Glow
+              </span>
             </div>
             <CodeBlock
               title="Text Glow Classes"
@@ -312,9 +332,9 @@ function Effects() {
           </h2>
 
           <div className="cyber-alert">
-            <strong>Note:</strong> All animated effects respect the <code>prefers-reduced-motion</code> media query.
-            When users have motion reduction enabled, animations will be disabled or significantly reduced
-            to prevent discomfort.
+            <strong>Note:</strong> All animated effects respect the{' '}
+            <code>prefers-reduced-motion</code> media query. When users have motion reduction
+            enabled, animations will be disabled or significantly reduced to prevent discomfort.
           </div>
 
           <div className="demo-box" style={{ marginTop: 'var(--space-lg)' }}>

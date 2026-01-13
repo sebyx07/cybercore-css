@@ -1,5 +1,5 @@
 // Import the Cybercore CSS framework
-@use '../../src/scss/cybercore' as *;
+@use "../../src/scss/cybercore" as *;
 
 // Demo-specific styles
 .demo-section {
@@ -49,12 +49,20 @@
   overflow: hidden;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle at 20% 50%, color-mix(in srgb, var(--cyber-cyan-500) 10%, transparent) 0%, transparent 50%),
-      radial-gradient(circle at 80% 50%, color-mix(in srgb, var(--cyber-magenta-500) 10%, transparent) 0%, transparent 50%);
+      radial-gradient(
+        circle at 20% 50%,
+        color-mix(in srgb, var(--cyber-cyan-500) 10%, transparent) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 50%,
+        color-mix(in srgb, var(--cyber-magenta-500) 10%, transparent) 0%,
+        transparent 50%
+      );
     pointer-events: none;
   }
 }
@@ -154,7 +162,7 @@
   margin-bottom: var(--space-lg);
 
   &::after {
-    content: '';
+    content: "";
     flex: 1;
     height: 1px;
     background: linear-gradient(90deg, var(--color-border-default), transparent);
@@ -578,9 +586,15 @@
     border-radius: 50%;
     background: var(--cyber-chrome-600);
 
-    &--red { background: var(--cyber-magenta-500); }
-    &--yellow { background: var(--cyber-yellow-500); }
-    &--green { background: var(--cyber-green-500); }
+    &--red {
+      background: var(--cyber-magenta-500);
+    }
+    &--yellow {
+      background: var(--cyber-yellow-500);
+    }
+    &--green {
+      background: var(--cyber-green-500);
+    }
   }
 
   &__body {
@@ -605,7 +619,9 @@
 }
 
 @keyframes blink {
-  50% { opacity: 0; }
+  50% {
+    opacity: 0;
+  }
 }
 
 // Effect demo styles
@@ -637,19 +653,41 @@
 }
 
 @keyframes glitch-1 {
-  0%, 100% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(-2px, -2px); }
-  60% { transform: translate(2px, 2px); }
-  80% { transform: translate(2px, -2px); }
+  0%,
+  100% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
 }
 
 @keyframes glitch-2 {
-  0%, 100% { transform: translate(0); }
-  20% { transform: translate(2px, -2px); }
-  40% { transform: translate(2px, 2px); }
-  60% { transform: translate(-2px, -2px); }
-  80% { transform: translate(-2px, 2px); }
+  0%,
+  100% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(2px, -2px);
+  }
+  40% {
+    transform: translate(2px, 2px);
+  }
+  60% {
+    transform: translate(-2px, -2px);
+  }
+  80% {
+    transform: translate(-2px, 2px);
+  }
 }
 
 .cyber-neon-border {
@@ -674,7 +712,7 @@
   overflow: hidden;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background: repeating-linear-gradient(
@@ -700,7 +738,9 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 // Skeleton demo styles
@@ -734,8 +774,12 @@
 }
 
 @keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 // Tabs demo styles
@@ -785,7 +829,8 @@
   border-collapse: collapse;
   font-size: var(--text-sm);
 
-  th, td {
+  th,
+  td {
     padding: var(--space-sm);
     text-align: left;
     border-bottom: 1px solid var(--color-border-default);
@@ -811,7 +856,7 @@
   overflow: hidden;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -100%;
@@ -828,8 +873,12 @@
 }
 
 @keyframes datastream {
-  0% { left: -50%; }
-  100% { left: 150%; }
+  0% {
+    left: -50%;
+  }
+  100% {
+    left: 150%;
+  }
 }
 
 // Noise overlay
@@ -837,7 +886,7 @@
   position: relative;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");

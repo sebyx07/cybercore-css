@@ -16,7 +16,7 @@
 
     // Shimmer animation overlay
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       background: linear-gradient(
         90deg,
@@ -159,7 +159,8 @@
 
   // Pulse animation
   @keyframes skeleton-pulse {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 100%;
     }
 
@@ -174,7 +175,8 @@
       transform: translateX(-100%);
     }
 
-    50%, 100% {
+    50%,
+    100% {
       transform: translateX(100%);
     }
   }

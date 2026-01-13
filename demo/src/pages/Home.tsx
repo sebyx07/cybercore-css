@@ -10,9 +10,8 @@ function Home() {
           CYBERCORE CSS
         </h1>
         <p className="cyber-lead" style={{ maxWidth: '600px', marginTop: 'var(--space-md)' }}>
-          A pure CSS cyberpunk design system. No JavaScript required.
-          Neon-drenched components, glitch effects, and futuristic aesthetics
-          for the digital frontier.
+          A pure CSS cyberpunk design system. No JavaScript required. Neon-drenched components,
+          glitch effects, and futuristic aesthetics for the digital frontier.
         </p>
         <div className="demo-showcase" style={{ marginTop: 'var(--space-lg)' }}>
           <Link to="/components" className="cyber-btn cyber-btn--lg">
@@ -35,48 +34,48 @@ function Home() {
             <div className="demo-feature-card">
               <h3>Pure CSS</h3>
               <p>
-                Zero JavaScript dependencies. Everything works with plain HTML and CSS.
-                Maximum performance, minimum complexity.
+                Zero JavaScript dependencies. Everything works with plain HTML and CSS. Maximum
+                performance, minimum complexity.
               </p>
             </div>
 
             <div className="demo-feature-card">
               <h3>CSS Custom Properties</h3>
               <p>
-                Fully customizable through CSS variables. Change colors, spacing,
-                and effects without touching the source code.
+                Fully customizable through CSS variables. Change colors, spacing, and effects
+                without touching the source code.
               </p>
             </div>
 
             <div className="demo-feature-card">
               <h3>Modular Architecture</h3>
               <p>
-                Import only what you need. Components, effects, and utilities
-                are all independently importable SCSS modules.
+                Import only what you need. Components, effects, and utilities are all independently
+                importable SCSS modules.
               </p>
             </div>
 
             <div className="demo-feature-card">
               <h3>Cyberpunk Aesthetics</h3>
               <p>
-                Neon glows, glitch effects, scanlines, and more.
-                Authentic cyberpunk visual design out of the box.
+                Neon glows, glitch effects, scanlines, and more. Authentic cyberpunk visual design
+                out of the box.
               </p>
             </div>
 
             <div className="demo-feature-card">
               <h3>Responsive & Fluid</h3>
               <p>
-                Fluid typography and spacing that adapts to any screen size.
-                Mobile-first design principles throughout.
+                Fluid typography and spacing that adapts to any screen size. Mobile-first design
+                principles throughout.
               </p>
             </div>
 
             <div className="demo-feature-card">
               <h3>Accessibility</h3>
               <p>
-                Respects prefers-reduced-motion, includes focus states,
-                and maintains readable contrast ratios.
+                Respects prefers-reduced-motion, includes focus states, and maintains readable
+                contrast ratios.
               </p>
             </div>
           </div>
@@ -146,11 +145,7 @@ function Home() {
               <h4 className="cyber-label" style={{ marginBottom: 'var(--space-md)' }}>
                 Inputs
               </h4>
-              <input
-                type="text"
-                className="cyber-input"
-                placeholder="Enter access code..."
-              />
+              <input type="text" className="cyber-input" placeholder="Enter access code..." />
             </div>
 
             {/* Badges Preview */}
@@ -265,7 +260,10 @@ function Home() {
 
           <div className="demo-grid">
             <div className="demo-box">
-              <h4 className="cyber-label cyber-text-cyan" style={{ marginBottom: 'var(--space-sm)' }}>
+              <h4
+                className="cyber-label cyber-text-cyan"
+                style={{ marginBottom: 'var(--space-sm)' }}
+              >
                 Cyber Cyan
               </h4>
               <div
@@ -275,12 +273,15 @@ function Home() {
                   borderRadius: 'var(--radius-sm)',
                   marginBottom: 'var(--space-xs)',
                 }}
-               />
+              />
               <code className="cyber-mono">#00f0ff</code>
             </div>
 
             <div className="demo-box">
-              <h4 className="cyber-label cyber-text-magenta" style={{ marginBottom: 'var(--space-sm)' }}>
+              <h4
+                className="cyber-label cyber-text-magenta"
+                style={{ marginBottom: 'var(--space-sm)' }}
+              >
                 Cyber Magenta
               </h4>
               <div
@@ -290,12 +291,15 @@ function Home() {
                   borderRadius: 'var(--radius-sm)',
                   marginBottom: 'var(--space-xs)',
                 }}
-               />
+              />
               <code className="cyber-mono">#ff2a6d</code>
             </div>
 
             <div className="demo-box">
-              <h4 className="cyber-label cyber-text-yellow" style={{ marginBottom: 'var(--space-sm)' }}>
+              <h4
+                className="cyber-label cyber-text-yellow"
+                style={{ marginBottom: 'var(--space-sm)' }}
+              >
                 Cyber Yellow
               </h4>
               <div
@@ -305,12 +309,15 @@ function Home() {
                   borderRadius: 'var(--radius-sm)',
                   marginBottom: 'var(--space-xs)',
                 }}
-               />
+              />
               <code className="cyber-mono">#fcee0a</code>
             </div>
 
             <div className="demo-box">
-              <h4 className="cyber-label cyber-text-green" style={{ marginBottom: 'var(--space-sm)' }}>
+              <h4
+                className="cyber-label cyber-text-green"
+                style={{ marginBottom: 'var(--space-sm)' }}
+              >
                 Cyber Green
               </h4>
               <div
@@ -320,7 +327,7 @@ function Home() {
                   borderRadius: 'var(--radius-sm)',
                   marginBottom: 'var(--space-xs)',
                 }}
-               />
+              />
               <code className="cyber-mono">#05ffa1</code>
             </div>
           </div>

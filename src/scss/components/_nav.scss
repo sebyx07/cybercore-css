@@ -72,7 +72,7 @@
         color: var(--cyber-cyan-500);
 
         &::after {
-          content: '';
+          content: "";
           position: absolute;
           right: var(--space-sm);
           bottom: 0;
@@ -224,7 +224,7 @@
     background: color-mix(in srgb, var(--cyber-green-500) 10%, transparent);
 
     &::before {
-      content: '';
+      content: "";
       width: 6px;
       height: 6px;
       border-radius: 50%;
@@ -267,7 +267,8 @@
   }
 
   @keyframes status-blink {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 100%;
     }
 

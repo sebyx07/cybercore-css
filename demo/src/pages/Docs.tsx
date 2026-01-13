@@ -46,10 +46,19 @@ function Docs() {
                       fontWeight: 500,
                       textTransform: 'uppercase',
                       letterSpacing: 'var(--tracking-wide)',
-                      color: activeSection === section.id ? 'var(--cyber-cyan-500)' : 'var(--color-text-secondary)',
-                      background: activeSection === section.id ? 'color-mix(in srgb, var(--cyber-cyan-500) 10%, transparent)' : 'transparent',
+                      color:
+                        activeSection === section.id
+                          ? 'var(--cyber-cyan-500)'
+                          : 'var(--color-text-secondary)',
+                      background:
+                        activeSection === section.id
+                          ? 'color-mix(in srgb, var(--cyber-cyan-500) 10%, transparent)'
+                          : 'transparent',
                       border: 'none',
-                      borderLeft: activeSection === section.id ? '2px solid var(--cyber-cyan-500)' : '2px solid transparent',
+                      borderLeft:
+                        activeSection === section.id
+                          ? '2px solid var(--cyber-cyan-500)'
+                          : '2px solid transparent',
                       cursor: 'pointer',
                       transition: 'all var(--transition-fast)',
                     }}
@@ -70,21 +79,33 @@ function Docs() {
                   <span className="cyber-text-cyan">//</span> Installation
                 </h2>
 
-                <h3 className="cyber-h4" style={{ marginBottom: 'var(--space-md)' }}>NPM</h3>
+                <h3 className="cyber-h4" style={{ marginBottom: 'var(--space-md)' }}>
+                  NPM
+                </h3>
                 <CodeBlock
                   title="Install via NPM"
                   language="bash"
                   code={`npm install cybercore-css`}
                 />
 
-                <h3 className="cyber-h4" style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}>Yarn</h3>
+                <h3
+                  className="cyber-h4"
+                  style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}
+                >
+                  Yarn
+                </h3>
                 <CodeBlock
                   title="Install via Yarn"
                   language="bash"
                   code={`yarn add cybercore-css`}
                 />
 
-                <h3 className="cyber-h4" style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}>CDN</h3>
+                <h3
+                  className="cyber-h4"
+                  style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}
+                >
+                  CDN
+                </h3>
                 <CodeBlock
                   title="Use via CDN"
                   language="html"
@@ -92,8 +113,8 @@ function Docs() {
                 />
 
                 <div className="cyber-alert" style={{ marginTop: 'var(--space-lg)' }}>
-                  <strong>Note:</strong> Don't forget to include the required Google Fonts in your HTML head
-                  for the best typography experience.
+                  <strong>Note:</strong> Don't forget to include the required Google Fonts in your
+                  HTML head for the best typography experience.
                 </div>
 
                 <CodeBlock
@@ -113,7 +134,9 @@ function Docs() {
                   <span className="cyber-text-cyan">//</span> Usage
                 </h2>
 
-                <h3 className="cyber-h4" style={{ marginBottom: 'var(--space-md)' }}>Import Everything</h3>
+                <h3 className="cyber-h4" style={{ marginBottom: 'var(--space-md)' }}>
+                  Import Everything
+                </h3>
                 <CodeBlock
                   title="Full Import (SCSS)"
                   language="scss"
@@ -121,7 +144,12 @@ function Docs() {
 @use 'cybercore-css';`}
                 />
 
-                <h3 className="cyber-h4" style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}>Modular Import</h3>
+                <h3
+                  className="cyber-h4"
+                  style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}
+                >
+                  Modular Import
+                </h3>
                 <CodeBlock
                   title="Selective Import (SCSS)"
                   language="scss"
@@ -140,7 +168,12 @@ function Docs() {
 @use 'cybercore-css/effects/neon-border';`}
                 />
 
-                <h3 className="cyber-h4" style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}>Basic HTML Usage</h3>
+                <h3
+                  className="cyber-h4"
+                  style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}
+                >
+                  Basic HTML Usage
+                </h3>
                 <CodeBlock
                   title="HTML Example"
                   language="html"
@@ -170,10 +203,13 @@ function Docs() {
 
                 <p style={{ marginBottom: 'var(--space-lg)' }}>
                   Cybercore CSS is built with CSS custom properties (variables), making it easy to
-                  customize colors, spacing, and other design tokens without modifying the source files.
+                  customize colors, spacing, and other design tokens without modifying the source
+                  files.
                 </p>
 
-                <h3 className="cyber-h4" style={{ marginBottom: 'var(--space-md)' }}>Override CSS Variables</h3>
+                <h3 className="cyber-h4" style={{ marginBottom: 'var(--space-md)' }}>
+                  Override CSS Variables
+                </h3>
                 <CodeBlock
                   title="Custom Theme"
                   language="css"
@@ -192,7 +228,12 @@ function Docs() {
 }`}
                 />
 
-                <h3 className="cyber-h4" style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}>Scoped Customization</h3>
+                <h3
+                  className="cyber-h4"
+                  style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}
+                >
+                  Scoped Customization
+                </h3>
                 <CodeBlock
                   title="Component-level Override"
                   language="css"
@@ -219,34 +260,75 @@ function Docs() {
 
                 <p style={{ marginBottom: 'var(--space-lg)' }}>
                   The color system is built around four primary accent colors, plus neutral tones
-                  for backgrounds and text. Each color has a full scale from 100 (lightest) to 900 (darkest).
+                  for backgrounds and text. Each color has a full scale from 100 (lightest) to 900
+                  (darkest).
                 </p>
 
-                <h3 className="cyber-h4" style={{ marginBottom: 'var(--space-md)' }}>Primary Colors</h3>
+                <h3 className="cyber-h4" style={{ marginBottom: 'var(--space-md)' }}>
+                  Primary Colors
+                </h3>
                 <div className="demo-grid" style={{ marginBottom: 'var(--space-xl)' }}>
                   <div className="demo-box">
-                    <div style={{ height: '60px', background: 'var(--cyber-cyan-500)', borderRadius: 'var(--radius-sm)', marginBottom: 'var(--space-xs)' }} />
+                    <div
+                      style={{
+                        height: '60px',
+                        background: 'var(--cyber-cyan-500)',
+                        borderRadius: 'var(--radius-sm)',
+                        marginBottom: 'var(--space-xs)',
+                      }}
+                    />
                     <code>--cyber-cyan-500</code>
-                    <p className="cyber-small" style={{ marginTop: 'var(--space-xs)' }}>Primary actions, links, tech/neutral</p>
+                    <p className="cyber-small" style={{ marginTop: 'var(--space-xs)' }}>
+                      Primary actions, links, tech/neutral
+                    </p>
                   </div>
                   <div className="demo-box">
-                    <div style={{ height: '60px', background: 'var(--cyber-magenta-500)', borderRadius: 'var(--radius-sm)', marginBottom: 'var(--space-xs)' }} />
+                    <div
+                      style={{
+                        height: '60px',
+                        background: 'var(--cyber-magenta-500)',
+                        borderRadius: 'var(--radius-sm)',
+                        marginBottom: 'var(--space-xs)',
+                      }}
+                    />
                     <code>--cyber-magenta-500</code>
-                    <p className="cyber-small" style={{ marginTop: 'var(--space-xs)' }}>Danger, errors, alerts</p>
+                    <p className="cyber-small" style={{ marginTop: 'var(--space-xs)' }}>
+                      Danger, errors, alerts
+                    </p>
                   </div>
                   <div className="demo-box">
-                    <div style={{ height: '60px', background: 'var(--cyber-yellow-500)', borderRadius: 'var(--radius-sm)', marginBottom: 'var(--space-xs)' }} />
+                    <div
+                      style={{
+                        height: '60px',
+                        background: 'var(--cyber-yellow-500)',
+                        borderRadius: 'var(--radius-sm)',
+                        marginBottom: 'var(--space-xs)',
+                      }}
+                    />
                     <code>--cyber-yellow-500</code>
-                    <p className="cyber-small" style={{ marginTop: 'var(--space-xs)' }}>Warnings, highlights</p>
+                    <p className="cyber-small" style={{ marginTop: 'var(--space-xs)' }}>
+                      Warnings, highlights
+                    </p>
                   </div>
                   <div className="demo-box">
-                    <div style={{ height: '60px', background: 'var(--cyber-green-500)', borderRadius: 'var(--radius-sm)', marginBottom: 'var(--space-xs)' }} />
+                    <div
+                      style={{
+                        height: '60px',
+                        background: 'var(--cyber-green-500)',
+                        borderRadius: 'var(--radius-sm)',
+                        marginBottom: 'var(--space-xs)',
+                      }}
+                    />
                     <code>--cyber-green-500</code>
-                    <p className="cyber-small" style={{ marginTop: 'var(--space-xs)' }}>Success, confirmation</p>
+                    <p className="cyber-small" style={{ marginTop: 'var(--space-xs)' }}>
+                      Success, confirmation
+                    </p>
                   </div>
                 </div>
 
-                <h3 className="cyber-h4" style={{ marginBottom: 'var(--space-md)' }}>Semantic Tokens</h3>
+                <h3 className="cyber-h4" style={{ marginBottom: 'var(--space-md)' }}>
+                  Semantic Tokens
+                </h3>
                 <CodeBlock
                   title="Semantic Color Variables"
                   language="css"
@@ -276,7 +358,9 @@ function Docs() {
                   <span className="cyber-text-cyan">//</span> Typography
                 </h2>
 
-                <h3 className="cyber-h4" style={{ marginBottom: 'var(--space-md)' }}>Font Families</h3>
+                <h3 className="cyber-h4" style={{ marginBottom: 'var(--space-md)' }}>
+                  Font Families
+                </h3>
                 <CodeBlock
                   title="Font Stack Variables"
                   language="css"
@@ -285,16 +369,42 @@ function Docs() {
 --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;`}
                 />
 
-                <h3 className="cyber-h4" style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}>Type Scale</h3>
+                <h3
+                  className="cyber-h4"
+                  style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}
+                >
+                  Type Scale
+                </h3>
                 <div className="demo-box" style={{ marginBottom: 'var(--space-lg)' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
-                    <div><span className="cyber-display">Display</span> <code className="cyber-small">cyber-display</code></div>
-                    <div><span className="cyber-h1">Heading 1</span> <code className="cyber-small">cyber-h1</code></div>
-                    <div><span className="cyber-h2">Heading 2</span> <code className="cyber-small">cyber-h2</code></div>
-                    <div><span className="cyber-h3">Heading 3</span> <code className="cyber-small">cyber-h3</code></div>
-                    <div><span className="cyber-h4">Heading 4</span> <code className="cyber-small">cyber-h4</code></div>
-                    <div><span className="cyber-h5">Heading 5</span> <code className="cyber-small">cyber-h5</code></div>
-                    <div><span className="cyber-h6">Heading 6</span> <code className="cyber-small">cyber-h6</code></div>
+                    <div>
+                      <span className="cyber-display">Display</span>{' '}
+                      <code className="cyber-small">cyber-display</code>
+                    </div>
+                    <div>
+                      <span className="cyber-h1">Heading 1</span>{' '}
+                      <code className="cyber-small">cyber-h1</code>
+                    </div>
+                    <div>
+                      <span className="cyber-h2">Heading 2</span>{' '}
+                      <code className="cyber-small">cyber-h2</code>
+                    </div>
+                    <div>
+                      <span className="cyber-h3">Heading 3</span>{' '}
+                      <code className="cyber-small">cyber-h3</code>
+                    </div>
+                    <div>
+                      <span className="cyber-h4">Heading 4</span>{' '}
+                      <code className="cyber-small">cyber-h4</code>
+                    </div>
+                    <div>
+                      <span className="cyber-h5">Heading 5</span>{' '}
+                      <code className="cyber-small">cyber-h5</code>
+                    </div>
+                    <div>
+                      <span className="cyber-h6">Heading 6</span>{' '}
+                      <code className="cyber-small">cyber-h6</code>
+                    </div>
                   </div>
                 </div>
 
@@ -340,18 +450,33 @@ function Docs() {
 --space-3xl: clamp(4.8rem, 4rem + 4vw, 6rem);`}
                 />
 
-                <h3 className="cyber-h4" style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}>Visual Reference</h3>
+                <h3
+                  className="cyber-h4"
+                  style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}
+                >
+                  Visual Reference
+                </h3>
                 <div className="demo-box">
                   {['3xs', '2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'].map((size) => (
-                    <div key={size} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-md)', marginBottom: 'var(--space-xs)' }}>
+                    <div
+                      key={size}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 'var(--space-md)',
+                        marginBottom: 'var(--space-xs)',
+                      }}
+                    >
                       <code style={{ width: '80px' }}>--space-{size}</code>
-                      <div style={{
-                        height: `var(--space-${size})`,
-                        width: `var(--space-${size})`,
-                        minWidth: '8px',
-                        background: 'var(--cyber-cyan-500)',
-                        borderRadius: 'var(--radius-sm)'
-                      }} />
+                      <div
+                        style={{
+                          height: `var(--space-${size})`,
+                          width: `var(--space-${size})`,
+                          minWidth: '8px',
+                          background: 'var(--cyber-cyan-500)',
+                          borderRadius: 'var(--radius-sm)',
+                        }}
+                      />
                     </div>
                   ))}
                 </div>
@@ -365,7 +490,9 @@ function Docs() {
                   <span className="cyber-text-cyan">//</span> Utility Classes
                 </h2>
 
-                <h3 className="cyber-h4" style={{ marginBottom: 'var(--space-md)' }}>Text Colors</h3>
+                <h3 className="cyber-h4" style={{ marginBottom: 'var(--space-md)' }}>
+                  Text Colors
+                </h3>
                 <CodeBlock
                   title="Text Color Classes"
                   language="html"
@@ -376,7 +503,12 @@ function Docs() {
 <span class="cyber-text-muted">Muted text</span>`}
                 />
 
-                <h3 className="cyber-h4" style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}>Text Glow</h3>
+                <h3
+                  className="cyber-h4"
+                  style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}
+                >
+                  Text Glow
+                </h3>
                 <CodeBlock
                   title="Text Glow Classes"
                   language="html"
@@ -386,7 +518,12 @@ function Docs() {
 <span class="cyber-text-glow--green">Green glow</span>`}
                 />
 
-                <h3 className="cyber-h4" style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}>Typography Utilities</h3>
+                <h3
+                  className="cyber-h4"
+                  style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}
+                >
+                  Typography Utilities
+                </h3>
                 <CodeBlock
                   title="Typography Classes"
                   language="html"
@@ -396,7 +533,12 @@ function Docs() {
 <small class="cyber-small">Small secondary text</small>`}
                 />
 
-                <h3 className="cyber-h4" style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}>Border Radius</h3>
+                <h3
+                  className="cyber-h4"
+                  style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}
+                >
+                  Border Radius
+                </h3>
                 <CodeBlock
                   title="Border Radius Variables"
                   language="css"

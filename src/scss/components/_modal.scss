@@ -62,17 +62,13 @@
 
       // Corner accent decoration
       &::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         right: 0;
         width: 24px;
         height: 24px;
-        background: linear-gradient(
-          135deg,
-          var(--cyber-cyan-500) 50%,
-          transparent 50%
-        );
+        background: linear-gradient(135deg, var(--cyber-cyan-500) 50%, transparent 50%);
       }
     }
 
@@ -177,11 +173,7 @@
 
     &--magenta {
       .cyber-modal__dialog::before {
-        background: linear-gradient(
-          135deg,
-          var(--cyber-magenta-500) 50%,
-          transparent 50%
-        );
+        background: linear-gradient(135deg, var(--cyber-magenta-500) 50%, transparent 50%);
       }
 
       .cyber-modal__dialog {
@@ -193,11 +185,7 @@
 
     &--yellow {
       .cyber-modal__dialog::before {
-        background: linear-gradient(
-          135deg,
-          var(--cyber-yellow-500) 50%,
-          transparent 50%
-        );
+        background: linear-gradient(135deg, var(--cyber-yellow-500) 50%, transparent 50%);
       }
 
       .cyber-modal__dialog {
@@ -209,11 +197,7 @@
 
     &--green {
       .cyber-modal__dialog::before {
-        background: linear-gradient(
-          135deg,
-          var(--cyber-green-500) 50%,
-          transparent 50%
-        );
+        background: linear-gradient(135deg, var(--cyber-green-500) 50%, transparent 50%);
       }
 
       .cyber-modal__dialog {

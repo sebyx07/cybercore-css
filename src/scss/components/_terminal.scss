@@ -245,7 +245,8 @@
 
   // Cursor blink animation
   @keyframes cursor-blink {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 100%;
     }
 

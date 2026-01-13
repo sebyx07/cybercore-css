@@ -105,9 +105,7 @@ test.describe('Visual Regression Tests', () => {
 
       // Check that dark background is applied
       const body = page.locator('body');
-      const backgroundColor = await body.evaluate((el) =>
-        getComputedStyle(el).backgroundColor
-      );
+      const backgroundColor = await body.evaluate((el) => getComputedStyle(el).backgroundColor);
 
       // The background should be a dark color (cyber-void)
       expect(backgroundColor).toMatch(/rgb\(\d{1,2},\s*\d{1,2},\s*\d{1,2}\)/);
