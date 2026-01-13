@@ -607,31 +607,6 @@ function Home() {
           </div>
         </section>
 
-        {/* Footer */}
-        <footer
-          className="cyber-section cyber-text-center"
-          style={{ paddingBottom: 'var(--space-xl)' }}
-        >
-          <p
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: 'var(--text-sm)',
-              color: 'var(--color-text-muted)',
-            }}
-          >
-            CYBERCORE v1.0 // Designed for the streets of Night City
-          </p>
-          <p
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: 'var(--text-xs)',
-              color: 'var(--color-text-muted)',
-              marginTop: 'var(--space-xs)',
-            }}
-          >
-            [ No Tailwind. No Bootstrap. Pure CSS3. ]
-          </p>
-        </footer>
       </main>
     </div>
   );

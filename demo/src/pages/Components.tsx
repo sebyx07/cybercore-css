@@ -20,29 +20,26 @@ function Components() {
 
       <div className="demo-container">
         {/* Tabs Navigation */}
-        <nav className="cyber-tabs" style={{ marginBottom: 'var(--space-xl)' }}>
-          <ul className="cyber-tabs__list">
-            {[
-              'buttons',
-              'inputs',
-              'cards',
-              'badges',
-              'alerts',
-              'progress',
-              'tables',
-              'terminal',
-              'misc',
-            ].map((tab) => (
-              <li key={tab}>
-                <button
-                  className={`cyber-tabs__tab ${activeTab === tab ? 'cyber-tabs__tab--active' : ''}`}
-                  onClick={() => setActiveTab(tab)}
-                >
-                  {tab}
-                </button>
-              </li>
-            ))}
-          </ul>
+        <nav className="cyber-tabs cyber-tabs--fullwidth" style={{ marginBottom: 'var(--space-xl)' }}>
+          {[
+            'buttons',
+            'inputs',
+            'cards',
+            'badges',
+            'alerts',
+            'progress',
+            'tables',
+            'terminal',
+            'misc',
+          ].map((tab) => (
+            <button
+              key={tab}
+              className={`cyber-tab ${activeTab === tab ? 'cyber-tab--active' : ''}`}
+              onClick={() => setActiveTab(tab)}
+            >
+              {tab}
+            </button>
+          ))}
         </nav>
 
         {/* Buttons Section */}
