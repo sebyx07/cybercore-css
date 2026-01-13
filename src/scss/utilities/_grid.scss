@@ -1,0 +1,68 @@
+// ============================================================
+// Grid Utilities
+// ============================================================
+
+@layer utilities {
+  // Fixed column grids with responsive auto-fit
+  .cyber-grid--2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: var(--space-md);
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .cyber-grid--3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: var(--space-md);
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .cyber-grid--4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: var(--space-md);
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  // Auto-fit grids
+  .cyber-grid--auto-sm {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+    gap: var(--space-md);
+  }
+
+  .cyber-grid--auto-md {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: var(--space-md);
+  }
+
+  .cyber-grid--auto-lg {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+    gap: var(--space-md);
+  }
+
+  // Grid span utilities
+  .cyber-col-span-2 {
+    grid-column: span 2;
+  }
+
+  .cyber-col-span-3 {
+    grid-column: span 3;
+  }
+
+  .cyber-col-span-full {
+    grid-column: 1 / -1;
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "name": "cybercore-css",
+  "version": "0.1.0",
+  "description": "A pure CSS cyberpunk design system inspired by Cyberpunk 2077. Zero JavaScript, framework-agnostic, 2026+ optimized.",
+  "main": "dist/cybercore.css",
+  "module": "dist/cybercore.css",
+  "style": "dist/cybercore.css",
+  "sass": "src/scss/cybercore.scss",
+  "types": "dist/cybercore.d.ts",
+  "files": [
+    "dist",
+    "src/scss",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "style": "./dist/cybercore.css",
+      "sass": "./src/scss/cybercore.scss",
+      "default": "./dist/cybercore.css"
+    },
+    "./dist/*": "./dist/*",
+    "./scss/*": "./src/scss/*"
+  },
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:css\" \"npm run dev:demo\"",
+    "dev:css": "sass --watch src/scss/cybercore.scss:dist/cybercore.css --style=expanded",
+    "dev:demo": "vite --config demo/vite.config.ts",
+    "build": "npm run build:css && npm run build:demo",
+    "build:css": "npm run build:css:expanded && npm run build:css:minified",
+    "build:css:expanded": "sass src/scss/cybercore.scss:dist/cybercore.css --style=expanded",
+    "build:css:minified": "sass src/scss/cybercore.scss:dist/cybercore.min.css --style=compressed && npm run build:css:optimize",
+    "build:css:optimize": "postcss dist/cybercore.min.css -o dist/cybercore.min.css --no-map",
+    "build:demo": "vite build --config demo/vite.config.ts",
+    "preview": "vite preview --config demo/vite.config.ts",
+    "lint": "npm run lint:css && npm run lint:js",
+    "lint:css": "stylelint \"src/scss/**/*.scss\"",
+    "lint:js": "eslint demo/src --ext .ts,.tsx",
+    "lint:fix": "npm run lint:css -- --fix && npm run lint:js -- --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,scss,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,scss,json,md}\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:visual": "playwright test",
+    "test:visual:update": "playwright test --update-snapshots",
+    "typecheck": "tsc --noEmit --project demo/tsconfig.json",
+    "prepublishOnly": "npm run build:css",
+    "release": "npm run build && changeset publish",
+    "clean": "rm -rf dist demo/dist node_modules/.vite",
+    "prepare": "husky"
+  },
+  "keywords": [
+    "css",
+    "css-framework",
+    "cyberpunk",
+    "design-system",
+    "scss",
+    "sass",
+    "ui",
+    "components",
+    "dark-theme",
+    "neon",
+    "glitch",
+    "futuristic",
+    "pure-css",
+    "no-javascript",
+    "framework-agnostic"
+  ],
+  "author": "sebyx07",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebyx07/cybercore-css.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sebyx07/cybercore-css/issues"
+  },
+  "homepage": "https://sebyx07.github.io/cybercore-css",
+  "devDependencies": {
+    "@changesets/cli": "^2.27.0",
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "@vitest/coverage-v8": "^2.0.0",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.0.0",
+    "cssnano": "^7.0.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.37.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "husky": "^9.1.0",
+    "lint-staged": "^15.2.0",
+    "postcss": "^8.4.47",
+    "postcss-cli": "^11.0.0",
+    "prettier": "^3.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0",
+    "sass": "^1.80.0",
+    "stylelint": "^16.10.0",
+    "stylelint-config-standard-scss": "^13.1.0",
+    "stylelint-order": "^6.0.0",
+    "typescript": "^5.6.0",
+    "vite": "^5.4.0",
+    "vitest": "^2.0.0"
+  },
+  "peerDependencies": {},
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.scss": [
+      "stylelint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  }
+}

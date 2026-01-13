@@ -1,0 +1,229 @@
+// ============================================================
+// Badges Component
+// Inline pill badges with variants
+// ============================================================
+
+@layer components {
+  .cyber-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3xs);
+    padding: var(--space-3xs) var(--space-xs);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--cyber-cyan-500);
+    background: color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent);
+    border: var(--border-thin) solid var(--cyber-cyan-500);
+    white-space: nowrap;
+    transition:
+      background var(--transition-fast),
+      box-shadow var(--transition-fast);
+
+    // Icon support
+    svg,
+    &__icon {
+      width: 0.875em;
+      height: 0.875em;
+      flex-shrink: 0;
+    }
+
+    // --------------------------------------------------------
+    // Color Variants
+    // --------------------------------------------------------
+
+    &--magenta {
+      color: var(--cyber-magenta-500);
+      background: color-mix(in srgb, var(--cyber-magenta-500) 15%, transparent);
+      border-color: var(--cyber-magenta-500);
+
+      &.cyber-badge--pulse::before {
+        background: var(--cyber-magenta-500);
+      }
+    }
+
+    &--yellow {
+      color: var(--cyber-yellow-500);
+      background: color-mix(in srgb, var(--cyber-yellow-500) 15%, transparent);
+      border-color: var(--cyber-yellow-500);
+
+      &.cyber-badge--pulse::before {
+        background: var(--cyber-yellow-500);
+      }
+    }
+
+    &--green {
+      color: var(--cyber-green-500);
+      background: color-mix(in srgb, var(--cyber-green-500) 15%, transparent);
+      border-color: var(--cyber-green-500);
+
+      &.cyber-badge--pulse::before {
+        background: var(--cyber-green-500);
+      }
+    }
+
+    &--chrome {
+      color: var(--cyber-chrome-300);
+      background: color-mix(in srgb, var(--cyber-chrome-500) 15%, transparent);
+      border-color: var(--cyber-chrome-500);
+
+      &.cyber-badge--pulse::before {
+        background: var(--cyber-chrome-400);
+      }
+    }
+
+    // --------------------------------------------------------
+    // Style Variants
+    // --------------------------------------------------------
+
+    &--filled {
+      background: var(--cyber-cyan-500);
+      color: var(--cyber-void-500);
+      border-color: var(--cyber-cyan-500);
+
+      &.cyber-badge--magenta {
+        background: var(--cyber-magenta-500);
+        border-color: var(--cyber-magenta-500);
+      }
+
+      &.cyber-badge--yellow {
+        background: var(--cyber-yellow-500);
+        border-color: var(--cyber-yellow-500);
+      }
+
+      &.cyber-badge--green {
+        background: var(--cyber-green-500);
+        border-color: var(--cyber-green-500);
+      }
+    }
+
+    &--ghost {
+      background: transparent;
+      border-color: transparent;
+
+      &:hover {
+        background: color-mix(in srgb, currentColor 10%, transparent);
+      }
+    }
+
+    // --------------------------------------------------------
+    // Pulse Animation Variant
+    // --------------------------------------------------------
+
+    &--pulse {
+      position: relative;
+      overflow: visible;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: var(--space-xs);
+        top: 50%;
+        transform: translateY(-50%);
+        width: 6px;
+        height: 6px;
+        background: var(--cyber-cyan-500);
+        border-radius: 50%;
+        animation: badge-pulse 2s ease-in-out infinite;
+      }
+
+      // Adjust padding for pulse dot
+      padding-left: calc(var(--space-xs) + 12px);
+    }
+
+    // --------------------------------------------------------
+    // Size Variants
+    // --------------------------------------------------------
+
+    &--sm {
+      padding: 2px var(--space-2xs);
+      font-size: 0.625rem;
+    }
+
+    &--lg {
+      padding: var(--space-2xs) var(--space-sm);
+      font-size: var(--text-sm);
+    }
+
+    // --------------------------------------------------------
+    // Counter Badge (for notifications)
+    // --------------------------------------------------------
+
+    &--counter {
+      min-width: 1.5rem;
+      height: 1.5rem;
+      padding: 0;
+      border-radius: 50%;
+      justify-content: center;
+    }
+
+    // --------------------------------------------------------
+    // Status indicators
+    // --------------------------------------------------------
+
+    &--online {
+      color: var(--cyber-green-500);
+      background: color-mix(in srgb, var(--cyber-green-500) 15%, transparent);
+      border-color: var(--cyber-green-500);
+
+      &::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        background: var(--cyber-green-500);
+        border-radius: 50%;
+        animation: badge-pulse 2s ease-in-out infinite;
+      }
+    }
+
+    &--offline {
+      color: var(--cyber-chrome-500);
+      background: color-mix(in srgb, var(--cyber-chrome-500) 15%, transparent);
+      border-color: var(--cyber-chrome-500);
+
+      &::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        background: var(--cyber-chrome-500);
+        border-radius: 50%;
+      }
+    }
+
+    &--busy {
+      color: var(--cyber-magenta-500);
+      background: color-mix(in srgb, var(--cyber-magenta-500) 15%, transparent);
+      border-color: var(--cyber-magenta-500);
+
+      &::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        background: var(--cyber-magenta-500);
+        border-radius: 50%;
+        animation: badge-pulse 1s ease-in-out infinite;
+      }
+    }
+  }
+
+  // Pulse animation
+  @keyframes badge-pulse {
+    0%, 100% {
+      opacity: 1;
+      box-shadow: 0 0 0 0 currentColor;
+    }
+    50% {
+      opacity: 0.6;
+      box-shadow: 0 0 0 4px transparent;
+    }
+  }
+
+  // Badge group
+  .cyber-badge-group {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+  }
+}

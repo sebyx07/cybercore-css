@@ -1,0 +1,230 @@
+// ============================================================
+// Buttons Component
+// .cyber-btn with variants and effects
+// ============================================================
+
+@layer components {
+  // Corner cut clip-path for cyber aesthetic
+  $corner-cut-sm: polygon(
+    0 0,
+    calc(100% - 8px) 0,
+    100% 8px,
+    100% 100%,
+    8px 100%,
+    0 calc(100% - 8px)
+  );
+
+  $corner-cut-md: polygon(
+    0 0,
+    calc(100% - 12px) 0,
+    100% 12px,
+    100% 100%,
+    12px 100%,
+    0 calc(100% - 12px)
+  );
+
+  .cyber-btn {
+    // Base styles
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-md);
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    text-decoration: none;
+    cursor: pointer;
+    border: var(--border-medium) solid var(--cyber-cyan-500);
+    background: transparent;
+    color: var(--cyber-cyan-500);
+    clip-path: #{$corner-cut-sm};
+    transition:
+      background var(--transition-fast),
+      color var(--transition-fast),
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast),
+      transform var(--transition-fast);
+
+    // Focus visible outline
+    &:focus-visible {
+      outline: 2px solid var(--cyber-cyan-500);
+      outline-offset: 4px;
+    }
+
+    // Hover state
+    &:hover {
+      background: color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent);
+      box-shadow: var(--glow-cyan);
+      transform: translateY(-2px);
+    }
+
+    // Active state
+    &:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    // Disabled state
+    &:disabled,
+    &[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    // --------------------------------------------------------
+    // Color Variants
+    // --------------------------------------------------------
+
+    &--magenta {
+      border-color: var(--cyber-magenta-500);
+      color: var(--cyber-magenta-500);
+
+      &:hover {
+        background: color-mix(in srgb, var(--cyber-magenta-500) 15%, transparent);
+        box-shadow: var(--glow-magenta);
+      }
+
+      &.cyber-btn--filled {
+        background: var(--cyber-magenta-500);
+        color: var(--cyber-void-500);
+
+        &:hover {
+          background: var(--cyber-magenta-400);
+        }
+      }
+    }
+
+    &--yellow {
+      border-color: var(--cyber-yellow-500);
+      color: var(--cyber-yellow-500);
+
+      &:hover {
+        background: color-mix(in srgb, var(--cyber-yellow-500) 15%, transparent);
+        box-shadow: var(--glow-yellow);
+      }
+
+      &.cyber-btn--filled {
+        background: var(--cyber-yellow-500);
+        color: var(--cyber-void-500);
+
+        &:hover {
+          background: var(--cyber-yellow-400);
+        }
+      }
+    }
+
+    &--green {
+      border-color: var(--cyber-green-500);
+      color: var(--cyber-green-500);
+
+      &:hover {
+        background: color-mix(in srgb, var(--cyber-green-500) 15%, transparent);
+        box-shadow: var(--glow-green);
+      }
+
+      &.cyber-btn--filled {
+        background: var(--cyber-green-500);
+        color: var(--cyber-void-500);
+
+        &:hover {
+          background: var(--cyber-green-400);
+        }
+      }
+    }
+
+    // --------------------------------------------------------
+    // Style Variants
+    // --------------------------------------------------------
+
+    &--filled {
+      background: var(--cyber-cyan-500);
+      color: var(--cyber-void-500);
+
+      &:hover {
+        background: var(--cyber-cyan-400);
+        box-shadow: var(--glow-cyan);
+      }
+    }
+
+    &--ghost {
+      border-color: transparent;
+      background: transparent;
+
+      &:hover {
+        border-color: currentColor;
+        background: color-mix(in srgb, currentColor 10%, transparent);
+        box-shadow: none;
+      }
+    }
+
+    // --------------------------------------------------------
+    // Size Variants
+    // --------------------------------------------------------
+
+    &--sm {
+      padding: var(--space-2xs) var(--space-sm);
+      font-size: var(--text-xs);
+      clip-path: polygon(
+        0 0,
+        calc(100% - 6px) 0,
+        100% 6px,
+        100% 100%,
+        6px 100%,
+        0 calc(100% - 6px)
+      );
+    }
+
+    &--lg {
+      padding: var(--space-sm) var(--space-lg);
+      font-size: var(--text-base);
+      clip-path: #{$corner-cut-md};
+    }
+
+    // --------------------------------------------------------
+    // Icon support
+    // --------------------------------------------------------
+
+    svg,
+    .cyber-btn__icon {
+      width: 1em;
+      height: 1em;
+      flex-shrink: 0;
+    }
+  }
+
+  // Button group
+  .cyber-btn-group {
+    display: inline-flex;
+    gap: var(--space-2xs);
+
+    .cyber-btn {
+      clip-path: none;
+      border-radius: 0;
+    }
+
+    .cyber-btn:first-child {
+      clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 100%,
+        8px 100%,
+        0 calc(100% - 8px)
+      );
+    }
+
+    .cyber-btn:last-child {
+      clip-path: polygon(
+        0 0,
+        calc(100% - 8px) 0,
+        100% 8px,
+        100% 100%,
+        0 100%
+      );
+    }
+  }
+}

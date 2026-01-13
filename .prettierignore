@@ -1,0 +1,44 @@
+# Build outputs
+dist/
+build/
+.vite/
+
+# Dependencies
+node_modules/
+
+# Package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Cache
+.cache/
+.eslintcache
+.stylelintcache
+*.tsbuildinfo
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Generated files
+*.min.css
+*.min.js
+
+# Documentation build
+docs/.vitepress/dist/
+docs/.vitepress/cache/
+
+# Storybook
+storybook-static/
+
+# Changesets (auto-generated)
+.changeset/*.md
+
+# IDE
+.idea/
+.vscode/
+
+# Misc
+*.log
+LICENSE

@@ -1,0 +1,215 @@
+// ============================================================
+// Glitch Effect - Chromatic aberration and distortion
+// ============================================================
+
+@layer components {
+  .cyber-glitch {
+    --glitch-color-1: var(--cyber-cyan-500, #00f0ff);
+    --glitch-color-2: var(--cyber-magenta-500, #ff2a6d);
+    --glitch-offset: 2px;
+    --glitch-duration: 3s;
+
+    position: relative;
+
+    // Chromatic aberration layers
+    &::before,
+    &::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      background: inherit;
+      color: inherit;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    // Cyan channel offset
+    &::before {
+      color: var(--glitch-color-1);
+      animation: cyber-glitch-1 var(--glitch-duration) infinite linear alternate-reverse;
+      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+      mix-blend-mode: screen;
+    }
+
+    // Magenta channel offset
+    &::after {
+      color: var(--glitch-color-2);
+      animation: cyber-glitch-2 var(--glitch-duration) infinite linear alternate-reverse;
+      clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+      mix-blend-mode: screen;
+    }
+
+    // Intense glitch variant
+    &--intense {
+      --glitch-offset: 4px;
+      --glitch-duration: 1.5s;
+
+      &::before {
+        animation: cyber-glitch-intense-1 var(--glitch-duration) infinite;
+      }
+
+      &::after {
+        animation: cyber-glitch-intense-2 var(--glitch-duration) infinite;
+      }
+    }
+
+    // Hover-only glitch
+    &--hover {
+      &::before,
+      &::after {
+        opacity: 0;
+        animation: none;
+      }
+
+      &:hover::before,
+      &:hover::after {
+        opacity: 1;
+      }
+
+      &:hover::before {
+        animation: cyber-glitch-1 0.3s infinite linear alternate-reverse;
+      }
+
+      &:hover::after {
+        animation: cyber-glitch-2 0.3s infinite linear alternate-reverse;
+      }
+    }
+
+    // Subtle glitch for continuous use
+    &--subtle {
+      --glitch-offset: 1px;
+
+      &::before,
+      &::after {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  // Standard glitch animations
+  @keyframes cyber-glitch-1 {
+    0%,
+    100% {
+      transform: translate(0);
+      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    }
+    20% {
+      transform: translate(calc(var(--glitch-offset) * -1), 0);
+      clip-path: polygon(0 15%, 100% 15%, 100% 30%, 0 30%);
+    }
+    40% {
+      transform: translate(var(--glitch-offset), 0);
+      clip-path: polygon(0 5%, 100% 5%, 100% 20%, 0 20%);
+    }
+    60% {
+      transform: translate(calc(var(--glitch-offset) * -0.5), 0);
+      clip-path: polygon(0 35%, 100% 35%, 100% 50%, 0 50%);
+    }
+    80% {
+      transform: translate(var(--glitch-offset), 0);
+      clip-path: polygon(0 0, 100% 0, 100% 10%, 0 10%);
+    }
+  }
+
+  @keyframes cyber-glitch-2 {
+    0%,
+    100% {
+      transform: translate(0);
+      clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+    }
+    20% {
+      transform: translate(var(--glitch-offset), 0);
+      clip-path: polygon(0 70%, 100% 70%, 100% 85%, 0 85%);
+    }
+    40% {
+      transform: translate(calc(var(--glitch-offset) * -1), 0);
+      clip-path: polygon(0 80%, 100% 80%, 100% 95%, 0 95%);
+    }
+    60% {
+      transform: translate(calc(var(--glitch-offset) * 0.5), 0);
+      clip-path: polygon(0 60%, 100% 60%, 100% 75%, 0 75%);
+    }
+    80% {
+      transform: translate(calc(var(--glitch-offset) * -1), 0);
+      clip-path: polygon(0 90%, 100% 90%, 100% 100%, 0 100%);
+    }
+  }
+
+  // Intense glitch with more aggressive distortion
+  @keyframes cyber-glitch-intense-1 {
+    0% {
+      transform: translate(0);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+    5% {
+      transform: translate(var(--glitch-offset), calc(var(--glitch-offset) * -1));
+      clip-path: polygon(0 5%, 100% 5%, 100% 10%, 0 10%);
+    }
+    10% {
+      transform: translate(calc(var(--glitch-offset) * -2), 0);
+      clip-path: polygon(0 20%, 100% 20%, 100% 25%, 0 25%);
+    }
+    15% {
+      transform: translate(0);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+    50% {
+      transform: translate(calc(var(--glitch-offset) * -1), var(--glitch-offset));
+      clip-path: polygon(0 40%, 100% 40%, 100% 50%, 0 50%);
+    }
+    55% {
+      transform: translate(var(--glitch-offset), 0);
+      clip-path: polygon(0 60%, 100% 60%, 100% 70%, 0 70%);
+    }
+    60%,
+    100% {
+      transform: translate(0);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+  }
+
+  @keyframes cyber-glitch-intense-2 {
+    0% {
+      transform: translate(0);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+    7% {
+      transform: translate(calc(var(--glitch-offset) * -1), var(--glitch-offset));
+      clip-path: polygon(0 75%, 100% 75%, 100% 80%, 0 80%);
+    }
+    12% {
+      transform: translate(var(--glitch-offset), 0);
+      clip-path: polygon(0 85%, 100% 85%, 100% 95%, 0 95%);
+    }
+    17% {
+      transform: translate(0);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+    45% {
+      transform: translate(var(--glitch-offset), calc(var(--glitch-offset) * -1));
+      clip-path: polygon(0 30%, 100% 30%, 100% 35%, 0 35%);
+    }
+    52% {
+      transform: translate(calc(var(--glitch-offset) * -2), 0);
+      clip-path: polygon(0 15%, 100% 15%, 100% 25%, 0 25%);
+    }
+    58%,
+    100% {
+      transform: translate(0);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+  }
+
+  // Respect reduced motion preference
+  @media (prefers-reduced-motion: reduce) {
+    .cyber-glitch {
+      &::before,
+      &::after {
+        animation: none;
+        transform: none;
+        clip-path: none;
+        opacity: 0;
+      }
+    }
+  }
+}

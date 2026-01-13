@@ -1,0 +1,88 @@
+// ============================================================
+// Scanlines Effect - CRT monitor scanline overlay
+// ============================================================
+
+@layer components {
+  .cyber-scanlines {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: var(--scanline-opacity, 0.04);
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.3) 1px,
+        rgba(0, 0, 0, 0.3) 2px
+      );
+      background-size: 100% 2px;
+    }
+
+    // Finer scanlines variant
+    &--fine::before {
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 0.5px,
+        rgba(0, 0, 0, 0.2) 0.5px,
+        rgba(0, 0, 0, 0.2) 1px
+      );
+      background-size: 100% 1px;
+    }
+
+    // Thicker, more visible scanlines
+    &--heavy::before {
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.4) 2px,
+        rgba(0, 0, 0, 0.4) 4px
+      );
+      background-size: 100% 4px;
+    }
+
+    // Animated flickering scanlines
+    &--flicker::before {
+      animation: cyber-scanline-flicker 0.15s infinite;
+    }
+
+    // Scrolling scanlines effect
+    &--scroll::before {
+      animation: cyber-scanline-scroll 8s linear infinite;
+    }
+  }
+
+  @keyframes cyber-scanline-flicker {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.98;
+    }
+  }
+
+  @keyframes cyber-scanline-scroll {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 0 100%;
+    }
+  }
+
+  // Respect reduced motion preference
+  @media (prefers-reduced-motion: reduce) {
+    .cyber-scanlines--flicker::before,
+    .cyber-scanlines--scroll::before {
+      animation: none;
+    }
+  }
+}

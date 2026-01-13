@@ -1,0 +1,649 @@
+# CYBERCORE CSS Framework — Complete Specification Document
+
+## Project Vision
+
+CYBERCORE is a **pure CSS design system** inspired by the aesthetics of Cyberpunk 2077 and the broader cyberpunk genre. It delivers a dark, neon-soaked, high-tech visual language that feels like hacking into Night City's neural network. The framework requires **zero JavaScript** — every effect, animation, and interaction is achieved through modern CSS alone.
+
+The goal is to create a **2026+ optimized, framework-agnostic CSS library** that any project can drop in and use immediately, whether it's vanilla HTML, React, Vue, Svelte, Astro, or server-rendered PHP/Ruby/Python templates.
+
+---
+
+## Core Design Philosophy
+
+### 1. Pure CSS, No JavaScript Dependencies
+Every single feature — glitch effects, neon glows, animated borders, hover states, loading spinners, progress bars, form validation states — must work with CSS only. JavaScript can enhance but is never required.
+
+### 2. Framework Agnostic
+The library ships as plain CSS and SCSS. It uses semantic class names that work in any templating system. No JSX dependencies, no CSS-in-JS, no build tool requirements (though SCSS compilation is supported).
+
+### 3. Modern CSS Features (2026+)
+Leverage the latest CSS capabilities that now have broad browser support:
+- `color-mix()` for dynamic color manipulation
+- CSS custom properties (variables) for theming
+- Container queries for component-level responsiveness
+- `@layer` for cascade management
+- Scroll-driven animations
+- `:has()` selector for parent selection
+- `clamp()` for fluid typography and spacing
+- `oklch()` color space for perceptually uniform colors
+- Nesting (native CSS nesting, not just SCSS)
+- `@scope` for scoped styles
+- View transitions API (CSS portion)
+
+### 4. Performance First
+- No render-blocking JavaScript
+- GPU-accelerated animations using `transform` and `opacity`
+- Minimal repaints and reflows
+- Tree-shakeable SCSS modules
+- Small footprint when minified and gzipped
+
+### 5. Accessibility Built-In
+- Respects `prefers-reduced-motion`
+- Respects `prefers-color-scheme` (for potential light mode variant)
+- Respects `prefers-contrast`
+- Full keyboard navigation support
+- Proper focus states
+- ARIA-friendly markup patterns
+
+---
+
+## Color System
+
+### Primary Palette
+
+The framework uses four signature accent colors inspired by Cyberpunk 2077's visual language:
+
+| Name | Primary Hex | Usage |
+|------|-------------|-------|
+| **Cyber Cyan** | `#00f0ff` | Primary actions, links, default accent, tech/neutral |
+| **Cyber Magenta** | `#ff2a6d` | Danger, errors, alerts, aggressive/hostile |
+| **Cyber Yellow** | `#fcee0a` | Warnings, highlights, caution, Militech vibe |
+| **Cyber Green** | `#05ffa1` | Success, confirmation, money, Arasaka corpo vibe |
+
+Each color has a full 9-step scale (100-900) for flexibility:
+- 100-300: Light tints (for subtle backgrounds, disabled states)
+- 400-500: Primary vibrant shades
+- 600-900: Dark shades (for borders, shadows, depth)
+
+### Neutral Palette
+
+Two neutral scales:
+
+| Name | Usage |
+|------|-------|
+| **Cyber Void** | Ultra-dark blacks for backgrounds (main bg is `#0d0e14`) |
+| **Cyber Chrome** | Metallic grays for text and UI chrome |
+
+### Semantic Color Tokens
+
+Map raw colors to semantic purposes:
+```
+--color-bg-primary      → Main page background
+--color-bg-secondary    → Card backgrounds, elevated surfaces
+--color-bg-tertiary     → Input backgrounds, nested elements
+--color-bg-elevated     → Modals, dropdowns, popovers
+
+--color-text-primary    → Main body text
+--color-text-secondary  → Subdued text
+--color-text-muted      → Placeholder text, disabled
+--color-text-accent     → Links, highlighted text
+
+--color-border-default  → Standard borders
+--color-border-accent   → Highlighted borders
+--color-border-glow     → Glowing border effects
+```
+
+### Glow Effects
+
+Pre-defined box-shadow values for neon glow effects:
+```
+--glow-cyan    → Multi-layer cyan glow (20px, 40px, 80px blur)
+--glow-magenta → Multi-layer magenta glow
+--glow-yellow  → Multi-layer yellow glow
+--glow-green   → Multi-layer green glow
+--glow-text-*  → Smaller glows for text-shadow
+```
+
+---
+
+## Typography System
+
+### Font Stack
+
+Three font categories with fallbacks:
+
+| Category | Primary Font | Fallbacks | Usage |
+|----------|--------------|-----------|-------|
+| **Display** | Rajdhani, Orbitron | Share Tech Mono, system-ui | Headings, buttons, labels |
+| **Body** | Exo 2 | Roboto, system-ui | Paragraphs, general text |
+| **Mono** | JetBrains Mono | Fira Code, SF Mono, monospace | Code, data, terminal |
+
+### Type Scale
+
+Fluid typography using `clamp()` with a Perfect Fourth ratio (1.333):
+
+```
+--text-xs   → ~12px (small labels, badges)
+--text-sm   → ~14px (secondary text, buttons)
+--text-base → ~16px (body text)
+--text-lg   → ~20px (large body, card titles)
+--text-xl   → ~25px (section headers)
+--text-2xl  → ~31px (page section titles)
+--text-3xl  → ~39px (major headings)
+--text-4xl  → ~49px (hero subheadings)
+--text-5xl  → ~61px (hero headlines)
+```
+
+### Typography Styles
+
+- **Headings**: All uppercase, tight letter-spacing (0.02em), font-weight 700
+- **Body**: Normal case, comfortable line-height (1.6)
+- **Code**: Monospace, slight cyan tint, subtle background
+- **Labels**: Uppercase, extra letter-spacing (0.1em), small size
+
+### Special Typography Effects
+
+**Glitch Heading**: A heading style with chromatic aberration effect using `::before` and `::after` pseudo-elements that show offset colored copies of the text with animated clip-path distortion.
+
+---
+
+## Spacing System
+
+Fluid spacing scale using `clamp()`:
+
+```
+--space-3xs → ~4px
+--space-2xs → ~8px
+--space-xs  → ~12px
+--space-sm  → ~16px
+--space-md  → ~24px
+--space-lg  → ~32px
+--space-xl  → ~48px
+--space-2xl → ~64px
+--space-3xl → ~96px
+```
+
+---
+
+## Border & Corner System
+
+### Border Widths
+```
+--border-thin   → 1px
+--border-medium → 2px
+--border-thick  → 3px
+```
+
+### Border Radii
+```
+--radius-none  → 0
+--radius-sm    → 2px
+--radius-md    → 4px
+--radius-lg    → 8px
+--radius-cyber → 0 12px 0 12px (signature asymmetric cut)
+--radius-cyber-alt → 12px 0 12px 0 (inverted asymmetric)
+```
+
+The **asymmetric corner cut** is a signature design element — it creates a futuristic angular look without being fully sharp or fully rounded.
+
+---
+
+## Component Library
+
+### Buttons (`.cyber-btn`)
+
+**Base Features:**
+- Asymmetric border-radius (`--radius-cyber`)
+- Border with accent color
+- Uppercase text with letter-spacing
+- Corner cut decoration (bottom-right triangle)
+- Slide-in background fill on hover using `::before` pseudo-element
+- Glow effect on hover/focus
+
+**Variants:**
+- `--magenta`, `--yellow`, `--green` — color variants
+- `--ghost` — dashed border style
+- `--filled` — solid background, inverted hover
+- `--sm`, `--lg` — size variants
+
+**States:**
+- Default, hover, focus-visible, active, disabled
+
+---
+
+### Cards (`.cyber-card`)
+
+**Base Features:**
+- Dark secondary background
+- `clip-path` polygon creating cut corners (top-right and bottom-left)
+- Corner accent decorations using `::before` and `::after`
+- Configurable accent color via CSS variable
+
+**Variants:**
+- `--magenta`, `--yellow`, `--green` — accent color variants
+- `--interactive` — adds hover glow and lift effect
+- `--holo` — holographic animated gradient background
+
+**Sub-components:**
+- `.cyber-card__header` — flex container with border-bottom
+- `.cyber-card__icon` — square icon container with accent background
+- `.cyber-card__title` — uppercase accent-colored title
+- `.cyber-card__badge` — inline status badge
+
+---
+
+### Form Inputs (`.cyber-input`)
+
+**Base Features:**
+- Dark tertiary background
+- Left accent border (3px)
+- Monospace font
+- Glow effect on focus
+- Inset glow shadow on focus
+
+**Field Wrapper (`.cyber-field`):**
+- Label with `> ` prefix decoration
+- Uppercase, small, muted label text
+
+**Variants:**
+- `.cyber-textarea` — multi-line with min-height
+- `.cyber-select` — custom dropdown arrow
+
+**Checkbox (`.cyber-checkbox`):**
+- Custom square checkbox with scale animation
+- Glow on checked state
+- Label beside checkbox
+
+---
+
+### Progress Bars (`.cyber-progress`)
+
+**Features:**
+- CSS variable for progress value (`--progress-value`)
+- Gradient fill with lighter edge
+- Glow effect on bar
+- Animated diagonal stripes using `repeating-linear-gradient`
+
+**Variants:**
+- `--magenta`, `--yellow`, `--green` — color variants
+
+---
+
+### Badges (`.cyber-badge`)
+
+**Features:**
+- Small inline pill/tag
+- Semi-transparent background with border
+- Uppercase text
+
+**Variants:**
+- `--magenta`, `--yellow`, `--green` — color variants
+- `--pulse` — animated pulsing glow
+
+---
+
+### Alerts (`.cyber-alert`)
+
+**Features:**
+- Left accent border (4px)
+- Icon badge on left side (`::before`)
+- Semi-transparent accent background
+
+**Variants:**
+- Default (cyan, info icon `!`)
+- `--warning` (yellow, warning icon `⚠`)
+- `--error` (magenta, error icon `✕`)
+- `--success` (green, success icon `✓`)
+
+---
+
+### Tables (`.cyber-table`)
+
+**Features:**
+- Monospace font
+- Accent-colored header with bottom border
+- Hover highlight on rows
+- Clean minimal borders
+
+**Variants:**
+- `--striped` — alternating row backgrounds
+
+---
+
+### Navigation (`.cyber-nav`)
+
+**Features:**
+- Sticky top positioning
+- Backdrop blur effect
+- Brand logo with glow
+- Link underline animation on hover
+
+**Sub-components:**
+- `.cyber-nav__brand` — logo/title with `//` prefix
+- `.cyber-nav__links` — horizontal link list
+- `.cyber-nav__link` — individual link with underline animation
+- `.cyber-status` — online/offline indicator with pulsing dot
+
+---
+
+### Tabs (`.cyber-tabs`, `.cyber-tab`)
+
+**Features:**
+- Horizontal button group
+- Active state with bottom glow bar
+- Hover state background change
+
+---
+
+### Modal (`.cyber-modal`)
+
+**Features:**
+- Backdrop with blur
+- Entrance animation (scale + fade)
+- Accent-colored header bar
+- Close button
+- Footer for actions
+
+---
+
+### Terminal (`.cyber-terminal`)
+
+**Features:**
+- macOS-style window chrome (red/yellow/green dots)
+- Green monospace text
+- Blinking cursor animation
+- Syntax-colored output (green success, yellow warning, magenta error)
+
+---
+
+### Spinner (`.cyber-spinner`)
+
+**Features:**
+- Dual-ring spinner
+- Cyan top ring, magenta bottom ring
+- Counter-rotating animation
+
+---
+
+### Skeleton Loading (`.cyber-skeleton`)
+
+**Features:**
+- Animated shimmer gradient
+- Variants for text lines, avatars, cards
+
+---
+
+## Global Effects
+
+### Noise Overlay
+
+A fixed full-screen SVG noise texture overlay at very low opacity (3%) using `feTurbulence` filter. Creates subtle film grain effect.
+
+### Scanlines
+
+A fixed full-screen repeating gradient creating horizontal scanlines at low opacity (4-5%). Simulates CRT monitor effect.
+
+### Chromatic Aberration
+
+Text effect that creates RGB split using offset `::before` and `::after` pseudo-elements with different hue colors.
+
+### Glitch Animation
+
+Keyframe animation that rapidly changes `clip-path` to create digital glitch distortion effect.
+
+### Neon Border Animation
+
+A `::before` pseudo-element with animated gradient that cycles through all accent colors, blurred for glow effect.
+
+### Data Stream
+
+Animated vertical gradient that creates illusion of data flowing through element.
+
+---
+
+## Utility Classes
+
+### Display
+```
+.cyber-hidden, .cyber-block, .cyber-inline, .cyber-inline-block
+.cyber-flex, .cyber-inline-flex, .cyber-grid
+```
+
+### Flexbox
+```
+.cyber-flex-col, .cyber-flex-wrap
+.cyber-items-center, .cyber-items-start, .cyber-items-end
+.cyber-justify-center, .cyber-justify-between, .cyber-justify-end
+.cyber-gap-xs, .cyber-gap-sm, .cyber-gap-md, .cyber-gap-lg
+```
+
+### Grid
+```
+.cyber-grid--2, .cyber-grid--3, .cyber-grid--4
+```
+
+### Text
+```
+.cyber-text-center, .cyber-text-left, .cyber-text-right
+.cyber-text-cyan, .cyber-text-magenta, .cyber-text-yellow, .cyber-text-green
+.cyber-text-glow-cyan
+```
+
+### Spacing
+```
+.cyber-m-0, .cyber-m-auto, .cyber-mx-auto
+.cyber-mt-sm, .cyber-mt-md, .cyber-mt-lg
+.cyber-mb-sm, .cyber-mb-md, .cyber-mb-lg
+.cyber-my-md, .cyber-my-lg
+.cyber-p-0, .cyber-p-sm, .cyber-p-md, .cyber-p-lg
+```
+
+### Width
+```
+.cyber-w-full
+.cyber-max-w-screen-sm (640px)
+.cyber-max-w-screen-md (768px)
+.cyber-max-w-screen-lg (1024px)
+.cyber-max-w-screen-xl (1280px)
+```
+
+### Animation
+```
+.cyber-animate-pulse
+.cyber-animate-float
+.cyber-boot (flicker-in effect)
+```
+
+### Accessibility
+```
+.cyber-sr-only (screen reader only)
+```
+
+---
+
+## File Structure (SCSS)
+
+```
+cybercore/
+├── cybercore.scss           # Main entry point (imports all)
+├── cybercore.css            # Compiled CSS (distribution)
+├── cybercore.min.css        # Minified CSS (production)
+│
+├── scss/
+│   ├── _variables.scss      # All CSS custom properties
+│   ├── _reset.scss          # Modern CSS reset
+│   ├── _base.scss           # Base HTML element styles
+│   ├── _typography.scss     # Type scale, headings, text styles
+│   │
+│   ├── components/
+│   │   ├── _buttons.scss
+│   │   ├── _cards.scss
+│   │   ├── _inputs.scss
+│   │   ├── _progress.scss
+│   │   ├── _badges.scss
+│   │   ├── _alerts.scss
+│   │   ├── _tables.scss
+│   │   ├── _nav.scss
+│   │   ├── _tabs.scss
+│   │   ├── _modal.scss
+│   │   ├── _terminal.scss
+│   │   ├── _spinner.scss
+│   │   └── _skeleton.scss
+│   │
+│   ├── effects/
+│   │   ├── _noise.scss
+│   │   ├── _scanlines.scss
+│   │   ├── _glitch.scss
+│   │   ├── _neon-border.scss
+│   │   └── _datastream.scss
+│   │
+│   ├── utilities/
+│   │   ├── _display.scss
+│   │   ├── _flex.scss
+│   │   ├── _grid.scss
+│   │   ├── _spacing.scss
+│   │   ├── _text.scss
+│   │   └── _accessibility.scss
+│   │
+│   └── _layers.scss         # @layer definitions for cascade control
+│
+├── fonts/                   # Optional: self-hosted fonts
+│   ├── rajdhani/
+│   ├── exo2/
+│   ├── jetbrains-mono/
+│   └── orbitron/
+│
+└── package.json             # npm package configuration
+```
+
+---
+
+## Installation & Usage
+
+### Option 1: CDN Link
+```html
+<link rel="stylesheet" href="https://cdn.example.com/cybercore/1.0/cybercore.min.css">
+```
+
+### Option 2: npm Install
+```bash
+npm install cybercore-css
+```
+
+Then import:
+```scss
+// Import everything
+@use 'cybercore-css';
+
+// Or import specific modules
+@use 'cybercore-css/scss/variables';
+@use 'cybercore-css/scss/components/buttons';
+```
+
+### Option 3: Download CSS
+Just download `cybercore.min.css` and link it in your HTML.
+
+### Font Loading
+Fonts can be loaded via Google Fonts CDN or self-hosted:
+```html
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+```
+
+---
+
+## Theming & Customization
+
+### Override Variables
+All design tokens are CSS custom properties, so override them in your own CSS:
+
+```css
+:root {
+  --cyber-cyan-500: #00ffff;     /* Customize primary cyan */
+  --color-bg-primary: #000000;   /* Pure black background */
+  --font-display: 'Your Font', sans-serif;
+}
+```
+
+### SCSS Customization
+If using SCSS, override variables before importing:
+
+```scss
+// Your overrides
+$cyber-cyan-500: #00ffff;
+$font-display: 'Your Font', sans-serif;
+
+// Then import cybercore
+@use 'cybercore-css' with (
+  $cyber-cyan-500: $cyber-cyan-500,
+  $font-display: $font-display
+);
+```
+
+### Dark/Light Mode
+The framework is dark-mode by default. A light mode variant could be added using:
+
+```css
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-bg-primary: #f0f1f5;
+    --color-text-primary: #0d0e14;
+    /* etc */
+  }
+}
+```
+
+---
+
+## Browser Support
+
+Target: All modern browsers (2024+)
+
+- Chrome/Edge 120+
+- Firefox 120+
+- Safari 17+
+
+Features used require modern browser support:
+- `color-mix()` — Chrome 111+, Firefox 113+, Safari 16.2+
+- Container queries — Chrome 105+, Firefox 110+, Safari 16+
+- CSS nesting — Chrome 120+, Firefox 117+, Safari 17.2+
+- `:has()` — Chrome 105+, Firefox 121+, Safari 15.4+
+
+---
+
+## Performance Guidelines
+
+1. **Load only what you need** — Import specific SCSS modules instead of everything
+2. **Minify in production** — Use `cybercore.min.css`
+3. **Preload fonts** — Use `<link rel="preload">` for critical fonts
+4. **Disable effects for performance** — Set `--noise-opacity: 0` and `--scanline-opacity: 0` if needed
+5. **Respect user preferences** — Framework automatically respects `prefers-reduced-motion`
+
+---
+
+## Accessibility Checklist
+
+- All interactive elements have visible focus states
+- Color contrast meets WCAG AA standards
+- Animations respect `prefers-reduced-motion: reduce`
+- Form inputs have proper labels
+- Modal traps focus appropriately (requires minimal JS)
+- Skip links supported via `.cyber-sr-only`
+
+---
+
+## Summary
+
+CYBERCORE is a **pure CSS, framework-agnostic, performance-optimized design system** that brings the cyberpunk aesthetic to any web project. It uses cutting-edge CSS features available in 2026+ browsers while maintaining zero JavaScript dependencies. The modular SCSS architecture allows for easy customization and tree-shaking, while the pre-built components cover all common UI patterns with a cohesive, neon-drenched visual language.
+
+**Key Principles:**
+- Pure CSS — no JS required
+- Works with any framework or no framework
+- Modern CSS features (color-mix, container queries, native nesting)
+- Modular SCSS with tree-shaking
+- Accessible by default
+- Performance optimized
+- Easy to theme and customize
+
+---
+
+*Pass this document to Claude Code to rebuild as a production-ready 2026+ CSS framework.*

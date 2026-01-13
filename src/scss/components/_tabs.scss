@@ -1,0 +1,254 @@
+// ============================================================
+// Tabs Component
+// Tab navigation with active state glow
+// ============================================================
+
+@layer components {
+  .cyber-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+
+    // Tab list container
+    &__list {
+      display: flex;
+      gap: var(--space-3xs);
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      border-bottom: var(--border-thin) solid var(--color-border-default);
+    }
+
+    // Tab panels container
+    &__panels {
+      padding: var(--space-md) 0;
+    }
+
+    // Individual panel
+    &__panel {
+      display: none;
+      animation: tab-fade-in var(--transition-base) ease-out;
+
+      &--active {
+        display: block;
+      }
+    }
+
+    // --------------------------------------------------------
+    // Variants
+    // --------------------------------------------------------
+
+    &--vertical {
+      flex-direction: row;
+      gap: var(--space-md);
+
+      .cyber-tabs__list {
+        flex-direction: column;
+        border-bottom: none;
+        border-right: var(--border-thin) solid var(--color-border-default);
+        padding-right: var(--space-md);
+      }
+
+      .cyber-tab {
+        border-bottom: none;
+        border-right: var(--border-medium) solid transparent;
+        padding: var(--space-xs) var(--space-md) var(--space-xs) var(--space-sm);
+
+        &--active {
+          border-bottom: none;
+          border-right-color: var(--cyber-cyan-500);
+
+          &::after {
+            left: auto;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            height: 100%;
+          }
+        }
+      }
+
+      .cyber-tabs__panels {
+        flex: 1;
+        padding: 0;
+      }
+    }
+
+    &--pills {
+      .cyber-tabs__list {
+        border-bottom: none;
+        gap: var(--space-xs);
+      }
+
+      .cyber-tab {
+        border: var(--border-thin) solid var(--color-border-default);
+        border-radius: 0;
+        clip-path: polygon(
+          0 0,
+          calc(100% - 8px) 0,
+          100% 8px,
+          100% 100%,
+          8px 100%,
+          0 calc(100% - 8px)
+        );
+
+        &--active {
+          background: color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
+          border-color: var(--cyber-cyan-500);
+
+          &::after {
+            display: none;
+          }
+        }
+      }
+    }
+
+    &--fullwidth {
+      .cyber-tabs__list {
+        width: 100%;
+      }
+
+      .cyber-tab {
+        flex: 1;
+        justify-content: center;
+      }
+    }
+  }
+
+  // Individual tab
+  .cyber-tab {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    background: transparent;
+    border: none;
+    border-bottom: var(--border-medium) solid transparent;
+    cursor: pointer;
+    transition:
+      color var(--transition-fast),
+      background var(--transition-fast),
+      border-color var(--transition-fast);
+
+    &:hover {
+      color: var(--color-text-primary);
+      background: color-mix(in srgb, var(--cyber-cyan-500) 5%, transparent);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--cyber-cyan-500);
+      outline-offset: -2px;
+    }
+
+    // Active state
+    &--active {
+      color: var(--cyber-cyan-500);
+      border-bottom-color: var(--cyber-cyan-500);
+
+      // Glow line under active tab
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--cyber-cyan-500);
+        box-shadow: var(--glow-text-cyan);
+      }
+    }
+
+    // Disabled state
+    &:disabled,
+    &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    // Icon support
+    svg,
+    &__icon {
+      width: 1em;
+      height: 1em;
+      flex-shrink: 0;
+    }
+
+    // Badge/count in tab
+    &__badge {
+      padding: 2px 6px;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      background: color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
+      border: var(--border-thin) solid var(--cyber-cyan-500);
+      color: var(--cyber-cyan-500);
+    }
+
+    // --------------------------------------------------------
+    // Color Variants
+    // --------------------------------------------------------
+
+    &--magenta {
+      &.cyber-tab--active {
+        color: var(--cyber-magenta-500);
+        border-bottom-color: var(--cyber-magenta-500);
+
+        &::after {
+          background: var(--cyber-magenta-500);
+          box-shadow: var(--glow-text-magenta);
+        }
+      }
+
+      .cyber-tab__badge {
+        background: color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent);
+        border-color: var(--cyber-magenta-500);
+        color: var(--cyber-magenta-500);
+      }
+    }
+
+    &--yellow {
+      &.cyber-tab--active {
+        color: var(--cyber-yellow-500);
+        border-bottom-color: var(--cyber-yellow-500);
+
+        &::after {
+          background: var(--cyber-yellow-500);
+          box-shadow: var(--glow-text-yellow);
+        }
+      }
+    }
+
+    &--green {
+      &.cyber-tab--active {
+        color: var(--cyber-green-500);
+        border-bottom-color: var(--cyber-green-500);
+
+        &::after {
+          background: var(--cyber-green-500);
+          box-shadow: var(--glow-text-green);
+        }
+      }
+    }
+  }
+
+  // Tab panel fade animation
+  @keyframes tab-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

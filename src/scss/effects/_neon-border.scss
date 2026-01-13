@@ -1,0 +1,153 @@
+// ============================================================
+// Neon Border Effect - Animated gradient border with glow
+// ============================================================
+
+@layer components {
+  .cyber-neon-border {
+    --neon-border-width: 2px;
+    --neon-blur: 10px;
+    --neon-duration: 3s;
+    --neon-color-1: var(--cyber-cyan-500, #00f0ff);
+    --neon-color-2: var(--cyber-magenta-500, #ff2a6d);
+    --neon-color-3: var(--cyber-yellow-500, #fcee0a);
+    --neon-color-4: var(--cyber-green-500, #05ffa1);
+
+    position: relative;
+    background: var(--color-bg-secondary, #15171e);
+
+    // Gradient border using background-clip technique
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      padding: var(--neon-border-width);
+      border-radius: inherit;
+      background: linear-gradient(
+        90deg,
+        var(--neon-color-1),
+        var(--neon-color-2),
+        var(--neon-color-3),
+        var(--neon-color-4),
+        var(--neon-color-1)
+      );
+      background-size: 300% 100%;
+      animation: cyber-neon-border-flow var(--neon-duration) linear infinite;
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+    }
+
+    // Glow layer
+    &::after {
+      content: '';
+      position: absolute;
+      inset: calc(var(--neon-border-width) * -1);
+      padding: var(--neon-border-width);
+      border-radius: inherit;
+      background: linear-gradient(
+        90deg,
+        var(--neon-color-1),
+        var(--neon-color-2),
+        var(--neon-color-3),
+        var(--neon-color-4),
+        var(--neon-color-1)
+      );
+      background-size: 300% 100%;
+      animation: cyber-neon-border-flow var(--neon-duration) linear infinite;
+      filter: blur(var(--neon-blur));
+      opacity: 0.6;
+      z-index: -1;
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+    }
+
+    // Thin border variant
+    &--thin {
+      --neon-border-width: 1px;
+      --neon-blur: 6px;
+    }
+
+    // Thick border variant
+    &--thick {
+      --neon-border-width: 4px;
+      --neon-blur: 15px;
+    }
+
+    // Fast animation
+    &--fast {
+      --neon-duration: 1.5s;
+    }
+
+    // Slow animation
+    &--slow {
+      --neon-duration: 6s;
+    }
+
+    // Cyan only
+    &--cyan {
+      --neon-color-1: var(--cyber-cyan-500, #00f0ff);
+      --neon-color-2: var(--cyber-cyan-300, oklch(75% 0.15 195));
+      --neon-color-3: var(--cyber-cyan-500, #00f0ff);
+      --neon-color-4: var(--cyber-cyan-700, oklch(45% 0.12 195));
+    }
+
+    // Magenta only
+    &--magenta {
+      --neon-color-1: var(--cyber-magenta-500, #ff2a6d);
+      --neon-color-2: var(--cyber-magenta-300, oklch(75% 0.15 350));
+      --neon-color-3: var(--cyber-magenta-500, #ff2a6d);
+      --neon-color-4: var(--cyber-magenta-700, oklch(40% 0.15 350));
+    }
+
+    // Pulse effect instead of flow
+    &--pulse {
+      &::before,
+      &::after {
+        animation: cyber-neon-border-pulse var(--neon-duration) ease-in-out infinite;
+      }
+    }
+  }
+
+  @keyframes cyber-neon-border-flow {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 300% 50%;
+    }
+  }
+
+  @keyframes cyber-neon-border-pulse {
+    0%,
+    100% {
+      opacity: 0.4;
+      filter: blur(var(--neon-blur));
+    }
+    50% {
+      opacity: 1;
+      filter: blur(calc(var(--neon-blur) * 1.5));
+    }
+  }
+
+  // Respect reduced motion preference
+  @media (prefers-reduced-motion: reduce) {
+    .cyber-neon-border {
+      &::before,
+      &::after {
+        animation: none;
+        background-position: 0% 50%;
+      }
+    }
+  }
+}

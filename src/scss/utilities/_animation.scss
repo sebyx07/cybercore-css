@@ -1,0 +1,231 @@
+// ============================================================
+// Animation Utilities
+// ============================================================
+
+@layer utilities {
+  // --------------------------------------------------------
+  // Keyframes
+  // --------------------------------------------------------
+
+  @keyframes cyber-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes cyber-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes cyber-flicker-in {
+    0% {
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.6;
+    }
+    20% {
+      opacity: 0.2;
+    }
+    30% {
+      opacity: 0.8;
+    }
+    40% {
+      opacity: 0.4;
+    }
+    50% {
+      opacity: 1;
+    }
+    60% {
+      opacity: 0.7;
+    }
+    70% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 0.9;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes cyber-glow-pulse {
+    0%,
+    100% {
+      filter: brightness(1);
+      box-shadow: 0 0 5px currentColor;
+    }
+    50% {
+      filter: brightness(1.2);
+      box-shadow: 0 0 20px currentColor, 0 0 40px currentColor;
+    }
+  }
+
+  @keyframes cyber-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes cyber-ping {
+    75%,
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
+  @keyframes cyber-bounce {
+    0%,
+    100% {
+      transform: translateY(-25%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: translateY(0);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+
+  // --------------------------------------------------------
+  // Animation Classes
+  // --------------------------------------------------------
+
+  .cyber-animate-pulse {
+    animation: cyber-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .cyber-animate-float {
+    animation: cyber-float 3s ease-in-out infinite;
+  }
+
+  .cyber-boot {
+    animation: cyber-flicker-in 0.8s ease-out forwards;
+  }
+
+  .cyber-animate-glow {
+    animation: cyber-glow-pulse 2s ease-in-out infinite;
+  }
+
+  .cyber-animate-spin {
+    animation: cyber-spin 1s linear infinite;
+  }
+
+  .cyber-animate-ping {
+    animation: cyber-ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  .cyber-animate-bounce {
+    animation: cyber-bounce 1s infinite;
+  }
+
+  // --------------------------------------------------------
+  // Animation Control
+  // --------------------------------------------------------
+
+  .cyber-animate-none {
+    animation: none;
+  }
+
+  .cyber-animate-paused {
+    animation-play-state: paused;
+  }
+
+  .cyber-animate-running {
+    animation-play-state: running;
+  }
+
+  // Delay utilities
+  .cyber-delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .cyber-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .cyber-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .cyber-delay-500 {
+    animation-delay: 500ms;
+  }
+
+  .cyber-delay-1000 {
+    animation-delay: 1000ms;
+  }
+
+  // Duration utilities
+  .cyber-duration-fast {
+    animation-duration: 150ms;
+  }
+
+  .cyber-duration-normal {
+    animation-duration: 300ms;
+  }
+
+  .cyber-duration-slow {
+    animation-duration: 500ms;
+  }
+
+  .cyber-duration-slower {
+    animation-duration: 1000ms;
+  }
+
+  // --------------------------------------------------------
+  // Transition Utilities
+  // --------------------------------------------------------
+
+  .cyber-transition {
+    transition-property: color, background-color, border-color, box-shadow,
+      transform, opacity;
+    transition-duration: var(--transition-base);
+  }
+
+  .cyber-transition-fast {
+    transition-duration: var(--transition-fast);
+  }
+
+  .cyber-transition-slow {
+    transition-duration: var(--transition-slow);
+  }
+
+  .cyber-transition-none {
+    transition: none;
+  }
+
+  // --------------------------------------------------------
+  // Reduced Motion Support
+  // --------------------------------------------------------
+
+  @media (prefers-reduced-motion: reduce) {
+    .cyber-animate-pulse,
+    .cyber-animate-float,
+    .cyber-boot,
+    .cyber-animate-glow,
+    .cyber-animate-spin,
+    .cyber-animate-ping,
+    .cyber-animate-bounce {
+      animation: none;
+    }
+
+    .cyber-transition {
+      transition: none;
+    }
+  }
+}

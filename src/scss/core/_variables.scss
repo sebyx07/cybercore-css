@@ -1,0 +1,237 @@
+// ============================================================
+// Design Tokens - CSS Custom Properties
+// ============================================================
+
+@layer theme {
+  :root {
+    // --------------------------------------------------------
+    // Color System
+    // --------------------------------------------------------
+
+    // Cyber Cyan - Primary actions, links, tech/neutral
+    --cyber-cyan-100: oklch(95% 0.05 195);
+    --cyber-cyan-200: oklch(85% 0.1 195);
+    --cyber-cyan-300: oklch(75% 0.15 195);
+    --cyber-cyan-400: oklch(65% 0.2 195);
+    --cyber-cyan-500: #00f0ff;
+    --cyber-cyan-600: oklch(55% 0.15 195);
+    --cyber-cyan-700: oklch(45% 0.12 195);
+    --cyber-cyan-800: oklch(35% 0.1 195);
+    --cyber-cyan-900: oklch(25% 0.08 195);
+
+    // Cyber Magenta - Danger, errors, alerts
+    --cyber-magenta-100: oklch(95% 0.05 0);
+    --cyber-magenta-200: oklch(85% 0.1 0);
+    --cyber-magenta-300: oklch(75% 0.15 350);
+    --cyber-magenta-400: oklch(65% 0.2 350);
+    --cyber-magenta-500: #ff2a6d;
+    --cyber-magenta-600: oklch(50% 0.18 350);
+    --cyber-magenta-700: oklch(40% 0.15 350);
+    --cyber-magenta-800: oklch(30% 0.12 350);
+    --cyber-magenta-900: oklch(20% 0.08 350);
+
+    // Cyber Yellow - Warnings, highlights
+    --cyber-yellow-100: oklch(98% 0.05 100);
+    --cyber-yellow-200: oklch(95% 0.1 100);
+    --cyber-yellow-300: oklch(90% 0.15 100);
+    --cyber-yellow-400: oklch(85% 0.2 100);
+    --cyber-yellow-500: #fcee0a;
+    --cyber-yellow-600: oklch(70% 0.18 100);
+    --cyber-yellow-700: oklch(55% 0.15 100);
+    --cyber-yellow-800: oklch(40% 0.12 100);
+    --cyber-yellow-900: oklch(25% 0.08 100);
+
+    // Cyber Green - Success, confirmation
+    --cyber-green-100: oklch(95% 0.05 160);
+    --cyber-green-200: oklch(90% 0.1 160);
+    --cyber-green-300: oklch(80% 0.15 160);
+    --cyber-green-400: oklch(70% 0.2 160);
+    --cyber-green-500: #05ffa1;
+    --cyber-green-600: oklch(60% 0.18 160);
+    --cyber-green-700: oklch(45% 0.15 160);
+    --cyber-green-800: oklch(30% 0.12 160);
+    --cyber-green-900: oklch(20% 0.08 160);
+
+    // Cyber Void - Ultra-dark backgrounds
+    --cyber-void-100: #2a2d3a;
+    --cyber-void-200: #232631;
+    --cyber-void-300: #1c1f28;
+    --cyber-void-400: #15171e;
+    --cyber-void-500: #0d0e14;
+    --cyber-void-600: #0a0b10;
+    --cyber-void-700: #07080c;
+    --cyber-void-800: #040508;
+    --cyber-void-900: #020304;
+
+    // Cyber Chrome - Metallic grays
+    --cyber-chrome-100: #f0f1f5;
+    --cyber-chrome-200: #d8dae2;
+    --cyber-chrome-300: #b8bcc8;
+    --cyber-chrome-400: #9499a8;
+    --cyber-chrome-500: #6e7485;
+    --cyber-chrome-600: #555b6b;
+    --cyber-chrome-700: #3f4452;
+    --cyber-chrome-800: #2c303a;
+    --cyber-chrome-900: #1a1d24;
+
+    // --------------------------------------------------------
+    // Semantic Color Tokens
+    // --------------------------------------------------------
+
+    // Backgrounds
+    --color-bg-primary: var(--cyber-void-500);
+    --color-bg-secondary: var(--cyber-void-400);
+    --color-bg-tertiary: var(--cyber-void-300);
+    --color-bg-elevated: var(--cyber-void-200);
+
+    // Text
+    --color-text-primary: var(--cyber-chrome-100);
+    --color-text-secondary: var(--cyber-chrome-300);
+    --color-text-muted: var(--cyber-chrome-500);
+    --color-text-accent: var(--cyber-cyan-500);
+
+    // Borders
+    --color-border-default: var(--cyber-chrome-700);
+    --color-border-accent: var(--cyber-cyan-500);
+    --color-border-glow: var(--cyber-cyan-500);
+
+    // --------------------------------------------------------
+    // Glow Effects
+    // --------------------------------------------------------
+
+    --glow-cyan: 0 0 5px var(--cyber-cyan-500),
+      0 0 20px color-mix(in srgb, var(--cyber-cyan-500) 60%, transparent),
+      0 0 40px color-mix(in srgb, var(--cyber-cyan-500) 40%, transparent),
+      0 0 80px color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
+
+    --glow-magenta: 0 0 5px var(--cyber-magenta-500),
+      0 0 20px color-mix(in srgb, var(--cyber-magenta-500) 60%, transparent),
+      0 0 40px color-mix(in srgb, var(--cyber-magenta-500) 40%, transparent),
+      0 0 80px color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent);
+
+    --glow-yellow: 0 0 5px var(--cyber-yellow-500),
+      0 0 20px color-mix(in srgb, var(--cyber-yellow-500) 60%, transparent),
+      0 0 40px color-mix(in srgb, var(--cyber-yellow-500) 40%, transparent),
+      0 0 80px color-mix(in srgb, var(--cyber-yellow-500) 20%, transparent);
+
+    --glow-green: 0 0 5px var(--cyber-green-500),
+      0 0 20px color-mix(in srgb, var(--cyber-green-500) 60%, transparent),
+      0 0 40px color-mix(in srgb, var(--cyber-green-500) 40%, transparent),
+      0 0 80px color-mix(in srgb, var(--cyber-green-500) 20%, transparent);
+
+    // Text glows (smaller)
+    --glow-text-cyan: 0 0 10px var(--cyber-cyan-500),
+      0 0 20px color-mix(in srgb, var(--cyber-cyan-500) 50%, transparent);
+
+    --glow-text-magenta: 0 0 10px var(--cyber-magenta-500),
+      0 0 20px color-mix(in srgb, var(--cyber-magenta-500) 50%, transparent);
+
+    --glow-text-yellow: 0 0 10px var(--cyber-yellow-500),
+      0 0 20px color-mix(in srgb, var(--cyber-yellow-500) 50%, transparent);
+
+    --glow-text-green: 0 0 10px var(--cyber-green-500),
+      0 0 20px color-mix(in srgb, var(--cyber-green-500) 50%, transparent);
+
+    // --------------------------------------------------------
+    // Typography
+    // --------------------------------------------------------
+
+    --font-display: 'Rajdhani', 'Orbitron', 'Share Tech Mono', system-ui,
+      sans-serif;
+    --font-body: 'Exo 2', 'Roboto', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+
+    // Fluid type scale (Perfect Fourth - 1.333)
+    --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.75rem);
+    --text-sm: clamp(0.8rem, 0.75rem + 0.25vw, 0.875rem);
+    --text-base: clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
+    --text-lg: clamp(1.1rem, 1rem + 0.5vw, 1.25rem);
+    --text-xl: clamp(1.3rem, 1.1rem + 0.75vw, 1.563rem);
+    --text-2xl: clamp(1.5rem, 1.25rem + 1vw, 1.953rem);
+    --text-3xl: clamp(1.8rem, 1.4rem + 1.5vw, 2.441rem);
+    --text-4xl: clamp(2.2rem, 1.6rem + 2vw, 3.052rem);
+    --text-5xl: clamp(2.8rem, 2rem + 2.5vw, 3.815rem);
+
+    --leading-tight: 1.2;
+    --leading-normal: 1.6;
+    --leading-relaxed: 1.8;
+
+    --tracking-tight: -0.02em;
+    --tracking-normal: 0;
+    --tracking-wide: 0.02em;
+    --tracking-wider: 0.05em;
+    --tracking-widest: 0.1em;
+
+    // --------------------------------------------------------
+    // Spacing Scale (Fluid)
+    // --------------------------------------------------------
+
+    --space-3xs: clamp(0.2rem, 0.15rem + 0.25vw, 0.25rem);
+    --space-2xs: clamp(0.4rem, 0.35rem + 0.25vw, 0.5rem);
+    --space-xs: clamp(0.6rem, 0.5rem + 0.5vw, 0.75rem);
+    --space-sm: clamp(0.8rem, 0.7rem + 0.5vw, 1rem);
+    --space-md: clamp(1.2rem, 1rem + 1vw, 1.5rem);
+    --space-lg: clamp(1.6rem, 1.4rem + 1vw, 2rem);
+    --space-xl: clamp(2.4rem, 2rem + 2vw, 3rem);
+    --space-2xl: clamp(3.2rem, 2.5rem + 3vw, 4rem);
+    --space-3xl: clamp(4.8rem, 4rem + 4vw, 6rem);
+
+    // --------------------------------------------------------
+    // Borders
+    // --------------------------------------------------------
+
+    --border-thin: 1px;
+    --border-medium: 2px;
+    --border-thick: 3px;
+
+    --radius-none: 0;
+    --radius-sm: 2px;
+    --radius-md: 4px;
+    --radius-lg: 8px;
+    --radius-cyber: 0 12px 0 12px;
+    --radius-cyber-alt: 12px 0 12px 0;
+
+    // --------------------------------------------------------
+    // Transitions & Animation
+    // --------------------------------------------------------
+
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
+    --transition-slow: 400ms ease;
+
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+
+    // --------------------------------------------------------
+    // Z-Index Scale
+    // --------------------------------------------------------
+
+    --z-base: 0;
+    --z-dropdown: 100;
+    --z-sticky: 200;
+    --z-fixed: 300;
+    --z-modal-backdrop: 400;
+    --z-modal: 500;
+    --z-popover: 600;
+    --z-tooltip: 700;
+
+    // --------------------------------------------------------
+    // Effects Opacity
+    // --------------------------------------------------------
+
+    --noise-opacity: 0.03;
+    --scanline-opacity: 0.04;
+  }
+
+  // --------------------------------------------------------
+  // Reduced Motion
+  // --------------------------------------------------------
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --transition-fast: 0ms;
+      --transition-base: 0ms;
+      --transition-slow: 0ms;
+    }
+  }
+}

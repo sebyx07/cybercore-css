@@ -1,0 +1,193 @@
+{
+  "extends": ["stylelint-config-standard-scss"],
+  "plugins": ["stylelint-scss", "stylelint-order"],
+  "rules": {
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": true,
+    "scss/dollar-variable-pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+    "scss/selector-no-redundant-nesting-selector": true,
+    "scss/no-duplicate-mixins": true,
+    "scss/no-duplicate-dollar-variables": [
+      true,
+      {
+        "ignoreInside": ["at-rule", "nested-at-rule"],
+        "ignoreInsideAtRules": ["if", "else", "each", "for", "mixin", "function"]
+      }
+    ],
+    "selector-class-pattern": [
+      "^[a-z][a-z0-9]*(-[a-z0-9]+)*(__[a-z0-9]+(-[a-z0-9]+)*)?(--[a-z0-9]+(-[a-z0-9]+)*)?$",
+      {
+        "message": "Expected class selector to be kebab-case with optional BEM modifiers"
+      }
+    ],
+    "selector-id-pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+    "custom-property-pattern": "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
+    "keyframes-name-pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+    "color-function-notation": "modern",
+    "color-hex-length": "short",
+    "alpha-value-notation": "percentage",
+    "font-family-name-quotes": "always-where-recommended",
+    "function-url-quotes": "always",
+    "length-zero-no-unit": true,
+    "declaration-block-no-redundant-longhand-properties": true,
+    "shorthand-property-no-redundant-values": true,
+    "declaration-block-single-line-max-declarations": 1,
+    "selector-max-id": 1,
+    "selector-max-compound-selectors": 4,
+    "selector-max-specificity": "0,4,2",
+    "max-nesting-depth": [
+      4,
+      {
+        "ignoreAtRules": ["each", "media", "supports", "include", "if", "else"]
+      }
+    ],
+    "no-descending-specificity": null,
+    "property-no-vendor-prefix": [
+      true,
+      {
+        "ignoreProperties": ["appearance", "text-size-adjust", "backdrop-filter"]
+      }
+    ],
+    "value-no-vendor-prefix": [
+      true,
+      {
+        "ignoreValues": ["box"]
+      }
+    ],
+    "order/properties-alphabetical-order": null,
+    "order/order": [
+      [
+        "custom-properties",
+        "dollar-variables",
+        {
+          "type": "at-rule",
+          "name": "extend"
+        },
+        {
+          "type": "at-rule",
+          "name": "include",
+          "hasBlock": false
+        },
+        "declarations",
+        {
+          "type": "at-rule",
+          "name": "include",
+          "hasBlock": true
+        },
+        "rules"
+      ]
+    ],
+    "order/properties-order": [
+      [
+        "content",
+        "position",
+        "top",
+        "right",
+        "bottom",
+        "left",
+        "z-index",
+        "display",
+        "flex",
+        "flex-grow",
+        "flex-shrink",
+        "flex-basis",
+        "flex-direction",
+        "flex-flow",
+        "flex-wrap",
+        "grid",
+        "grid-area",
+        "grid-template",
+        "grid-template-areas",
+        "grid-template-rows",
+        "grid-template-columns",
+        "grid-row",
+        "grid-row-start",
+        "grid-row-end",
+        "grid-column",
+        "grid-column-start",
+        "grid-column-end",
+        "grid-auto-rows",
+        "grid-auto-columns",
+        "grid-auto-flow",
+        "grid-gap",
+        "gap",
+        "row-gap",
+        "column-gap",
+        "align-content",
+        "align-items",
+        "align-self",
+        "justify-content",
+        "justify-items",
+        "justify-self",
+        "place-content",
+        "place-items",
+        "place-self",
+        "order",
+        "float",
+        "clear",
+        "box-sizing",
+        "width",
+        "min-width",
+        "max-width",
+        "height",
+        "min-height",
+        "max-height",
+        "margin",
+        "margin-top",
+        "margin-right",
+        "margin-bottom",
+        "margin-left",
+        "padding",
+        "padding-top",
+        "padding-right",
+        "padding-bottom",
+        "padding-left",
+        "border",
+        "border-width",
+        "border-style",
+        "border-color",
+        "border-top",
+        "border-right",
+        "border-bottom",
+        "border-left",
+        "border-radius",
+        "overflow",
+        "overflow-x",
+        "overflow-y",
+        "font",
+        "font-family",
+        "font-size",
+        "font-weight",
+        "font-style",
+        "line-height",
+        "letter-spacing",
+        "text-align",
+        "text-decoration",
+        "text-transform",
+        "white-space",
+        "word-break",
+        "word-wrap",
+        "color",
+        "background",
+        "background-color",
+        "background-image",
+        "background-repeat",
+        "background-position",
+        "background-size",
+        "box-shadow",
+        "opacity",
+        "visibility",
+        "transform",
+        "transition",
+        "animation",
+        "cursor",
+        "pointer-events",
+        "user-select"
+      ],
+      {
+        "unspecified": "bottomAlphabetical"
+      }
+    ]
+  },
+  "ignoreFiles": ["dist/**/*", "node_modules/**/*", "coverage/**/*", "**/*.min.css"]
+}

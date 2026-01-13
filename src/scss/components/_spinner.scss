@@ -1,0 +1,292 @@
+// ============================================================
+// Spinner Component
+// Dual-ring counter-rotating loading spinner
+// ============================================================
+
+@layer components {
+  .cyber-spinner {
+    --spinner-size: 48px;
+    --spinner-color: var(--cyber-cyan-500);
+    --spinner-thickness: 3px;
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--spinner-size);
+    height: var(--spinner-size);
+
+    // Outer ring (clockwise)
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: var(--spinner-thickness) solid transparent;
+      border-top-color: var(--spinner-color);
+      border-right-color: var(--spinner-color);
+      border-radius: 50%;
+      animation: spinner-rotate 1s linear infinite;
+    }
+
+    // Inner ring (counter-clockwise)
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: var(--spinner-thickness) solid transparent;
+      border-bottom-color: var(--spinner-color);
+      border-left-color: var(--spinner-color);
+      border-radius: 50%;
+      animation: spinner-rotate 0.8s linear infinite reverse;
+      opacity: 0.7;
+    }
+
+    // --------------------------------------------------------
+    // Size Variants
+    // --------------------------------------------------------
+
+    &--xs {
+      --spinner-size: 16px;
+      --spinner-thickness: 2px;
+
+      &::after {
+        inset: 3px;
+      }
+    }
+
+    &--sm {
+      --spinner-size: 24px;
+      --spinner-thickness: 2px;
+
+      &::after {
+        inset: 4px;
+      }
+    }
+
+    &--md {
+      --spinner-size: 48px;
+      --spinner-thickness: 3px;
+    }
+
+    &--lg {
+      --spinner-size: 64px;
+      --spinner-thickness: 4px;
+
+      &::after {
+        inset: 12px;
+      }
+    }
+
+    &--xl {
+      --spinner-size: 96px;
+      --spinner-thickness: 5px;
+
+      &::after {
+        inset: 16px;
+      }
+    }
+
+    // --------------------------------------------------------
+    // Color Variants
+    // --------------------------------------------------------
+
+    &--magenta {
+      --spinner-color: var(--cyber-magenta-500);
+    }
+
+    &--yellow {
+      --spinner-color: var(--cyber-yellow-500);
+    }
+
+    &--green {
+      --spinner-color: var(--cyber-green-500);
+    }
+
+    &--chrome {
+      --spinner-color: var(--cyber-chrome-400);
+    }
+
+    // --------------------------------------------------------
+    // Style Variants
+    // --------------------------------------------------------
+
+    // Single ring only
+    &--single {
+      &::after {
+        display: none;
+      }
+    }
+
+    // Dotted style
+    &--dotted {
+      &::before {
+        border-style: dotted;
+        border-width: calc(var(--spinner-thickness) + 1px);
+      }
+
+      &::after {
+        border-style: dotted;
+        border-width: calc(var(--spinner-thickness) + 1px);
+      }
+    }
+
+    // Glow effect
+    &--glow {
+      &::before,
+      &::after {
+        filter: drop-shadow(0 0 4px var(--spinner-color));
+      }
+    }
+
+    // Pulse animation added
+    &--pulse {
+      animation: spinner-pulse 1.5s ease-in-out infinite;
+    }
+  }
+
+  // Spinner rotation
+  @keyframes spinner-rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  // Pulse animation
+  @keyframes spinner-pulse {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(0.9);
+    }
+  }
+
+  // --------------------------------------------------------
+  // Alternative Spinner Styles
+  // --------------------------------------------------------
+
+  // Dot spinner (three bouncing dots)
+  .cyber-spinner-dots {
+    --dot-size: 8px;
+    --dot-color: var(--cyber-cyan-500);
+
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    span {
+      width: var(--dot-size);
+      height: var(--dot-size);
+      background: var(--dot-color);
+      border-radius: 50%;
+      animation: spinner-dots-bounce 1.4s ease-in-out infinite;
+
+      &:nth-child(1) {
+        animation-delay: 0s;
+      }
+
+      &:nth-child(2) {
+        animation-delay: 0.16s;
+      }
+
+      &:nth-child(3) {
+        animation-delay: 0.32s;
+      }
+    }
+
+    &--magenta {
+      --dot-color: var(--cyber-magenta-500);
+    }
+
+    &--yellow {
+      --dot-color: var(--cyber-yellow-500);
+    }
+
+    &--green {
+      --dot-color: var(--cyber-green-500);
+    }
+  }
+
+  @keyframes spinner-dots-bounce {
+    0%, 80%, 100% {
+      transform: scale(0.6);
+      opacity: 0.5;
+    }
+    40% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  // Bar spinner (loading bars)
+  .cyber-spinner-bars {
+    --bar-width: 4px;
+    --bar-height: 24px;
+    --bar-color: var(--cyber-cyan-500);
+
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+
+    span {
+      width: var(--bar-width);
+      height: var(--bar-height);
+      background: var(--bar-color);
+      animation: spinner-bars-scale 1.2s ease-in-out infinite;
+
+      @for $i from 1 through 5 {
+        &:nth-child(#{$i}) {
+          animation-delay: #{($i - 1) * 0.1}s;
+        }
+      }
+    }
+
+    &--magenta {
+      --bar-color: var(--cyber-magenta-500);
+    }
+
+    &--yellow {
+      --bar-color: var(--cyber-yellow-500);
+    }
+
+    &--green {
+      --bar-color: var(--cyber-green-500);
+    }
+  }
+
+  @keyframes spinner-bars-scale {
+    0%, 40%, 100% {
+      transform: scaleY(0.4);
+    }
+    20% {
+      transform: scaleY(1);
+    }
+  }
+
+  // Loading overlay
+  .cyber-spinner-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: var(--space-sm);
+    background: color-mix(in srgb, var(--cyber-void-500) 90%, transparent);
+    backdrop-filter: blur(4px);
+    z-index: var(--z-modal);
+
+    &__text {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wider);
+    }
+  }
+}

@@ -1,0 +1,89 @@
+# Source files (compiled output is in dist/)
+src/
+
+# Demo application
+demo/
+
+# Tests
+__tests__/
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+coverage/
+.nyc_output/
+jest.config.*
+vitest.config.*
+
+# Documentation
+docs/
+*.md
+!README.md
+!LICENSE
+
+# Development configuration
+.github/
+.vscode/
+.idea/
+.changeset/
+.husky/
+
+# Build tools config
+vite.config.*
+rollup.config.*
+webpack.config.*
+postcss.config.*
+tailwind.config.*
+tsconfig*.json
+!tsconfig.json
+
+# Linting and formatting
+.eslintrc*
+.eslintignore
+.prettierrc*
+.prettierignore
+.stylelintrc*
+.stylelintignore
+.editorconfig
+
+# Environment and misc
+.env*
+.nvmrc
+.node-version
+.npmrc
+.yarnrc*
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+*.swp
+*.swo
+
+# Temp and cache
+*.log
+*.cache
+.cache/
+tmp/
+temp/
+
+# Examples and playground
+examples/
+playground/
+sandbox/
+
+# Storybook
+.storybook/
+storybook-static/
+
+# Development files
+idea.txt
+TODO.md
+CONTRIBUTING.md
+CHANGELOG.md

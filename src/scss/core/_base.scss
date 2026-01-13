@@ -1,0 +1,103 @@
+// ============================================================
+// Base Element Styles
+// ============================================================
+
+@layer base {
+  html {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+  }
+
+  // Selection
+  ::selection {
+    background-color: color-mix(in srgb, var(--cyber-cyan-500) 40%, transparent);
+    color: var(--color-text-primary);
+  }
+
+  // Focus visible
+  :focus-visible {
+    outline: 2px solid var(--cyber-cyan-500);
+    outline-offset: 2px;
+  }
+
+  // Links
+  a {
+    color: var(--color-text-accent);
+    transition: color var(--transition-fast);
+
+    &:hover {
+      color: var(--cyber-cyan-300);
+    }
+  }
+
+  // Code
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--font-mono);
+  }
+
+  code {
+    padding: 0.125em 0.375em;
+    background-color: var(--color-bg-tertiary);
+    border-radius: var(--radius-sm);
+    font-size: 0.875em;
+    color: var(--cyber-cyan-400);
+  }
+
+  pre {
+    padding: var(--space-md);
+    background-color: var(--color-bg-tertiary);
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+
+    code {
+      padding: 0;
+      background: none;
+      border-radius: 0;
+    }
+  }
+
+  // Horizontal rule
+  hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-border-default) 20%,
+      var(--color-border-default) 80%,
+      transparent
+    );
+    margin: var(--space-lg) 0;
+  }
+
+  // Blockquote
+  blockquote {
+    padding-left: var(--space-md);
+    border-left: 3px solid var(--cyber-cyan-500);
+    color: var(--color-text-secondary);
+    font-style: italic;
+  }
+
+  // Mark/Highlight
+  mark {
+    background-color: color-mix(
+      in srgb,
+      var(--cyber-yellow-500) 30%,
+      transparent
+    );
+    color: var(--color-text-primary);
+    padding: 0.125em 0.25em;
+  }
+}
