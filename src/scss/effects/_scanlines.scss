@@ -4,21 +4,27 @@
 
 @layer components {
   .cyber-scanlines {
-    position: fixed;
-    z-index: 9998;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgb(0 0 0 / 30%) 2px,
-      rgb(0 0 0 / 30%) 4px
-    );
-    opacity: var(--scanline-opacity);
-    pointer-events: none;
-    inset: 0;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 10;
+      border-radius: inherit;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgb(0 0 0 / 30%) 2px,
+        rgb(0 0 0 / 30%) 4px
+      );
+      opacity: var(--scanline-opacity);
+      pointer-events: none;
+      inset: 0;
+    }
 
     // Finer scanlines variant
-    &--fine {
+    &--fine::after {
       background: repeating-linear-gradient(
         0deg,
         transparent,
@@ -29,7 +35,7 @@
     }
 
     // Thicker, more visible scanlines
-    &--heavy {
+    &--heavy::after {
       background: repeating-linear-gradient(
         0deg,
         transparent,
@@ -40,12 +46,12 @@
     }
 
     // Animated flickering scanlines
-    &--flicker {
+    &--flicker::after {
       animation: cyber-scanline-flicker 0.15s infinite;
     }
 
     // Scrolling scanlines effect
-    &--scroll {
+    &--scroll::after {
       animation: cyber-scanline-scroll 8s linear infinite;
     }
   }
