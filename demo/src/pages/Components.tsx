@@ -20,7 +20,10 @@ function Components() {
 
       <div className="demo-container">
         {/* Tabs Navigation */}
-        <nav className="cyber-tabs cyber-tabs--fullwidth" style={{ marginBottom: 'var(--space-xl)' }}>
+        <nav
+          className="cyber-tabs cyber-tabs--fullwidth"
+          style={{ marginBottom: 'var(--space-xl)' }}
+        >
           {[
             'buttons',
             'inputs',
