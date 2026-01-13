@@ -4,6 +4,7 @@ import { resolve } from 'path';
 
 export default defineConfig({
   plugins: [react()],
+  root: __dirname,
   base: '/cybercore-css/',
   build: {
     outDir: 'dist',
