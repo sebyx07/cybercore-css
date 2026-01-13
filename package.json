@@ -52,7 +52,7 @@
     "prepublishOnly": "npm run build:css",
     "release": "npm run build && changeset publish",
     "clean": "rm -rf dist demo/dist node_modules/.vite",
-    "prepare": "node -e \"try { require('husky').install() } catch (e) { if (e.code !== 'MODULE_NOT_FOUND') throw e }\""
+    "prepare": "husky || true"
   },
   "keywords": [
     "css",
