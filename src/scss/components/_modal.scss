@@ -7,28 +7,28 @@
   // Modal backdrop
   .cyber-modal {
     position: fixed;
-    inset: 0;
     z-index: var(--z-modal-backdrop);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: var(--space-md);
     background: color-mix(in srgb, var(--cyber-void-500) 80%, transparent);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    opacity: 0;
+    opacity: 0%;
     visibility: hidden;
     transition:
       opacity var(--transition-base),
       visibility var(--transition-base);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    inset: 0;
 
     // Open state
     &--open {
-      opacity: 1;
+      opacity: 100%;
       visibility: visible;
 
       .cyber-modal__dialog {
-        opacity: 1;
+        opacity: 100%;
         transform: translateY(0) scale(1);
       }
     }
@@ -36,16 +36,21 @@
     // Dialog box
     &__dialog {
       position: relative;
+      display: flex;
+      flex-direction: column;
       width: 100%;
       max-width: 500px;
       max-height: calc(100vh - var(--space-xl));
-      display: flex;
-      flex-direction: column;
-      background: var(--color-bg-secondary);
       border: var(--border-thin) solid var(--color-border-default);
+      background: var(--color-bg-secondary);
       box-shadow:
         0 25px 50px -12px color-mix(in srgb, var(--cyber-void-900) 80%, transparent),
         0 0 0 1px color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
+      opacity: 0%;
+      transform: translateY(-20px) scale(0.95);
+      transition:
+        opacity var(--transition-base) var(--ease-out-expo),
+        transform var(--transition-base) var(--ease-out-expo);
       clip-path: polygon(
         0 0,
         calc(100% - 24px) 0,
@@ -54,11 +59,6 @@
         24px 100%,
         0 calc(100% - 24px)
       );
-      opacity: 0;
-      transform: translateY(-20px) scale(0.95);
-      transition:
-        opacity var(--transition-base) var(--ease-out-expo),
-        transform var(--transition-base) var(--ease-out-expo);
 
       // Corner accent decoration
       &::before {
@@ -79,8 +79,8 @@
     // Modal header
     &__header {
       display: flex;
-      align-items: center;
       gap: var(--space-sm);
+      align-items: center;
       padding: var(--space-md);
       border-bottom: var(--border-thin) solid var(--color-border-default);
     }
@@ -91,8 +91,8 @@
       font-family: var(--font-display);
       font-size: var(--text-lg);
       font-weight: 600;
-      color: var(--color-text-primary);
       letter-spacing: var(--tracking-wide);
+      color: var(--color-text-primary);
     }
 
     // Close button
@@ -103,18 +103,18 @@
       width: 2rem;
       height: 2rem;
       padding: 0;
-      background: transparent;
       border: var(--border-thin) solid var(--color-border-default);
       color: var(--color-text-secondary);
-      cursor: pointer;
+      background: transparent;
       transition:
         color var(--transition-fast),
         border-color var(--transition-fast),
         background var(--transition-fast);
+      cursor: pointer;
 
       &:hover {
-        color: var(--cyber-magenta-500);
         border-color: var(--cyber-magenta-500);
+        color: var(--cyber-magenta-500);
         background: color-mix(in srgb, var(--cyber-magenta-500) 10%, transparent);
       }
 
@@ -134,16 +134,16 @@
       flex: 1;
       padding: var(--space-md);
       overflow-y: auto;
-      color: var(--color-text-secondary);
       line-height: var(--leading-relaxed);
+      color: var(--color-text-secondary);
     }
 
     // Modal footer
     &__footer {
       display: flex;
+      gap: var(--space-sm);
       align-items: center;
       justify-content: flex-end;
-      gap: var(--space-sm);
       padding: var(--space-md);
       border-top: var(--border-thin) solid var(--color-border-default);
     }
@@ -165,8 +165,8 @@
     }
 
     &--fullscreen .cyber-modal__dialog {
-      max-width: none;
       width: calc(100% - var(--space-lg));
+      max-width: none;
       height: calc(100% - var(--space-lg));
       max-height: none;
     }
@@ -259,9 +259,9 @@
       width: 4rem;
       height: 4rem;
       margin: 0 auto var(--space-md);
-      background: color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent);
       border: var(--border-medium) solid var(--cyber-cyan-500);
       color: var(--cyber-cyan-500);
+      background: color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent);
 
       svg {
         width: 2rem;
@@ -269,21 +269,21 @@
       }
 
       &--warning {
-        background: color-mix(in srgb, var(--cyber-yellow-500) 15%, transparent);
         border-color: var(--cyber-yellow-500);
         color: var(--cyber-yellow-500);
+        background: color-mix(in srgb, var(--cyber-yellow-500) 15%, transparent);
       }
 
       &--error {
-        background: color-mix(in srgb, var(--cyber-magenta-500) 15%, transparent);
         border-color: var(--cyber-magenta-500);
         color: var(--cyber-magenta-500);
+        background: color-mix(in srgb, var(--cyber-magenta-500) 15%, transparent);
       }
 
       &--success {
-        background: color-mix(in srgb, var(--cyber-green-500) 15%, transparent);
         border-color: var(--cyber-green-500);
         color: var(--cyber-green-500);
+        background: color-mix(in srgb, var(--cyber-green-500) 15%, transparent);
       }
     }
 

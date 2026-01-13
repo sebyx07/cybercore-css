@@ -10,15 +10,14 @@
 
     position: relative;
     display: block;
-    background: var(--skeleton-base);
-    overflow: hidden;
     border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--skeleton-base);
 
     // Shimmer animation overlay
     &::after {
       content: '';
       position: absolute;
-      inset: 0;
       background: linear-gradient(
         90deg,
         transparent 0%,
@@ -27,6 +26,7 @@
       );
       transform: translateX(-100%);
       animation: skeleton-shimmer 1.5s ease-in-out infinite;
+      inset: 0;
     }
 
     // --------------------------------------------------------
@@ -34,53 +34,53 @@
     // --------------------------------------------------------
 
     &--text {
-      height: 1em;
       width: 100%;
+      height: 1em;
       border-radius: var(--radius-sm);
     }
 
     &--title {
-      height: 1.5em;
       width: 60%;
+      height: 1.5em;
       border-radius: var(--radius-sm);
     }
 
     &--avatar {
+      flex-shrink: 0;
       width: 48px;
       height: 48px;
       border-radius: 50%;
-      flex-shrink: 0;
     }
 
     &--avatar-sm {
+      flex-shrink: 0;
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      flex-shrink: 0;
     }
 
     &--avatar-lg {
+      flex-shrink: 0;
       width: 64px;
       height: 64px;
       border-radius: 50%;
-      flex-shrink: 0;
     }
 
     &--thumbnail {
       width: 100%;
-      aspect-ratio: 16 / 9;
       border-radius: var(--radius-md);
+      aspect-ratio: 16 / 9;
     }
 
     &--square {
       width: 100%;
-      aspect-ratio: 1;
       border-radius: var(--radius-md);
+      aspect-ratio: 1;
     }
 
     &--button {
-      height: 2.5rem;
       width: 120px;
+      height: 2.5rem;
       border-radius: 0;
       clip-path: polygon(
         0 0,
@@ -94,8 +94,8 @@
 
     &--badge {
       display: inline-block;
-      height: 1.25rem;
       width: 60px;
+      height: 1.25rem;
       border-radius: 0;
     }
 
@@ -118,15 +118,15 @@
     // --------------------------------------------------------
 
     &--pulse {
+      animation: skeleton-pulse 2s ease-in-out infinite;
+
       &::after {
         display: none;
       }
-      animation: skeleton-pulse 2s ease-in-out infinite;
     }
 
     &--wave {
       &::after {
-        animation: skeleton-wave 2s linear infinite;
         background: linear-gradient(
           90deg,
           transparent 0%,
@@ -135,6 +135,7 @@
           color-mix(in srgb, var(--skeleton-shine) 50%, transparent) 80%,
           transparent 100%
         );
+        animation: skeleton-wave 2s linear infinite;
       }
     }
 
@@ -150,6 +151,7 @@
     0% {
       transform: translateX(-100%);
     }
+
     100% {
       transform: translateX(100%);
     }
@@ -158,10 +160,11 @@
   // Pulse animation
   @keyframes skeleton-pulse {
     0%, 100% {
-      opacity: 1;
+      opacity: 100%;
     }
+
     50% {
-      opacity: 0.5;
+      opacity: 50%;
     }
   }
 
@@ -170,6 +173,7 @@
     0% {
       transform: translateX(-100%);
     }
+
     50%, 100% {
       transform: translateX(100%);
     }
@@ -185,13 +189,13 @@
     flex-direction: column;
     gap: var(--space-sm);
     padding: var(--space-md);
-    background: var(--color-bg-secondary);
     border: var(--border-thin) solid var(--color-border-default);
+    background: var(--color-bg-secondary);
 
     &__header {
       display: flex;
-      align-items: center;
       gap: var(--space-sm);
+      align-items: center;
     }
 
     &__body {
@@ -209,16 +213,16 @@
 
     &__item {
       display: flex;
-      align-items: center;
       gap: var(--space-sm);
+      align-items: center;
       padding: var(--space-sm);
-      background: var(--color-bg-secondary);
       border: var(--border-thin) solid var(--color-border-default);
+      background: var(--color-bg-secondary);
     }
 
     &__content {
-      flex: 1;
       display: flex;
+      flex: 1;
       flex-direction: column;
       gap: var(--space-2xs);
     }
@@ -227,9 +231,9 @@
   // Table skeleton
   .cyber-skeleton-table {
     width: 100%;
-    border-collapse: collapse;
-    background: var(--color-bg-secondary);
     border: var(--border-thin) solid var(--color-border-default);
+    background: var(--color-bg-secondary);
+    border-collapse: collapse;
 
     &__row {
       display: flex;
@@ -254,12 +258,12 @@
   // Profile skeleton
   .cyber-skeleton-profile {
     display: flex;
-    align-items: flex-start;
     gap: var(--space-md);
+    align-items: flex-start;
 
     &__info {
-      flex: 1;
       display: flex;
+      flex: 1;
       flex-direction: column;
       gap: var(--space-xs);
     }

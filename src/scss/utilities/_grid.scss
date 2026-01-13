@@ -9,7 +9,7 @@
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
     gap: var(--space-md);
 
-    @media (min-width: 640px) {
+    @media (width >= 640px) {
       grid-template-columns: repeat(2, 1fr);
     }
   }
@@ -19,7 +19,7 @@
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
     gap: var(--space-md);
 
-    @media (min-width: 768px) {
+    @media (width >= 768px) {
       grid-template-columns: repeat(3, 1fr);
     }
   }
@@ -29,7 +29,7 @@
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
     gap: var(--space-md);
 
-    @media (min-width: 1024px) {
+    @media (width >= 1024px) {
       grid-template-columns: repeat(4, 1fr);
     }
   }

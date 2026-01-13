@@ -73,8 +73,8 @@
   // Lead text
   .cyber-lead {
     font-size: var(--text-lg);
-    color: var(--color-text-secondary);
     line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
   }
 
   // Label text
@@ -82,8 +82,8 @@
     font-family: var(--font-display);
     font-size: var(--text-xs);
     font-weight: 600;
-    text-transform: uppercase;
     letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
     color: var(--color-text-muted);
   }
 

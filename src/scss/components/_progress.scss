@@ -11,17 +11,17 @@
     position: relative;
     width: 100%;
     height: 1.5rem;
-    background: var(--color-bg-secondary);
     border: var(--border-thin) solid var(--color-border-default);
     overflow: hidden;
+    background: var(--color-bg-secondary);
 
     // Progress bar fill
     &__bar {
       position: absolute;
       top: 0;
       left: 0;
-      height: 100%;
       width: calc(var(--progress-value) * 1%);
+      height: 100%;
       background: var(--progress-color);
       transition: width var(--transition-slow) var(--ease-out-expo);
 
@@ -29,7 +29,6 @@
       &::before {
         content: '';
         position: absolute;
-        inset: 0;
         background: repeating-linear-gradient(
           -45deg,
           transparent,
@@ -38,6 +37,7 @@
           color-mix(in srgb, var(--cyber-void-500) 30%, transparent) 16px
         );
         animation: progress-stripes 1s linear infinite;
+        inset: 0;
       }
 
       // Glow effect on edge
@@ -62,12 +62,12 @@
       position: absolute;
       top: 50%;
       right: var(--space-xs);
-      transform: translateY(-50%);
+      z-index: 1;
       font-family: var(--font-mono);
       font-size: var(--text-xs);
       color: var(--color-text-primary);
+      transform: translateY(-50%);
       text-shadow: 0 1px 2px var(--cyber-void-500);
-      z-index: 1;
     }
 
     // --------------------------------------------------------
@@ -128,19 +128,19 @@
     &--segmented {
       display: flex;
       gap: 2px;
-      background: transparent;
       border: none;
+      background: transparent;
 
       .cyber-progress__segment {
         flex: 1;
         height: 100%;
-        background: var(--color-bg-tertiary);
         border: var(--border-thin) solid var(--color-border-default);
+        background: var(--color-bg-tertiary);
         transition: background var(--transition-fast);
 
         &--active {
-          background: var(--progress-color);
           border-color: var(--progress-color);
+          background: var(--progress-color);
         }
       }
     }
@@ -151,6 +151,7 @@
     0% {
       background-position: 0 0;
     }
+
     100% {
       background-position: 32px 0;
     }
@@ -159,10 +160,11 @@
   // Glow pulse animation
   @keyframes progress-glow {
     0%, 100% {
-      opacity: 0.5;
+      opacity: 50%;
     }
+
     50% {
-      opacity: 1;
+      opacity: 100%;
     }
   }
 
@@ -171,6 +173,7 @@
     0% {
       left: -30%;
     }
+
     100% {
       left: 100%;
     }
@@ -203,25 +206,25 @@
     }
 
     &__bar {
+      transition: stroke-dashoffset var(--transition-slow) var(--ease-out-expo);
       fill: none;
+      filter: drop-shadow(0 0 4px var(--progress-color));
       stroke: var(--progress-color);
-      stroke-width: var(--progress-stroke);
-      stroke-linecap: round;
       stroke-dasharray: 251.2; // 2 * PI * 40 (radius)
       stroke-dashoffset: calc(251.2 - (251.2 * var(--progress-value) / 100));
-      transition: stroke-dashoffset var(--transition-slow) var(--ease-out-expo);
-      filter: drop-shadow(0 0 4px var(--progress-color));
+      stroke-linecap: round;
+      stroke-width: var(--progress-stroke);
     }
 
     &__value {
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
       font-family: var(--font-mono);
       font-size: var(--text-lg);
       font-weight: 700;
       color: var(--color-text-primary);
+      transform: translate(-50%, -50%);
     }
 
     &--magenta {

@@ -9,25 +9,25 @@
     top: 0;
     z-index: var(--z-sticky);
     display: flex;
-    align-items: center;
     gap: var(--space-md);
+    align-items: center;
     padding: var(--space-sm) var(--space-md);
-    background: color-mix(in srgb, var(--color-bg-primary) 85%, transparent);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     border-bottom: var(--border-thin) solid var(--color-border-default);
+    background: color-mix(in srgb, var(--color-bg-primary) 85%, transparent);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
 
     // Brand / Logo
     &__brand {
       display: flex;
-      align-items: center;
       gap: var(--space-xs);
+      align-items: center;
       font-family: var(--font-display);
       font-size: var(--text-lg);
       font-weight: 700;
-      color: var(--color-text-primary);
-      text-decoration: none;
       letter-spacing: var(--tracking-wide);
+      text-decoration: none;
+      color: var(--color-text-primary);
 
       &:hover {
         color: var(--cyber-cyan-500);
@@ -43,8 +43,8 @@
     // Links container
     &__links {
       display: flex;
-      align-items: center;
       gap: var(--space-2xs);
+      align-items: center;
       margin-left: auto;
     }
 
@@ -55,10 +55,10 @@
       font-family: var(--font-display);
       font-size: var(--text-sm);
       font-weight: 500;
-      color: var(--color-text-secondary);
+      letter-spacing: var(--tracking-wide);
       text-decoration: none;
       text-transform: uppercase;
-      letter-spacing: var(--tracking-wide);
+      color: var(--color-text-secondary);
       transition:
         color var(--transition-fast),
         background var(--transition-fast);
@@ -74,9 +74,9 @@
         &::after {
           content: '';
           position: absolute;
+          right: var(--space-sm);
           bottom: 0;
           left: var(--space-sm);
-          right: var(--space-sm);
           height: 2px;
           background: var(--cyber-cyan-500);
           box-shadow: 0 0 8px var(--cyber-cyan-500);
@@ -95,8 +95,8 @@
     // Actions area (buttons, etc.)
     &__actions {
       display: flex;
-      align-items: center;
       gap: var(--space-xs);
+      align-items: center;
       margin-left: var(--space-sm);
       padding-left: var(--space-sm);
       border-left: var(--border-thin) solid var(--color-border-default);
@@ -109,9 +109,9 @@
     &__toggle {
       display: none;
       padding: var(--space-xs);
-      background: transparent;
       border: none;
       color: var(--color-text-primary);
+      background: transparent;
       cursor: pointer;
 
       svg {
@@ -119,22 +119,22 @@
         height: 1.5rem;
       }
 
-      @media (max-width: 768px) {
+      @media (width <= 768px) {
         display: block;
         margin-left: auto;
       }
     }
 
     // Mobile responsive
-    @media (max-width: 768px) {
+    @media (width <= 768px) {
       flex-wrap: wrap;
 
       &__links {
         display: none;
         flex-basis: 100%;
         flex-direction: column;
-        align-items: stretch;
         gap: 0;
+        align-items: stretch;
         margin: var(--space-sm) 0 0;
         padding-top: var(--space-sm);
         border-top: var(--border-thin) solid var(--color-border-default);
@@ -153,12 +153,9 @@
         }
 
         &--active::after {
-          left: 0;
-          right: auto;
-          top: 0;
-          bottom: 0;
           width: 3px;
           height: auto;
+          inset: 0 auto 0 0;
         }
       }
 
@@ -170,8 +167,8 @@
           flex-basis: 100%;
           margin: var(--space-sm) 0 0;
           padding: var(--space-sm) 0 0;
-          border-left: none;
           border-top: var(--border-thin) solid var(--color-border-default);
+          border-left: none;
         }
       }
     }
@@ -182,14 +179,14 @@
 
     &--fixed {
       position: fixed;
-      left: 0;
       right: 0;
+      left: 0;
       z-index: var(--z-fixed);
     }
 
     &--transparent {
-      background: transparent;
       border-bottom: none;
+      background: transparent;
 
       &:hover {
         background: color-mix(in srgb, var(--color-bg-primary) 85%, transparent);
@@ -197,8 +194,8 @@
     }
 
     &--bordered {
-      border: var(--border-thin) solid var(--color-border-default);
       margin: var(--space-sm);
+      border: var(--border-thin) solid var(--color-border-default);
       border-radius: 0;
       clip-path: polygon(
         0 0,
@@ -217,28 +214,28 @@
 
   .cyber-status {
     display: inline-flex;
-    align-items: center;
     gap: var(--space-2xs);
+    align-items: center;
     padding: var(--space-3xs) var(--space-xs);
+    border: var(--border-thin) solid var(--cyber-green-500);
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--cyber-green-500);
     background: color-mix(in srgb, var(--cyber-green-500) 10%, transparent);
-    border: var(--border-thin) solid var(--cyber-green-500);
 
     &::before {
       content: '';
       width: 6px;
       height: 6px;
-      background: var(--cyber-green-500);
       border-radius: 50%;
+      background: var(--cyber-green-500);
       animation: status-blink 2s ease-in-out infinite;
     }
 
     &--offline {
+      border-color: var(--cyber-chrome-500);
       color: var(--cyber-chrome-500);
       background: color-mix(in srgb, var(--cyber-chrome-500) 10%, transparent);
-      border-color: var(--cyber-chrome-500);
 
       &::before {
         background: var(--cyber-chrome-500);
@@ -247,9 +244,9 @@
     }
 
     &--warning {
+      border-color: var(--cyber-yellow-500);
       color: var(--cyber-yellow-500);
       background: color-mix(in srgb, var(--cyber-yellow-500) 10%, transparent);
-      border-color: var(--cyber-yellow-500);
 
       &::before {
         background: var(--cyber-yellow-500);
@@ -258,9 +255,9 @@
     }
 
     &--error {
+      border-color: var(--cyber-magenta-500);
       color: var(--cyber-magenta-500);
       background: color-mix(in srgb, var(--cyber-magenta-500) 10%, transparent);
-      border-color: var(--cyber-magenta-500);
 
       &::before {
         background: var(--cyber-magenta-500);
@@ -271,10 +268,11 @@
 
   @keyframes status-blink {
     0%, 100% {
-      opacity: 1;
+      opacity: 100%;
     }
+
     50% {
-      opacity: 0.3;
+      opacity: 30%;
     }
   }
 }

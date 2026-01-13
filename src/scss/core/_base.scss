@@ -10,17 +10,17 @@
   }
 
   body {
-    background-color: var(--color-bg-primary);
-    color: var(--color-text-primary);
     font-family: var(--font-body);
     font-size: var(--text-base);
     line-height: var(--leading-normal);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-primary);
   }
 
   // Selection
   ::selection {
-    background-color: color-mix(in srgb, var(--cyber-cyan-500) 40%, transparent);
     color: var(--color-text-primary);
+    background-color: color-mix(in srgb, var(--cyber-cyan-500) 40%, transparent);
   }
 
   // Focus visible
@@ -49,29 +49,30 @@
 
   code {
     padding: 0.125em 0.375em;
-    background-color: var(--color-bg-tertiary);
     border-radius: var(--radius-sm);
     font-size: 0.875em;
     color: var(--cyber-cyan-400);
+    background-color: var(--color-bg-tertiary);
   }
 
   pre {
     padding: var(--space-md);
-    background-color: var(--color-bg-tertiary);
     border-radius: var(--radius-md);
     overflow-x: auto;
+    background-color: var(--color-bg-tertiary);
 
     code {
       padding: 0;
-      background: none;
       border-radius: 0;
+      background: none;
     }
   }
 
   // Horizontal rule
   hr {
-    border: none;
     height: 1px;
+    margin: var(--space-lg) 0;
+    border: none;
     background: linear-gradient(
       90deg,
       transparent,
@@ -79,25 +80,24 @@
       var(--color-border-default) 80%,
       transparent
     );
-    margin: var(--space-lg) 0;
   }
 
   // Blockquote
   blockquote {
     padding-left: var(--space-md);
     border-left: 3px solid var(--cyber-cyan-500);
-    color: var(--color-text-secondary);
     font-style: italic;
+    color: var(--color-text-secondary);
   }
 
   // Mark/Highlight
   mark {
+    padding: 0.125em 0.25em;
+    color: var(--color-text-primary);
     background-color: color-mix(
       in srgb,
       var(--cyber-yellow-500) 30%,
       transparent
     );
-    color: var(--color-text-primary);
-    padding: 0.125em 0.25em;
   }
 }

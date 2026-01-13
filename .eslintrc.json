@@ -148,6 +148,14 @@
       "rules": {
         "import/no-default-export": "off"
       }
+    },
+    {
+      "files": ["demo/src/**/*.tsx", "demo/src/**/*.ts"],
+      "rules": {
+        "react/jsx-no-comment-textnodes": "off",
+        "react/no-unescaped-entities": "off",
+        "@typescript-eslint/no-misused-promises": "off"
+      }
     }
   ],
   "ignorePatterns": ["dist", "node_modules", "coverage", "*.min.js", "*.d.ts"]

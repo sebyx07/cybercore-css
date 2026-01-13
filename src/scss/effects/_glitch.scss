@@ -16,11 +16,11 @@
     &::after {
       content: attr(data-text);
       position: absolute;
-      inset: 0;
-      background: inherit;
-      color: inherit;
-      pointer-events: none;
       overflow: hidden;
+      color: inherit;
+      background: inherit;
+      pointer-events: none;
+      inset: 0;
     }
 
     // Cyan channel offset
@@ -57,13 +57,13 @@
     &--hover {
       &::before,
       &::after {
-        opacity: 0;
+        opacity: 0%;
         animation: none;
       }
 
       &:hover::before,
       &:hover::after {
-        opacity: 1;
+        opacity: 100%;
       }
 
       &:hover::before {
@@ -81,7 +81,7 @@
 
       &::before,
       &::after {
-        opacity: 0.7;
+        opacity: 70%;
       }
     }
   }
@@ -93,18 +93,22 @@
       transform: translate(0);
       clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
     }
+
     20% {
       transform: translate(calc(var(--glitch-offset) * -1), 0);
       clip-path: polygon(0 15%, 100% 15%, 100% 30%, 0 30%);
     }
+
     40% {
       transform: translate(var(--glitch-offset), 0);
       clip-path: polygon(0 5%, 100% 5%, 100% 20%, 0 20%);
     }
+
     60% {
       transform: translate(calc(var(--glitch-offset) * -0.5), 0);
       clip-path: polygon(0 35%, 100% 35%, 100% 50%, 0 50%);
     }
+
     80% {
       transform: translate(var(--glitch-offset), 0);
       clip-path: polygon(0 0, 100% 0, 100% 10%, 0 10%);
@@ -117,18 +121,22 @@
       transform: translate(0);
       clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
     }
+
     20% {
       transform: translate(var(--glitch-offset), 0);
       clip-path: polygon(0 70%, 100% 70%, 100% 85%, 0 85%);
     }
+
     40% {
       transform: translate(calc(var(--glitch-offset) * -1), 0);
       clip-path: polygon(0 80%, 100% 80%, 100% 95%, 0 95%);
     }
+
     60% {
       transform: translate(calc(var(--glitch-offset) * 0.5), 0);
       clip-path: polygon(0 60%, 100% 60%, 100% 75%, 0 75%);
     }
+
     80% {
       transform: translate(calc(var(--glitch-offset) * -1), 0);
       clip-path: polygon(0 90%, 100% 90%, 100% 100%, 0 100%);
@@ -141,26 +149,32 @@
       transform: translate(0);
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     }
+
     5% {
       transform: translate(var(--glitch-offset), calc(var(--glitch-offset) * -1));
       clip-path: polygon(0 5%, 100% 5%, 100% 10%, 0 10%);
     }
+
     10% {
       transform: translate(calc(var(--glitch-offset) * -2), 0);
       clip-path: polygon(0 20%, 100% 20%, 100% 25%, 0 25%);
     }
+
     15% {
       transform: translate(0);
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     }
+
     50% {
       transform: translate(calc(var(--glitch-offset) * -1), var(--glitch-offset));
       clip-path: polygon(0 40%, 100% 40%, 100% 50%, 0 50%);
     }
+
     55% {
       transform: translate(var(--glitch-offset), 0);
       clip-path: polygon(0 60%, 100% 60%, 100% 70%, 0 70%);
     }
+
     60%,
     100% {
       transform: translate(0);
@@ -173,26 +187,32 @@
       transform: translate(0);
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     }
+
     7% {
       transform: translate(calc(var(--glitch-offset) * -1), var(--glitch-offset));
       clip-path: polygon(0 75%, 100% 75%, 100% 80%, 0 80%);
     }
+
     12% {
       transform: translate(var(--glitch-offset), 0);
       clip-path: polygon(0 85%, 100% 85%, 100% 95%, 0 95%);
     }
+
     17% {
       transform: translate(0);
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     }
+
     45% {
       transform: translate(var(--glitch-offset), calc(var(--glitch-offset) * -1));
       clip-path: polygon(0 30%, 100% 30%, 100% 35%, 0 35%);
     }
+
     52% {
       transform: translate(calc(var(--glitch-offset) * -2), 0);
       clip-path: polygon(0 15%, 100% 15%, 100% 25%, 0 25%);
     }
+
     58%,
     100% {
       transform: translate(0);
@@ -205,10 +225,10 @@
     .cyber-glitch {
       &::before,
       &::after {
-        animation: none;
+        opacity: 0%;
         transform: none;
+        animation: none;
         clip-path: none;
-        opacity: 0;
       }
     }
   }

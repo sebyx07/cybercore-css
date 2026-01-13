@@ -13,7 +13,6 @@
     20px 100%,
     0 calc(100% - 20px)
   );
-
   $card-clip-sm: polygon(
     0 0,
     calc(100% - 12px) 0,
@@ -28,13 +27,13 @@
     display: flex;
     flex-direction: column;
     padding: var(--space-md);
-    background: var(--color-bg-secondary);
     border: var(--border-thin) solid var(--color-border-default);
-    clip-path: #{$card-clip};
+    background: var(--color-bg-secondary);
     transition:
       border-color var(--transition-base),
       box-shadow var(--transition-base),
       transform var(--transition-base);
+    clip-path: #{$card-clip};
 
     // Decorative corner accent
     &::before {
@@ -49,7 +48,7 @@
         var(--cyber-cyan-500) 50%,
         transparent 50%
       );
-      opacity: 0.6;
+      opacity: 60%;
       transition: opacity var(--transition-fast);
     }
 
@@ -59,8 +58,8 @@
 
     &__header {
       display: flex;
-      align-items: center;
       gap: var(--space-sm);
+      align-items: center;
       margin-bottom: var(--space-sm);
       padding-bottom: var(--space-sm);
       border-bottom: var(--border-thin) solid var(--color-border-default);
@@ -71,8 +70,8 @@
       font-family: var(--font-display);
       font-size: var(--text-lg);
       font-weight: 600;
-      color: var(--color-text-primary);
       letter-spacing: var(--tracking-wide);
+      color: var(--color-text-primary);
     }
 
     &__icon {
@@ -81,9 +80,9 @@
       justify-content: center;
       width: 2.5rem;
       height: 2.5rem;
-      background: color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent);
       border: var(--border-thin) solid var(--cyber-cyan-500);
       color: var(--cyber-cyan-500);
+      background: color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent);
       clip-path: #{$card-clip-sm};
 
       svg {
@@ -95,24 +94,24 @@
     &__badge {
       margin-left: auto;
       padding: var(--space-3xs) var(--space-xs);
+      border: var(--border-thin) solid var(--cyber-cyan-500);
       font-family: var(--font-mono);
       font-size: var(--text-xs);
       text-transform: uppercase;
-      background: color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
-      border: var(--border-thin) solid var(--cyber-cyan-500);
       color: var(--cyber-cyan-500);
+      background: color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
     }
 
     &__body {
       flex: 1;
-      color: var(--color-text-secondary);
       line-height: var(--leading-relaxed);
+      color: var(--color-text-secondary);
     }
 
     &__footer {
       display: flex;
-      align-items: center;
       gap: var(--space-sm);
+      align-items: center;
       margin-top: var(--space-md);
       padding-top: var(--space-sm);
       border-top: var(--border-thin) solid var(--color-border-default);
@@ -127,13 +126,13 @@
 
       &:hover {
         border-color: var(--cyber-cyan-500);
-        transform: translateY(-4px);
         box-shadow:
           0 4px 20px color-mix(in srgb, var(--cyber-cyan-500) 30%, transparent),
           inset 0 1px 0 color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
+        transform: translateY(-4px);
 
         &::before {
-          opacity: 1;
+          opacity: 100%;
         }
       }
 
@@ -152,6 +151,7 @@
     // --------------------------------------------------------
 
     &--holo {
+      border-color: var(--cyber-cyan-500);
       overflow: hidden;
       background: linear-gradient(
         135deg,
@@ -159,13 +159,11 @@
         color-mix(in srgb, var(--cyber-cyan-500) 5%, var(--color-bg-secondary)) 50%,
         var(--color-bg-secondary) 100%
       );
-      border-color: var(--cyber-cyan-500);
 
       // Animated shimmer overlay
       &::after {
         content: '';
         position: absolute;
-        inset: 0;
         background: linear-gradient(
           105deg,
           transparent 40%,
@@ -177,6 +175,7 @@
         background-size: 200% 100%;
         animation: holo-shimmer 3s ease-in-out infinite;
         pointer-events: none;
+        inset: 0;
       }
     }
 
@@ -196,15 +195,15 @@
       }
 
       .cyber-card__icon {
-        background: color-mix(in srgb, var(--cyber-magenta-500) 15%, transparent);
         border-color: var(--cyber-magenta-500);
         color: var(--cyber-magenta-500);
+        background: color-mix(in srgb, var(--cyber-magenta-500) 15%, transparent);
       }
 
       .cyber-card__badge {
-        background: color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent);
         border-color: var(--cyber-magenta-500);
         color: var(--cyber-magenta-500);
+        background: color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent);
       }
 
       &.cyber-card--interactive:hover {
@@ -227,15 +226,15 @@
       }
 
       .cyber-card__icon {
-        background: color-mix(in srgb, var(--cyber-yellow-500) 15%, transparent);
         border-color: var(--cyber-yellow-500);
         color: var(--cyber-yellow-500);
+        background: color-mix(in srgb, var(--cyber-yellow-500) 15%, transparent);
       }
 
       .cyber-card__badge {
-        background: color-mix(in srgb, var(--cyber-yellow-500) 20%, transparent);
         border-color: var(--cyber-yellow-500);
         color: var(--cyber-yellow-500);
+        background: color-mix(in srgb, var(--cyber-yellow-500) 20%, transparent);
       }
     }
 
@@ -251,15 +250,15 @@
       }
 
       .cyber-card__icon {
-        background: color-mix(in srgb, var(--cyber-green-500) 15%, transparent);
         border-color: var(--cyber-green-500);
         color: var(--cyber-green-500);
+        background: color-mix(in srgb, var(--cyber-green-500) 15%, transparent);
       }
 
       .cyber-card__badge {
-        background: color-mix(in srgb, var(--cyber-green-500) 20%, transparent);
         border-color: var(--cyber-green-500);
         color: var(--cyber-green-500);
+        background: color-mix(in srgb, var(--cyber-green-500) 20%, transparent);
       }
     }
   }
@@ -269,6 +268,7 @@
     0% {
       background-position: 200% 0;
     }
+
     100% {
       background-position: -200% 0;
     }

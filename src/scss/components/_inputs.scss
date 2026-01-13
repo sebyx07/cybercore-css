@@ -12,21 +12,21 @@
     display: block;
     width: 100%;
     padding: var(--space-xs) var(--space-sm);
+    border: var(--border-thin) solid var(--color-border-default);
+    border-left: var(--border-thick) solid var(--cyber-cyan-500);
     font-family: var(--font-body);
     font-size: var(--text-base);
     color: var(--color-text-primary);
     background: var(--color-bg-secondary);
-    border: var(--border-thin) solid var(--color-border-default);
-    border-left: var(--border-thick) solid var(--cyber-cyan-500);
-    outline: none;
     transition:
       border-color var(--transition-fast),
       box-shadow var(--transition-fast),
       background var(--transition-fast);
+    outline: none;
 
     &::placeholder {
       color: var(--color-text-muted);
-      opacity: 0.7;
+      opacity: 70%;
     }
 
     &:hover {
@@ -43,7 +43,7 @@
     }
 
     &:disabled {
-      opacity: 0.5;
+      opacity: 50%;
       cursor: not-allowed;
     }
 
@@ -84,9 +84,9 @@
       font-family: var(--font-display);
       font-size: var(--text-sm);
       font-weight: 600;
-      color: var(--color-text-secondary);
-      text-transform: uppercase;
       letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
     }
 
     &__helper {
@@ -115,22 +115,22 @@
     width: 100%;
     min-height: 120px;
     padding: var(--space-sm);
+    border: var(--border-thin) solid var(--color-border-default);
+    border-left: var(--border-thick) solid var(--cyber-cyan-500);
     font-family: var(--font-body);
     font-size: var(--text-base);
     color: var(--color-text-primary);
     background: var(--color-bg-secondary);
-    border: var(--border-thin) solid var(--color-border-default);
-    border-left: var(--border-thick) solid var(--cyber-cyan-500);
-    outline: none;
-    resize: vertical;
     transition:
       border-color var(--transition-fast),
       box-shadow var(--transition-fast),
       background var(--transition-fast);
+    outline: none;
+    resize: vertical;
 
     &::placeholder {
       color: var(--color-text-muted);
-      opacity: 0.7;
+      opacity: 70%;
     }
 
     &:focus {
@@ -150,15 +150,12 @@
     display: block;
     width: 100%;
     padding: var(--space-xs) var(--space-lg) var(--space-xs) var(--space-sm);
+    border: var(--border-thin) solid var(--color-border-default);
+    border-left: var(--border-thick) solid var(--cyber-cyan-500);
     font-family: var(--font-body);
     font-size: var(--text-base);
     color: var(--color-text-primary);
     background: var(--color-bg-secondary);
-    border: var(--border-thin) solid var(--color-border-default);
-    border-left: var(--border-thick) solid var(--cyber-cyan-500);
-    outline: none;
-    cursor: pointer;
-    appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300f0ff' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right var(--space-sm) center;
@@ -166,6 +163,9 @@
       border-color var(--transition-fast),
       box-shadow var(--transition-fast),
       background-color var(--transition-fast);
+    cursor: pointer;
+    appearance: none;
+    outline: none;
 
     &:hover {
       border-color: var(--cyber-chrome-500);
@@ -181,9 +181,9 @@
     }
 
     option {
-      background: var(--color-bg-secondary);
-      color: var(--color-text-primary);
       padding: var(--space-xs);
+      color: var(--color-text-primary);
+      background: var(--color-bg-secondary);
     }
   }
 
@@ -193,23 +193,23 @@
 
   .cyber-checkbox {
     display: inline-flex;
-    align-items: center;
     gap: var(--space-xs);
+    align-items: center;
     cursor: pointer;
     user-select: none;
 
     &__input {
       position: absolute;
-      opacity: 0;
       width: 0;
       height: 0;
+      opacity: 0%;
 
       &:checked + .cyber-checkbox__box {
-        background: var(--cyber-cyan-500);
         border-color: var(--cyber-cyan-500);
+        background: var(--cyber-cyan-500);
 
         &::after {
-          opacity: 1;
+          opacity: 100%;
           transform: scale(1);
         }
       }
@@ -220,7 +220,7 @@
       }
 
       &:disabled + .cyber-checkbox__box {
-        opacity: 0.5;
+        opacity: 50%;
         cursor: not-allowed;
       }
     }
@@ -232,8 +232,8 @@
       justify-content: center;
       width: 1.25rem;
       height: 1.25rem;
-      background: var(--color-bg-secondary);
       border: var(--border-medium) solid var(--color-border-default);
+      background: var(--color-bg-secondary);
       transition:
         background var(--transition-fast),
         border-color var(--transition-fast),
@@ -247,8 +247,8 @@
         height: 10px;
         border: solid var(--cyber-void-500);
         border-width: 0 2px 2px 0;
+        opacity: 0%;
         transform: rotate(45deg) scale(0);
-        opacity: 0;
         transition:
           opacity var(--transition-fast),
           transform var(--transition-fast);
@@ -271,22 +271,22 @@
 
   .cyber-radio {
     display: inline-flex;
-    align-items: center;
     gap: var(--space-xs);
+    align-items: center;
     cursor: pointer;
     user-select: none;
 
     &__input {
       position: absolute;
-      opacity: 0;
       width: 0;
       height: 0;
+      opacity: 0%;
 
       &:checked + .cyber-radio__circle {
         border-color: var(--cyber-cyan-500);
 
         &::after {
-          opacity: 1;
+          opacity: 100%;
           transform: scale(1);
         }
       }
@@ -304,9 +304,9 @@
       justify-content: center;
       width: 1.25rem;
       height: 1.25rem;
-      background: var(--color-bg-secondary);
       border: var(--border-medium) solid var(--color-border-default);
       border-radius: 50%;
+      background: var(--color-bg-secondary);
       transition:
         border-color var(--transition-fast),
         box-shadow var(--transition-fast);
@@ -316,10 +316,10 @@
         position: absolute;
         width: 8px;
         height: 8px;
-        background: var(--cyber-cyan-500);
         border-radius: 50%;
+        background: var(--cyber-cyan-500);
+        opacity: 0%;
         transform: scale(0);
-        opacity: 0;
         transition:
           opacity var(--transition-fast),
           transform var(--transition-fast);
@@ -342,24 +342,24 @@
 
   .cyber-toggle {
     display: inline-flex;
-    align-items: center;
     gap: var(--space-xs);
+    align-items: center;
     cursor: pointer;
     user-select: none;
 
     &__input {
       position: absolute;
-      opacity: 0;
       width: 0;
       height: 0;
+      opacity: 0%;
 
       &:checked + .cyber-toggle__track {
-        background: color-mix(in srgb, var(--cyber-cyan-500) 30%, transparent);
         border-color: var(--cyber-cyan-500);
+        background: color-mix(in srgb, var(--cyber-cyan-500) 30%, transparent);
 
         .cyber-toggle__thumb {
-          transform: translateX(1.25rem);
           background: var(--cyber-cyan-500);
+          transform: translateX(1.25rem);
         }
       }
 
@@ -373,9 +373,9 @@
       position: relative;
       width: 2.75rem;
       height: 1.5rem;
-      background: var(--color-bg-tertiary);
       border: var(--border-thin) solid var(--color-border-default);
       border-radius: 1rem;
+      background: var(--color-bg-tertiary);
       transition:
         background var(--transition-fast),
         border-color var(--transition-fast),
@@ -388,8 +388,8 @@
       left: 2px;
       width: 1.125rem;
       height: 1.125rem;
-      background: var(--cyber-chrome-400);
       border-radius: 50%;
+      background: var(--cyber-chrome-400);
       transition:
         transform var(--transition-fast),
         background var(--transition-fast);

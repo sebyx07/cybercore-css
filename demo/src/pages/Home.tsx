@@ -172,7 +172,7 @@ function Home() {
                 Progress
               </h4>
               <div className="cyber-progress">
-                <div className="cyber-progress__bar" style={{ width: '75%' }}></div>
+                <div className="cyber-progress__bar" style={{ width: '75%' }} />
               </div>
             </div>
           </div>
@@ -232,9 +232,9 @@ function Home() {
             <div className="demo-box" style={{ padding: 0 }}>
               <div className="cyber-terminal">
                 <div className="cyber-terminal__header">
-                  <span className="cyber-terminal__dot cyber-terminal__dot--red"></span>
-                  <span className="cyber-terminal__dot cyber-terminal__dot--yellow"></span>
-                  <span className="cyber-terminal__dot cyber-terminal__dot--green"></span>
+                  <span className="cyber-terminal__dot cyber-terminal__dot--red" />
+                  <span className="cyber-terminal__dot cyber-terminal__dot--yellow" />
+                  <span className="cyber-terminal__dot cyber-terminal__dot--green" />
                 </div>
                 <div className="cyber-terminal__body">
                   <span className="cyber-terminal__prompt">$</span> system.init()
@@ -242,7 +242,7 @@ function Home() {
                   <span style={{ color: 'var(--cyber-cyan-500)' }}>&gt; Loading cybercore...</span>
                   <br />
                   <span style={{ color: 'var(--cyber-green-500)' }}>&gt; Ready.</span>
-                  <span className="cyber-terminal__cursor"></span>
+                  <span className="cyber-terminal__cursor" />
                 </div>
               </div>
             </div>
@@ -275,7 +275,7 @@ function Home() {
                   borderRadius: 'var(--radius-sm)',
                   marginBottom: 'var(--space-xs)',
                 }}
-              ></div>
+               />
               <code className="cyber-mono">#00f0ff</code>
             </div>
 
@@ -290,7 +290,7 @@ function Home() {
                   borderRadius: 'var(--radius-sm)',
                   marginBottom: 'var(--space-xs)',
                 }}
-              ></div>
+               />
               <code className="cyber-mono">#ff2a6d</code>
             </div>
 
@@ -305,7 +305,7 @@ function Home() {
                   borderRadius: 'var(--radius-sm)',
                   marginBottom: 'var(--space-xs)',
                 }}
-              ></div>
+               />
               <code className="cyber-mono">#fcee0a</code>
             </div>
 
@@ -320,7 +320,7 @@ function Home() {
                   borderRadius: 'var(--radius-sm)',
                   marginBottom: 'var(--space-xs)',
                 }}
-              ></div>
+               />
               <code className="cyber-mono">#05ffa1</code>
             </div>
           </div>

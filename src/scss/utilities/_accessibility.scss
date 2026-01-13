@@ -8,12 +8,12 @@
     position: absolute;
     width: 1px;
     height: 1px;
-    padding: 0;
     margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
+    padding: 0;
     border: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    clip: rect(0, 0, 0, 0);
   }
 
   // Un-hide for focus (for skip links)
@@ -22,11 +22,11 @@
     position: static;
     width: auto;
     height: auto;
-    padding: inherit;
     margin: inherit;
+    padding: inherit;
     overflow: visible;
-    clip: auto;
     white-space: normal;
+    clip: auto;
   }
 
   // Not screen reader - hide from screen readers
@@ -43,15 +43,15 @@
   // Reduced motion utility
   .cyber-motion-safe {
     @media (prefers-reduced-motion: reduce) {
-      animation: none !important;
       transition: none !important;
+      animation: none !important;
     }
   }
 
   .cyber-motion-reduce {
     @media (prefers-reduced-motion: no-preference) {
-      animation: none !important;
       transition: none !important;
+      animation: none !important;
     }
   }
 }

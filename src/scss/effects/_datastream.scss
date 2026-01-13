@@ -16,9 +16,7 @@
     &::before {
       content: '';
       position: absolute;
-      inset: 0;
       width: var(--stream-width);
-      pointer-events: none;
       background: linear-gradient(
         180deg,
         transparent 0%,
@@ -36,23 +34,25 @@
       background-size: 100% 200%;
       opacity: var(--stream-opacity);
       animation: cyber-datastream-flow var(--stream-duration) linear infinite;
+      pointer-events: none;
+      inset: 0;
     }
 
     // Binary rain effect with additional pseudo-element
     &::after {
       content: '';
       position: absolute;
-      inset: 0;
-      pointer-events: none;
       background: repeating-linear-gradient(
         0deg,
-        transparent 0px,
+        transparent 0,
         transparent 2px,
         color-mix(in srgb, var(--stream-color-1) 5%, transparent) 2px,
         color-mix(in srgb, var(--stream-color-1) 5%, transparent) 4px
       );
-      opacity: calc(var(--stream-opacity) * 0.5);
+      opacity: calc(var(--stream-opacity) * 50%);
       animation: cyber-datastream-flow calc(var(--stream-duration) * 0.7) linear infinite;
+      pointer-events: none;
+      inset: 0;
     }
 
     // Faster stream
@@ -113,7 +113,7 @@
       &::after {
         background: repeating-linear-gradient(
           90deg,
-          transparent 0px,
+          transparent 0,
           transparent 2px,
           color-mix(in srgb, var(--stream-color-1) 5%, transparent) 2px,
           color-mix(in srgb, var(--stream-color-1) 5%, transparent) 4px
@@ -150,6 +150,7 @@
     0% {
       background-position: 0 0;
     }
+
     100% {
       background-position: 0 200%;
     }
@@ -159,6 +160,7 @@
     0% {
       background-position: 0 0;
     }
+
     100% {
       background-position: 200% 0;
     }

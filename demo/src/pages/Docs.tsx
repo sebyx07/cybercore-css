@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import CodeBlock from '../components/CodeBlock';
 
 function Docs() {
@@ -224,22 +225,22 @@ function Docs() {
                 <h3 className="cyber-h4" style={{ marginBottom: 'var(--space-md)' }}>Primary Colors</h3>
                 <div className="demo-grid" style={{ marginBottom: 'var(--space-xl)' }}>
                   <div className="demo-box">
-                    <div style={{ height: '60px', background: 'var(--cyber-cyan-500)', borderRadius: 'var(--radius-sm)', marginBottom: 'var(--space-xs)' }}></div>
+                    <div style={{ height: '60px', background: 'var(--cyber-cyan-500)', borderRadius: 'var(--radius-sm)', marginBottom: 'var(--space-xs)' }} />
                     <code>--cyber-cyan-500</code>
                     <p className="cyber-small" style={{ marginTop: 'var(--space-xs)' }}>Primary actions, links, tech/neutral</p>
                   </div>
                   <div className="demo-box">
-                    <div style={{ height: '60px', background: 'var(--cyber-magenta-500)', borderRadius: 'var(--radius-sm)', marginBottom: 'var(--space-xs)' }}></div>
+                    <div style={{ height: '60px', background: 'var(--cyber-magenta-500)', borderRadius: 'var(--radius-sm)', marginBottom: 'var(--space-xs)' }} />
                     <code>--cyber-magenta-500</code>
                     <p className="cyber-small" style={{ marginTop: 'var(--space-xs)' }}>Danger, errors, alerts</p>
                   </div>
                   <div className="demo-box">
-                    <div style={{ height: '60px', background: 'var(--cyber-yellow-500)', borderRadius: 'var(--radius-sm)', marginBottom: 'var(--space-xs)' }}></div>
+                    <div style={{ height: '60px', background: 'var(--cyber-yellow-500)', borderRadius: 'var(--radius-sm)', marginBottom: 'var(--space-xs)' }} />
                     <code>--cyber-yellow-500</code>
                     <p className="cyber-small" style={{ marginTop: 'var(--space-xs)' }}>Warnings, highlights</p>
                   </div>
                   <div className="demo-box">
-                    <div style={{ height: '60px', background: 'var(--cyber-green-500)', borderRadius: 'var(--radius-sm)', marginBottom: 'var(--space-xs)' }}></div>
+                    <div style={{ height: '60px', background: 'var(--cyber-green-500)', borderRadius: 'var(--radius-sm)', marginBottom: 'var(--space-xs)' }} />
                     <code>--cyber-green-500</code>
                     <p className="cyber-small" style={{ marginTop: 'var(--space-xs)' }}>Success, confirmation</p>
                   </div>
@@ -350,7 +351,7 @@ function Docs() {
                         minWidth: '8px',
                         background: 'var(--cyber-cyan-500)',
                         borderRadius: 'var(--radius-sm)'
-                      }}></div>
+                      }} />
                     </div>
                   ))}
                 </div>

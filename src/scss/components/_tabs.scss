@@ -13,10 +13,10 @@
     &__list {
       display: flex;
       gap: var(--space-3xs);
-      padding: 0;
       margin: 0;
-      list-style: none;
+      padding: 0;
       border-bottom: var(--border-thin) solid var(--color-border-default);
+      list-style: none;
     }
 
     // Tab panels container
@@ -44,27 +44,24 @@
 
       .cyber-tabs__list {
         flex-direction: column;
-        border-bottom: none;
-        border-right: var(--border-thin) solid var(--color-border-default);
         padding-right: var(--space-md);
+        border-right: var(--border-thin) solid var(--color-border-default);
+        border-bottom: none;
       }
 
       .cyber-tab {
-        border-bottom: none;
-        border-right: var(--border-medium) solid transparent;
         padding: var(--space-xs) var(--space-md) var(--space-xs) var(--space-sm);
+        border-right: var(--border-medium) solid transparent;
+        border-bottom: none;
 
         &--active {
           border-bottom: none;
           border-right-color: var(--cyber-cyan-500);
 
           &::after {
-            left: auto;
-            right: 0;
-            top: 0;
-            bottom: 0;
             width: 2px;
             height: 100%;
+            inset: 0 0 0 auto;
           }
         }
       }
@@ -77,8 +74,8 @@
 
     &--pills {
       .cyber-tabs__list {
-        border-bottom: none;
         gap: var(--space-xs);
+        border-bottom: none;
       }
 
       .cyber-tab {
@@ -94,8 +91,8 @@
         );
 
         &--active {
-          background: color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
           border-color: var(--cyber-cyan-500);
+          background: color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
 
           &::after {
             display: none;
@@ -120,24 +117,24 @@
   .cyber-tab {
     position: relative;
     display: inline-flex;
-    align-items: center;
     gap: var(--space-xs);
+    align-items: center;
     padding: var(--space-sm) var(--space-md);
+    border: none;
+    border-bottom: var(--border-medium) solid transparent;
     font-family: var(--font-display);
     font-size: var(--text-sm);
     font-weight: 500;
-    color: var(--color-text-secondary);
+    letter-spacing: var(--tracking-wide);
     text-decoration: none;
     text-transform: uppercase;
-    letter-spacing: var(--tracking-wide);
+    color: var(--color-text-secondary);
     background: transparent;
-    border: none;
-    border-bottom: var(--border-medium) solid transparent;
-    cursor: pointer;
     transition:
       color var(--transition-fast),
       background var(--transition-fast),
       border-color var(--transition-fast);
+    cursor: pointer;
 
     &:hover {
       color: var(--color-text-primary);
@@ -158,9 +155,9 @@
       &::after {
         content: '';
         position: absolute;
+        right: 0;
         bottom: -1px;
         left: 0;
-        right: 0;
         height: 2px;
         background: var(--cyber-cyan-500);
         box-shadow: var(--glow-text-cyan);
@@ -170,7 +167,7 @@
     // Disabled state
     &:disabled,
     &--disabled {
-      opacity: 0.5;
+      opacity: 50%;
       cursor: not-allowed;
       pointer-events: none;
     }
@@ -178,19 +175,19 @@
     // Icon support
     svg,
     &__icon {
+      flex-shrink: 0;
       width: 1em;
       height: 1em;
-      flex-shrink: 0;
     }
 
     // Badge/count in tab
     &__badge {
       padding: 2px 6px;
+      border: var(--border-thin) solid var(--cyber-cyan-500);
       font-family: var(--font-mono);
       font-size: var(--text-xs);
-      background: color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
-      border: var(--border-thin) solid var(--cyber-cyan-500);
       color: var(--cyber-cyan-500);
+      background: color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
     }
 
     // --------------------------------------------------------
@@ -209,9 +206,9 @@
       }
 
       .cyber-tab__badge {
-        background: color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent);
         border-color: var(--cyber-magenta-500);
         color: var(--cyber-magenta-500);
+        background: color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent);
       }
     }
 
@@ -243,11 +240,12 @@
   // Tab panel fade animation
   @keyframes tab-fade-in {
     from {
-      opacity: 0;
+      opacity: 0%;
       transform: translateY(4px);
     }
+
     to {
-      opacity: 1;
+      opacity: 100%;
       transform: translateY(0);
     }
   }

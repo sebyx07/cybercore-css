@@ -9,48 +9,48 @@
     // --------------------------------------------------------
 
     // Cyber Cyan - Primary actions, links, tech/neutral
-    --cyber-cyan-100: oklch(95% 0.05 195);
-    --cyber-cyan-200: oklch(85% 0.1 195);
-    --cyber-cyan-300: oklch(75% 0.15 195);
-    --cyber-cyan-400: oklch(65% 0.2 195);
+    --cyber-cyan-100: oklch(95% 0.05 195deg);
+    --cyber-cyan-200: oklch(85% 0.1 195deg);
+    --cyber-cyan-300: oklch(75% 0.15 195deg);
+    --cyber-cyan-400: oklch(65% 0.2 195deg);
     --cyber-cyan-500: #00f0ff;
-    --cyber-cyan-600: oklch(55% 0.15 195);
-    --cyber-cyan-700: oklch(45% 0.12 195);
-    --cyber-cyan-800: oklch(35% 0.1 195);
-    --cyber-cyan-900: oklch(25% 0.08 195);
+    --cyber-cyan-600: oklch(55% 0.15 195deg);
+    --cyber-cyan-700: oklch(45% 0.12 195deg);
+    --cyber-cyan-800: oklch(35% 0.1 195deg);
+    --cyber-cyan-900: oklch(25% 0.08 195deg);
 
     // Cyber Magenta - Danger, errors, alerts
-    --cyber-magenta-100: oklch(95% 0.05 0);
-    --cyber-magenta-200: oklch(85% 0.1 0);
-    --cyber-magenta-300: oklch(75% 0.15 350);
-    --cyber-magenta-400: oklch(65% 0.2 350);
+    --cyber-magenta-100: oklch(95% 0.05 0deg);
+    --cyber-magenta-200: oklch(85% 0.1 0deg);
+    --cyber-magenta-300: oklch(75% 0.15 350deg);
+    --cyber-magenta-400: oklch(65% 0.2 350deg);
     --cyber-magenta-500: #ff2a6d;
-    --cyber-magenta-600: oklch(50% 0.18 350);
-    --cyber-magenta-700: oklch(40% 0.15 350);
-    --cyber-magenta-800: oklch(30% 0.12 350);
-    --cyber-magenta-900: oklch(20% 0.08 350);
+    --cyber-magenta-600: oklch(50% 0.18 350deg);
+    --cyber-magenta-700: oklch(40% 0.15 350deg);
+    --cyber-magenta-800: oklch(30% 0.12 350deg);
+    --cyber-magenta-900: oklch(20% 0.08 350deg);
 
     // Cyber Yellow - Warnings, highlights
-    --cyber-yellow-100: oklch(98% 0.05 100);
-    --cyber-yellow-200: oklch(95% 0.1 100);
-    --cyber-yellow-300: oklch(90% 0.15 100);
-    --cyber-yellow-400: oklch(85% 0.2 100);
+    --cyber-yellow-100: oklch(98% 0.05 100deg);
+    --cyber-yellow-200: oklch(95% 0.1 100deg);
+    --cyber-yellow-300: oklch(90% 0.15 100deg);
+    --cyber-yellow-400: oklch(85% 0.2 100deg);
     --cyber-yellow-500: #fcee0a;
-    --cyber-yellow-600: oklch(70% 0.18 100);
-    --cyber-yellow-700: oklch(55% 0.15 100);
-    --cyber-yellow-800: oklch(40% 0.12 100);
-    --cyber-yellow-900: oklch(25% 0.08 100);
+    --cyber-yellow-600: oklch(70% 0.18 100deg);
+    --cyber-yellow-700: oklch(55% 0.15 100deg);
+    --cyber-yellow-800: oklch(40% 0.12 100deg);
+    --cyber-yellow-900: oklch(25% 0.08 100deg);
 
     // Cyber Green - Success, confirmation
-    --cyber-green-100: oklch(95% 0.05 160);
-    --cyber-green-200: oklch(90% 0.1 160);
-    --cyber-green-300: oklch(80% 0.15 160);
-    --cyber-green-400: oklch(70% 0.2 160);
+    --cyber-green-100: oklch(95% 0.05 160deg);
+    --cyber-green-200: oklch(90% 0.1 160deg);
+    --cyber-green-300: oklch(80% 0.15 160deg);
+    --cyber-green-400: oklch(70% 0.2 160deg);
     --cyber-green-500: #05ffa1;
-    --cyber-green-600: oklch(60% 0.18 160);
-    --cyber-green-700: oklch(45% 0.15 160);
-    --cyber-green-800: oklch(30% 0.12 160);
-    --cyber-green-900: oklch(20% 0.08 160);
+    --cyber-green-600: oklch(60% 0.18 160deg);
+    --cyber-green-700: oklch(45% 0.15 160deg);
+    --cyber-green-800: oklch(30% 0.12 160deg);
+    --cyber-green-900: oklch(20% 0.08 160deg);
 
     // Cyber Void - Ultra-dark backgrounds
     --cyber-void-100: #2a2d3a;
@@ -103,17 +103,14 @@
       0 0 20px color-mix(in srgb, var(--cyber-cyan-500) 60%, transparent),
       0 0 40px color-mix(in srgb, var(--cyber-cyan-500) 40%, transparent),
       0 0 80px color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
-
     --glow-magenta: 0 0 5px var(--cyber-magenta-500),
       0 0 20px color-mix(in srgb, var(--cyber-magenta-500) 60%, transparent),
       0 0 40px color-mix(in srgb, var(--cyber-magenta-500) 40%, transparent),
       0 0 80px color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent);
-
     --glow-yellow: 0 0 5px var(--cyber-yellow-500),
       0 0 20px color-mix(in srgb, var(--cyber-yellow-500) 60%, transparent),
       0 0 40px color-mix(in srgb, var(--cyber-yellow-500) 40%, transparent),
       0 0 80px color-mix(in srgb, var(--cyber-yellow-500) 20%, transparent);
-
     --glow-green: 0 0 5px var(--cyber-green-500),
       0 0 20px color-mix(in srgb, var(--cyber-green-500) 60%, transparent),
       0 0 40px color-mix(in srgb, var(--cyber-green-500) 40%, transparent),
@@ -122,13 +119,10 @@
     // Text glows (smaller)
     --glow-text-cyan: 0 0 10px var(--cyber-cyan-500),
       0 0 20px color-mix(in srgb, var(--cyber-cyan-500) 50%, transparent);
-
     --glow-text-magenta: 0 0 10px var(--cyber-magenta-500),
       0 0 20px color-mix(in srgb, var(--cyber-magenta-500) 50%, transparent);
-
     --glow-text-yellow: 0 0 10px var(--cyber-yellow-500),
       0 0 20px color-mix(in srgb, var(--cyber-yellow-500) 50%, transparent);
-
     --glow-text-green: 0 0 10px var(--cyber-green-500),
       0 0 20px color-mix(in srgb, var(--cyber-green-500) 50%, transparent);
 
@@ -151,11 +145,9 @@
     --text-3xl: clamp(1.8rem, 1.4rem + 1.5vw, 2.441rem);
     --text-4xl: clamp(2.2rem, 1.6rem + 2vw, 3.052rem);
     --text-5xl: clamp(2.8rem, 2rem + 2.5vw, 3.815rem);
-
     --leading-tight: 1.2;
     --leading-normal: 1.6;
     --leading-relaxed: 1.8;
-
     --tracking-tight: -0.02em;
     --tracking-normal: 0;
     --tracking-wide: 0.02em;
@@ -183,7 +175,6 @@
     --border-thin: 1px;
     --border-medium: 2px;
     --border-thick: 3px;
-
     --radius-none: 0;
     --radius-sm: 2px;
     --radius-md: 4px;
@@ -198,7 +189,6 @@
     --transition-fast: 150ms ease;
     --transition-base: 250ms ease;
     --transition-slow: 400ms ease;
-
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
 

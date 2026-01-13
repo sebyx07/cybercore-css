@@ -13,7 +13,6 @@
     8px 100%,
     0 calc(100% - 8px)
   );
-
   $corner-cut-md: polygon(
     0 0,
     calc(100% - 12px) 0,
@@ -27,27 +26,27 @@
     // Base styles
     position: relative;
     display: inline-flex;
+    gap: var(--space-xs);
     align-items: center;
     justify-content: center;
-    gap: var(--space-xs);
     padding: var(--space-xs) var(--space-md);
+    border: var(--border-medium) solid var(--cyber-cyan-500);
     font-family: var(--font-display);
     font-size: var(--text-sm);
     font-weight: 600;
-    text-transform: uppercase;
     letter-spacing: var(--tracking-wider);
     text-decoration: none;
-    cursor: pointer;
-    border: var(--border-medium) solid var(--cyber-cyan-500);
-    background: transparent;
+    text-transform: uppercase;
     color: var(--cyber-cyan-500);
-    clip-path: #{$corner-cut-sm};
+    background: transparent;
     transition:
       background var(--transition-fast),
       color var(--transition-fast),
       border-color var(--transition-fast),
       box-shadow var(--transition-fast),
       transform var(--transition-fast);
+    cursor: pointer;
+    clip-path: #{$corner-cut-sm};
 
     // Focus visible outline
     &:focus-visible {
@@ -64,14 +63,14 @@
 
     // Active state
     &:active {
-      transform: translateY(0);
       box-shadow: none;
+      transform: translateY(0);
     }
 
     // Disabled state
     &:disabled,
     &[disabled] {
-      opacity: 0.5;
+      opacity: 50%;
       cursor: not-allowed;
       pointer-events: none;
     }
@@ -90,8 +89,8 @@
       }
 
       &.cyber-btn--filled {
-        background: var(--cyber-magenta-500);
         color: var(--cyber-void-500);
+        background: var(--cyber-magenta-500);
 
         &:hover {
           background: var(--cyber-magenta-400);
@@ -109,8 +108,8 @@
       }
 
       &.cyber-btn--filled {
-        background: var(--cyber-yellow-500);
         color: var(--cyber-void-500);
+        background: var(--cyber-yellow-500);
 
         &:hover {
           background: var(--cyber-yellow-400);
@@ -128,8 +127,8 @@
       }
 
       &.cyber-btn--filled {
-        background: var(--cyber-green-500);
         color: var(--cyber-void-500);
+        background: var(--cyber-green-500);
 
         &:hover {
           background: var(--cyber-green-400);
@@ -142,8 +141,8 @@
     // --------------------------------------------------------
 
     &--filled {
-      background: var(--cyber-cyan-500);
       color: var(--cyber-void-500);
+      background: var(--cyber-cyan-500);
 
       &:hover {
         background: var(--cyber-cyan-400);
@@ -156,8 +155,8 @@
       background: transparent;
 
       &:hover {
-        border-color: currentColor;
-        background: color-mix(in srgb, currentColor 10%, transparent);
+        border-color: currentcolor;
+        background: color-mix(in srgb, currentcolor 10%, transparent);
         box-shadow: none;
       }
     }
@@ -191,9 +190,9 @@
 
     svg,
     .cyber-btn__icon {
+      flex-shrink: 0;
       width: 1em;
       height: 1em;
-      flex-shrink: 0;
     }
   }
 
@@ -203,8 +202,8 @@
     gap: var(--space-2xs);
 
     .cyber-btn {
-      clip-path: none;
       border-radius: 0;
+      clip-path: none;
     }
 
     .cyber-btn:first-child {

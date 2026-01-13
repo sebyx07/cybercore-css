@@ -10,10 +10,11 @@
   @keyframes cyber-pulse {
     0%,
     100% {
-      opacity: 1;
+      opacity: 100%;
     }
+
     50% {
-      opacity: 0.5;
+      opacity: 50%;
     }
   }
 
@@ -22,6 +23,7 @@
     100% {
       transform: translateY(0);
     }
+
     50% {
       transform: translateY(-10px);
     }
@@ -29,46 +31,56 @@
 
   @keyframes cyber-flicker-in {
     0% {
-      opacity: 0;
+      opacity: 0%;
     }
+
     10% {
-      opacity: 0.6;
+      opacity: 60%;
     }
+
     20% {
-      opacity: 0.2;
+      opacity: 20%;
     }
+
     30% {
-      opacity: 0.8;
+      opacity: 80%;
     }
+
     40% {
-      opacity: 0.4;
+      opacity: 40%;
     }
+
     50% {
-      opacity: 1;
+      opacity: 100%;
     }
+
     60% {
-      opacity: 0.7;
+      opacity: 70%;
     }
+
     70% {
-      opacity: 1;
+      opacity: 100%;
     }
+
     80% {
-      opacity: 0.9;
+      opacity: 90%;
     }
+
     100% {
-      opacity: 1;
+      opacity: 100%;
     }
   }
 
   @keyframes cyber-glow-pulse {
     0%,
     100% {
+      box-shadow: 0 0 5px currentcolor;
       filter: brightness(1);
-      box-shadow: 0 0 5px currentColor;
     }
+
     50% {
+      box-shadow: 0 0 20px currentcolor, 0 0 40px currentcolor;
       filter: brightness(1.2);
-      box-shadow: 0 0 20px currentColor, 0 0 40px currentColor;
     }
   }
 
@@ -76,6 +88,7 @@
     from {
       transform: rotate(0deg);
     }
+
     to {
       transform: rotate(360deg);
     }
@@ -84,8 +97,8 @@
   @keyframes cyber-ping {
     75%,
     100% {
+      opacity: 0%;
       transform: scale(2);
-      opacity: 0;
     }
   }
 
@@ -95,6 +108,7 @@
       transform: translateY(-25%);
       animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
     }
+
     50% {
       transform: translateY(0);
       animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
@@ -192,9 +206,9 @@
   // --------------------------------------------------------
 
   .cyber-transition {
+    transition-duration: var(--transition-base);
     transition-property: color, background-color, border-color, box-shadow,
       transform, opacity;
-    transition-duration: var(--transition-base);
   }
 
   .cyber-transition-fast {

@@ -5,23 +5,23 @@
 @layer components {
   .cyber-scanlines {
     position: fixed;
-    inset: 0;
     z-index: 9998;
+    opacity: var(--scanline-opacity, 4%);
     pointer-events: none;
-    opacity: var(--scanline-opacity, 0.04);
+    inset: 0;
 
     &::before {
       content: '';
       position: absolute;
-      inset: 0;
       background: repeating-linear-gradient(
         0deg,
         transparent,
         transparent 1px,
-        rgba(0, 0, 0, 0.3) 1px,
-        rgba(0, 0, 0, 0.3) 2px
+        rgb(0 0 0 / 30%) 1px,
+        rgb(0 0 0 / 30%) 2px
       );
       background-size: 100% 2px;
+      inset: 0;
     }
 
     // Finer scanlines variant
@@ -30,8 +30,8 @@
         0deg,
         transparent,
         transparent 0.5px,
-        rgba(0, 0, 0, 0.2) 0.5px,
-        rgba(0, 0, 0, 0.2) 1px
+        rgb(0 0 0 / 20%) 0.5px,
+        rgb(0 0 0 / 20%) 1px
       );
       background-size: 100% 1px;
     }
@@ -42,8 +42,8 @@
         0deg,
         transparent,
         transparent 2px,
-        rgba(0, 0, 0, 0.4) 2px,
-        rgba(0, 0, 0, 0.4) 4px
+        rgb(0 0 0 / 40%) 2px,
+        rgb(0 0 0 / 40%) 4px
       );
       background-size: 100% 4px;
     }
@@ -62,10 +62,11 @@
   @keyframes cyber-scanline-flicker {
     0%,
     100% {
-      opacity: 1;
+      opacity: 100%;
     }
+
     50% {
-      opacity: 0.98;
+      opacity: 98%;
     }
   }
 
@@ -73,6 +74,7 @@
     0% {
       background-position: 0 0;
     }
+
     100% {
       background-position: 0 100%;
     }

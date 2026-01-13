@@ -7,20 +7,20 @@
   .cyber-terminal {
     display: flex;
     flex-direction: column;
-    background: var(--cyber-void-500);
     border: var(--border-thin) solid var(--color-border-default);
+    overflow: hidden;
     font-family: var(--font-mono);
     font-size: var(--text-sm);
-    overflow: hidden;
+    background: var(--cyber-void-500);
 
     // Window chrome (title bar)
     &__chrome {
       display: flex;
-      align-items: center;
       gap: var(--space-xs);
+      align-items: center;
       padding: var(--space-xs) var(--space-sm);
-      background: var(--color-bg-tertiary);
       border-bottom: var(--border-thin) solid var(--color-border-default);
+      background: var(--color-bg-tertiary);
     }
 
     // Traffic light dots
@@ -51,20 +51,20 @@
     // Window title
     &__title {
       flex: 1;
-      text-align: center;
       font-size: var(--text-xs);
-      color: var(--color-text-muted);
-      text-transform: uppercase;
       letter-spacing: var(--tracking-wide);
+      text-align: center;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
     }
 
     // Terminal body
     &__body {
       flex: 1;
-      padding: var(--space-sm);
-      overflow: auto;
       min-height: 200px;
       max-height: 500px;
+      padding: var(--space-sm);
+      overflow: auto;
     }
 
     // Terminal line
@@ -102,8 +102,8 @@
 
     // Prompt
     &__prompt {
-      color: var(--cyber-cyan-500);
       flex-shrink: 0;
+      color: var(--cyber-cyan-500);
       user-select: none;
     }
 
@@ -118,16 +118,16 @@
       width: 8px;
       height: 1.2em;
       background: var(--cyber-cyan-500);
-      vertical-align: text-bottom;
       animation: cursor-blink 1s step-end infinite;
+      vertical-align: text-bottom;
 
       &--block {
         width: 0.6em;
       }
 
       &--underscore {
-        height: 2px;
         width: 0.6em;
+        height: 2px;
         vertical-align: baseline;
       }
     }
@@ -135,8 +135,8 @@
     // Input line (for interactive terminals)
     &__input {
       display: flex;
-      align-items: center;
       gap: var(--space-xs);
+      align-items: center;
       padding: var(--space-sm);
       border-top: var(--border-thin) solid var(--color-border-default);
       background: var(--color-bg-tertiary);
@@ -144,13 +144,13 @@
 
     &__input-field {
       flex: 1;
-      background: transparent;
       border: none;
-      color: var(--color-text-primary);
       font-family: inherit;
       font-size: inherit;
-      outline: none;
+      color: var(--color-text-primary);
+      background: transparent;
       caret-color: var(--cyber-cyan-500);
+      outline: none;
 
       &::placeholder {
         color: var(--color-text-muted);
@@ -174,8 +174,8 @@
     }
 
     .syntax-comment {
-      color: var(--cyber-chrome-500);
       font-style: italic;
+      color: var(--cyber-chrome-500);
     }
 
     .syntax-function {
@@ -246,17 +246,18 @@
   // Cursor blink animation
   @keyframes cursor-blink {
     0%, 100% {
-      opacity: 1;
+      opacity: 100%;
     }
+
     50% {
-      opacity: 0;
+      opacity: 0%;
     }
   }
 
   // Typing animation helper
   .cyber-terminal-typing {
-    overflow: hidden;
     border-right: 2px solid var(--cyber-cyan-500);
+    overflow: hidden;
     white-space: nowrap;
     animation:
       typing 2s steps(30, end),
@@ -266,6 +267,7 @@
       from {
         width: 0;
       }
+
       to {
         width: 100%;
       }
@@ -274,8 +276,8 @@
 
   // ASCII art container
   .cyber-terminal-ascii {
-    white-space: pre;
     line-height: 1.2;
+    white-space: pre;
     color: var(--cyber-cyan-500);
     text-shadow: 0 0 10px var(--cyber-cyan-500);
   }

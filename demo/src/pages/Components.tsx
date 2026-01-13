@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import CodeBlock from '../components/CodeBlock';
 
 function Components() {
@@ -138,7 +139,7 @@ function Components() {
 
             <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
               <div className="demo-preview" style={{ flexDirection: 'column', alignItems: 'stretch' }}>
-                <textarea className="cyber-textarea" placeholder="Enter your message..."></textarea>
+                <textarea className="cyber-textarea" placeholder="Enter your message..." />
               </div>
               <CodeBlock
                 title="Textarea"
@@ -331,25 +332,25 @@ function Components() {
                 <div>
                   <span className="cyber-label">25%</span>
                   <div className="cyber-progress" style={{ marginTop: 'var(--space-xs)' }}>
-                    <div className="cyber-progress__bar" style={{ width: '25%' }}></div>
+                    <div className="cyber-progress__bar" style={{ width: '25%' }} />
                   </div>
                 </div>
                 <div>
                   <span className="cyber-label">50%</span>
                   <div className="cyber-progress" style={{ marginTop: 'var(--space-xs)' }}>
-                    <div className="cyber-progress__bar" style={{ width: '50%' }}></div>
+                    <div className="cyber-progress__bar" style={{ width: '50%' }} />
                   </div>
                 </div>
                 <div>
                   <span className="cyber-label">75%</span>
                   <div className="cyber-progress" style={{ marginTop: 'var(--space-xs)' }}>
-                    <div className="cyber-progress__bar" style={{ width: '75%' }}></div>
+                    <div className="cyber-progress__bar" style={{ width: '75%' }} />
                   </div>
                 </div>
                 <div>
                   <span className="cyber-label">100%</span>
                   <div className="cyber-progress" style={{ marginTop: 'var(--space-xs)' }}>
-                    <div className="cyber-progress__bar" style={{ width: '100%' }}></div>
+                    <div className="cyber-progress__bar" style={{ width: '100%' }} />
                   </div>
                 </div>
               </div>
@@ -445,9 +446,9 @@ function Components() {
               <div className="demo-preview" style={{ alignItems: 'stretch' }}>
                 <div className="cyber-terminal" style={{ width: '100%' }}>
                   <div className="cyber-terminal__header">
-                    <span className="cyber-terminal__dot cyber-terminal__dot--red"></span>
-                    <span className="cyber-terminal__dot cyber-terminal__dot--yellow"></span>
-                    <span className="cyber-terminal__dot cyber-terminal__dot--green"></span>
+                    <span className="cyber-terminal__dot cyber-terminal__dot--red" />
+                    <span className="cyber-terminal__dot cyber-terminal__dot--yellow" />
+                    <span className="cyber-terminal__dot cyber-terminal__dot--green" />
                   </div>
                   <div className="cyber-terminal__body">
                     <span className="cyber-terminal__prompt">$</span> npm install cybercore-css
@@ -458,7 +459,7 @@ function Components() {
                     <br />
                     <span style={{ color: 'var(--cyber-green-500)' }}>added 1 package in 2.3s</span>
                     <br /><br />
-                    <span className="cyber-terminal__prompt">$</span> <span className="cyber-terminal__cursor"></span>
+                    <span className="cyber-terminal__prompt">$</span> <span className="cyber-terminal__cursor" />
                   </div>
                 </div>
               </div>
@@ -493,7 +494,7 @@ function Components() {
             <h3 className="cyber-h4" style={{ marginBottom: 'var(--space-md)' }}>Spinner</h3>
             <div className="demo-code-preview">
               <div className="demo-preview">
-                <div className="cyber-spinner"></div>
+                <div className="cyber-spinner" />
               </div>
               <CodeBlock
                 title="Loading Spinner"
@@ -507,11 +508,11 @@ function Components() {
             <div className="demo-code-preview">
               <div className="demo-preview" style={{ flexDirection: 'column', alignItems: 'stretch' }}>
                 <div style={{ display: 'flex', gap: 'var(--space-md)', alignItems: 'center' }}>
-                  <div className="cyber-skeleton cyber-skeleton--avatar"></div>
+                  <div className="cyber-skeleton cyber-skeleton--avatar" />
                   <div style={{ flex: 1 }}>
-                    <div className="cyber-skeleton cyber-skeleton--title"></div>
-                    <div className="cyber-skeleton cyber-skeleton--text"></div>
-                    <div className="cyber-skeleton cyber-skeleton--text" style={{ width: '80%' }}></div>
+                    <div className="cyber-skeleton cyber-skeleton--title" />
+                    <div className="cyber-skeleton cyber-skeleton--text" />
+                    <div className="cyber-skeleton cyber-skeleton--text" style={{ width: '80%' }} />
                   </div>
                 </div>
               </div>
