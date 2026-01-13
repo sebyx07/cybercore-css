@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CYBERCORE // Night City Interface</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+/*
+ * ═══════════════════════════════════════════════════════════════════════════
+ * CYBERCORE v1.0 - DEMO BUILD
+ * A Cyberpunk 2077-Inspired Design System
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
+
+:root {
+  /* Primary Cyans */
+  --cyber-cyan-100: #e0fcff;
+  --cyber-cyan-200: #bef8fd;
+  --cyber-cyan-300: #87eaf2;
+  --cyber-cyan-400: #54d1db;
+  --cyber-cyan-500: #00f0ff;
+  --cyber-cyan-600: #00c4cc;
+  --cyber-cyan-700: #0097a7;
+  --cyber-cyan-800: #007a87;
+  --cyber-cyan-900: #005d6a;
+  
+  /* Hot Magentas */
+  --cyber-magenta-100: #ffe0f0;
+  --cyber-magenta-200: #ffb8d9;
+  --cyber-magenta-300: #ff8cc2;
+  --cyber-magenta-400: #ff5caa;
+  --cyber-magenta-500: #ff2a6d;
+  --cyber-magenta-600: #d91a5a;
+  --cyber-magenta-700: #b31248;
+  --cyber-magenta-800: #8c0b37;
+  --cyber-magenta-900: #660527;
+  
+  /* Electric Yellows */
+  --cyber-yellow-100: #fff9db;
+  --cyber-yellow-200: #fff3b8;
+  --cyber-yellow-300: #ffec8a;
+  --cyber-yellow-400: #ffe55c;
+  --cyber-yellow-500: #fcee0a;
+  --cyber-yellow-600: #d4c908;
+  --cyber-yellow-700: #aca406;
+  --cyber-yellow-800: #857f04;
+  --cyber-yellow-900: #5d5a03;
+  
+  /* Toxic Greens */
+  --cyber-green-100: #d0ffe0;
+  --cyber-green-200: #a1ffc1;
+  --cyber-green-300: #72ffa2;
+  --cyber-green-400: #43ff83;
+  --cyber-green-500: #05ffa1;
+  --cyber-green-600: #04d485;
+  --cyber-green-700: #03a969;
+  --cyber-green-800: #027e4d;
+  --cyber-green-900: #015331;
+  
+  /* Void Blacks */
+  --cyber-void-100: #2a2d3a;
+  --cyber-void-200: #1f2230;
+  --cyber-void-300: #181a25;
+  --cyber-void-400: #12141d;
+  --cyber-void-500: #0d0e14;
+  --cyber-void-600: #0a0b10;
+  --cyber-void-700: #07080c;
+  --cyber-void-800: #040508;
+  --cyber-void-900: #010204;
+  
+  /* Chrome Grays */
+  --cyber-chrome-100: #f0f1f5;
+  --cyber-chrome-200: #d1d4de;
+  --cyber-chrome-300: #b2b7c7;
+  --cyber-chrome-400: #939ab0;
+  --cyber-chrome-500: #747d99;
+  --cyber-chrome-600: #5c647a;
+  --cyber-chrome-700: #444b5c;
+  --cyber-chrome-800: #2c323d;
+  --cyber-chrome-900: #14191f;
+  
+  /* Semantic Colors */
+  --color-bg-primary: var(--cyber-void-500);
+  --color-bg-secondary: var(--cyber-void-400);
+  --color-bg-tertiary: var(--cyber-void-300);
+  --color-bg-elevated: var(--cyber-void-200);
+  --color-text-primary: var(--cyber-chrome-100);
+  --color-text-secondary: var(--cyber-chrome-300);
+  --color-text-muted: var(--cyber-chrome-500);
+  --color-border-default: var(--cyber-void-100);
+  
+  /* Glows */
+  --glow-cyan: 0 0 20px var(--cyber-cyan-500),
+               0 0 40px color-mix(in srgb, var(--cyber-cyan-500) 50%, transparent),
+               0 0 80px color-mix(in srgb, var(--cyber-cyan-500) 25%, transparent);
+  --glow-magenta: 0 0 20px var(--cyber-magenta-500),
+                  0 0 40px color-mix(in srgb, var(--cyber-magenta-500) 50%, transparent);
+  --glow-yellow: 0 0 20px var(--cyber-yellow-500),
+                 0 0 40px color-mix(in srgb, var(--cyber-yellow-500) 50%, transparent);
+  --glow-green: 0 0 20px var(--cyber-green-500),
+                0 0 40px color-mix(in srgb, var(--cyber-green-500) 50%, transparent);
+  --glow-text-cyan: 0 0 10px var(--cyber-cyan-500),
+                    0 0 20px color-mix(in srgb, var(--cyber-cyan-500) 60%, transparent);
+  
+  /* Typography */
+  --font-display: 'Rajdhani', 'Orbitron', system-ui, sans-serif;
+  --font-body: 'Exo 2', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  /* Type Scale */
+  --text-xs: clamp(0.64rem, 0.59rem + 0.24vw, 0.75rem);
+  --text-sm: clamp(0.8rem, 0.74rem + 0.32vw, 0.94rem);
+  --text-base: clamp(1rem, 0.93rem + 0.37vw, 1.18rem);
+  --text-lg: clamp(1.25rem, 1.16rem + 0.47vw, 1.47rem);
+  --text-xl: clamp(1.56rem, 1.45rem + 0.59vw, 1.84rem);
+  --text-2xl: clamp(1.95rem, 1.81rem + 0.74vw, 2.3rem);
+  --text-3xl: clamp(2.44rem, 2.26rem + 0.92vw, 2.87rem);
+  --text-4xl: clamp(3.05rem, 2.83rem + 1.15vw, 3.58rem);
+  --text-5xl: clamp(3.81rem, 3.54rem + 1.44vw, 4.48rem);
+  
+  /* Spacing */
+  --space-3xs: clamp(0.25rem, 0.23rem + 0.09vw, 0.31rem);
+  --space-2xs: clamp(0.5rem, 0.46rem + 0.18vw, 0.63rem);
+  --space-xs: clamp(0.75rem, 0.7rem + 0.28vw, 0.94rem);
+  --space-sm: clamp(1rem, 0.93rem + 0.37vw, 1.25rem);
+  --space-md: clamp(1.5rem, 1.39rem + 0.56vw, 1.88rem);
+  --space-lg: clamp(2rem, 1.86rem + 0.74vw, 2.5rem);
+  --space-xl: clamp(3rem, 2.78rem + 1.11vw, 3.75rem);
+  
+  /* Borders */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-cyber: 0 12px 0 12px;
+  --border-thin: 1px;
+  --border-medium: 2px;
+  
+  /* Animation */
+  --ease-cyber: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  
+  /* Effects */
+  --noise-opacity: 0.03;
+  --scanline-opacity: 0.04;
+  --chromatic-offset: 2px;
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* Noise Overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: var(--noise-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Scanlines */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: var(--scanline-opacity);
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgb(0 0 0 / 0.3) 2px,
+    rgb(0 0 0 / 0.3) 4px
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TYPOGRAPHY
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+h1 { font-size: var(--text-5xl); }
+h2 { font-size: var(--text-4xl); }
+h3 { font-size: var(--text-3xl); }
+h4 { font-size: var(--text-2xl); }
+
+/* Glitch Heading */
+.cyber-heading {
+  position: relative;
+  color: var(--cyber-cyan-500);
+  text-shadow: var(--glow-text-cyan);
+  display: inline-block;
+}
+
+.cyber-heading::before,
+.cyber-heading::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.cyber-heading::before {
+  color: var(--cyber-magenta-500);
+  z-index: -1;
+  animation: glitch-1 3s infinite linear alternate-reverse;
+}
+
+.cyber-heading::after {
+  color: var(--cyber-cyan-300);
+  z-index: -1;
+  animation: glitch-2 2s infinite linear alternate;
+}
+
+@keyframes glitch-1 {
+  0%, 100% { clip-path: inset(0 0 95% 0); transform: translate(-2px, 0); }
+  10% { clip-path: inset(30% 0 40% 0); transform: translate(2px, 0); }
+  20% { clip-path: inset(70% 0 10% 0); transform: translate(-1px, 0); }
+  30% { clip-path: inset(10% 0 60% 0); transform: translate(1px, 0); }
+  40% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 0); }
+  50% { clip-path: inset(20% 0 55% 0); transform: translate(2px, 0); }
+  60% { clip-path: inset(50% 0 30% 0); transform: translate(-1px, 0); }
+  70% { clip-path: inset(5% 0 85% 0); transform: translate(1px, 0); }
+  80% { clip-path: inset(45% 0 35% 0); transform: translate(-2px, 0); }
+  90% { clip-path: inset(85% 0 5% 0); transform: translate(2px, 0); }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { clip-path: inset(95% 0 0 0); transform: translate(2px, 0); }
+  10% { clip-path: inset(40% 0 30% 0); transform: translate(-2px, 0); }
+  20% { clip-path: inset(10% 0 70% 0); transform: translate(1px, 0); }
+  30% { clip-path: inset(60% 0 10% 0); transform: translate(-1px, 0); }
+  40% { clip-path: inset(5% 0 80% 0); transform: translate(2px, 0); }
+  50% { clip-path: inset(55% 0 20% 0); transform: translate(-2px, 0); }
+  60% { clip-path: inset(30% 0 50% 0); transform: translate(1px, 0); }
+  70% { clip-path: inset(85% 0 5% 0); transform: translate(-1px, 0); }
+  80% { clip-path: inset(35% 0 45% 0); transform: translate(2px, 0); }
+  90% { clip-path: inset(5% 0 85% 0); transform: translate(-2px, 0); }
+}
+
+/* Code */
+code {
+  font-family: var(--font-mono);
+  padding: 0.125em 0.375em;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  font-size: 0.9em;
+  color: var(--cyber-cyan-400);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.cyber-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border-default);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+
+.cyber-nav__brand {
+  font-family: 'Orbitron', var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 800;
+  color: var(--cyber-cyan-500);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  text-decoration: none;
+  text-shadow: var(--glow-text-cyan);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.cyber-nav__brand::before {
+  content: '//';
+  color: var(--cyber-magenta-500);
+}
+
+.cyber-nav__links {
+  display: flex;
+  gap: var(--space-2xs);
+  list-style: none;
+  margin-left: auto;
+}
+
+.cyber-nav__link {
+  position: relative;
+  padding: var(--space-xs) var(--space-sm);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--duration-fast);
+  overflow: hidden;
+}
+
+.cyber-nav__link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--cyber-cyan-500);
+  transform: translateX(-101%);
+  transition: transform var(--duration-normal) var(--ease-cyber);
+}
+
+.cyber-nav__link:hover,
+.cyber-nav__link--active {
+  color: var(--cyber-cyan-500);
+}
+
+.cyber-nav__link:hover::before,
+.cyber-nav__link--active::before {
+  transform: translateX(0);
+}
+
+/* Status Indicator */
+.cyber-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-3xs) var(--space-xs);
+  background: color-mix(in srgb, var(--cyber-green-500) 15%, transparent);
+  border: 1px solid var(--cyber-green-500);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--cyber-green-500);
+}
+
+.cyber-status__dot {
+  width: 8px;
+  height: 8px;
+  background: var(--cyber-green-500);
+  border-radius: 50%;
+  animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 var(--cyber-green-500); }
+  50% { box-shadow: 0 0 10px 3px var(--cyber-green-500); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BUTTONS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.cyber-btn {
+  --btn-color: var(--cyber-cyan-500);
+  --btn-bg: transparent;
+  --btn-glow: var(--glow-cyan);
+  
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-md);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--btn-color);
+  background: var(--btn-bg);
+  border: var(--border-medium) solid var(--btn-color);
+  border-radius: var(--radius-cyber);
+  cursor: pointer;
+  overflow: hidden;
+  transition: all var(--duration-fast) var(--ease-cyber);
+  isolation: isolate;
+}
+
+.cyber-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--btn-color);
+  transform: translateX(-101%);
+  transition: transform var(--duration-normal) var(--ease-cyber);
+  z-index: -1;
+}
+
+.cyber-btn:hover::before,
+.cyber-btn:focus-visible::before {
+  transform: translateX(0);
+}
+
+.cyber-btn:hover,
+.cyber-btn:focus-visible {
+  color: var(--cyber-void-500);
+  box-shadow: var(--btn-glow);
+}
+
+.cyber-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 12px;
+  height: 12px;
+  background: var(--color-bg-primary);
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  border: var(--border-medium) solid var(--btn-color);
+  border-top: none;
+  border-left: none;
+}
+
+.cyber-btn:focus-visible {
+  outline: 2px solid var(--btn-color);
+  outline-offset: 4px;
+}
+
+/* Variants */
+.cyber-btn--magenta {
+  --btn-color: var(--cyber-magenta-500);
+  --btn-glow: var(--glow-magenta);
+}
+
+.cyber-btn--yellow {
+  --btn-color: var(--cyber-yellow-500);
+  --btn-glow: var(--glow-yellow);
+}
+
+.cyber-btn--green {
+  --btn-color: var(--cyber-green-500);
+  --btn-glow: var(--glow-green);
+}
+
+.cyber-btn--ghost {
+  border-style: dashed;
+}
+
+.cyber-btn--filled {
+  background: var(--btn-color);
+  color: var(--cyber-void-500);
+}
+
+.cyber-btn--filled::before {
+  background: var(--cyber-void-500);
+}
+
+.cyber-btn--filled:hover {
+  color: var(--btn-color);
+}
+
+.cyber-btn--sm {
+  padding: var(--space-3xs) var(--space-sm);
+  font-size: var(--text-xs);
+}
+
+.cyber-btn--lg {
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--text-lg);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CARDS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.cyber-card {
+  --card-accent: var(--cyber-cyan-500);
+  
+  position: relative;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-default);
+  padding: var(--space-md);
+  clip-path: polygon(
+    0 0,
+    calc(100% - 20px) 0,
+    100% 20px,
+    100% 100%,
+    20px 100%,
+    0 calc(100% - 20px)
+  );
+}
+
+.cyber-card::before,
+.cyber-card::after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--card-accent);
+  pointer-events: none;
+}
+
+.cyber-card::before {
+  top: -1px;
+  left: -1px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.cyber-card::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: none;
+  border-top: none;
+}
+
+.cyber-card--interactive {
+  transition: all var(--duration-normal);
+  cursor: pointer;
+}
+
+.cyber-card--interactive:hover {
+  box-shadow: 
+    inset 0 0 30px color-mix(in srgb, var(--card-accent) 10%, transparent),
+    0 0 30px color-mix(in srgb, var(--card-accent) 30%, transparent);
+  transform: translateY(-2px);
+}
+
+.cyber-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.cyber-card__icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--card-accent) 15%, transparent);
+  border: 1px solid var(--card-accent);
+  color: var(--card-accent);
+  font-size: var(--text-lg);
+}
+
+.cyber-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--card-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cyber-card__badge {
+  margin-left: auto;
+  padding: var(--space-3xs) var(--space-xs);
+  background: var(--card-accent);
+  color: var(--cyber-void-500);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+/* Card Variants */
+.cyber-card--magenta { --card-accent: var(--cyber-magenta-500); }
+.cyber-card--yellow { --card-accent: var(--cyber-yellow-500); }
+.cyber-card--green { --card-accent: var(--cyber-green-500); }
+
+/* Holographic Card */
+.cyber-card--holo {
+  background: linear-gradient(
+    135deg,
+    var(--color-bg-secondary) 0%,
+    color-mix(in srgb, var(--cyber-cyan-500) 5%, var(--color-bg-secondary)) 25%,
+    color-mix(in srgb, var(--cyber-magenta-500) 5%, var(--color-bg-secondary)) 50%,
+    color-mix(in srgb, var(--cyber-green-500) 5%, var(--color-bg-secondary)) 75%,
+    var(--color-bg-secondary) 100%
+  );
+  background-size: 400% 400%;
+  animation: holo-shift 8s ease infinite;
+}
+
+@keyframes holo-shift {
+  0%, 100% { background-position: 0% 50%; }
+  25% { background-position: 100% 50%; }
+  50% { background-position: 100% 100%; }
+  75% { background-position: 0% 100%; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FORM ELEMENTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.cyber-input {
+  --input-accent: var(--cyber-cyan-500);
+  
+  display: block;
+  width: 100%;
+  padding: var(--space-xs) var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  color: var(--color-text-primary);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-default);
+  border-left: 3px solid var(--input-accent);
+  outline: none;
+  transition: all var(--duration-fast);
+}
+
+.cyber-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.cyber-input:focus {
+  border-color: var(--input-accent);
+  box-shadow: 
+    0 0 0 3px color-mix(in srgb, var(--input-accent) 20%, transparent),
+    inset 0 0 15px color-mix(in srgb, var(--input-accent) 10%, transparent);
+}
+
+.cyber-field {
+  margin-bottom: var(--space-md);
+}
+
+.cyber-field__label {
+  display: block;
+  margin-bottom: var(--space-2xs);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-secondary);
+}
+
+.cyber-field__label::before {
+  content: '> ';
+  color: var(--cyber-cyan-500);
+}
+
+.cyber-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Checkbox */
+.cyber-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  cursor: pointer;
+  user-select: none;
+}
+
+.cyber-checkbox input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.cyber-checkbox__box {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--cyber-cyan-500);
+  background: var(--color-bg-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--duration-fast);
+  position: relative;
+}
+
+.cyber-checkbox__box::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background: var(--cyber-cyan-500);
+  transform: scale(0);
+  transition: transform var(--duration-fast) var(--ease-bounce);
+}
+
+.cyber-checkbox input:checked ~ .cyber-checkbox__box {
+  box-shadow: 0 0 10px var(--cyber-cyan-500);
+}
+
+.cyber-checkbox input:checked ~ .cyber-checkbox__box::before {
+  transform: scale(1);
+}
+
+.cyber-checkbox__label {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DATA DISPLAY
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Progress Bar */
+.cyber-progress {
+  --progress-value: 0%;
+  --progress-color: var(--cyber-cyan-500);
+  
+  height: 10px;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-default);
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-progress__bar {
+  height: 100%;
+  width: var(--progress-value);
+  background: linear-gradient(
+    90deg,
+    var(--progress-color),
+    color-mix(in srgb, var(--progress-color) 70%, white)
+  );
+  box-shadow: 0 0 15px var(--progress-color);
+  transition: width var(--duration-slow) var(--ease-cyber);
+  position: relative;
+}
+
+.cyber-progress__bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 5px,
+    rgb(255 255 255 / 0.15) 5px,
+    rgb(255 255 255 / 0.15) 10px
+  );
+  animation: progress-stripes 0.5s linear infinite;
+}
+
+@keyframes progress-stripes {
+  from { background-position: 0 0; }
+  to { background-position: 20px 0; }
+}
+
+.cyber-progress--magenta { --progress-color: var(--cyber-magenta-500); }
+.cyber-progress--yellow { --progress-color: var(--cyber-yellow-500); }
+.cyber-progress--green { --progress-color: var(--cyber-green-500); }
+
+/* Badges */
+.cyber-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  padding: var(--space-3xs) var(--space-xs);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
+  color: var(--cyber-cyan-500);
+  border: 1px solid var(--cyber-cyan-500);
+}
+
+.cyber-badge--magenta {
+  background: color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent);
+  color: var(--cyber-magenta-500);
+  border-color: var(--cyber-magenta-500);
+}
+
+.cyber-badge--yellow {
+  background: color-mix(in srgb, var(--cyber-yellow-500) 20%, transparent);
+  color: var(--cyber-yellow-500);
+  border-color: var(--cyber-yellow-500);
+}
+
+.cyber-badge--green {
+  background: color-mix(in srgb, var(--cyber-green-500) 20%, transparent);
+  color: var(--cyber-green-500);
+  border-color: var(--cyber-green-500);
+}
+
+.cyber-badge--pulse {
+  animation: badge-pulse 2s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 currentColor; }
+  50% { box-shadow: 0 0 0 6px transparent; }
+}
+
+/* Stats Display */
+.cyber-stat {
+  text-align: center;
+}
+
+.cyber-stat__value {
+  font-family: 'Orbitron', var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--cyber-cyan-500);
+  text-shadow: var(--glow-text-cyan);
+  line-height: 1;
+}
+
+.cyber-stat__label {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  margin-top: var(--space-2xs);
+}
+
+/* Table */
+.cyber-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+.cyber-table thead {
+  background: var(--color-bg-tertiary);
+}
+
+.cyber-table th {
+  padding: var(--space-sm);
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--cyber-cyan-500);
+  text-align: left;
+  border-bottom: 2px solid var(--cyber-cyan-500);
+}
+
+.cyber-table td {
+  padding: var(--space-sm);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.cyber-table tbody tr {
+  transition: background var(--duration-fast);
+}
+
+.cyber-table tbody tr:hover {
+  background: color-mix(in srgb, var(--cyber-cyan-500) 5%, transparent);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ALERTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.cyber-alert {
+  --alert-color: var(--cyber-cyan-500);
+  
+  position: relative;
+  padding: var(--space-md);
+  padding-left: var(--space-xl);
+  background: color-mix(in srgb, var(--alert-color) 10%, var(--color-bg-secondary));
+  border: 1px solid var(--alert-color);
+  border-left: 4px solid var(--alert-color);
+}
+
+.cyber-alert::before {
+  content: '!';
+  position: absolute;
+  left: var(--space-sm);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--alert-color);
+  color: var(--cyber-void-500);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-sm);
+}
+
+.cyber-alert__title {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--alert-color);
+  margin-bottom: var(--space-2xs);
+}
+
+.cyber-alert--warning {
+  --alert-color: var(--cyber-yellow-500);
+}
+
+.cyber-alert--warning::before {
+  content: '⚠';
+}
+
+.cyber-alert--error {
+  --alert-color: var(--cyber-magenta-500);
+}
+
+.cyber-alert--error::before {
+  content: '✕';
+}
+
+.cyber-alert--success {
+  --alert-color: var(--cyber-green-500);
+}
+
+.cyber-alert--success::before {
+  content: '✓';
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TABS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.cyber-tabs {
+  display: flex;
+  gap: 2px;
+  background: var(--color-border-default);
+  padding: 2px;
+}
+
+.cyber-tab {
+  flex: 1;
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+  background: var(--color-bg-secondary);
+  border: none;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+  position: relative;
+}
+
+.cyber-tab:hover {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+}
+
+.cyber-tab--active {
+  color: var(--cyber-cyan-500);
+  background: var(--color-bg-tertiary);
+}
+
+.cyber-tab--active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--cyber-cyan-500);
+  box-shadow: 0 0 10px var(--cyber-cyan-500);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SPECIAL EFFECTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Neon Border Animation */
+.cyber-neon-border {
+  position: relative;
+}
+
+.cyber-neon-border::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  background: linear-gradient(
+    90deg,
+    var(--cyber-cyan-500),
+    var(--cyber-magenta-500),
+    var(--cyber-yellow-500),
+    var(--cyber-green-500),
+    var(--cyber-cyan-500)
+  );
+  background-size: 400% 100%;
+  z-index: -1;
+  animation: neon-flow 4s linear infinite;
+  filter: blur(6px);
+  opacity: 0.7;
+}
+
+@keyframes neon-flow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 400% 50%; }
+}
+
+/* Data Stream */
+.cyber-datastream {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent) 50%,
+    transparent 100%
+  );
+  background-size: 100% 200%;
+  animation: datastream 3s linear infinite;
+}
+
+@keyframes datastream {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 0% 200%; }
+}
+
+/* Spinner */
+.cyber-spinner {
+  width: 48px;
+  height: 48px;
+  position: relative;
+  display: inline-block;
+}
+
+.cyber-spinner::before,
+.cyber-spinner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 3px solid transparent;
+  border-radius: 50%;
+}
+
+.cyber-spinner::before {
+  border-top-color: var(--cyber-cyan-500);
+  animation: spin 1s linear infinite;
+}
+
+.cyber-spinner::after {
+  border-bottom-color: var(--cyber-magenta-500);
+  animation: spin 1s linear infinite reverse;
+  animation-delay: -0.5s;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Terminal Effect */
+.cyber-terminal {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--cyber-green-700);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  overflow: hidden;
+}
+
+.cyber-terminal__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--cyber-green-900);
+  border-bottom: 1px solid var(--cyber-green-700);
+}
+
+.cyber-terminal__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.cyber-terminal__dot--red { background: var(--cyber-magenta-500); }
+.cyber-terminal__dot--yellow { background: var(--cyber-yellow-500); }
+.cyber-terminal__dot--green { background: var(--cyber-green-500); }
+
+.cyber-terminal__title {
+  margin-left: auto;
+  font-size: var(--text-xs);
+  color: var(--cyber-green-500);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.cyber-terminal__body {
+  padding: var(--space-md);
+  color: var(--cyber-green-400);
+  line-height: 1.8;
+}
+
+.cyber-terminal__prompt {
+  color: var(--cyber-cyan-500);
+}
+
+.cyber-terminal__cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  background: var(--cyber-green-500);
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LAYOUT UTILITIES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.cyber-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.cyber-grid {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.cyber-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.cyber-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.cyber-grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 1024px) {
+  .cyber-grid--3,
+  .cyber-grid--4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .cyber-grid--2,
+  .cyber-grid--3,
+  .cyber-grid--4 { grid-template-columns: 1fr; }
+}
+
+.cyber-flex { display: flex; }
+.cyber-flex--col { flex-direction: column; }
+.cyber-flex--wrap { flex-wrap: wrap; }
+.cyber-items-center { align-items: center; }
+.cyber-justify-center { justify-content: center; }
+.cyber-justify-between { justify-content: space-between; }
+.cyber-gap-xs { gap: var(--space-xs); }
+.cyber-gap-sm { gap: var(--space-sm); }
+.cyber-gap-md { gap: var(--space-md); }
+.cyber-gap-lg { gap: var(--space-lg); }
+
+.cyber-text-center { text-align: center; }
+.cyber-text-cyan { color: var(--cyber-cyan-500); }
+.cyber-text-magenta { color: var(--cyber-magenta-500); }
+.cyber-text-yellow { color: var(--cyber-yellow-500); }
+.cyber-text-green { color: var(--cyber-green-500); }
+
+.cyber-mt-sm { margin-top: var(--space-sm); }
+.cyber-mt-md { margin-top: var(--space-md); }
+.cyber-mt-lg { margin-top: var(--space-lg); }
+.cyber-mb-sm { margin-bottom: var(--space-sm); }
+.cyber-mb-md { margin-bottom: var(--space-md); }
+.cyber-mb-lg { margin-bottom: var(--space-lg); }
+.cyber-my-md { margin-block: var(--space-md); }
+.cyber-my-lg { margin-block: var(--space-lg); }
+.cyber-p-md { padding: var(--space-md); }
+.cyber-p-lg { padding: var(--space-lg); }
+
+/* Section Divider */
+.cyber-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--cyber-cyan-500) 20%,
+    var(--cyber-cyan-500) 80%,
+    transparent
+  );
+  margin: var(--space-lg) 0;
+  position: relative;
+}
+
+.cyber-divider::before {
+  content: '◆';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--color-bg-primary);
+  padding: 0 var(--space-sm);
+  color: var(--cyber-cyan-500);
+  font-size: var(--text-xs);
+}
+
+/* Hero Section */
+.cyber-hero {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-xl) var(--space-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 20% 50%, color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, color-mix(in srgb, var(--cyber-magenta-500) 15%, transparent) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.cyber-hero__subtitle {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: var(--space-sm);
+}
+
+.cyber-hero__title {
+  font-size: var(--text-5xl);
+  margin-bottom: var(--space-md);
+}
+
+.cyber-hero__description {
+  max-width: 600px;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-lg);
+}
+
+/* Section */
+.cyber-section {
+  padding: var(--space-xl) 0;
+}
+
+.cyber-section__header {
+  margin-bottom: var(--space-lg);
+}
+
+.cyber-section__title {
+  font-size: var(--text-2xl);
+  color: var(--cyber-cyan-500);
+  margin-bottom: var(--space-xs);
+}
+
+.cyber-section__subtitle {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+  </style>
+</head>
+<body>
+  
+  <!-- Navigation -->
+  <nav class="cyber-nav">
+    <a href="#" class="cyber-nav__brand">CYBERCORE</a>
+    <ul class="cyber-nav__links">
+      <li><a href="#" class="cyber-nav__link cyber-nav__link--active">Dashboard</a></li>
+      <li><a href="#" class="cyber-nav__link">Network</a></li>
+      <li><a href="#" class="cyber-nav__link">Inventory</a></li>
+      <li><a href="#" class="cyber-nav__link">Messages</a></li>
+    </ul>
+    <div class="cyber-status">
+      <span class="cyber-status__dot"></span>
+      <span>ONLINE</span>
+    </div>
+  </nav>
+  
+  <!-- Hero Section -->
+  <section class="cyber-hero">
+    <p class="cyber-hero__subtitle">[ System v2.077 Initialized ]</p>
+    <h1 class="cyber-heading cyber-hero__title" data-text="NIGHT CITY">NIGHT CITY</h1>
+    <p class="cyber-hero__description">
+      Welcome to the neural interface. A next-generation design system inspired by the neon-soaked streets of Night City. Built for the modern web with cutting-edge CSS.
+    </p>
+    <div class="cyber-flex cyber-gap-md">
+      <button class="cyber-btn cyber-btn--lg">Jack In</button>
+      <button class="cyber-btn cyber-btn--lg cyber-btn--magenta cyber-btn--ghost">Learn More</button>
+    </div>
+  </section>
+  
+  <main class="cyber-container">
+    
+    <!-- Stats Section -->
+    <section class="cyber-section">
+      <div class="cyber-grid cyber-grid--4">
+        <div class="cyber-card cyber-card--interactive">
+          <div class="cyber-stat">
+            <div class="cyber-stat__value">847.3</div>
+            <div class="cyber-stat__label">TB/s Bandwidth</div>
+          </div>
+        </div>
+        <div class="cyber-card cyber-card--magenta cyber-card--interactive">
+          <div class="cyber-stat">
+            <div class="cyber-stat__value" style="color: var(--cyber-magenta-500); text-shadow: 0 0 10px var(--cyber-magenta-500);">12</div>
+            <div class="cyber-stat__label">Active Threats</div>
+          </div>
+        </div>
+        <div class="cyber-card cyber-card--yellow cyber-card--interactive">
+          <div class="cyber-stat">
+            <div class="cyber-stat__value" style="color: var(--cyber-yellow-500); text-shadow: 0 0 10px var(--cyber-yellow-500);">98.7%</div>
+            <div class="cyber-stat__label">System Integrity</div>
+          </div>
+        </div>
+        <div class="cyber-card cyber-card--green cyber-card--interactive">
+          <div class="cyber-stat">
+            <div class="cyber-stat__value" style="color: var(--cyber-green-500); text-shadow: 0 0 10px var(--cyber-green-500);">€$247K</div>
+            <div class="cyber-stat__label">Crypto Balance</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <div class="cyber-divider"></div>
+    
+    <!-- Buttons Section -->
+    <section class="cyber-section">
+      <div class="cyber-section__header">
+        <h2 class="cyber-section__title">// Buttons</h2>
+        <p class="cyber-section__subtitle">Interactive controls with hover effects</p>
+      </div>
+      
+      <div class="cyber-flex cyber-flex--wrap cyber-gap-md cyber-items-center">
+        <button class="cyber-btn">Default</button>
+        <button class="cyber-btn cyber-btn--magenta">Danger</button>
+        <button class="cyber-btn cyber-btn--yellow">Warning</button>
+        <button class="cyber-btn cyber-btn--green">Success</button>
+      </div>
+      
+      <div class="cyber-flex cyber-flex--wrap cyber-gap-md cyber-items-center cyber-mt-md">
+        <button class="cyber-btn cyber-btn--ghost">Ghost</button>
+        <button class="cyber-btn cyber-btn--filled">Filled</button>
+        <button class="cyber-btn cyber-btn--sm">Small</button>
+        <button class="cyber-btn cyber-btn--lg">Large</button>
+      </div>
+    </section>
+    
+    <div class="cyber-divider"></div>
+    
+    <!-- Cards Section -->
+    <section class="cyber-section">
+      <div class="cyber-section__header">
+        <h2 class="cyber-section__title">// Data Cards</h2>
+        <p class="cyber-section__subtitle">Information panels with cyberpunk aesthetics</p>
+      </div>
+      
+      <div class="cyber-grid cyber-grid--3">
+        <div class="cyber-card cyber-card--interactive">
+          <div class="cyber-card__header">
+            <div class="cyber-card__icon">⚡</div>
+            <span class="cyber-card__title">Neural Link</span>
+            <span class="cyber-card__badge">ACTIVE</span>
+          </div>
+          <p style="color: var(--color-text-secondary); margin-bottom: var(--space-sm);">
+            Connection stable. Bandwidth optimized for maximum data transfer.
+          </p>
+          <div class="cyber-progress" style="--progress-value: 78%;">
+            <div class="cyber-progress__bar"></div>
+          </div>
+          <p style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-xs);">
+            78% CAPACITY
+          </p>
+        </div>
+        
+        <div class="cyber-card cyber-card--magenta cyber-card--interactive">
+          <div class="cyber-card__header">
+            <div class="cyber-card__icon">🛡️</div>
+            <span class="cyber-card__title">Threat Detection</span>
+            <span class="cyber-badge cyber-badge--magenta cyber-badge--pulse">HIGH</span>
+          </div>
+          <p style="color: var(--color-text-secondary); margin-bottom: var(--space-sm);">
+            Hostile ICE detected in sector 7G. Countermeasures active.
+          </p>
+          <div class="cyber-progress cyber-progress--magenta" style="--progress-value: 45%;">
+            <div class="cyber-progress__bar"></div>
+          </div>
+          <p style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-xs);">
+            45% NEUTRALIZED
+          </p>
+        </div>
+        
+        <div class="cyber-card cyber-card--green cyber-card--holo cyber-card--interactive">
+          <div class="cyber-card__header">
+            <div class="cyber-card__icon">💰</div>
+            <span class="cyber-card__title">Crypto Wallet</span>
+          </div>
+          <p style="font-family: 'Orbitron', var(--font-display); font-size: var(--text-2xl); color: var(--cyber-green-500); text-shadow: 0 0 10px var(--cyber-green-500);">
+            €$247,892.00
+          </p>
+          <p style="color: var(--color-text-secondary); font-size: var(--text-sm); margin-top: var(--space-xs);">
+            +12.4% from last sync
+          </p>
+          <div class="cyber-flex cyber-gap-sm cyber-mt-md">
+            <button class="cyber-btn cyber-btn--green cyber-btn--sm">Send</button>
+            <button class="cyber-btn cyber-btn--green cyber-btn--sm cyber-btn--ghost">Receive</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <div class="cyber-divider"></div>
+    
+    <!-- Form Section -->
+    <section class="cyber-section">
+      <div class="cyber-grid cyber-grid--2">
+        <div>
+          <div class="cyber-section__header">
+            <h2 class="cyber-section__title">// Access Terminal</h2>
+            <p class="cyber-section__subtitle">Authenticate to the network</p>
+          </div>
+          
+          <div class="cyber-card">
+            <div class="cyber-field">
+              <label class="cyber-field__label">Handle</label>
+              <input type="text" class="cyber-input" placeholder="Enter your handle...">
+            </div>
+            
+            <div class="cyber-field">
+              <label class="cyber-field__label">Access Key</label>
+              <input type="password" class="cyber-input" placeholder="••••••••••••">
+            </div>
+            
+            <div class="cyber-field">
+              <label class="cyber-field__label">Message</label>
+              <textarea class="cyber-input cyber-textarea" placeholder="Enter transmission..."></textarea>
+            </div>
+            
+            <div class="cyber-flex cyber-gap-md cyber-items-center cyber-mb-md">
+              <label class="cyber-checkbox">
+                <input type="checkbox">
+                <span class="cyber-checkbox__box"></span>
+                <span class="cyber-checkbox__label">Remember Me</span>
+              </label>
+              
+              <label class="cyber-checkbox">
+                <input type="checkbox" checked>
+                <span class="cyber-checkbox__box"></span>
+                <span class="cyber-checkbox__label">Encrypt Connection</span>
+              </label>
+            </div>
+            
+            <div class="cyber-flex cyber-gap-md">
+              <button class="cyber-btn">Connect</button>
+              <button class="cyber-btn cyber-btn--magenta cyber-btn--ghost">Cancel</button>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <div class="cyber-section__header">
+            <h2 class="cyber-section__title">// System Terminal</h2>
+            <p class="cyber-section__subtitle">Live command interface</p>
+          </div>
+          
+          <div class="cyber-terminal">
+            <div class="cyber-terminal__header">
+              <span class="cyber-terminal__dot cyber-terminal__dot--red"></span>
+              <span class="cyber-terminal__dot cyber-terminal__dot--yellow"></span>
+              <span class="cyber-terminal__dot cyber-terminal__dot--green"></span>
+              <span class="cyber-terminal__title">NETWATCH v2.077</span>
+            </div>
+            <div class="cyber-terminal__body">
+              <p><span class="cyber-terminal__prompt">root@nightcity:~$</span> system --status</p>
+              <p style="color: var(--cyber-green-500);">[OK] Neural link active</p>
+              <p style="color: var(--cyber-green-500);">[OK] Firewall operational</p>
+              <p style="color: var(--cyber-yellow-500);">[WARN] 12 intrusion attempts blocked</p>
+              <p style="color: var(--cyber-magenta-500);">[ALERT] ICE detected in sector 7G</p>
+              <p>&nbsp;</p>
+              <p><span class="cyber-terminal__prompt">root@nightcity:~$</span> scan --deep</p>
+              <p>Scanning network nodes... 847 found</p>
+              <p>Analyzing threat vectors...</p>
+              <p>&nbsp;</p>
+              <p><span class="cyber-terminal__prompt">root@nightcity:~$</span> <span class="cyber-terminal__cursor"></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <div class="cyber-divider"></div>
+    
+    <!-- Alerts Section -->
+    <section class="cyber-section">
+      <div class="cyber-section__header">
+        <h2 class="cyber-section__title">// System Alerts</h2>
+        <p class="cyber-section__subtitle">Notification styles</p>
+      </div>
+      
+      <div class="cyber-flex cyber-flex--col cyber-gap-md">
+        <div class="cyber-alert">
+          <div class="cyber-alert__title">Information</div>
+          <p>Neural sync complete. All systems operating within normal parameters.</p>
+        </div>
+        
+        <div class="cyber-alert cyber-alert--success">
+          <div class="cyber-alert__title">Success</div>
+          <p>Data transfer complete. 847.3 TB synchronized across all nodes.</p>
+        </div>
+        
+        <div class="cyber-alert cyber-alert--warning">
+          <div class="cyber-alert__title">Warning</div>
+          <p>Firewall detected 12 intrusion attempts. Countermeasures deployed.</p>
+        </div>
+        
+        <div class="cyber-alert cyber-alert--error">
+          <div class="cyber-alert__title">Critical</div>
+          <p>Hostile ICE breach in sector 7G. Immediate action required.</p>
+        </div>
+      </div>
+    </section>
+    
+    <div class="cyber-divider"></div>
+    
+    <!-- Table Section -->
+    <section class="cyber-section">
+      <div class="cyber-section__header">
+        <h2 class="cyber-section__title">// Network Nodes</h2>
+        <p class="cyber-section__subtitle">Active connections</p>
+      </div>
+      
+      <div class="cyber-card" style="padding: 0; overflow: hidden;">
+        <table class="cyber-table">
+          <thead>
+            <tr>
+              <th>Node ID</th>
+              <th>Location</th>
+              <th>Status</th>
+              <th>Latency</th>
+              <th>Bandwidth</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>NC-7734</code></td>
+              <td>Watson District</td>
+              <td><span class="cyber-badge cyber-badge--green">Online</span></td>
+              <td>12ms</td>
+              <td>847.3 TB/s</td>
+            </tr>
+            <tr>
+              <td><code>NC-2891</code></td>
+              <td>Westbrook</td>
+              <td><span class="cyber-badge cyber-badge--green">Online</span></td>
+              <td>8ms</td>
+              <td>623.1 TB/s</td>
+            </tr>
+            <tr>
+              <td><code>NC-4456</code></td>
+              <td>Pacifica</td>
+              <td><span class="cyber-badge cyber-badge--yellow">Degraded</span></td>
+              <td>145ms</td>
+              <td>89.2 TB/s</td>
+            </tr>
+            <tr>
+              <td><code>NC-9012</code></td>
+              <td>Santo Domingo</td>
+              <td><span class="cyber-badge cyber-badge--magenta">Offline</span></td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><code>NC-5567</code></td>
+              <td>City Center</td>
+              <td><span class="cyber-badge cyber-badge--green">Online</span></td>
+              <td>3ms</td>
+              <td>1.2 PB/s</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+    <div class="cyber-divider"></div>
+    
+    <!-- Tabs Section -->
+    <section class="cyber-section">
+      <div class="cyber-section__header">
+        <h2 class="cyber-section__title">// Interface Tabs</h2>
+        <p class="cyber-section__subtitle">Navigation patterns</p>
+      </div>
+      
+      <div class="cyber-tabs">
+        <button class="cyber-tab cyber-tab--active">Overview</button>
+        <button class="cyber-tab">Analytics</button>
+        <button class="cyber-tab">Security</button>
+        <button class="cyber-tab">Settings</button>
+      </div>
+      
+      <div class="cyber-card" style="border-top: none; margin-top: -1px;">
+        <p style="color: var(--color-text-secondary);">
+          Tab content would appear here. The active tab has a glowing cyan indicator at the bottom.
+        </p>
+      </div>
+    </section>
+    
+    <div class="cyber-divider"></div>
+    
+    <!-- Loading Section -->
+    <section class="cyber-section">
+      <div class="cyber-section__header">
+        <h2 class="cyber-section__title">// Loading States</h2>
+        <p class="cyber-section__subtitle">Progress indicators</p>
+      </div>
+      
+      <div class="cyber-grid cyber-grid--2">
+        <div class="cyber-card">
+          <h4 style="font-size: var(--text-lg); color: var(--cyber-cyan-500); margin-bottom: var(--space-md);">Progress Bars</h4>
+          
+          <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-bottom: var(--space-2xs);">DOWNLOAD PROGRESS</p>
+          <div class="cyber-progress" style="--progress-value: 65%; margin-bottom: var(--space-md);">
+            <div class="cyber-progress__bar"></div>
+          </div>
+          
+          <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-bottom: var(--space-2xs);">THREAT ANALYSIS</p>
+          <div class="cyber-progress cyber-progress--magenta" style="--progress-value: 45%; margin-bottom: var(--space-md);">
+            <div class="cyber-progress__bar"></div>
+          </div>
+          
+          <p style="font-size: var(--text-xs); color: var(--color-text-muted); margin-bottom: var(--space-2xs);">SYSTEM HEALTH</p>
+          <div class="cyber-progress cyber-progress--green" style="--progress-value: 92%;">
+            <div class="cyber-progress__bar"></div>
+          </div>
+        </div>
+        
+        <div class="cyber-card cyber-flex cyber-flex--col cyber-items-center cyber-justify-center" style="min-height: 200px;">
+          <div class="cyber-spinner"></div>
+          <p style="font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-text-muted); margin-top: var(--space-md);">
+            SYNCHRONIZING...
+          </p>
+        </div>
+      </div>
+    </section>
+    
+    <div class="cyber-divider"></div>
+    
+    <!-- Special Effects Section -->
+    <section class="cyber-section">
+      <div class="cyber-section__header">
+        <h2 class="cyber-section__title">// Special Effects</h2>
+        <p class="cyber-section__subtitle">Signature cyberpunk aesthetics</p>
+      </div>
+      
+      <div class="cyber-grid cyber-grid--2">
+        <div class="cyber-card cyber-neon-border" style="z-index: 1;">
+          <h4 style="font-size: var(--text-lg); color: var(--cyber-cyan-500); margin-bottom: var(--space-sm);">Neon Border</h4>
+          <p style="color: var(--color-text-secondary);">
+            Animated rainbow neon glow effect that cycles through all accent colors. Perfect for highlighting important elements.
+          </p>
+        </div>
+        
+        <div class="cyber-card cyber-datastream">
+          <h4 style="font-size: var(--text-lg); color: var(--cyber-cyan-500); margin-bottom: var(--space-sm);">Data Stream</h4>
+          <p style="color: var(--color-text-secondary);">
+            Subtle animated gradient that simulates data flowing through the interface. Creates depth and movement.
+          </p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="cyber-section cyber-text-center" style="padding-bottom: var(--space-xl);">
+      <p style="font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-text-muted);">
+        CYBERCORE v1.0 // Designed for the streets of Night City
+      </p>
+      <p style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-xs);">
+        [ No Tailwind. No Bootstrap. Pure CSS3. ]
+      </p>
+    </footer>
+    
+  </main>
+  
+</body>
+</html>
