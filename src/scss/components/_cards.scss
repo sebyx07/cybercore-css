@@ -8,8 +8,6 @@
     --card-accent: var(--cyber-cyan-500);
 
     position: relative;
-    display: flex;
-    flex-direction: column;
     padding: var(--space-md);
     border: 1px solid var(--color-border-default);
     background: var(--color-bg-secondary);
@@ -22,7 +20,7 @@
       0 calc(100% - 20px)
     );
 
-    // Corner bracket decorations
+    // Corner bracket decorations (30px, 2px border)
     &::before,
     &::after {
       content: "";
@@ -70,18 +68,11 @@
       font-size: var(--text-lg);
       color: var(--card-accent);
       background: color-mix(in srgb, var(--card-accent) 15%, transparent);
-
-      svg {
-        width: 1.25rem;
-        height: 1.25rem;
-      }
     }
 
     &__title {
-      margin: 0;
       font-family: var(--font-display);
       font-size: var(--text-lg);
-      font-weight: 600;
       letter-spacing: 0.05em;
       text-transform: uppercase;
       color: var(--card-accent);
@@ -95,21 +86,6 @@
       font-weight: 700;
       color: var(--cyber-void-500);
       background: var(--card-accent);
-    }
-
-    &__body {
-      flex: 1;
-      line-height: var(--leading-relaxed);
-      color: var(--color-text-secondary);
-    }
-
-    &__footer {
-      display: flex;
-      gap: var(--space-sm);
-      align-items: center;
-      margin-top: var(--space-md);
-      padding-top: var(--space-sm);
-      border-top: 1px solid var(--color-border-default);
     }
 
     // --------------------------------------------------------
@@ -126,15 +102,6 @@
           0 0 30px color-mix(in srgb, var(--card-accent) 30%, transparent);
         transform: translateY(-2px);
       }
-
-      &:active {
-        transform: translateY(-1px);
-      }
-
-      &:focus-visible {
-        outline: 2px solid var(--card-accent);
-        outline-offset: 4px;
-      }
     }
 
     // --------------------------------------------------------
@@ -142,7 +109,6 @@
     // --------------------------------------------------------
 
     &--holo {
-      overflow: hidden;
       background: linear-gradient(
         135deg,
         var(--color-bg-secondary) 0%,

@@ -68,7 +68,6 @@ describe('CSS Custom Properties', () => {
       expect(css).toMatch(/--color-text-primary/);
       expect(css).toMatch(/--color-text-secondary/);
       expect(css).toMatch(/--color-text-muted/);
-      expect(css).toMatch(/--color-text-accent/);
     });
 
     it('should define border color tokens', () => {
@@ -111,15 +110,11 @@ describe('CSS Custom Properties', () => {
     it('should define line-height variables', () => {
       expect(css).toMatch(/--leading-tight/);
       expect(css).toMatch(/--leading-normal/);
-      expect(css).toMatch(/--leading-relaxed/);
     });
 
     it('should define letter-spacing variables', () => {
-      expect(css).toMatch(/--tracking-tight/);
-      expect(css).toMatch(/--tracking-normal/);
       expect(css).toMatch(/--tracking-wide/);
       expect(css).toMatch(/--tracking-wider/);
-      expect(css).toMatch(/--tracking-widest/);
     });
   });
 
@@ -141,16 +136,12 @@ describe('CSS Custom Properties', () => {
     it('should define border width variables', () => {
       expect(css).toMatch(/--border-thin/);
       expect(css).toMatch(/--border-medium/);
-      expect(css).toMatch(/--border-thick/);
     });
 
     it('should define border radius variables', () => {
-      expect(css).toMatch(/--radius-none/);
       expect(css).toMatch(/--radius-sm/);
       expect(css).toMatch(/--radius-md/);
-      expect(css).toMatch(/--radius-lg/);
       expect(css).toMatch(/--radius-cyber/);
-      expect(css).toMatch(/--radius-cyber-alt/);
     });
   });
 
@@ -158,25 +149,19 @@ describe('CSS Custom Properties', () => {
     it('should define transition variables', () => {
       expect(css).toMatch(/--transition-fast/);
       expect(css).toMatch(/--transition-base/);
-      expect(css).toMatch(/--transition-slow/);
     });
 
     it('should define easing variables', () => {
-      expect(css).toMatch(/--ease-out-expo/);
-      expect(css).toMatch(/--ease-in-out-expo/);
+      expect(css).toMatch(/--ease-cyber/);
+      expect(css).toMatch(/--ease-bounce/);
     });
   });
 
   describe('Z-Index Scale', () => {
     it('should define z-index variables', () => {
       expect(css).toMatch(/--z-base/);
-      expect(css).toMatch(/--z-dropdown/);
       expect(css).toMatch(/--z-sticky/);
-      expect(css).toMatch(/--z-fixed/);
-      expect(css).toMatch(/--z-modal-backdrop/);
       expect(css).toMatch(/--z-modal/);
-      expect(css).toMatch(/--z-popover/);
-      expect(css).toMatch(/--z-tooltip/);
     });
   });
 

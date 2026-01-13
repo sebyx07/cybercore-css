@@ -3,7 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+and this project adheres to
+[Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.1.0] - 2026-01-13
 
@@ -11,7 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release of CYBERCORE CSS framework
 - **Core System**
-  - CSS custom properties for theming (cyan, magenta, yellow, green accent colors)
+  - CSS custom properties for theming (cyan, magenta, yellow, green accent
+    colors)
   - CSS `@layer` cascade management (reset, base, theme, components, utilities)
   - Dark-first design optimized for cyberpunk aesthetics
   - `prefers-reduced-motion` support throughout

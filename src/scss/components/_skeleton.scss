@@ -222,7 +222,9 @@
     }
 
     50% {
-      box-shadow: 0 0 16px var(--skeleton-glow), 0 0 24px var(--skeleton-glow);
+      box-shadow:
+        0 0 16px var(--skeleton-glow),
+        0 0 24px var(--skeleton-glow);
     }
   }
 

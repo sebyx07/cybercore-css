@@ -8,7 +8,7 @@
     // Color System
     // --------------------------------------------------------
 
-    // Cyber Cyan - Primary actions, links, tech/neutral
+    // Primary Cyans
     --cyber-cyan-100: #e0fcff;
     --cyber-cyan-200: #bef8fd;
     --cyber-cyan-300: #87eaf2;
@@ -19,7 +19,7 @@
     --cyber-cyan-800: #007a87;
     --cyber-cyan-900: #005d6a;
 
-    // Cyber Magenta - Danger, errors, alerts
+    // Hot Magentas
     --cyber-magenta-100: #ffe0f0;
     --cyber-magenta-200: #ffb8d9;
     --cyber-magenta-300: #ff8cc2;
@@ -30,7 +30,7 @@
     --cyber-magenta-800: #8c0b37;
     --cyber-magenta-900: #660527;
 
-    // Cyber Yellow - Warnings, highlights
+    // Electric Yellows
     --cyber-yellow-100: #fff9db;
     --cyber-yellow-200: #fff3b8;
     --cyber-yellow-300: #ffec8a;
@@ -41,7 +41,7 @@
     --cyber-yellow-800: #857f04;
     --cyber-yellow-900: #5d5a03;
 
-    // Cyber Green - Success, confirmation
+    // Toxic Greens
     --cyber-green-100: #d0ffe0;
     --cyber-green-200: #a1ffc1;
     --cyber-green-300: #72ffa2;
@@ -52,7 +52,7 @@
     --cyber-green-800: #027e4d;
     --cyber-green-900: #015331;
 
-    // Cyber Void - Ultra-dark backgrounds
+    // Void Blacks
     --cyber-void-100: #2a2d3a;
     --cyber-void-200: #1f2230;
     --cyber-void-300: #181a25;
@@ -63,7 +63,7 @@
     --cyber-void-800: #040508;
     --cyber-void-900: #010204;
 
-    // Cyber Chrome - Metallic grays
+    // Chrome Grays
     --cyber-chrome-100: #f0f1f5;
     --cyber-chrome-200: #d1d4de;
     --cyber-chrome-300: #b2b7c7;
@@ -75,26 +75,20 @@
     --cyber-chrome-900: #14191f;
 
     // --------------------------------------------------------
-    // Semantic Color Tokens
+    // Semantic Colors
     // --------------------------------------------------------
 
-    // Backgrounds
     --color-bg-primary: var(--cyber-void-500);
     --color-bg-secondary: var(--cyber-void-400);
     --color-bg-tertiary: var(--cyber-void-300);
     --color-bg-elevated: var(--cyber-void-200);
-
-    // Text
     --color-text-primary: var(--cyber-chrome-100);
     --color-text-secondary: var(--cyber-chrome-300);
     --color-text-muted: var(--cyber-chrome-500);
-    --color-text-accent: var(--cyber-cyan-500);
-
-    // Borders
     --color-border-default: var(--cyber-void-100);
 
     // --------------------------------------------------------
-    // Glow Effects
+    // Glows
     // --------------------------------------------------------
 
     --glow-cyan:
@@ -110,8 +104,6 @@
     --glow-green:
       0 0 20px var(--cyber-green-500),
       0 0 40px color-mix(in srgb, var(--cyber-green-500) 50%, transparent);
-
-    // Text glows (smaller)
     --glow-text-cyan:
       0 0 10px var(--cyber-cyan-500),
       0 0 20px color-mix(in srgb, var(--cyber-cyan-500) 60%, transparent);
@@ -124,7 +116,7 @@
     --font-body: "Exo 2", system-ui, sans-serif;
     --font-mono: "JetBrains Mono", monospace;
 
-    // Fluid type scale
+    // Type Scale
     --text-xs: clamp(0.64rem, 0.59rem + 0.24vw, 0.75rem);
     --text-sm: clamp(0.8rem, 0.74rem + 0.32vw, 0.94rem);
     --text-base: clamp(1rem, 0.93rem + 0.37vw, 1.18rem);
@@ -134,17 +126,17 @@
     --text-3xl: clamp(2.44rem, 2.26rem + 0.92vw, 2.87rem);
     --text-4xl: clamp(3.05rem, 2.83rem + 1.15vw, 3.58rem);
     --text-5xl: clamp(3.81rem, 3.54rem + 1.44vw, 4.48rem);
-    --leading-tight: 1.2;
+
+    // Letter Spacing
+    --tracking-wide: 0.05em;
+    --tracking-wider: 0.1em;
+
+    // Line Height
+    --leading-tight: 1.1;
     --leading-normal: 1.6;
-    --leading-relaxed: 1.8;
-    --tracking-tight: -0.02em;
-    --tracking-normal: 0;
-    --tracking-wide: 0.02em;
-    --tracking-wider: 0.05em;
-    --tracking-widest: 0.1em;
 
     // --------------------------------------------------------
-    // Spacing Scale (Fluid)
+    // Spacing
     // --------------------------------------------------------
 
     --space-3xs: clamp(0.25rem, 0.23rem + 0.09vw, 0.31rem);
@@ -154,25 +146,21 @@
     --space-md: clamp(1.5rem, 1.39rem + 0.56vw, 1.88rem);
     --space-lg: clamp(2rem, 1.86rem + 0.74vw, 2.5rem);
     --space-xl: clamp(3rem, 2.78rem + 1.11vw, 3.75rem);
-    --space-2xl: clamp(3.2rem, 2.5rem + 3vw, 4rem);
-    --space-3xl: clamp(4.8rem, 4rem + 4vw, 6rem);
+    --space-2xl: clamp(4rem, 3.71rem + 1.48vw, 5rem);
+    --space-3xl: clamp(6rem, 5.57rem + 2.22vw, 7.5rem);
 
     // --------------------------------------------------------
     // Borders
     // --------------------------------------------------------
 
-    --border-thin: 1px;
-    --border-medium: 2px;
-    --border-thick: 3px;
-    --radius-none: 0;
     --radius-sm: 2px;
     --radius-md: 4px;
-    --radius-lg: 8px;
     --radius-cyber: 0 12px 0 12px;
-    --radius-cyber-alt: 12px 0 12px 0;
+    --border-thin: 1px;
+    --border-medium: 2px;
 
     // --------------------------------------------------------
-    // Transitions & Animation
+    // Animation
     // --------------------------------------------------------
 
     --ease-cyber: cubic-bezier(0.77, 0, 0.175, 1);
@@ -180,24 +168,18 @@
     --duration-fast: 150ms;
     --duration-normal: 300ms;
     --duration-slow: 500ms;
-    --transition-fast: 150ms ease;
-    --transition-base: 250ms ease;
-    --transition-slow: 400ms ease;
-    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+    --transition-fast: var(--duration-fast) ease;
+    --transition-base: var(--duration-normal) ease;
 
     // --------------------------------------------------------
-    // Z-Index Scale
+    // Z-Index
     // --------------------------------------------------------
 
     --z-base: 0;
-    --z-dropdown: 100;
-    --z-sticky: 200;
-    --z-fixed: 300;
-    --z-modal-backdrop: 400;
-    --z-modal: 500;
-    --z-popover: 600;
-    --z-tooltip: 700;
+    --z-raised: 10;
+    --z-sticky: 100;
+    --z-overlay: 200;
+    --z-modal: 1000;
 
     // --------------------------------------------------------
     // Effects
@@ -206,17 +188,5 @@
     --noise-opacity: 0.03;
     --scanline-opacity: 0.04;
     --chromatic-offset: 2px;
-  }
-
-  // --------------------------------------------------------
-  // Reduced Motion
-  // --------------------------------------------------------
-
-  @media (prefers-reduced-motion: reduce) {
-    :root {
-      --transition-fast: 0ms;
-      --transition-base: 0ms;
-      --transition-slow: 0ms;
-    }
   }
 }

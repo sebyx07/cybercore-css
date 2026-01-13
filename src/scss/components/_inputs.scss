@@ -33,37 +33,10 @@
         0 0 0 3px color-mix(in srgb, var(--input-accent) 20%, transparent),
         inset 0 0 15px color-mix(in srgb, var(--input-accent) 10%, transparent);
     }
-
-    &:disabled {
-      opacity: 50%;
-      cursor: not-allowed;
-    }
-
-    // Color variants
-    &--magenta {
-      --input-accent: var(--cyber-magenta-500);
-    }
-
-    &--yellow {
-      --input-accent: var(--cyber-yellow-500);
-    }
-
-    &--green {
-      --input-accent: var(--cyber-green-500);
-    }
-
-    // Validation states (legacy support)
-    &--error {
-      --input-accent: var(--cyber-magenta-500);
-    }
-
-    &--success {
-      --input-accent: var(--cyber-green-500);
-    }
   }
 
   // --------------------------------------------------------
-  // Field wrapper (label + input + helper)
+  // Field wrapper (label + input)
   // --------------------------------------------------------
 
   .cyber-field {
@@ -84,24 +57,6 @@
         color: var(--cyber-cyan-500);
       }
     }
-
-    &__helper {
-      margin-top: var(--space-2xs);
-      font-size: var(--text-xs);
-      color: var(--color-text-muted);
-    }
-
-    &__error {
-      margin-top: var(--space-2xs);
-      font-size: var(--text-xs);
-      color: var(--cyber-magenta-500);
-    }
-
-    // Required indicator
-    &--required .cyber-field__label::after {
-      content: " *";
-      color: var(--cyber-magenta-500);
-    }
   }
 
   // --------------------------------------------------------
@@ -109,96 +64,8 @@
   // --------------------------------------------------------
 
   .cyber-textarea {
-    --input-accent: var(--cyber-cyan-500);
-
-    display: block;
-    width: 100%;
     min-height: 120px;
-    padding: var(--space-xs) var(--space-sm);
-    border: 1px solid var(--color-border-default);
-    border-left: 3px solid var(--input-accent);
-    font-family: var(--font-mono);
-    font-size: var(--text-base);
-    color: var(--color-text-primary);
-    background: var(--color-bg-tertiary);
-    transition: all var(--duration-fast);
-    outline: none;
     resize: vertical;
-
-    &::placeholder {
-      color: var(--color-text-muted);
-    }
-
-    &:focus {
-      border-color: var(--input-accent);
-      box-shadow:
-        0 0 0 3px color-mix(in srgb, var(--input-accent) 20%, transparent),
-        inset 0 0 15px color-mix(in srgb, var(--input-accent) 10%, transparent);
-    }
-
-    // Color variants
-    &--magenta {
-      --input-accent: var(--cyber-magenta-500);
-    }
-
-    &--yellow {
-      --input-accent: var(--cyber-yellow-500);
-    }
-
-    &--green {
-      --input-accent: var(--cyber-green-500);
-    }
-  }
-
-  // --------------------------------------------------------
-  // Select
-  // --------------------------------------------------------
-
-  .cyber-select {
-    --input-accent: var(--cyber-cyan-500);
-
-    display: block;
-    width: 100%;
-    padding: var(--space-xs) var(--space-lg) var(--space-xs) var(--space-sm);
-    border: 1px solid var(--color-border-default);
-    border-left: 3px solid var(--input-accent);
-    font-family: var(--font-mono);
-    font-size: var(--text-base);
-    color: var(--color-text-primary);
-    background: var(--color-bg-tertiary);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300f0ff' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right var(--space-sm) center;
-    transition: all var(--duration-fast);
-    cursor: pointer;
-    appearance: none;
-    outline: none;
-
-    &:focus {
-      border-color: var(--input-accent);
-      box-shadow:
-        0 0 0 3px color-mix(in srgb, var(--input-accent) 20%, transparent),
-        inset 0 0 15px color-mix(in srgb, var(--input-accent) 10%, transparent);
-    }
-
-    option {
-      padding: var(--space-xs);
-      color: var(--color-text-primary);
-      background: var(--color-bg-secondary);
-    }
-
-    // Color variants
-    &--magenta {
-      --input-accent: var(--cyber-magenta-500);
-    }
-
-    &--yellow {
-      --input-accent: var(--cyber-yellow-500);
-    }
-
-    &--green {
-      --input-accent: var(--cyber-green-500);
-    }
   }
 
   // --------------------------------------------------------
@@ -231,7 +98,7 @@
       background: var(--color-bg-tertiary);
       transition: all var(--duration-fast);
 
-      // Animated checkmark (inner square)
+      // Inner square
       &::before {
         content: "";
         width: 10px;
@@ -242,160 +109,13 @@
       }
     }
 
-    // Checked state
+    // Checked state with glow
     input:checked ~ &__box {
       box-shadow: 0 0 10px var(--cyber-cyan-500);
 
       &::before {
         transform: scale(1);
       }
-    }
-
-    // Focus state
-    input:focus-visible ~ &__box {
-      box-shadow: 0 0 0 3px color-mix(in srgb, var(--cyber-cyan-500) 30%, transparent);
-    }
-
-    // Disabled state
-    input:disabled ~ &__box {
-      opacity: 50%;
-      cursor: not-allowed;
-    }
-
-    &__label {
-      font-family: var(--font-display);
-      font-size: var(--text-sm);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-  }
-
-  // --------------------------------------------------------
-  // Radio (similar structure to checkbox)
-  // --------------------------------------------------------
-
-  .cyber-radio {
-    display: inline-flex;
-    gap: var(--space-xs);
-    align-items: center;
-    cursor: pointer;
-    user-select: none;
-
-    // Hidden native input
-    input {
-      position: absolute;
-      width: 0;
-      height: 0;
-      opacity: 0%;
-    }
-
-    &__circle {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--cyber-cyan-500);
-      border-radius: 50%;
-      background: var(--color-bg-tertiary);
-      transition: all var(--duration-fast);
-
-      // Inner dot
-      &::before {
-        content: "";
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: var(--cyber-cyan-500);
-        transform: scale(0);
-        transition: transform var(--duration-fast) var(--ease-bounce);
-      }
-    }
-
-    // Checked state
-    input:checked ~ &__circle {
-      box-shadow: 0 0 10px var(--cyber-cyan-500);
-
-      &::before {
-        transform: scale(1);
-      }
-    }
-
-    // Focus state
-    input:focus-visible ~ &__circle {
-      box-shadow: 0 0 0 3px color-mix(in srgb, var(--cyber-cyan-500) 30%, transparent);
-    }
-
-    // Disabled state
-    input:disabled ~ &__circle {
-      opacity: 50%;
-      cursor: not-allowed;
-    }
-
-    &__label {
-      font-family: var(--font-display);
-      font-size: var(--text-sm);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-  }
-
-  // --------------------------------------------------------
-  // Toggle Switch
-  // --------------------------------------------------------
-
-  .cyber-toggle {
-    display: inline-flex;
-    gap: var(--space-xs);
-    align-items: center;
-    cursor: pointer;
-    user-select: none;
-
-    // Hidden native input
-    input {
-      position: absolute;
-      width: 0;
-      height: 0;
-      opacity: 0%;
-    }
-
-    &__track {
-      position: relative;
-      width: 2.75rem;
-      height: 1.5rem;
-      border: 1px solid var(--color-border-default);
-      border-radius: 1rem;
-      background: var(--color-bg-tertiary);
-      transition: all var(--duration-fast);
-    }
-
-    &__thumb {
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      width: 1.125rem;
-      height: 1.125rem;
-      border-radius: 50%;
-      background: var(--cyber-chrome-400);
-      transition: all var(--duration-fast);
-    }
-
-    // Checked state
-    input:checked ~ &__track {
-      border-color: var(--cyber-cyan-500);
-      background: color-mix(in srgb, var(--cyber-cyan-500) 30%, transparent);
-      box-shadow: 0 0 10px var(--cyber-cyan-500);
-
-      .cyber-toggle__thumb {
-        background: var(--cyber-cyan-500);
-        transform: translateX(1.25rem);
-      }
-    }
-
-    // Focus state
-    input:focus-visible ~ &__track {
-      box-shadow: 0 0 0 3px color-mix(in srgb, var(--cyber-cyan-500) 30%, transparent);
     }
 
     &__label {

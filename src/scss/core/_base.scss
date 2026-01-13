@@ -3,97 +3,23 @@
 // ============================================================
 
 @layer base {
-  html {
-    font-family: var(--font-body);
-    font-size: 16px;
-    color-scheme: dark;
-  }
-
   body {
+    min-height: 100dvh;
+    overflow-x: hidden;
     font-family: var(--font-body);
     font-size: var(--text-base);
-    line-height: var(--leading-normal);
+    line-height: 1.6;
     color: var(--color-text-primary);
     background-color: var(--color-bg-primary);
   }
 
-  // Selection
-  ::selection {
-    color: var(--color-text-primary);
-    background-color: color-mix(in srgb, var(--cyber-cyan-500) 40%, transparent);
-  }
-
-  // Focus visible
-  :focus-visible {
-    outline: 2px solid var(--cyber-cyan-500);
-    outline-offset: 2px;
-  }
-
-  // Links
-  a {
-    color: var(--color-text-accent);
-    transition: color var(--transition-fast);
-
-    &:hover {
-      color: var(--cyber-cyan-300);
-    }
-  }
-
-  // Code
-  code,
-  kbd,
-  samp,
-  pre {
-    font-family: var(--font-mono);
-  }
-
   code {
     padding: 0.125em 0.375em;
+    border: 1px solid var(--color-border-default);
     border-radius: var(--radius-sm);
-    font-size: 0.875em;
+    font-family: var(--font-mono);
+    font-size: 0.9em;
     color: var(--cyber-cyan-400);
-    background-color: var(--color-bg-tertiary);
-  }
-
-  pre {
-    padding: var(--space-md);
-    border-radius: var(--radius-md);
-    overflow-x: auto;
-    background-color: var(--color-bg-tertiary);
-
-    code {
-      padding: 0;
-      border-radius: 0;
-      background: none;
-    }
-  }
-
-  // Horizontal rule
-  hr {
-    height: 1px;
-    margin: var(--space-lg) 0;
-    border: none;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      var(--color-border-default) 20%,
-      var(--color-border-default) 80%,
-      transparent
-    );
-  }
-
-  // Blockquote
-  blockquote {
-    padding-left: var(--space-md);
-    border-left: 3px solid var(--cyber-cyan-500);
-    font-style: italic;
-    color: var(--color-text-secondary);
-  }
-
-  // Mark/Highlight
-  mark {
-    padding: 0.125em 0.25em;
-    color: var(--color-text-primary);
-    background-color: color-mix(in srgb, var(--cyber-yellow-500) 30%, transparent);
+    background: var(--color-bg-tertiary);
   }
 }

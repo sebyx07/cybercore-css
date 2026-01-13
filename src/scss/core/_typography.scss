@@ -9,136 +9,35 @@
   h3,
   h4,
   h5,
-  h6,
-  .cyber-h1,
-  .cyber-h2,
-  .cyber-h3,
-  .cyber-h4,
-  .cyber-h5,
-  .cyber-h6 {
+  h6 {
     font-family: var(--font-display);
     font-weight: 700;
-    line-height: var(--leading-tight);
-    letter-spacing: var(--tracking-wide);
+    line-height: 1.1;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
-    color: var(--color-text-primary);
   }
 
-  h1,
-  .cyber-h1 {
+  h1 {
     font-size: var(--text-5xl);
   }
 
-  h2,
-  .cyber-h2 {
+  h2 {
     font-size: var(--text-4xl);
   }
 
-  h3,
-  .cyber-h3 {
+  h3 {
     font-size: var(--text-3xl);
   }
 
-  h4,
-  .cyber-h4 {
+  h4 {
     font-size: var(--text-2xl);
   }
 
-  h5,
-  .cyber-h5 {
+  h5 {
     font-size: var(--text-xl);
   }
 
-  h6,
-  .cyber-h6 {
+  h6 {
     font-size: var(--text-lg);
-  }
-
-  // Paragraphs
-  p {
-    margin-bottom: var(--space-sm);
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  // Small text
-  small,
-  .cyber-small {
-    font-size: var(--text-sm);
-    color: var(--color-text-secondary);
-  }
-
-  // Lead text
-  .cyber-lead {
-    font-size: var(--text-lg);
-    line-height: var(--leading-relaxed);
-    color: var(--color-text-secondary);
-  }
-
-  // Label text
-  .cyber-label {
-    font-family: var(--font-display);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    letter-spacing: var(--tracking-widest);
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-  }
-
-  // Display text (extra large headings)
-  .cyber-display {
-    font-family: var(--font-display);
-    font-size: clamp(3rem, 2.5rem + 4vw, 6rem);
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: var(--tracking-tight);
-    text-transform: uppercase;
-  }
-
-  // Mono text
-  .cyber-mono {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    color: var(--cyber-cyan-400);
-  }
-
-  // Text colors
-  .cyber-text-cyan {
-    color: var(--cyber-cyan-500);
-  }
-
-  .cyber-text-magenta {
-    color: var(--cyber-magenta-500);
-  }
-
-  .cyber-text-yellow {
-    color: var(--cyber-yellow-500);
-  }
-
-  .cyber-text-green {
-    color: var(--cyber-green-500);
-  }
-
-  .cyber-text-muted {
-    color: var(--color-text-muted);
-  }
-
-  // Text glow
-  .cyber-text-glow {
-    text-shadow: var(--glow-text-cyan);
-
-    &--magenta {
-      text-shadow: var(--glow-text-magenta);
-    }
-
-    &--yellow {
-      text-shadow: var(--glow-text-yellow);
-    }
-
-    &--green {
-      text-shadow: var(--glow-text-green);
-    }
   }
 }

@@ -6,12 +6,15 @@
  * - cssnano: Minifies CSS in production builds
  */
 
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
+
 const isProduction = process.env.NODE_ENV === 'production';
 
-module.exports = {
+export default {
   plugins: [
     // Add vendor prefixes automatically based on browserslist
-    require('autoprefixer')({
+    autoprefixer({
       // Use flexbox: 'no-2009' to avoid generating old flexbox syntax
       flexbox: 'no-2009',
       // Grid layout prefixing for IE (autoplace enabled)
@@ -20,7 +23,7 @@ module.exports = {
 
     // Minify CSS only in production
     isProduction &&
-      require('cssnano')({
+      cssnano({
         preset: [
           'default',
           {
