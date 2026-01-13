@@ -96,16 +96,16 @@ describe('CSS Output Classes', () => {
   });
 
   describe('Button Variants', () => {
-    it('should contain primary button variant', () => {
-      expect(css).toMatch(/\.cyber-btn--primary\b/);
+    it('should contain magenta button variant', () => {
+      expect(css).toMatch(/\.cyber-btn--magenta\b/);
     });
 
-    it('should contain secondary button variant', () => {
-      expect(css).toMatch(/\.cyber-btn--secondary\b/);
+    it('should contain yellow button variant', () => {
+      expect(css).toMatch(/\.cyber-btn--yellow\b/);
     });
 
-    it('should contain danger button variant', () => {
-      expect(css).toMatch(/\.cyber-btn--danger\b/);
+    it('should contain green button variant', () => {
+      expect(css).toMatch(/\.cyber-btn--green\b/);
     });
   });
 
