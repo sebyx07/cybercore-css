@@ -10,10 +10,8 @@ export const copy: IconDefinition = {
   description: 'Copy to clipboard',
   tags: ['copy', 'clipboard', 'duplicate', 'clone', 'paste'],
   svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <rect x="9" y="9" width="12" height="12" rx="2"/>
-  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-  <line x1="12" y1="13" x2="12" y2="17"/>
-  <line x1="15" y1="15" x2="18" y2="15"/>
+  <rect x="9" y="8" width="11" height="11" rx="2"/>
+  <path d="M5 15H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
 </svg>`,
   variants: {
     solid: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">

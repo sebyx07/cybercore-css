@@ -166,6 +166,36 @@ function Docs() {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">`}
               />
+
+              <h3
+                className="cyber-h4"
+                style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}
+              >
+                HTML Only (No Build Tools)
+              </h3>
+              <p style={{ marginBottom: 'var(--space-md)', color: 'var(--color-text-secondary)' }}>
+                For simple websites without npm or bundlers:
+              </p>
+              <CodeBlock
+                title="Simple HTML Setup"
+                language="html"
+                code={`<!DOCTYPE html>
+<html>
+<head>
+  <!-- Required fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Cybercore CSS from CDN -->
+  <link rel="stylesheet" href="https://unpkg.com/cybercore-css@latest/dist/cybercore.min.css">
+</head>
+<body>
+  <button class="cyber-btn">Click me</button>
+  <div class="cyber-card">Hello World</div>
+</body>
+</html>`}
+              />
             </section>
           )}
 
@@ -982,7 +1012,31 @@ function Docs() {
               </div>
 
               <h3 className="cyber-h4" style={{ marginBottom: 'var(--space-md)' }}>
-                Quick Start
+                HTML Only (Copy SVG)
+              </h3>
+              <p style={{ marginBottom: 'var(--space-md)', color: 'var(--color-text-secondary)' }}>
+                For simple websites without bundlers, copy SVG code directly:
+              </p>
+              <CodeBlock
+                title="Direct SVG Usage"
+                language="html"
+                code={`<!-- Copy any SVG from the Icons page and paste inline -->
+<span class="cyber-icon cyber-icon--cyan" style="width: 24px; height: 24px;">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+       stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4 17 10 11 4 5"/>
+    <line x1="12" y1="19" x2="20" y2="19"/>
+  </svg>
+</span>
+
+<!-- Or use the raw SVG files from node_modules/cybercore-css/src/icons/svg/ -->`}
+              />
+
+              <h3
+                className="cyber-h4"
+                style={{ marginTop: 'var(--space-xl)', marginBottom: 'var(--space-md)' }}
+              >
+                React / Vue / Svelte
               </h3>
               <CodeBlock
                 title="Import Icons"

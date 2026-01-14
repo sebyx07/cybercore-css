@@ -1215,6 +1215,7 @@ body::after {
   border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--color-bg-tertiary);
+  margin-bottom: var(--space-md);
 
   &__header {
     display: flex;
