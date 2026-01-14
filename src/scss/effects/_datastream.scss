@@ -4,14 +4,24 @@
 
 @layer components {
   .cyber-datastream {
-    background: linear-gradient(
-      180deg,
-      transparent 0%,
-      color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent) 50%,
-      transparent 100%
-    );
-    background-size: 100% 200%;
-    animation: datastream 3s linear infinite;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      border-radius: inherit;
+      background: linear-gradient(
+        180deg,
+        transparent 0%,
+        color-mix(in srgb, var(--cyber-cyan-500) 30%, transparent) 50%,
+        transparent 100%
+      );
+      background-size: 100% 200%;
+      animation: datastream 3s linear infinite;
+      pointer-events: none;
+      inset: 0;
+    }
   }
 
   @keyframes datastream {
@@ -26,7 +36,7 @@
 
   // Respect reduced motion preference
   @media (prefers-reduced-motion: reduce) {
-    .cyber-datastream {
+    .cyber-datastream::before {
       animation: none;
     }
   }

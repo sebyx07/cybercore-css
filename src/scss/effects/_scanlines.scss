@@ -13,12 +13,11 @@
       border-radius: inherit;
       background: repeating-linear-gradient(
         0deg,
-        transparent,
+        transparent 0,
         transparent 2px,
-        rgb(0 0 0 / 30%) 2px,
-        rgb(0 0 0 / 30%) 4px
+        rgb(0 0 0 / 50%) 2px,
+        rgb(0 0 0 / 50%) 4px
       );
-      opacity: var(--scanline-opacity);
       pointer-events: none;
       inset: 0;
     }

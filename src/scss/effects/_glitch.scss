@@ -26,13 +26,13 @@
     &::before {
       z-index: -1;
       color: var(--cyber-magenta-500);
-      animation: glitch-1 3s infinite linear alternate-reverse;
+      animation: glitch-1 8s infinite linear alternate-reverse;
     }
 
     &::after {
       z-index: -1;
       color: var(--cyber-cyan-300);
-      animation: glitch-2 2s infinite linear alternate;
+      animation: glitch-2 6s infinite linear alternate;
     }
   }
 

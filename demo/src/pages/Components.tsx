@@ -415,6 +415,230 @@ function Components() {
 </div>`}
               />
             </div>
+
+            <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-md)' }}
+              >
+                <div>
+                  <span className="cyber-label cyber-text-cyan">Cyan (Default)</span>
+                  <div className="cyber-progress" style={{ marginTop: 'var(--space-xs)' }}>
+                    <div className="cyber-progress__bar" style={{ width: '60%' }} />
+                  </div>
+                </div>
+                <div>
+                  <span className="cyber-label cyber-text-magenta">Magenta</span>
+                  <div
+                    className="cyber-progress cyber-progress--magenta"
+                    style={{ marginTop: 'var(--space-xs)' }}
+                  >
+                    <div className="cyber-progress__bar" style={{ width: '60%' }} />
+                  </div>
+                </div>
+                <div>
+                  <span className="cyber-label cyber-text-yellow">Yellow</span>
+                  <div
+                    className="cyber-progress cyber-progress--yellow"
+                    style={{ marginTop: 'var(--space-xs)' }}
+                  >
+                    <div className="cyber-progress__bar" style={{ width: '60%' }} />
+                  </div>
+                </div>
+                <div>
+                  <span className="cyber-label cyber-text-green">Green</span>
+                  <div
+                    className="cyber-progress cyber-progress--green"
+                    style={{ marginTop: 'var(--space-xs)' }}
+                  >
+                    <div className="cyber-progress__bar" style={{ width: '60%' }} />
+                  </div>
+                </div>
+              </div>
+              <CodeBlock
+                title="Color Variants"
+                language="html"
+                code={`<div class="cyber-progress">...</div>
+<div class="cyber-progress cyber-progress--magenta">...</div>
+<div class="cyber-progress cyber-progress--yellow">...</div>
+<div class="cyber-progress cyber-progress--green">...</div>`}
+              />
+            </div>
+
+            <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-md)' }}
+              >
+                <div>
+                  <span className="cyber-label">Small</span>
+                  <div
+                    className="cyber-progress cyber-progress--sm"
+                    style={{ marginTop: 'var(--space-xs)' }}
+                  >
+                    <div className="cyber-progress__bar" style={{ width: '60%' }} />
+                  </div>
+                </div>
+                <div>
+                  <span className="cyber-label">Default</span>
+                  <div className="cyber-progress" style={{ marginTop: 'var(--space-xs)' }}>
+                    <div className="cyber-progress__bar" style={{ width: '60%' }} />
+                  </div>
+                </div>
+                <div>
+                  <span className="cyber-label">Large</span>
+                  <div
+                    className="cyber-progress cyber-progress--lg"
+                    style={{ marginTop: 'var(--space-xs)' }}
+                  >
+                    <div className="cyber-progress__bar" style={{ width: '60%' }} />
+                  </div>
+                </div>
+              </div>
+              <CodeBlock
+                title="Size Variants"
+                language="html"
+                code={`<div class="cyber-progress cyber-progress--sm">...</div>
+<div class="cyber-progress">...</div>
+<div class="cyber-progress cyber-progress--lg">...</div>`}
+              />
+            </div>
+
+            <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-md)' }}
+              >
+                <div>
+                  <span className="cyber-label">Loading...</span>
+                  <div
+                    className="cyber-progress cyber-progress--indeterminate"
+                    style={{ marginTop: 'var(--space-xs)' }}
+                  >
+                    <div className="cyber-progress__bar" />
+                  </div>
+                </div>
+                <div>
+                  <span className="cyber-label">Processing...</span>
+                  <div
+                    className="cyber-progress cyber-progress--indeterminate cyber-progress--magenta"
+                    style={{ marginTop: 'var(--space-xs)' }}
+                  >
+                    <div className="cyber-progress__bar" />
+                  </div>
+                </div>
+              </div>
+              <CodeBlock
+                title="Indeterminate (Loading)"
+                language="html"
+                code={`<div class="cyber-progress cyber-progress--indeterminate">
+  <div class="cyber-progress__bar"></div>
+</div>`}
+              />
+            </div>
+
+            <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-md)' }}
+              >
+                <div>
+                  <span className="cyber-label">Step 2 of 5</span>
+                  <div
+                    className="cyber-progress cyber-progress--segmented"
+                    style={{ marginTop: 'var(--space-xs)' }}
+                  >
+                    <div className="cyber-progress__segment cyber-progress__segment--active" />
+                    <div className="cyber-progress__segment cyber-progress__segment--active" />
+                    <div className="cyber-progress__segment" />
+                    <div className="cyber-progress__segment" />
+                    <div className="cyber-progress__segment" />
+                  </div>
+                </div>
+                <div>
+                  <span className="cyber-label">Step 4 of 5</span>
+                  <div
+                    className="cyber-progress cyber-progress--segmented cyber-progress--green"
+                    style={{ marginTop: 'var(--space-xs)' }}
+                  >
+                    <div className="cyber-progress__segment cyber-progress__segment--active" />
+                    <div className="cyber-progress__segment cyber-progress__segment--active" />
+                    <div className="cyber-progress__segment cyber-progress__segment--active" />
+                    <div className="cyber-progress__segment cyber-progress__segment--active" />
+                    <div className="cyber-progress__segment" />
+                  </div>
+                </div>
+              </div>
+              <CodeBlock
+                title="Segmented Progress (Steps)"
+                language="html"
+                code={`<div class="cyber-progress cyber-progress--segmented">
+  <div class="cyber-progress__segment cyber-progress__segment--active"></div>
+  <div class="cyber-progress__segment cyber-progress__segment--active"></div>
+  <div class="cyber-progress__segment"></div>
+  <div class="cyber-progress__segment"></div>
+  <div class="cyber-progress__segment"></div>
+</div>`}
+              />
+            </div>
+
+            <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
+              <div className="demo-preview" style={{ padding: 'var(--space-lg)' }}>
+                <div className="demo-showcase">
+                  <div
+                    className="cyber-progress-circle"
+                    style={{ '--progress-value': 25 } as React.CSSProperties}
+                  >
+                    <svg className="cyber-progress-circle__svg" viewBox="0 0 100 100">
+                      <circle className="cyber-progress-circle__track" cx="50" cy="50" r="40" />
+                      <circle className="cyber-progress-circle__bar" cx="50" cy="50" r="40" />
+                    </svg>
+                    <span className="cyber-progress-circle__value">25%</span>
+                  </div>
+                  <div
+                    className="cyber-progress-circle cyber-progress-circle--magenta"
+                    style={{ '--progress-value': 50 } as React.CSSProperties}
+                  >
+                    <svg className="cyber-progress-circle__svg" viewBox="0 0 100 100">
+                      <circle className="cyber-progress-circle__track" cx="50" cy="50" r="40" />
+                      <circle className="cyber-progress-circle__bar" cx="50" cy="50" r="40" />
+                    </svg>
+                    <span className="cyber-progress-circle__value">50%</span>
+                  </div>
+                  <div
+                    className="cyber-progress-circle cyber-progress-circle--green"
+                    style={{ '--progress-value': 75 } as React.CSSProperties}
+                  >
+                    <svg className="cyber-progress-circle__svg" viewBox="0 0 100 100">
+                      <circle className="cyber-progress-circle__track" cx="50" cy="50" r="40" />
+                      <circle className="cyber-progress-circle__bar" cx="50" cy="50" r="40" />
+                    </svg>
+                    <span className="cyber-progress-circle__value">75%</span>
+                  </div>
+                  <div
+                    className="cyber-progress-circle cyber-progress-circle--yellow"
+                    style={{ '--progress-value': 100 } as React.CSSProperties}
+                  >
+                    <svg className="cyber-progress-circle__svg" viewBox="0 0 100 100">
+                      <circle className="cyber-progress-circle__track" cx="50" cy="50" r="40" />
+                      <circle className="cyber-progress-circle__bar" cx="50" cy="50" r="40" />
+                    </svg>
+                    <span className="cyber-progress-circle__value">100%</span>
+                  </div>
+                </div>
+              </div>
+              <CodeBlock
+                title="Circular Progress"
+                language="html"
+                code={`<div class="cyber-progress-circle" style="--progress-value: 75">
+  <svg class="cyber-progress-circle__svg" viewBox="0 0 100 100">
+    <circle class="cyber-progress-circle__track" cx="50" cy="50" r="40" />
+    <circle class="cyber-progress-circle__bar" cx="50" cy="50" r="40" />
+  </svg>
+  <span class="cyber-progress-circle__value">75%</span>
+</div>`}
+              />
+            </div>
           </section>
         )}
 
@@ -577,8 +801,8 @@ function Components() {
                     </div>
                     <div className="cyber-modal__body">
                       <p>
-                        Connection to the mainframe has been established. All systems are operational
-                        and ready for neural interface synchronization.
+                        Connection to the mainframe has been established. All systems are
+                        operational and ready for neural interface synchronization.
                       </p>
                     </div>
                     <div className="cyber-modal__footer">
@@ -619,9 +843,13 @@ function Components() {
             </div>
 
             <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
-              <div className="demo-preview">
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-sm)' }}
+              >
+                <p className="cyber-label">Color variants change the accent color:</p>
                 <div className="demo-showcase">
-                  <span className="cyber-badge">Default</span>
+                  <span className="cyber-badge">Default (Cyan)</span>
                   <span className="cyber-badge cyber-badge--magenta">--magenta</span>
                   <span className="cyber-badge cyber-badge--yellow">--yellow</span>
                   <span className="cyber-badge cyber-badge--green">--green</span>
@@ -631,6 +859,7 @@ function Components() {
                 title="Color Variants"
                 language="html"
                 code={`<!-- Add variant class to cyber-modal -->
+<div class="cyber-modal cyber-modal--open"><!-- cyan (default) -->
 <div class="cyber-modal cyber-modal--magenta cyber-modal--open">
 <div class="cyber-modal cyber-modal--yellow cyber-modal--open">
 <div class="cyber-modal cyber-modal--green cyber-modal--open">`}
@@ -638,13 +867,17 @@ function Components() {
             </div>
 
             <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
-              <div className="demo-preview">
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-sm)' }}
+              >
+                <p className="cyber-label">Size variants control the dialog width:</p>
                 <div className="demo-showcase">
-                  <span className="cyber-badge">--sm</span>
-                  <span className="cyber-badge">Default</span>
-                  <span className="cyber-badge">--lg</span>
-                  <span className="cyber-badge">--xl</span>
-                  <span className="cyber-badge">--fullscreen</span>
+                  <span className="cyber-badge cyber-badge--sm">--sm (360px)</span>
+                  <span className="cyber-badge">Default (500px)</span>
+                  <span className="cyber-badge">--lg (720px)</span>
+                  <span className="cyber-badge">--xl (960px)</span>
+                  <span className="cyber-badge cyber-badge--magenta">--fullscreen</span>
                 </div>
               </div>
               <CodeBlock
@@ -652,9 +885,32 @@ function Components() {
                 language="html"
                 code={`<!-- Add size class to cyber-modal -->
 <div class="cyber-modal cyber-modal--sm cyber-modal--open">
+<div class="cyber-modal cyber-modal--open"> <!-- default 500px -->
 <div class="cyber-modal cyber-modal--lg cyber-modal--open">
 <div class="cyber-modal cyber-modal--xl cyber-modal--open">
 <div class="cyber-modal cyber-modal--fullscreen cyber-modal--open">`}
+              />
+            </div>
+
+            <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-sm)' }}
+              >
+                <p className="cyber-label">Animation variants for entrance effects:</p>
+                <div className="demo-showcase">
+                  <span className="cyber-badge">Default (scale)</span>
+                  <span className="cyber-badge cyber-badge--green">--slide-up</span>
+                  <span className="cyber-badge cyber-badge--yellow">--zoom</span>
+                </div>
+              </div>
+              <CodeBlock
+                title="Animation Variants"
+                language="html"
+                code={`<!-- Add animation class to cyber-modal -->
+<div class="cyber-modal cyber-modal--open"> <!-- default scale -->
+<div class="cyber-modal cyber-modal--slide-up cyber-modal--open">
+<div class="cyber-modal cyber-modal--zoom cyber-modal--open">`}
               />
             </div>
           </section>

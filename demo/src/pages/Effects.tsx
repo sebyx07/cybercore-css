@@ -67,7 +67,8 @@ function Effects() {
               <div
                 className="cyber-neon-border"
                 style={{
-                  padding: 'var(--space-lg)',
+                  padding: 'var(--space-xl)',
+                  background: 'var(--color-bg-secondary)',
                   borderRadius: 'var(--radius-md)',
                 }}
               >
@@ -88,7 +89,8 @@ function Effects() {
               <div
                 className="cyber-neon-border cyber-neon-border--magenta"
                 style={{
-                  padding: 'var(--space-lg)',
+                  padding: 'var(--space-xl)',
+                  background: 'var(--color-bg-secondary)',
                   borderRadius: 'var(--radius-md)',
                 }}
               >
@@ -206,32 +208,25 @@ function Effects() {
               style={{ flexDirection: 'column', gap: 'var(--space-lg)' }}
             >
               <span className="cyber-h2 cyber-text-glow">Cyan Glow</span>
-              <span
-                className="cyber-h2 cyber-text-glow--magenta"
-                style={{ textShadow: 'var(--glow-text-magenta)' }}
-              >
+              <span className="cyber-h2 cyber-text-glow cyber-text-glow--magenta">
                 Magenta Glow
               </span>
-              <span
-                className="cyber-h2 cyber-text-glow--yellow"
-                style={{ textShadow: 'var(--glow-text-yellow)' }}
-              >
-                Yellow Glow
-              </span>
-              <span
-                className="cyber-h2 cyber-text-glow--green"
-                style={{ textShadow: 'var(--glow-text-green)' }}
-              >
-                Green Glow
-              </span>
+              <span className="cyber-h2 cyber-text-glow cyber-text-glow--yellow">Yellow Glow</span>
+              <span className="cyber-h2 cyber-text-glow cyber-text-glow--green">Green Glow</span>
             </div>
             <CodeBlock
               title="Text Glow Classes"
               language="html"
-              code={`<span class="cyber-text-glow">Cyan Glow</span>
-<span class="cyber-text-glow--magenta">Magenta Glow</span>
-<span class="cyber-text-glow--yellow">Yellow Glow</span>
-<span class="cyber-text-glow--green">Green Glow</span>`}
+              code={`<!-- Base cyan glow -->
+<span class="cyber-text-glow">Cyan Glow</span>
+
+<!-- Color variants (use base + modifier) -->
+<span class="cyber-text-glow cyber-text-glow--magenta">Magenta Glow</span>
+<span class="cyber-text-glow cyber-text-glow--yellow">Yellow Glow</span>
+<span class="cyber-text-glow cyber-text-glow--green">Green Glow</span>
+
+<!-- Or use flat naming -->
+<span class="cyber-text-glow-magenta">Magenta Glow</span>`}
             />
           </div>
         </section>

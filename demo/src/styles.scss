@@ -16,6 +16,19 @@
 }
 
 // ============================================================
+// Fix dropdown list bullets (ensure reset applies)
+// ============================================================
+.cyber-dropdown__menu {
+  list-style: none !important;
+  padding-left: 0 !important;
+
+  li {
+    list-style: none !important;
+    list-style-type: none !important;
+  }
+}
+
+// ============================================================
 // GLOBAL BODY EFFECTS (from HTML demo)
 // ============================================================
 
@@ -98,32 +111,80 @@ body::after {
 // ============================================================
 
 .cyber-hero {
-  min-height: 60vh;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: var(--space-xl) var(--space-md);
+  padding: var(--space-2xl) var(--space-md) var(--space-3xl);
   position: relative;
   overflow: hidden;
 
+  // Animated grid background
   &::before {
     content: "";
     position: absolute;
     inset: 0;
     background:
+      // Animated gradient blobs (centered to avoid edge glow)
       radial-gradient(
-        ellipse at 20% 50%,
+        ellipse at 35% 40%,
         color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent) 0%,
-        transparent 50%
+        transparent 40%
       ),
       radial-gradient(
-        ellipse at 80% 50%,
+        ellipse at 65% 60%,
         color-mix(in srgb, var(--cyber-magenta-500) 15%, transparent) 0%,
-        transparent 50%
+        transparent 40%
+      ),
+      // Grid pattern
+      linear-gradient(
+          90deg,
+          transparent 0%,
+          transparent calc(50% - 1px),
+          color-mix(in srgb, var(--cyber-cyan-500) 8%, transparent) 50%,
+          transparent calc(50% + 1px),
+          transparent 100%
+        ),
+      linear-gradient(
+        0deg,
+        transparent 0%,
+        transparent calc(50% - 1px),
+        color-mix(in srgb, var(--cyber-cyan-500) 8%, transparent) 50%,
+        transparent calc(50% + 1px),
+        transparent 100%
       );
+    background-size:
+      100% 100%,
+      100% 100%,
+      80px 80px,
+      80px 80px;
+    animation: hero-grid-pulse 8s ease-in-out infinite;
     pointer-events: none;
+  }
+
+  // Animated horizontal scan line
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--cyber-cyan-500) 20%,
+      var(--cyber-magenta-500) 50%,
+      var(--cyber-cyan-500) 80%,
+      transparent 100%
+    );
+    box-shadow:
+      0 0 20px var(--cyber-cyan-500),
+      0 0 40px color-mix(in srgb, var(--cyber-cyan-500) 50%, transparent);
+    animation: hero-scan 15s linear infinite;
+    pointer-events: none;
+    opacity: 0.7;
   }
 
   &__subtitle {
@@ -144,6 +205,43 @@ body::after {
     max-width: 600px;
     color: var(--color-text-secondary);
     margin-bottom: var(--space-lg);
+  }
+}
+
+@keyframes hero-grid-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    background-position:
+      0% 0%,
+      100% 100%,
+      0 0,
+      0 0;
+  }
+  50% {
+    opacity: 0.8;
+    background-position:
+      100% 100%,
+      0% 0%,
+      40px 40px,
+      40px 40px;
+  }
+}
+
+@keyframes hero-scan {
+  0% {
+    top: -2px;
+    opacity: 0;
+  }
+  3% {
+    opacity: 0.6;
+  }
+  97% {
+    opacity: 0.6;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
   }
 }
 
@@ -785,16 +883,16 @@ body::after {
 .demo-section {
   padding: var(--space-xl) 0;
   border-bottom: 1px solid var(--color-border-default);
-  font-size: var(--text-lg);
-  line-height: 1.7;
+  font-size: var(--text-sm);
+  line-height: 1.6;
 
   &:last-child {
     border-bottom: none;
   }
 
   p {
-    font-size: var(--text-lg);
-    line-height: 1.7;
+    font-size: var(--text-sm);
+    line-height: 1.6;
   }
 }
 
@@ -812,9 +910,9 @@ body::after {
 }
 
 .demo-box {
-  padding: var(--space-lg);
-  font-size: var(--text-base);
-  line-height: 1.7;
+  padding: var(--space-md);
+  font-size: var(--text-sm);
+  line-height: 1.6;
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-md);
@@ -934,6 +1032,8 @@ body::after {
   justify-content: center;
   align-items: center;
   gap: var(--space-md);
+  overflow: visible; // Allow effects like neon-border to show
+  isolation: isolate; // Create stacking context for effects
 }
 
 .demo-nav-wrapper {

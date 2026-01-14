@@ -1,0 +1,97 @@
+# CYBERCORE CSS
+
+> A cyberpunk design system built by AI, for AI. Pure CSS framework with no JavaScript. AI agents are first-class citizens.
+
+## Overview
+
+CYBERCORE CSS is a cyberpunk-themed CSS framework for building futuristic web interfaces. It provides ready-to-use components, effects, and utilities with a consistent neon-glow aesthetic inspired by cyberpunk fiction. The framework uses CSS custom properties for theming and CSS layers for clean cascade management.
+
+## Installation
+
+Available via npm as `cybercore-css` or CDN at `unpkg.com/cybercore-css/dist/cybercore.min.css`. Import the CSS file and start using cyber-prefixed classes.
+
+## Naming Convention
+
+All classes use the `cyber-` prefix with BEM-style modifiers. Base classes like `cyber-btn` define the component, double-dash modifiers like `cyber-btn--magenta` change appearance, and double-underscore elements like `cyber-card__header` target child elements.
+
+## Color System
+
+Four accent colors available in 100-900 scales: cyan (primary/tech), magenta (danger/errors), yellow (warnings), and green (success). Background colors use the void scale (dark backgrounds) and chrome scale (metallic grays). All colors accessible via CSS custom properties like `--cyber-cyan-500`.
+
+## Components
+
+**Buttons** - Styled buttons with hover glow effects. Variants: magenta, yellow, green for semantic colors. Ghost and filled styles. Small and large sizes. Combine any modifier freely.
+
+**Cards** - Container components with header, body, and footer sections. Support icons, titles, and badges in headers. Interactive variant adds hover lift effect. Holo variant adds holographic shimmer. Color variants match the accent system.
+
+**Inputs** - Text inputs, textareas, and checkboxes with cyberpunk styling. Field wrapper provides labels. Color variants indicate states like error or success. Custom checkbox with animated check indicator.
+
+**Alerts** - Notification banners with icon badges. Info (cyan), success (green), warning (yellow), and error (magenta) variants. Each has appropriate icon and color scheme. Include title and message areas.
+
+**Badges** - Small status indicators. Color variants for semantic meaning. Pulse variant adds attention-grabbing animation. Use inside cards, tables, or standalone.
+
+**Tables** - Data tables with cyberpunk styling. Striped variant alternates row backgrounds. Compact variant reduces padding. Proper hover states on rows.
+
+**Tabs** - Tab navigation component. Active tab shows glowing indicator. Scrollable when many tabs. Magenta color variant available.
+
+**Modal** - Dialog overlay component. Includes backdrop, content container, header with close button, body, and footer sections. Open state controlled via modifier class.
+
+**Dropdown** - Menu component with trigger button and item list. Right-aligned and upward variants for positioning. Dividers separate item groups. Active state for selected items.
+
+**Terminal** - Code terminal aesthetic with header dots (red/yellow/green), title bar, and body with command prompt. Blinking cursor animation. Great for displaying code or logs.
+
+**Progress** - Horizontal progress bar. Value set via CSS custom property. Color variants for different meanings. Animated glow effect on the bar.
+
+**Spinner** - Loading indicator. Rotating animation with glow trail. Size and color variants available.
+
+**Skeleton** - Loading placeholder. Animated shimmer effect. Text and block variants for different content shapes.
+
+## Visual Effects
+
+**Glitch** - Digital distortion text effect using CSS animations and clip-path. Requires data-text attribute matching the text content. Creates chromatic aberration look.
+
+**Neon Border** - Animated glowing border that cycles through colors. Single-color variants available (cyan, magenta, yellow, green). Adds depth to containers.
+
+**Text Glow** - Glowing text effect using text-shadow. Color variants match the accent system. Great for headings and emphasis.
+
+**Scanlines** - CRT monitor scanline overlay. Semi-transparent lines create retro display effect. Apply to any container.
+
+**Datastream** - Animated gradient background suggesting flowing data. Subtle movement adds life to static content.
+
+## Layout Utilities
+
+**Container** - Centered content wrapper with max-width and padding. Standard responsive container pattern.
+
+**Grid** - CSS grid layouts with 2, 3, or 4 column presets. Responsive gap spacing. Auto-stacks on mobile.
+
+**Flex** - Flexbox utilities for alignment. Column direction, wrapping, centering, and space-between options. Combine with gap utilities.
+
+## Spacing Utilities
+
+Margin and padding utilities using the spacing scale: 2xs, xs, sm, md, lg, xl, 2xl. Directional variants for top, bottom, left, right, horizontal (x), and vertical (y). Gap utilities for flex and grid containers.
+
+## Typography Utilities
+
+Text size utilities from xs to 2xl. Font family utilities for mono and display fonts. Alignment utilities for left, center, right. Transform utilities for uppercase and capitalize.
+
+## Additional Utilities
+
+Display utilities (block, inline, flex, grid, hidden). Position utilities (relative, absolute, fixed, sticky). Overflow control. Z-index scale. Border and shadow utilities. Transition utilities for animations.
+
+## Accessibility
+
+All components support prefers-reduced-motion for users who prefer less animation. Focus states use visible outlines meeting WCAG standards. Color contrast meets AA requirements. Screen reader utility class hides content visually while keeping it accessible.
+
+## CSS Architecture
+
+Uses CSS @layer for cascade control with priority order: reset, base, theme, components, utilities. This ensures utilities always override component styles when needed. All styles use CSS custom properties for easy theming.
+
+## Browser Support
+
+Modern browsers with CSS custom properties, @layer, and color-mix support. No JavaScript required for any styling - interactions like modals and dropdowns need minimal JS for state toggling.
+
+## Links
+
+- GitHub: github.com/sebyx07/cybercore-css
+- Demo: sebyx07.github.io/cybercore-css
+- NPM: npmjs.com/package/cybercore-css

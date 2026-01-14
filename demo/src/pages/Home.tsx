@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { Link } from 'react-router-dom';
+
 function Home() {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -12,14 +14,24 @@ function Home() {
           CYBERCORE
         </h1>
         <p className="cyber-hero__description">
-          Welcome to the neural interface. A cyberpunk design system built for the modern web with
-          cutting-edge CSS. Pure styles, no JavaScript.
+          Built by AI, for AI. A cyberpunk design system where AI agents are first-class citizens.
+          Pure CSS, no JavaScript—perfect for AI-powered web apps.
         </p>
         <div className="cyber-flex cyber-gap-md">
-          <button className="cyber-btn cyber-btn--lg">Jack In</button>
-          <button className="cyber-btn cyber-btn--lg cyber-btn--magenta cyber-btn--ghost">
-            Learn More
-          </button>
+          <a
+            href="/cybercore-css/llm.txt"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cyber-btn cyber-btn--lg"
+          >
+            llm.txt
+          </a>
+          <Link
+            to="/components"
+            className="cyber-btn cyber-btn--lg cyber-btn--magenta cyber-btn--ghost"
+          >
+            Components
+          </Link>
         </div>
       </section>
 
@@ -94,7 +106,7 @@ function Home() {
             <button className="cyber-btn cyber-btn--green">Success</button>
           </div>
 
-          <div className="cyber-flex cyber-flex--wrap cyber-gap-md cyber-items-center cyber-mt-md">
+          <div className="cyber-flex cyber-flex--wrap cyber-gap-md cyber-items-center cyber-mt-lg">
             <button className="cyber-btn cyber-btn--ghost">Ghost</button>
             <button className="cyber-btn cyber-btn--filled">Filled</button>
             <button className="cyber-btn cyber-btn--sm">Small</button>

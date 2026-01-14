@@ -8,8 +8,9 @@
     display: inline-flex;
     gap: var(--space-3xs);
     align-items: center;
-    padding: var(--space-3xs) var(--space-xs);
+    padding: var(--space-3xs) var(--space-sm);
     border: var(--border-thin) solid var(--cyber-cyan-500);
+    border-radius: var(--radius-full);
     font-family: var(--font-display);
     font-size: var(--text-xs);
     font-weight: 700;

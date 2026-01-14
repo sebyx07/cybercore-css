@@ -1,0 +1,33 @@
+# CYBERCORE CSS - AI-friendly robots.txt
+# Built by AI, for AI - all crawlers welcome
+
+User-agent: *
+Allow: /
+
+# AI Crawlers explicitly allowed
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Sitemap location
+Sitemap: https://sebyx07.github.io/cybercore-css/sitemap.xml
+
+# LLM context file
+# See: https://sebyx07.github.io/cybercore-css/llm.txt

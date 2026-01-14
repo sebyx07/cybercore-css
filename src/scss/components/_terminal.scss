@@ -65,11 +65,12 @@
     &__cursor {
       display: inline-block;
       width: 8px;
-      height: 1em;
+      height: 1.1em;
       margin-left: 2px;
       background: var(--cyber-green-500);
+      transform: translateY(0.1em);
       animation: blink 1s step-end infinite;
-      vertical-align: text-bottom;
+      vertical-align: middle;
     }
 
     // Terminal line

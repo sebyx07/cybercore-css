@@ -96,6 +96,46 @@ Imports the framework from `../../src/scss/cybercore.scss`.
 - `variables.test.ts` - Validates CSS custom properties are defined
 - `visual/` - Playwright visual regression tests
 
+## Browser Visual Debugging
+
+Use Chrome browser automation to debug and validate visual styling in real-time.
+Start the dev server (`npm run dev`) first, then use browser tools to inspect.
+
+**When to use browser debugging:**
+
+- Verify CSS colors match design specs (check computed styles against variables)
+- Debug alignment and spacing issues between elements
+- Validate visual effects work correctly (glitch, neon-border, scanlines, etc.)
+- Check responsive layouts at different viewport sizes
+- Confirm hover/focus/active states render properly
+- Debug z-index and overlay issues (dropdowns, modals)
+- Take screenshots for visual documentation
+
+**Common debugging tasks:**
+
+```
+# Check if a component uses correct color values
+→ Navigate to demo, inspect element, read computed background-color
+
+# Verify alignment across multiple elements
+→ Take screenshot, check element positions via DOM inspection
+
+# Debug why an effect isn't visible
+→ Read computed styles, check opacity/visibility/z-index/pseudo-elements
+
+# Validate responsive behavior
+→ Resize viewport, take screenshots at different breakpoints
+```
+
+**Demo URL:** `http://localhost:5173` (Vite dev server)
+
+**Key pages to check:**
+
+- `/#/` - Home with hero and component showcase
+- `/#/components` - All UI components
+- `/#/effects` - Visual effects demos
+- `/#/utilities` - Utility class examples
+
 ## Linting Rules
 
 **SCSS (Stylelint):**
