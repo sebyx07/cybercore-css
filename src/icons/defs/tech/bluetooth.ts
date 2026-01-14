@@ -10,22 +10,21 @@ export const bluetooth: IconDefinition = {
   description: 'Bluetooth symbol',
   tags: ['bluetooth', 'wireless', 'connection', 'pairing', 'device'],
   svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <polyline points="6 7 12 3 12 21 18 17"/>
-  <polyline points="18 7 12 3 6 17 12 21"/>
+  <polyline points="6.5 6.5 12 12 17.5 6.5 12 2 12 22 17.5 17.5 12 12 6.5 17.5"/>
 </svg>`,
   variants: {
     solid: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-  <path d="M13 2l6 5-4.5 4 4.5 4-6 5V2zm-2 8.5L6.5 7 5 8.5 9.5 12 5 15.5 6.5 17 11 13.5v-3z"/>
+  <path d="M12 2L17.5 6.5 12 12l5.5 5.5L12 22V12L6.5 17.5 5 16l6-4-6-4 1.5-1.5L12 12V2z"/>
 </svg>`,
     duotone: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <polyline points="6 7 12 3 12 21 18 17" fill="currentColor" opacity="0.3"/>
-  <polyline points="18 7 12 3 6 17 12 21"/>
+  <polygon points="12 2 17.5 6.5 12 12 12 2" fill="currentColor" opacity="0.3"/>
+  <polygon points="12 22 17.5 17.5 12 12 12 22" fill="currentColor" opacity="0.3"/>
+  <polyline points="6.5 6.5 12 12 17.5 6.5 12 2 12 22 17.5 17.5 12 12 6.5 17.5"/>
 </svg>`,
     glitch: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <polyline points="6 7 12 3 12 21 18 17"/>
-  <polyline points="6 7 12 3 12 21 18 17" transform="translate(1,-1)" opacity="0.4"/>
-  <polyline points="18 7 12 3 6 17 12 21"/>
-  <polyline points="18 7 12 3 6 17 12 21" transform="translate(1,-1)" opacity="0.4"/>
+  <polyline points="6.5 6.5 12 12 17.5 6.5 12 2 12 22 17.5 17.5 12 12 6.5 17.5" transform="translate(-0.5, 0.5)" opacity="0.4"/>
+  <polyline points="6.5 6.5 12 12 17.5 6.5 12 2 12 22 17.5 17.5 12 12 6.5 17.5"/>
+  <polyline points="6.5 6.5 12 12 17.5 6.5 12 2 12 22 17.5 17.5 12 12 6.5 17.5" transform="translate(0.5, -0.5)" opacity="0.3"/>
 </svg>`,
   },
 };

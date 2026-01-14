@@ -6,9 +6,8 @@ export const thumbsDown: IconDefinition = {
   description: 'Disapprove or dislike gesture',
   tags: ['dislike', 'disapprove', 'negative', 'disagree', 'downvote'],
   svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M17 2v11M22 11V5c0-1.1-.9-2-2-2h-1"/>
-  <path d="M6 15H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3"/>
-  <path d="M17 13l-1.5 5c-.4 1.3-1.7 2-3.1 2-.8 0-1.4-.7-1.4-1.5v-4.5H5.6c-1.2 0-2.2-1-2.2-2.2 0-.4.1-.8.3-1.2l2.6-5.2C6.7 4.6 7.5 4 8.4 4H17"/>
+  <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3H10z"/>
+  <path d="M17 2h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3"/>
 </svg>`,
   variants: {
     solid: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none">

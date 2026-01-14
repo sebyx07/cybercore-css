@@ -10,35 +10,38 @@ export const gitMerge: IconDefinition = {
   description: 'Git merge',
   tags: ['git', 'merge', 'version-control', 'combine', 'integrate'],
   svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="18" cy="18" r="2"/>
-  <circle cx="6" cy="6" r="2"/>
-  <path d="M6 8v7a2 2 0 0 0 2 2h8"/>
-  <line x1="18" y1="16" x2="18" y2="11"/>
-  <line x1="16" y1="11" x2="20" y2="11"/>
+  <circle cx="18" cy="6" r="3"/>
+  <circle cx="6" cy="6" r="3"/>
+  <circle cx="6" cy="18" r="3"/>
+  <path d="M6 9v6"/>
+  <path d="M18 9c0 6-6 6-6 12"/>
 </svg>`,
   variants: {
     solid: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-  <circle cx="18" cy="18" r="2.5"/>
-  <circle cx="6" cy="6" r="2.5"/>
-  <path d="M6 8.5v6.5a2 2 0 002 2h10v-1.5H8a.5.5 0 01-.5-.5V8.5H6z"/>
-  <rect x="16" y="10.5" width="4" height="1"/>
-  <rect x="17.25" y="11" width="1.5" height="5"/>
+  <circle cx="18" cy="6" r="3"/>
+  <circle cx="6" cy="6" r="3"/>
+  <circle cx="6" cy="18" r="3"/>
+  <rect x="5" y="9" width="2" height="6"/>
+  <path d="M17 9c0 2.5-1 4.5-2.5 6S12 18 12 21h2c0-2.5 1-4.5 2.5-6S19 12 19 9h-2z"/>
 </svg>`,
     duotone: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="18" cy="18" r="2" fill="currentColor"/>
-  <circle cx="6" cy="6" r="2" fill="currentColor"/>
-  <path d="M6 8v7a2 2 0 0 0 2 2h8" opacity="0.3"/>
-  <line x1="18" y1="16" x2="18" y2="11" opacity="0.3"/>
-  <line x1="16" y1="11" x2="20" y2="11"/>
+  <circle cx="18" cy="6" r="3" fill="currentColor" opacity="0.3"/>
+  <circle cx="6" cy="6" r="3" fill="currentColor" opacity="0.3"/>
+  <circle cx="6" cy="18" r="3" fill="currentColor" opacity="0.3"/>
+  <path d="M6 9v6"/>
+  <path d="M18 9c0 6-6 6-6 12"/>
 </svg>`,
     glitch: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="18" cy="18" r="2"/>
-  <circle cx="18" cy="18" r="2" transform="translate(1,-1)" opacity="0.4"/>
-  <circle cx="6" cy="6" r="2"/>
-  <circle cx="6" cy="6" r="2" transform="translate(1,-1)" opacity="0.4"/>
-  <path d="M6 8v7a2 2 0 0 0 2 2h8"/>
-  <line x1="18" y1="16" x2="18" y2="11"/>
-  <line x1="16" y1="11" x2="20" y2="11"/>
+  <g opacity="0.4" transform="translate(-0.5, 0.5)">
+    <circle cx="18" cy="6" r="3"/>
+    <circle cx="6" cy="6" r="3"/>
+    <circle cx="6" cy="18" r="3"/>
+  </g>
+  <circle cx="18" cy="6" r="3"/>
+  <circle cx="6" cy="6" r="3"/>
+  <circle cx="6" cy="18" r="3"/>
+  <path d="M6 9v6"/>
+  <path d="M18 9c0 6-6 6-6 12"/>
 </svg>`,
   },
 };

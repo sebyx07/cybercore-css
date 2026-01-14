@@ -10,44 +10,43 @@ export const api: IconDefinition = {
   description: 'API endpoint',
   tags: ['api', 'endpoint', 'integration', 'interface', 'service'],
   svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <rect x="4" y="4" width="7" height="7" rx="1"/>
-  <rect x="13" y="13" width="7" height="7" rx="1"/>
-  <path d="M11 7.5h2"/>
-  <path d="M7.5 11v2"/>
-  <path d="M16.5 13v-2h-2"/>
-  <path d="M13 16.5h2v2"/>
-  <circle cx="7.5" cy="7.5" r="1"/>
-  <circle cx="16.5" cy="16.5" r="1"/>
+  <path d="M4 4h7v7H4z"/>
+  <path d="M13 13h7v7h-7z"/>
+  <path d="M11 8h2"/>
+  <path d="M8 11v2"/>
+  <path d="M16 11v2"/>
+  <path d="M11 16h2"/>
 </svg>`,
   variants: {
     solid: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none">
   <rect x="4" y="4" width="7" height="7" rx="1"/>
   <rect x="13" y="13" width="7" height="7" rx="1"/>
-  <rect x="11" y="7" width="2" height="1"/>
-  <rect x="7" y="11" width="1" height="2"/>
-  <path d="M16.5 13v-2h-2v1h1v1h1z"/>
-  <path d="M13 16.5h2v2h-1v-1h-1v-1z"/>
+  <rect x="11" y="7" width="2" height="2"/>
+  <rect x="7" y="11" width="2" height="2"/>
+  <rect x="15" y="11" width="2" height="2"/>
+  <rect x="11" y="15" width="2" height="2"/>
 </svg>`,
     duotone: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <rect x="4" y="4" width="7" height="7" rx="1" fill="currentColor" opacity="0.3"/>
-  <rect x="13" y="13" width="7" height="7" rx="1" fill="currentColor" opacity="0.3"/>
-  <path d="M11 7.5h2"/>
-  <path d="M7.5 11v2"/>
-  <path d="M16.5 13v-2h-2"/>
-  <path d="M13 16.5h2v2"/>
-  <circle cx="7.5" cy="7.5" r="1" fill="currentColor"/>
-  <circle cx="16.5" cy="16.5" r="1" fill="currentColor"/>
+  <rect x="4" y="4" width="7" height="7" fill="currentColor" opacity="0.3"/>
+  <rect x="13" y="13" width="7" height="7" fill="currentColor" opacity="0.3"/>
+  <path d="M4 4h7v7H4z"/>
+  <path d="M13 13h7v7h-7z"/>
+  <path d="M11 8h2"/>
+  <path d="M8 11v2"/>
+  <path d="M16 11v2"/>
+  <path d="M11 16h2"/>
 </svg>`,
     glitch: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <rect x="4" y="4" width="7" height="7" rx="1"/>
-  <rect x="4" y="4" width="7" height="7" rx="1" transform="translate(1,-1)" opacity="0.4"/>
-  <rect x="13" y="13" width="7" height="7" rx="1"/>
-  <path d="M11 7.5h2"/>
-  <path d="M7.5 11v2"/>
-  <path d="M16.5 13v-2h-2"/>
-  <path d="M13 16.5h2v2"/>
-  <circle cx="7.5" cy="7.5" r="1"/>
-  <circle cx="16.5" cy="16.5" r="1"/>
+  <g opacity="0.4" transform="translate(-0.5, 0.5)">
+    <path d="M4 4h7v7H4z"/>
+    <path d="M13 13h7v7h-7z"/>
+  </g>
+  <path d="M4 4h7v7H4z"/>
+  <path d="M13 13h7v7h-7z"/>
+  <path d="M11 8h2"/>
+  <path d="M8 11v2"/>
+  <path d="M16 11v2"/>
+  <path d="M11 16h2"/>
 </svg>`,
   },
 };

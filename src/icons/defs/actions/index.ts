@@ -20,6 +20,7 @@ export { redo } from './redo';
 export { plus } from './plus';
 export { minus } from './minus';
 export { check } from './check';
+export { doubleCheck } from './double-check';
 export { x } from './x';
 export { refresh } from './refresh';
 export { drag } from './drag';

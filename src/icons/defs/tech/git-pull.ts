@@ -10,39 +10,42 @@ export const gitPull: IconDefinition = {
   description: 'Git pull request',
   tags: ['git', 'pull', 'request', 'pr', 'review'],
   svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="18" cy="18" r="2"/>
-  <circle cx="18" cy="6" r="2"/>
-  <circle cx="6" cy="18" r="2"/>
-  <line x1="18" y1="8" x2="18" y2="16"/>
-  <line x1="6" y1="9" x2="6" y2="16"/>
-  <polyline points="14 6 18 2 22 6"/>
+  <circle cx="6" cy="6" r="3"/>
+  <circle cx="6" cy="18" r="3"/>
+  <circle cx="18" cy="18" r="3"/>
+  <path d="M6 9v6"/>
+  <path d="M18 9v6"/>
+  <path d="M6 6h6c2.2 0 4 1.8 4 4v2"/>
 </svg>`,
   variants: {
     solid: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-  <circle cx="18" cy="18" r="2.5"/>
-  <circle cx="18" cy="6" r="2.5"/>
-  <circle cx="6" cy="18" r="2.5"/>
-  <rect x="17.25" y="8" width="1.5" height="8"/>
-  <rect x="5.25" y="9" width="1.5" height="7"/>
-  <path d="M18 2l4 4h-2.5v1h-3V6H14l4-4z"/>
+  <circle cx="6" cy="6" r="3"/>
+  <circle cx="6" cy="18" r="3"/>
+  <circle cx="18" cy="18" r="3"/>
+  <rect x="5" y="9" width="2" height="6"/>
+  <rect x="17" y="9" width="2" height="6"/>
+  <path d="M6 5h6c2.8 0 5 2.2 5 5v2h-2v-2c0-1.7-1.3-3-3-3H6V5z"/>
 </svg>`,
     duotone: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="18" cy="18" r="2" fill="currentColor"/>
-  <circle cx="18" cy="6" r="2" fill="currentColor"/>
-  <circle cx="6" cy="18" r="2" fill="currentColor"/>
-  <line x1="18" y1="8" x2="18" y2="16" opacity="0.3"/>
-  <line x1="6" y1="9" x2="6" y2="16" opacity="0.3"/>
-  <polyline points="14 6 18 2 22 6"/>
+  <circle cx="6" cy="6" r="3" fill="currentColor" opacity="0.3"/>
+  <circle cx="6" cy="18" r="3" fill="currentColor" opacity="0.3"/>
+  <circle cx="18" cy="18" r="3" fill="currentColor" opacity="0.3"/>
+  <path d="M6 9v6"/>
+  <path d="M18 9v6"/>
+  <path d="M6 6h6c2.2 0 4 1.8 4 4v2"/>
 </svg>`,
     glitch: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="18" cy="18" r="2"/>
-  <circle cx="18" cy="18" r="2" transform="translate(1,-1)" opacity="0.4"/>
-  <circle cx="18" cy="6" r="2"/>
-  <circle cx="6" cy="18" r="2"/>
-  <line x1="18" y1="8" x2="18" y2="16"/>
-  <line x1="6" y1="9" x2="6" y2="16"/>
-  <polyline points="14 6 18 2 22 6"/>
-  <polyline points="14 6 18 2 22 6" transform="translate(1,-1)" opacity="0.4"/>
+  <g opacity="0.4" transform="translate(-0.5, 0.5)">
+    <circle cx="6" cy="6" r="3"/>
+    <circle cx="6" cy="18" r="3"/>
+    <circle cx="18" cy="18" r="3"/>
+  </g>
+  <circle cx="6" cy="6" r="3"/>
+  <circle cx="6" cy="18" r="3"/>
+  <circle cx="18" cy="18" r="3"/>
+  <path d="M6 9v6"/>
+  <path d="M18 9v6"/>
+  <path d="M6 6h6c2.2 0 4 1.8 4 4v2"/>
 </svg>`,
   },
 };
