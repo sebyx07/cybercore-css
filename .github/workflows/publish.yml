@@ -56,6 +56,9 @@ jobs:
           cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
 
+      - name: Update npm for Trusted Publishing (requires 11.5.1+)
+        run: npm install -g npm@latest
+
       - name: Install dependencies
         run: npm ci
 
@@ -65,8 +68,8 @@ jobs:
       - name: Verify package contents
         run: npm pack --dry-run
 
-      - name: Publish to NPM (Trusted Publishing)
-        run: npm publish --provenance --access public
+      - name: Publish to NPM (Trusted Publishing via OIDC)
+        run: npm publish --access public
 
   # Create GitHub Release
   release:
