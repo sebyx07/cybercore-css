@@ -471,12 +471,14 @@ const svg = getIcon('${iconName}'${selectedVariant !== 'outline' ? `, '${selecte
                     </p>
                     <div className="cyber-flex cyber-gap-xs cyber-flex--wrap">
                       {codeExamples.variants.map((variant) => (
-                        <span
+                        <button
                           key={variant}
-                          className={`cyber-badge cyber-badge--sm ${variant === selectedVariant ? 'cyber-badge--green' : ''}`}
+                          className={`cyber-btn cyber-btn--sm ${variant === selectedVariant ? '' : 'cyber-btn--ghost'}`}
+                          onClick={() => setSelectedVariant(variant)}
+                          style={{ textTransform: 'capitalize' }}
                         >
                           {variant}
-                        </span>
+                        </button>
                       ))}
                     </div>
                   </div>
