@@ -169,7 +169,11 @@ const svg = getIcon('${iconName}'${selectedVariant !== 'outline' ? `, '${selecte
               {/* Size Selector */}
               <div className="cyber-field">
                 <span className="cyber-field__label">Icon Size</span>
-                <div className="cyber-flex cyber-gap-sm" role="group" aria-label="Icon size selector">
+                <div
+                  className="cyber-flex cyber-gap-sm"
+                  role="group"
+                  aria-label="Icon size selector"
+                >
                   {SIZES.map((size) => (
                     <button
                       key={size}
@@ -186,7 +190,11 @@ const svg = getIcon('${iconName}'${selectedVariant !== 'outline' ? `, '${selecte
             {/* Variant Selector */}
             <div className="cyber-field" style={{ marginTop: 'var(--space-md)' }}>
               <span className="cyber-field__label">Variant</span>
-              <div className="cyber-flex cyber-gap-sm cyber-flex--wrap" role="group" aria-label="Icon variant selector">
+              <div
+                className="cyber-flex cyber-gap-sm cyber-flex--wrap"
+                role="group"
+                aria-label="Icon variant selector"
+              >
                 {VARIANTS.map((variant) => (
                   <button
                     key={variant.id}
@@ -202,7 +210,11 @@ const svg = getIcon('${iconName}'${selectedVariant !== 'outline' ? `, '${selecte
             {/* Color Selector */}
             <div className="cyber-field" style={{ marginTop: 'var(--space-md)' }}>
               <span className="cyber-field__label">Color Theme</span>
-              <div className="cyber-flex cyber-gap-sm cyber-flex--wrap" role="group" aria-label="Icon color selector">
+              <div
+                className="cyber-flex cyber-gap-sm cyber-flex--wrap"
+                role="group"
+                aria-label="Icon color selector"
+              >
                 {COLORS.map((color) => (
                   <button
                     key={color.id}

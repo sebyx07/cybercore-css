@@ -264,14 +264,46 @@ body::after {
     opacity: 0.6;
 
     // Position each icon at different locations
-    &--1 { top: 15%; left: 10%; animation-delay: 0s; }
-    &--2 { top: 20%; right: 15%; animation-delay: 1s; }
-    &--3 { bottom: 30%; left: 8%; animation-delay: 2s; }
-    &--4 { top: 40%; right: 8%; animation-delay: 3s; }
-    &--5 { bottom: 20%; right: 20%; animation-delay: 4s; }
-    &--6 { top: 60%; left: 15%; animation-delay: 5s; }
-    &--7 { bottom: 15%; left: 25%; animation-delay: 6s; }
-    &--8 { top: 25%; left: 35%; animation-delay: 7s; }
+    &--1 {
+      top: 15%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+    &--2 {
+      top: 20%;
+      right: 15%;
+      animation-delay: 1s;
+    }
+    &--3 {
+      bottom: 30%;
+      left: 8%;
+      animation-delay: 2s;
+    }
+    &--4 {
+      top: 40%;
+      right: 8%;
+      animation-delay: 3s;
+    }
+    &--5 {
+      bottom: 20%;
+      right: 20%;
+      animation-delay: 4s;
+    }
+    &--6 {
+      top: 60%;
+      left: 15%;
+      animation-delay: 5s;
+    }
+    &--7 {
+      bottom: 15%;
+      left: 25%;
+      animation-delay: 6s;
+    }
+    &--8 {
+      top: 25%;
+      left: 35%;
+      animation-delay: 7s;
+    }
   }
 
   // Hide on small screens
@@ -281,7 +313,8 @@ body::after {
 }
 
 @keyframes icon-float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) scale(1);
     opacity: 0.4;
   }

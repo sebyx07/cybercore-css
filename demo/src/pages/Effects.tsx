@@ -35,7 +35,8 @@ function Effects() {
           </h2>
 
           <p style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--space-lg)' }}>
-            Built-in CSS animations for {iconCount} Cyber Icons. Apply these classes to any icon for dynamic effects.
+            Built-in CSS animations for {iconCount} Cyber Icons. Apply these classes to any icon for
+            dynamic effects.
           </p>
 
           {/* Interactive Animation Playground */}
@@ -43,7 +44,9 @@ function Effects() {
             <div className="cyber-grid cyber-grid--2" style={{ gap: 'var(--space-xl)' }}>
               {/* Preview Area */}
               <div style={{ textAlign: 'center' }}>
-                <p className="cyber-label" style={{ marginBottom: 'var(--space-md)' }}>Live Preview</p>
+                <p className="cyber-label" style={{ marginBottom: 'var(--space-md)' }}>
+                  Live Preview
+                </p>
                 <div
                   style={{
                     background: 'var(--cyber-void-950)',
@@ -62,7 +65,10 @@ function Effects() {
                     dangerouslySetInnerHTML={{ __html: renderIcon('chip', { size: 64 }) }}
                   />
                 </div>
-                <code className="cyber-mono" style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)' }}>
+                <code
+                  className="cyber-mono"
+                  style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)' }}
+                >
                   .cyber-icon--{activeAnimation}
                 </code>
               </div>
@@ -70,7 +76,9 @@ function Effects() {
               {/* Controls */}
               <div>
                 <div style={{ marginBottom: 'var(--space-lg)' }}>
-                  <p className="cyber-label" style={{ marginBottom: 'var(--space-sm)' }}>Animation Type</p>
+                  <p className="cyber-label" style={{ marginBottom: 'var(--space-sm)' }}>
+                    Animation Type
+                  </p>
                   <div className="cyber-flex cyber-gap-sm cyber-flex--wrap">
                     {['spin', 'pulse', 'glitch'].map((anim) => (
                       <button
@@ -85,7 +93,9 @@ function Effects() {
                 </div>
 
                 <div>
-                  <p className="cyber-label" style={{ marginBottom: 'var(--space-sm)' }}>Icon Color</p>
+                  <p className="cyber-label" style={{ marginBottom: 'var(--space-sm)' }}>
+                    Icon Color
+                  </p>
                   <div className="cyber-flex cyber-gap-sm cyber-flex--wrap">
                     {ICON_COLORS.map((color) => (
                       <button
@@ -117,25 +127,40 @@ function Effects() {
           <div className="cyber-grid cyber-grid--3" style={{ marginBottom: 'var(--space-xl)' }}>
             {/* Spin Animation */}
             <div className="demo-code-preview">
-              <div className="demo-preview" style={{ flexDirection: 'column', gap: 'var(--space-md)' }}>
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', gap: 'var(--space-md)' }}
+              >
                 <div className="cyber-flex cyber-gap-lg cyber-items-center">
                   <span
                     className="cyber-icon--spin"
-                    style={{ color: 'var(--cyber-cyan-500)', filter: 'drop-shadow(0 0 8px var(--cyber-cyan-500))' }}
+                    style={{
+                      color: 'var(--cyber-cyan-500)',
+                      filter: 'drop-shadow(0 0 8px var(--cyber-cyan-500))',
+                    }}
                     dangerouslySetInnerHTML={{ __html: renderIcon('loading', { size: 32 }) }}
                   />
                   <span
                     className="cyber-icon--spin"
-                    style={{ color: 'var(--cyber-magenta-500)', filter: 'drop-shadow(0 0 8px var(--cyber-magenta-500))' }}
+                    style={{
+                      color: 'var(--cyber-magenta-500)',
+                      filter: 'drop-shadow(0 0 8px var(--cyber-magenta-500))',
+                    }}
                     dangerouslySetInnerHTML={{ __html: renderIcon('settings', { size: 32 }) }}
                   />
                   <span
                     className="cyber-icon--spin"
-                    style={{ color: 'var(--cyber-green-500)', filter: 'drop-shadow(0 0 8px var(--cyber-green-500))' }}
+                    style={{
+                      color: 'var(--cyber-green-500)',
+                      filter: 'drop-shadow(0 0 8px var(--cyber-green-500))',
+                    }}
                     dangerouslySetInnerHTML={{ __html: renderIcon('progress', { size: 32 }) }}
                   />
                 </div>
-                <p className="cyber-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)' }}>
+                <p
+                  className="cyber-mono"
+                  style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)' }}
+                >
                   Continuous rotation
                 </p>
               </div>
@@ -152,25 +177,40 @@ function Effects() {
 
             {/* Pulse Animation */}
             <div className="demo-code-preview">
-              <div className="demo-preview" style={{ flexDirection: 'column', gap: 'var(--space-md)' }}>
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', gap: 'var(--space-md)' }}
+              >
                 <div className="cyber-flex cyber-gap-lg cyber-items-center">
                   <span
                     className="cyber-icon--pulse"
-                    style={{ color: 'var(--cyber-cyan-500)', filter: 'drop-shadow(0 0 8px var(--cyber-cyan-500))' }}
+                    style={{
+                      color: 'var(--cyber-cyan-500)',
+                      filter: 'drop-shadow(0 0 8px var(--cyber-cyan-500))',
+                    }}
                     dangerouslySetInnerHTML={{ __html: renderIcon('signal', { size: 32 }) }}
                   />
                   <span
                     className="cyber-icon--pulse"
-                    style={{ color: 'var(--cyber-magenta-500)', filter: 'drop-shadow(0 0 8px var(--cyber-magenta-500))' }}
+                    style={{
+                      color: 'var(--cyber-magenta-500)',
+                      filter: 'drop-shadow(0 0 8px var(--cyber-magenta-500))',
+                    }}
                     dangerouslySetInnerHTML={{ __html: renderIcon('wifi', { size: 32 }) }}
                   />
                   <span
                     className="cyber-icon--pulse"
-                    style={{ color: 'var(--cyber-yellow-500)', filter: 'drop-shadow(0 0 8px var(--cyber-yellow-500))' }}
+                    style={{
+                      color: 'var(--cyber-yellow-500)',
+                      filter: 'drop-shadow(0 0 8px var(--cyber-yellow-500))',
+                    }}
                     dangerouslySetInnerHTML={{ __html: renderIcon('online', { size: 32 }) }}
                   />
                 </div>
-                <p className="cyber-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)' }}>
+                <p
+                  className="cyber-mono"
+                  style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)' }}
+                >
                   Scale + opacity pulse
                 </p>
               </div>
@@ -187,25 +227,40 @@ function Effects() {
 
             {/* Glitch Animation */}
             <div className="demo-code-preview">
-              <div className="demo-preview" style={{ flexDirection: 'column', gap: 'var(--space-md)' }}>
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', gap: 'var(--space-md)' }}
+              >
                 <div className="cyber-flex cyber-gap-lg cyber-items-center">
                   <span
                     className="cyber-icon--glitch"
-                    style={{ color: 'var(--cyber-yellow-500)', filter: 'drop-shadow(0 0 8px var(--cyber-yellow-500))' }}
+                    style={{
+                      color: 'var(--cyber-yellow-500)',
+                      filter: 'drop-shadow(0 0 8px var(--cyber-yellow-500))',
+                    }}
                     dangerouslySetInnerHTML={{ __html: renderIcon('warning', { size: 32 }) }}
                   />
                   <span
                     className="cyber-icon--glitch"
-                    style={{ color: 'var(--cyber-magenta-500)', filter: 'drop-shadow(0 0 8px var(--cyber-magenta-500))' }}
+                    style={{
+                      color: 'var(--cyber-magenta-500)',
+                      filter: 'drop-shadow(0 0 8px var(--cyber-magenta-500))',
+                    }}
                     dangerouslySetInnerHTML={{ __html: renderIcon('error', { size: 32 }) }}
                   />
                   <span
                     className="cyber-icon--glitch"
-                    style={{ color: 'var(--cyber-cyan-500)', filter: 'drop-shadow(0 0 8px var(--cyber-cyan-500))' }}
+                    style={{
+                      color: 'var(--cyber-cyan-500)',
+                      filter: 'drop-shadow(0 0 8px var(--cyber-cyan-500))',
+                    }}
                     dangerouslySetInnerHTML={{ __html: renderIcon('terminal', { size: 32 }) }}
                   />
                 </div>
-                <p className="cyber-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)' }}>
+                <p
+                  className="cyber-mono"
+                  style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)' }}
+                >
                   Digital distortion
                 </p>
               </div>
@@ -439,7 +494,10 @@ function Effects() {
               <div style={{ textAlign: 'center' }}>
                 <div className="cyber-flex cyber-justify-center cyber-gap-md cyber-mb-md">
                   <span
-                    style={{ color: 'var(--cyber-cyan-500)', filter: 'drop-shadow(0 0 8px var(--cyber-cyan-500))' }}
+                    style={{
+                      color: 'var(--cyber-cyan-500)',
+                      filter: 'drop-shadow(0 0 8px var(--cyber-cyan-500))',
+                    }}
                     dangerouslySetInnerHTML={{ __html: renderIcon('terminal', { size: 48 }) }}
                   />
                 </div>
@@ -474,7 +532,10 @@ function Effects() {
                 <div className="cyber-flex cyber-justify-center cyber-gap-md cyber-mb-md">
                   <span
                     className="cyber-icon--glitch"
-                    style={{ color: 'var(--cyber-magenta-500)', filter: 'drop-shadow(0 0 8px var(--cyber-magenta-500))' }}
+                    style={{
+                      color: 'var(--cyber-magenta-500)',
+                      filter: 'drop-shadow(0 0 8px var(--cyber-magenta-500))',
+                    }}
                     dangerouslySetInnerHTML={{ __html: renderIcon('signal', { size: 48 }) }}
                   />
                 </div>
@@ -516,7 +577,10 @@ function Effects() {
                 <div className="cyber-flex cyber-justify-center cyber-gap-md cyber-mb-md">
                   <span
                     className="cyber-icon--pulse"
-                    style={{ color: 'var(--cyber-green-500)', filter: 'drop-shadow(0 0 8px var(--cyber-green-500))' }}
+                    style={{
+                      color: 'var(--cyber-green-500)',
+                      filter: 'drop-shadow(0 0 8px var(--cyber-green-500))',
+                    }}
                     dangerouslySetInnerHTML={{ __html: renderIcon('download', { size: 48 }) }}
                   />
                 </div>
@@ -550,28 +614,44 @@ function Effects() {
             >
               <div className="cyber-flex cyber-items-center cyber-gap-md">
                 <span
-                  style={{ color: 'var(--cyber-cyan-500)', filter: 'drop-shadow(0 0 6px var(--cyber-cyan-500))' }}
+                  style={{
+                    color: 'var(--cyber-cyan-500)',
+                    filter: 'drop-shadow(0 0 6px var(--cyber-cyan-500))',
+                  }}
                   dangerouslySetInnerHTML={{ __html: renderIcon('chip', { size: 32 }) }}
                 />
                 <span className="cyber-h2 cyber-text-glow">Cyan Glow</span>
               </div>
               <div className="cyber-flex cyber-items-center cyber-gap-md">
                 <span
-                  style={{ color: 'var(--cyber-magenta-500)', filter: 'drop-shadow(0 0 6px var(--cyber-magenta-500))' }}
+                  style={{
+                    color: 'var(--cyber-magenta-500)',
+                    filter: 'drop-shadow(0 0 6px var(--cyber-magenta-500))',
+                  }}
                   dangerouslySetInnerHTML={{ __html: renderIcon('shield', { size: 32 }) }}
                 />
-                <span className="cyber-h2 cyber-text-glow cyber-text-glow--magenta">Magenta Glow</span>
+                <span className="cyber-h2 cyber-text-glow cyber-text-glow--magenta">
+                  Magenta Glow
+                </span>
               </div>
               <div className="cyber-flex cyber-items-center cyber-gap-md">
                 <span
-                  style={{ color: 'var(--cyber-yellow-500)', filter: 'drop-shadow(0 0 6px var(--cyber-yellow-500))' }}
+                  style={{
+                    color: 'var(--cyber-yellow-500)',
+                    filter: 'drop-shadow(0 0 6px var(--cyber-yellow-500))',
+                  }}
                   dangerouslySetInnerHTML={{ __html: renderIcon('warning', { size: 32 }) }}
                 />
-                <span className="cyber-h2 cyber-text-glow cyber-text-glow--yellow">Yellow Glow</span>
+                <span className="cyber-h2 cyber-text-glow cyber-text-glow--yellow">
+                  Yellow Glow
+                </span>
               </div>
               <div className="cyber-flex cyber-items-center cyber-gap-md">
                 <span
-                  style={{ color: 'var(--cyber-green-500)', filter: 'drop-shadow(0 0 6px var(--cyber-green-500))' }}
+                  style={{
+                    color: 'var(--cyber-green-500)',
+                    filter: 'drop-shadow(0 0 6px var(--cyber-green-500))',
+                  }}
                   dangerouslySetInnerHTML={{ __html: renderIcon('success', { size: 32 }) }}
                 />
                 <span className="cyber-h2 cyber-text-glow cyber-text-glow--green">Green Glow</span>
@@ -609,17 +689,26 @@ function Effects() {
                 <div className="cyber-flex cyber-justify-center cyber-gap-lg cyber-mb-md">
                   <span
                     className="cyber-icon--glitch"
-                    style={{ color: 'var(--cyber-cyan-500)', filter: 'drop-shadow(0 0 10px var(--cyber-cyan-500))' }}
+                    style={{
+                      color: 'var(--cyber-cyan-500)',
+                      filter: 'drop-shadow(0 0 10px var(--cyber-cyan-500))',
+                    }}
                     dangerouslySetInnerHTML={{ __html: renderIcon('terminal', { size: 48 }) }}
                   />
                   <span
                     className="cyber-icon--pulse"
-                    style={{ color: 'var(--cyber-magenta-500)', filter: 'drop-shadow(0 0 10px var(--cyber-magenta-500))' }}
+                    style={{
+                      color: 'var(--cyber-magenta-500)',
+                      filter: 'drop-shadow(0 0 10px var(--cyber-magenta-500))',
+                    }}
                     dangerouslySetInnerHTML={{ __html: renderIcon('shield', { size: 48 }) }}
                   />
                   <span
                     className="cyber-icon--spin"
-                    style={{ color: 'var(--cyber-green-500)', filter: 'drop-shadow(0 0 10px var(--cyber-green-500))' }}
+                    style={{
+                      color: 'var(--cyber-green-500)',
+                      filter: 'drop-shadow(0 0 10px var(--cyber-green-500))',
+                    }}
                     dangerouslySetInnerHTML={{ __html: renderIcon('loading', { size: 48 }) }}
                   />
                 </div>

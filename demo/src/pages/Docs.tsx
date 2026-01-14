@@ -26,20 +26,55 @@ const ICON_CATEGORIES: { id: IconCategory; label: string; count: number; descrip
     count: 14,
     description: 'Arrows, chevrons, home, menu, external links, etc.',
   },
-  { id: 'actions', label: 'Actions', count: 23, description: 'Search, edit, delete, copy, undo, redo, etc.' },
-  { id: 'media', label: 'Media', count: 17, description: 'Play, pause, volume, camera, microphone, etc.' },
+  {
+    id: 'actions',
+    label: 'Actions',
+    count: 23,
+    description: 'Search, edit, delete, copy, undo, redo, etc.',
+  },
+  {
+    id: 'media',
+    label: 'Media',
+    count: 17,
+    description: 'Play, pause, volume, camera, microphone, etc.',
+  },
   {
     id: 'communication',
     label: 'Communication',
     count: 10,
     description: 'Bell, message, mail, phone, chat, etc.',
   },
-  { id: 'data', label: 'Data', count: 14, description: 'Charts, database, cloud, calendar, table, etc.' },
-  { id: 'security', label: 'Security', count: 15, description: 'Lock, shield, user, eye, fingerprint, etc.' },
-  { id: 'tech', label: 'Tech', count: 22, description: 'Terminal, code, chip, wifi, git, globe, etc.' },
+  {
+    id: 'data',
+    label: 'Data',
+    count: 14,
+    description: 'Charts, database, cloud, calendar, table, etc.',
+  },
+  {
+    id: 'security',
+    label: 'Security',
+    count: 15,
+    description: 'Lock, shield, user, eye, fingerprint, etc.',
+  },
+  {
+    id: 'tech',
+    label: 'Tech',
+    count: 22,
+    description: 'Terminal, code, chip, wifi, git, globe, etc.',
+  },
   { id: 'files', label: 'Files', count: 15, description: 'File, folder, clipboard, archive, etc.' },
-  { id: 'status', label: 'Status', count: 12, description: 'Info, warning, error, success, battery, etc.' },
-  { id: 'social', label: 'Social', count: 11, description: 'Heart, star, thumbs, bookmark, share, etc.' },
+  {
+    id: 'status',
+    label: 'Status',
+    count: 12,
+    description: 'Info, warning, error, success, battery, etc.',
+  },
+  {
+    id: 'social',
+    label: 'Social',
+    count: 11,
+    description: 'Heart, star, thumbs, bookmark, share, etc.',
+  },
 ];
 
 type SectionType = (typeof SECTIONS)[number]['id'];
@@ -209,8 +244,8 @@ function Docs() {
               </h2>
 
               <p style={{ marginBottom: 'var(--space-lg)' }}>
-                Cybercore CSS is built on modern CSS best practices with a layered architecture
-                that gives you full control over the cascade. The framework is pure CSS with no
+                Cybercore CSS is built on modern CSS best practices with a layered architecture that
+                gives you full control over the cascade. The framework is pure CSS with no
                 JavaScript dependencies.
               </p>
 
@@ -218,8 +253,8 @@ function Docs() {
                 CSS Layers
               </h3>
               <p style={{ marginBottom: 'var(--space-md)' }}>
-                The framework uses CSS <code>@layer</code> for cascade control with this priority order
-                (lowest to highest):
+                The framework uses CSS <code>@layer</code> for cascade control with this priority
+                order (lowest to highest):
               </p>
               <CodeBlock
                 title="Layer Order"
@@ -999,7 +1034,11 @@ import { terminal, chip } from 'cybercore-css/icons/defs/tech';`}
                 }}
               >
                 {ICON_CATEGORIES.map((category) => (
-                  <div key={category.id} className="demo-box" style={{ padding: 'var(--space-md)' }}>
+                  <div
+                    key={category.id}
+                    className="demo-box"
+                    style={{ padding: 'var(--space-md)' }}
+                  >
                     <div
                       className="cyber-flex cyber-items-center cyber-gap-sm"
                       style={{ marginBottom: 'var(--space-xs)' }}
