@@ -39,7 +39,10 @@ function Components() {
   // Close dropdown on click outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (clickOutsideDropdownRef.current && !clickOutsideDropdownRef.current.contains(e.target as Node)) {
+      if (
+        clickOutsideDropdownRef.current &&
+        !clickOutsideDropdownRef.current.contains(e.target as Node)
+      ) {
         setIsClickOutsideDropdownOpen(false);
       }
     };
@@ -50,7 +53,9 @@ function Components() {
   // Close modal on escape key and click outside
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {setIsModalOpen(false);}
+      if (e.key === 'Escape') {
+        setIsModalOpen(false);
+      }
     };
     const handleModalClickOutside = (e: MouseEvent) => {
       if (modalDialogRef.current && !modalDialogRef.current.contains(e.target as Node)) {
@@ -169,6 +174,67 @@ function Components() {
                 code={`<button class="cyber-btn" disabled>Disabled</button>`}
               />
             </div>
+
+            <div className="cyber-alert" style={{ marginTop: 'var(--space-xl)' }}>
+              <strong>Tip:</strong> Buttons work great with{' '}
+              <Link to="/icons" style={{ color: 'var(--cyber-cyan-500)' }}>
+                Cyber Icons
+              </Link>
+              . Use flexbox utilities to align icons with text:{' '}
+              <code>cyber-flex cyber-items-center cyber-gap-sm</code>
+            </div>
+
+            <div className="demo-code-preview" style={{ marginTop: 'var(--space-lg)' }}>
+              <div className="demo-preview">
+                <div className="demo-showcase">
+                  <button className="cyber-btn cyber-flex cyber-items-center cyber-gap-sm">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{ width: '16px', height: '16px' }}
+                    >
+                      <line x1="12" y1="4" x2="12" y2="20" />
+                      <polyline points="5 13 12 20 19 13" />
+                    </svg>
+                    Download
+                  </button>
+                  <button className="cyber-btn cyber-btn--green cyber-flex cyber-items-center cyber-gap-sm">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{ width: '16px', height: '16px' }}
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    Confirm
+                  </button>
+                </div>
+              </div>
+              <CodeBlock
+                title="Buttons with Icons"
+                language="html"
+                code={`<!-- Use Cyber Icons with buttons -->
+<button class="cyber-btn cyber-flex cyber-items-center cyber-gap-sm">
+  <!-- renderIcon('download', { size: 16 }) -->
+  Download
+</button>
+
+<button class="cyber-btn cyber-btn--green cyber-flex cyber-items-center cyber-gap-sm">
+  <!-- renderIcon('check', { size: 16 }) -->
+  Confirm
+</button>`}
+              />
+            </div>
           </section>
         )}
 
@@ -254,6 +320,69 @@ function Components() {
 </select>`}
               />
             </div>
+
+            <div className="cyber-alert" style={{ marginTop: 'var(--space-xl)' }}>
+              <strong>Tip:</strong> Combine inputs with{' '}
+              <Link to="/icons" style={{ color: 'var(--cyber-cyan-500)' }}>
+                Cyber Icons
+              </Link>{' '}
+              using input groups for search fields, password toggles, and more.
+            </div>
+
+            <div className="demo-code-preview" style={{ marginTop: 'var(--space-lg)' }}>
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', alignItems: 'stretch' }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 'var(--space-sm)',
+                    background: 'var(--color-bg-elevated)',
+                    border: '1px solid var(--color-border-default)',
+                    borderRadius: 'var(--radius-cyber)',
+                    padding: '0 var(--space-sm)',
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{
+                      width: '18px',
+                      height: '18px',
+                      color: 'var(--cyber-cyan-500)',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <circle cx="11" cy="11" r="7" />
+                    <line x1="16" y1="16" x2="21" y2="21" />
+                  </svg>
+                  <input
+                    type="text"
+                    className="cyber-input"
+                    placeholder="Search systems..."
+                    style={{ border: 'none', background: 'transparent' }}
+                  />
+                </div>
+              </div>
+              <CodeBlock
+                title="Input with Icon"
+                language="html"
+                code={`<!-- Input group with search icon -->
+<div class="cyber-input-group">
+  <span class="cyber-input-group__addon">
+    <!-- renderIcon('search', { size: 18, color: 'cyan' }) -->
+  </span>
+  <input type="text" class="cyber-input" placeholder="Search systems...">
+</div>`}
+              />
+            </div>
           </section>
         )}
 
@@ -315,6 +444,62 @@ function Components() {
                 code={`<div class="cyber-card">
   <div class="cyber-card__body">
     <h4 class="cyber-h5">Simple Card</h4>
+    <p>Card content goes here.</p>
+  </div>
+</div>`}
+              />
+            </div>
+
+            <div className="cyber-alert" style={{ marginTop: 'var(--space-xl)' }}>
+              <strong>Tip:</strong> Add{' '}
+              <Link to="/icons" style={{ color: 'var(--cyber-cyan-500)' }}>
+                Cyber Icons
+              </Link>{' '}
+              to card headers for visual context and improved scannability.
+            </div>
+
+            <div className="demo-code-preview" style={{ marginTop: 'var(--space-lg)' }}>
+              <div className="demo-preview" style={{ alignItems: 'stretch' }}>
+                <div className="cyber-card" style={{ width: '100%', maxWidth: '300px' }}>
+                  <div
+                    className="cyber-card__header"
+                    style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)' }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{
+                        width: '20px',
+                        height: '20px',
+                        color: 'var(--cyber-cyan-500)',
+                      }}
+                    >
+                      <rect x="2" y="4" width="20" height="16" rx="2" />
+                      <line x1="2" y1="8" x2="22" y2="8" />
+                      <polyline points="6 12 9 14.5 6 17" />
+                      <line x1="11" y1="17" x2="17" y2="17" />
+                    </svg>
+                    <h4 className="cyber-h5">Terminal Access</h4>
+                  </div>
+                  <div className="cyber-card__body">
+                    <p>Command line interface for direct system control and diagnostics.</p>
+                  </div>
+                </div>
+              </div>
+              <CodeBlock
+                title="Card with Icon Header"
+                language="html"
+                code={`<div class="cyber-card">
+  <div class="cyber-card__header cyber-flex cyber-items-center cyber-gap-sm">
+    <!-- renderIcon('terminal', { size: 20, color: 'cyan' }) -->
+    <h4 class="cyber-h5">Terminal Access</h4>
+  </div>
+  <div class="cyber-card__body">
     <p>Card content goes here.</p>
   </div>
 </div>`}
@@ -844,11 +1029,18 @@ function Components() {
                   </div>
                   <div className="cyber-modal__body">
                     <p>
-                      Connection to the mainframe has been established. All systems are
-                      operational and ready for neural interface synchronization.
+                      Connection to the mainframe has been established. All systems are operational
+                      and ready for neural interface synchronization.
                     </p>
-                    <p style={{ marginTop: 'var(--space-sm)', fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)' }}>
-                      Color: {modalVariant || 'cyan'} | Size: {modalSize || 'default'} | Animation: {modalAnimation || 'scale'}
+                    <p
+                      style={{
+                        marginTop: 'var(--space-sm)',
+                        fontSize: 'var(--text-xs)',
+                        color: 'var(--color-text-muted)',
+                      }}
+                    >
+                      Color: {modalVariant || 'cyan'} | Size: {modalSize || 'default'} | Animation:{' '}
+                      {modalAnimation || 'scale'}
                     </p>
                   </div>
                   <div className="cyber-modal__footer">
@@ -901,32 +1093,46 @@ function Components() {
                 className="demo-preview"
                 style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-sm)' }}
               >
-                <p className="cyber-label">Color variants change the accent color (click to try):</p>
+                <p className="cyber-label">
+                  Color variants change the accent color (click to try):
+                </p>
                 <div className="demo-showcase">
                   <button
                     className="cyber-badge"
-                    onClick={() => { setModalVariant(''); setIsModalOpen(true); }}
+                    onClick={() => {
+                      setModalVariant('');
+                      setIsModalOpen(true);
+                    }}
                     style={{ cursor: 'pointer' }}
                   >
                     Default (Cyan)
                   </button>
                   <button
                     className="cyber-badge cyber-badge--magenta"
-                    onClick={() => { setModalVariant('magenta'); setIsModalOpen(true); }}
+                    onClick={() => {
+                      setModalVariant('magenta');
+                      setIsModalOpen(true);
+                    }}
                     style={{ cursor: 'pointer' }}
                   >
                     --magenta
                   </button>
                   <button
                     className="cyber-badge cyber-badge--yellow"
-                    onClick={() => { setModalVariant('yellow'); setIsModalOpen(true); }}
+                    onClick={() => {
+                      setModalVariant('yellow');
+                      setIsModalOpen(true);
+                    }}
                     style={{ cursor: 'pointer' }}
                   >
                     --yellow
                   </button>
                   <button
                     className="cyber-badge cyber-badge--green"
-                    onClick={() => { setModalVariant('green'); setIsModalOpen(true); }}
+                    onClick={() => {
+                      setModalVariant('green');
+                      setIsModalOpen(true);
+                    }}
                     style={{ cursor: 'pointer' }}
                   >
                     --green
@@ -949,39 +1155,56 @@ function Components() {
                 className="demo-preview"
                 style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-sm)' }}
               >
-                <p className="cyber-label">Size variants control the dialog width (click to try):</p>
+                <p className="cyber-label">
+                  Size variants control the dialog width (click to try):
+                </p>
                 <div className="demo-showcase">
                   <button
                     className="cyber-badge"
-                    onClick={() => { setModalSize('sm'); setIsModalOpen(true); }}
+                    onClick={() => {
+                      setModalSize('sm');
+                      setIsModalOpen(true);
+                    }}
                     style={{ cursor: 'pointer' }}
                   >
                     --sm (360px)
                   </button>
                   <button
                     className="cyber-badge"
-                    onClick={() => { setModalSize(''); setIsModalOpen(true); }}
+                    onClick={() => {
+                      setModalSize('');
+                      setIsModalOpen(true);
+                    }}
                     style={{ cursor: 'pointer' }}
                   >
                     Default (500px)
                   </button>
                   <button
                     className="cyber-badge"
-                    onClick={() => { setModalSize('lg'); setIsModalOpen(true); }}
+                    onClick={() => {
+                      setModalSize('lg');
+                      setIsModalOpen(true);
+                    }}
                     style={{ cursor: 'pointer' }}
                   >
                     --lg (720px)
                   </button>
                   <button
                     className="cyber-badge"
-                    onClick={() => { setModalSize('xl'); setIsModalOpen(true); }}
+                    onClick={() => {
+                      setModalSize('xl');
+                      setIsModalOpen(true);
+                    }}
                     style={{ cursor: 'pointer' }}
                   >
                     --xl (960px)
                   </button>
                   <button
                     className="cyber-badge cyber-badge--magenta"
-                    onClick={() => { setModalSize('fullscreen'); setIsModalOpen(true); }}
+                    onClick={() => {
+                      setModalSize('fullscreen');
+                      setIsModalOpen(true);
+                    }}
                     style={{ cursor: 'pointer' }}
                   >
                     --fullscreen
@@ -1005,25 +1228,36 @@ function Components() {
                 className="demo-preview"
                 style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-sm)' }}
               >
-                <p className="cyber-label">Animation variants for entrance effects (click to try):</p>
+                <p className="cyber-label">
+                  Animation variants for entrance effects (click to try):
+                </p>
                 <div className="demo-showcase">
                   <button
                     className="cyber-badge"
-                    onClick={() => { setModalAnimation(''); setIsModalOpen(true); }}
+                    onClick={() => {
+                      setModalAnimation('');
+                      setIsModalOpen(true);
+                    }}
                     style={{ cursor: 'pointer' }}
                   >
                     Default (scale)
                   </button>
                   <button
                     className="cyber-badge cyber-badge--green"
-                    onClick={() => { setModalAnimation('slide-up'); setIsModalOpen(true); }}
+                    onClick={() => {
+                      setModalAnimation('slide-up');
+                      setIsModalOpen(true);
+                    }}
                     style={{ cursor: 'pointer' }}
                   >
                     --slide-up
                   </button>
                   <button
                     className="cyber-badge cyber-badge--yellow"
-                    onClick={() => { setModalAnimation('zoom'); setIsModalOpen(true); }}
+                    onClick={() => {
+                      setModalAnimation('zoom');
+                      setIsModalOpen(true);
+                    }}
                     style={{ cursor: 'pointer' }}
                   >
                     --zoom

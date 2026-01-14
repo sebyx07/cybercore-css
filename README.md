@@ -62,6 +62,7 @@ npm install cybercore-css
 | 🤖 **AI-Friendly**  | Simple, predictable class names              |
 | ⚡ **Modern CSS**   | CSS Layers, Container Queries, color-mix()   |
 | 📱 **Responsive**   | Mobile-first approach                        |
+| 🎭 **Icon System**  | 153 cyberpunk-themed SVG icons               |
 
 ---
 
@@ -112,6 +113,71 @@ preferences_
 ⚫ Void      #0a0a0f  →  Background
 ⚪ Chrome    #b4b4b4  →  Neutral tones
 ```
+
+---
+
+## 🎭 Icons
+
+CYBERCORE CSS includes a complete icon system with 153 cyberpunk-themed SVG
+icons across 10 categories, with support for 4 style variants.
+
+### Quick Start
+
+```typescript
+// Import the icon utilities
+import { renderIcon, getIcon, icons } from 'cybercore-css/icons';
+
+// Render an icon with options
+const svg = renderIcon('terminal', { size: 24, color: 'cyan' });
+
+// Get raw SVG string
+const terminalSvg = getIcon('terminal');
+
+// Access the full registry
+console.log(icons.terminal.svg);
+```
+
+### Tree-Shakeable Imports
+
+```typescript
+// Import only the icons you need
+import {
+  ChipIcon,
+  TerminalIcon,
+  SignalIcon,
+} from 'cybercore-css/icons/individual';
+```
+
+### Icon Categories
+
+| Category      | Icons | Description                    |
+| ------------- | ----- | ------------------------------ |
+| Navigation    | 14    | Arrows, chevrons, menus        |
+| Actions       | 23    | Edit, delete, copy, download   |
+| Media         | 17    | Play, pause, volume controls   |
+| Communication | 10    | Messages, mail, notifications  |
+| Data          | 14    | Charts, database, cloud        |
+| Security      | 15    | Lock, shield, user, auth       |
+| Tech          | 22    | Terminal, code, chip, settings |
+| Files         | 15    | File types, folders            |
+| Status        | 12    | Info, warning, error, success  |
+| Social        | 11    | Heart, star, bookmark, share   |
+
+### Style Variants
+
+- **outline** - Stroke-based, default style (1.5px stroke)
+- **solid** - Filled icons for emphasis
+- **duotone** - Two-tone with primary/secondary colors
+- **glitch** - Animated/glitchy variant for cyber effects
+
+```typescript
+// Use different variants
+renderIcon('shield', { variant: 'solid' });
+renderIcon('terminal', { variant: 'duotone' });
+```
+
+> 📖 **Full documentation:**
+> [Icon System Docs](https://sebyx07.github.io/cybercore-css/#/docs/icons)
 
 ---
 

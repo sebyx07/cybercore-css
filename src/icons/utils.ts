@@ -3,7 +3,7 @@
  * Helper functions for rendering and working with icons
  */
 
-import type { IconProps, IconSize, IconColor, IconVariant } from './types';
+import type { IconProps, IconColor, IconVariant } from './types';
 import { icons, isIconRegistered, getIconDefinition } from './registry';
 
 /**
@@ -70,10 +70,7 @@ export function getIcon(name: string, variant: IconVariant = 'outline'): string 
 /**
  * Render an icon with options
  */
-export function renderIcon(
-  name: string,
-  options: Partial<IconProps> = {}
-): string {
+export function renderIcon(name: string, options: Partial<IconProps> = {}): string {
   const {
     variant = 'outline',
     size = 24,
@@ -100,14 +97,10 @@ export function renderIcon(
   const style = `width: ${size}px; height: ${size}px; color: ${colorValue};`;
 
   // Build accessibility attributes
-  const a11y = ariaHidden
-    ? 'aria-hidden="true"'
-    : `aria-label="${ariaLabel}" role="img"`;
+  const a11y = ariaHidden ? 'aria-hidden="true"' : `aria-label="${ariaLabel}" role="img"`;
 
   // Inject attributes into SVG
-  return svg
-    .replace('<svg', `<svg class="${classes}" style="${style}" ${a11y}`)
-    .trim();
+  return svg.replace('<svg', `<svg class="${classes}" style="${style}" ${a11y}`).trim();
 }
 
 /**
@@ -117,9 +110,7 @@ export function createSpriteSheet(): string {
   const symbols = Object.entries(icons)
     .map(([name, def]) => {
       // Convert SVG to symbol
-      const symbolContent = def.svg
-        .replace(/<svg[^>]*>/, '')
-        .replace('</svg>', '');
+      const symbolContent = def.svg.replace(/<svg[^>]*>/, '').replace('</svg>', '');
       return `<symbol id="cyber-icon-${name}" viewBox="0 0 24 24">${symbolContent}</symbol>`;
     })
     .join('\n');
@@ -130,10 +121,7 @@ export function createSpriteSheet(): string {
 /**
  * Render icon using sprite reference (requires sprite sheet in DOM)
  */
-export function renderIconRef(
-  name: string,
-  options: Partial<IconProps> = {}
-): string {
+export function renderIconRef(name: string, options: Partial<IconProps> = {}): string {
   const {
     size = 24,
     color = 'current',
@@ -142,16 +130,12 @@ export function renderIconRef(
     'aria-hidden': ariaHidden = !ariaLabel,
   } = options;
 
-  const classes = ['cyber-icon', `cyber-icon--${name}`, className]
-    .filter(Boolean)
-    .join(' ');
+  const classes = ['cyber-icon', `cyber-icon--${name}`, className].filter(Boolean).join(' ');
 
   const colorValue = COLOR_MAP[color] || color;
   const style = `width: ${size}px; height: ${size}px; color: ${colorValue};`;
 
-  const a11y = ariaHidden
-    ? 'aria-hidden="true"'
-    : `aria-label="${ariaLabel}" role="img"`;
+  const a11y = ariaHidden ? 'aria-hidden="true"' : `aria-label="${ariaLabel}" role="img"`;
 
   return `<svg class="${classes}" style="${style}" ${a11y}>
   <use href="#cyber-icon-${name}"/>
@@ -171,9 +155,7 @@ export function getIconDataUri(name: string, color?: string): string | null {
   }
 
   // Encode for data URI
-  const encoded = encodeURIComponent(svg)
-    .replace(/'/g, '%27')
-    .replace(/"/g, '%22');
+  const encoded = encodeURIComponent(svg).replace(/'/g, '%27').replace(/"/g, '%22');
 
   return `data:image/svg+xml,${encoded}`;
 }

@@ -1,0 +1,152 @@
+// ============================================================
+// Icon Utilities
+// ============================================================
+
+@layer utilities {
+  // --------------------------------------------------------
+  // Keyframes
+  // --------------------------------------------------------
+
+  @keyframes cyber-icon-spin {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes cyber-icon-pulse {
+    0%,
+    100% {
+      opacity: 100%;
+      transform: scale(1);
+    }
+
+    50% {
+      opacity: 60%;
+      transform: scale(0.95);
+    }
+  }
+
+  @keyframes cyber-icon-glitch {
+    0%,
+    100% {
+      transform: translate(0);
+      filter: none;
+    }
+
+    10% {
+      transform: translate(-2px, 1px);
+      filter: drop-shadow(2px 0 var(--cyber-cyan-500)) drop-shadow(-2px 0 var(--cyber-magenta-500));
+    }
+
+    20% {
+      transform: translate(2px, -1px);
+      filter: drop-shadow(-1px 0 var(--cyber-cyan-500)) drop-shadow(1px 0 var(--cyber-magenta-500));
+    }
+
+    30% {
+      transform: translate(0);
+      filter: none;
+    }
+
+    70% {
+      transform: translate(1px, 1px);
+      filter: drop-shadow(-2px 0 var(--cyber-cyan-500)) drop-shadow(2px 0 var(--cyber-magenta-500));
+    }
+
+    80% {
+      transform: translate(-1px, -1px);
+      filter: drop-shadow(1px 0 var(--cyber-cyan-500)) drop-shadow(-1px 0 var(--cyber-magenta-500));
+    }
+
+    90% {
+      transform: translate(0);
+      filter: none;
+    }
+  }
+
+  // --------------------------------------------------------
+  // Size Classes
+  // --------------------------------------------------------
+
+  .cyber-icon--sm {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .cyber-icon--md {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .cyber-icon--lg {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .cyber-icon--xl {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  // --------------------------------------------------------
+  // Color Classes
+  // --------------------------------------------------------
+
+  .cyber-icon--cyan {
+    color: var(--cyber-cyan-500);
+  }
+
+  .cyber-icon--magenta {
+    color: var(--cyber-magenta-500);
+  }
+
+  .cyber-icon--yellow {
+    color: var(--cyber-yellow-500);
+  }
+
+  .cyber-icon--green {
+    color: var(--cyber-green-500);
+  }
+
+  // --------------------------------------------------------
+  // Animation Classes
+  // --------------------------------------------------------
+
+  .cyber-icon--spin {
+    animation: cyber-icon-spin 1s linear infinite;
+  }
+
+  .cyber-icon--pulse {
+    animation: cyber-icon-pulse 2s ease-in-out infinite;
+  }
+
+  .cyber-icon--glitch {
+    animation: cyber-icon-glitch 3s infinite;
+  }
+
+  // --------------------------------------------------------
+  // Alignment Helpers
+  // --------------------------------------------------------
+
+  .cyber-icon--inline {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+  }
+
+  // --------------------------------------------------------
+  // Reduced Motion Support
+  // --------------------------------------------------------
+
+  @media (prefers-reduced-motion: reduce) {
+    .cyber-icon--spin,
+    .cyber-icon--pulse,
+    .cyber-icon--glitch {
+      animation: none;
+    }
+  }
+}

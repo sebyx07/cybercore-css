@@ -59,6 +59,17 @@ function Layout() {
             </li>
             <li>
               <NavLink
+                to="/icons"
+                className={({ isActive }) =>
+                  `cyber-nav__link ${isActive ? 'cyber-nav__link--active' : ''}`
+                }
+                onClick={closeMenu}
+              >
+                Icons
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
                 to="/effects"
                 className={({ isActive }) =>
                   `cyber-nav__link ${isActive ? 'cyber-nav__link--active' : ''}`
@@ -117,7 +128,7 @@ function Layout() {
 
       <footer className="demo-footer">
         <div className="cyber-container">
-          <p className="cyber-mono">CYBERCORE CSS v1.0.0 // Built with pure CSS // MIT License</p>
+          <p className="cyber-mono">CYBERCORE CSS v0.2.0 // Built with pure CSS // MIT License</p>
         </div>
       </footer>
     </div>

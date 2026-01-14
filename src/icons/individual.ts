@@ -24,18 +24,47 @@ export const SignalIcon = getSvg('signal');
 export const TerminalIcon = getSvg('terminal');
 
 // ═══════════════════════════════════════════════════════════════════════════
+// NAVIGATION ICONS
+// ═══════════════════════════════════════════════════════════════════════════
+export const ArrowUpIcon = getSvg('arrow-up');
+export const ArrowDownIcon = getSvg('arrow-down');
+export const ArrowLeftIcon = getSvg('arrow-left');
+export const ArrowRightIcon = getSvg('arrow-right');
+export const ChevronUpIcon = getSvg('chevron-up');
+export const ChevronDownIcon = getSvg('chevron-down');
+export const ChevronLeftIcon = getSvg('chevron-left');
+export const ChevronRightIcon = getSvg('chevron-right');
+export const HomeIcon = getSvg('home');
+export const MenuIcon = getSvg('menu');
+export const MenuDotsIcon = getSvg('menu-dots');
+export const ExternalLinkIcon = getSvg('external-link');
+export const MaximizeIcon = getSvg('maximize');
+export const MinimizeIcon = getSvg('minimize');
+
+// ═══════════════════════════════════════════════════════════════════════════
+// FILES ICONS
+// ═══════════════════════════════════════════════════════════════════════════
+export const FileIcon = getSvg('file');
+export const FileTextIcon = getSvg('file-text');
+export const FileCodeIcon = getSvg('file-code');
+export const FileImageIcon = getSvg('file-image');
+export const FileVideoIcon = getSvg('file-video');
+export const FileAudioIcon = getSvg('file-audio');
+export const FileArchiveIcon = getSvg('file-archive');
+export const FilePlusIcon = getSvg('file-plus');
+export const FileMinusIcon = getSvg('file-minus');
+export const FolderIcon = getSvg('folder');
+export const FolderOpenIcon = getSvg('folder-open');
+export const FolderPlusIcon = getSvg('folder-plus');
+export const ArchiveIcon = getSvg('archive');
+export const ClipboardIcon = getSvg('clipboard');
+export const AttachmentIcon = getSvg('attachment');
+
+// ═══════════════════════════════════════════════════════════════════════════
 // ADD MORE EXPORTS AS ICONS ARE CREATED
 // When artist agents add new icons to the registry,
 // add corresponding exports here for tree-shaking support
 // ═══════════════════════════════════════════════════════════════════════════
-
-// Navigation (to be added)
-// export const ArrowUpIcon = getSvg('arrow-up');
-// export const ArrowDownIcon = getSvg('arrow-down');
-// export const ArrowLeftIcon = getSvg('arrow-left');
-// export const ArrowRightIcon = getSvg('arrow-right');
-// export const HomeIcon = getSvg('home');
-// export const MenuIcon = getSvg('menu');
 
 // Actions (to be added)
 // export const SearchIcon = getSvg('search');

@@ -246,6 +246,71 @@ body::after {
 }
 
 // ============================================================
+// ICON ORBIT ANIMATION (for hero section)
+// ============================================================
+
+.icon-orbit {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  &__item {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: icon-float 8s ease-in-out infinite;
+    opacity: 0.6;
+
+    // Position each icon at different locations
+    &--1 { top: 15%; left: 10%; animation-delay: 0s; }
+    &--2 { top: 20%; right: 15%; animation-delay: 1s; }
+    &--3 { bottom: 30%; left: 8%; animation-delay: 2s; }
+    &--4 { top: 40%; right: 8%; animation-delay: 3s; }
+    &--5 { bottom: 20%; right: 20%; animation-delay: 4s; }
+    &--6 { top: 60%; left: 15%; animation-delay: 5s; }
+    &--7 { bottom: 15%; left: 25%; animation-delay: 6s; }
+    &--8 { top: 25%; left: 35%; animation-delay: 7s; }
+  }
+
+  // Hide on small screens
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+@keyframes icon-float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.4;
+  }
+  25% {
+    transform: translateY(-15px) scale(1.1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-5px) scale(1.05);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translateY(-20px) scale(1.15);
+    opacity: 0.8;
+  }
+}
+
+// Hero variant with icons needs more padding on sides
+.cyber-hero--icons {
+  padding-left: var(--space-xl);
+  padding-right: var(--space-xl);
+
+  @media (min-width: 1200px) {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+}
+
+// ============================================================
 // SECTION STYLES
 // ============================================================
 
@@ -1165,7 +1230,9 @@ body::after {
     top: var(--space-xs);
     right: var(--space-xs);
     opacity: 0.6;
-    transition: opacity var(--transition-fast), color var(--transition-fast);
+    transition:
+      opacity var(--transition-fast),
+      color var(--transition-fast);
     z-index: 10;
 
     &:hover {

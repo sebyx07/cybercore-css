@@ -20,17 +20,53 @@ export const ICON_LIST: Record<IconCategory, IconSpec[]> = {
     { name: 'arrow-up', description: 'Upward arrow', tags: ['direction', 'up', 'move'] },
     { name: 'arrow-down', description: 'Downward arrow', tags: ['direction', 'down', 'move'] },
     { name: 'arrow-left', description: 'Leftward arrow', tags: ['direction', 'left', 'back'] },
-    { name: 'arrow-right', description: 'Rightward arrow', tags: ['direction', 'right', 'forward'] },
-    { name: 'chevron-up', description: 'Chevron pointing up', tags: ['expand', 'collapse', 'accordion'] },
-    { name: 'chevron-down', description: 'Chevron pointing down', tags: ['expand', 'dropdown', 'accordion'] },
-    { name: 'chevron-left', description: 'Chevron pointing left', tags: ['back', 'previous', 'carousel'] },
-    { name: 'chevron-right', description: 'Chevron pointing right', tags: ['next', 'forward', 'carousel'] },
+    {
+      name: 'arrow-right',
+      description: 'Rightward arrow',
+      tags: ['direction', 'right', 'forward'],
+    },
+    {
+      name: 'chevron-up',
+      description: 'Chevron pointing up',
+      tags: ['expand', 'collapse', 'accordion'],
+    },
+    {
+      name: 'chevron-down',
+      description: 'Chevron pointing down',
+      tags: ['expand', 'dropdown', 'accordion'],
+    },
+    {
+      name: 'chevron-left',
+      description: 'Chevron pointing left',
+      tags: ['back', 'previous', 'carousel'],
+    },
+    {
+      name: 'chevron-right',
+      description: 'Chevron pointing right',
+      tags: ['next', 'forward', 'carousel'],
+    },
     { name: 'home', description: 'Home/dashboard', tags: ['main', 'start', 'dashboard'] },
     { name: 'menu', description: 'Hamburger menu', tags: ['navigation', 'sidebar', 'mobile'] },
-    { name: 'menu-dots', description: 'Three dots menu (kebab)', tags: ['more', 'options', 'overflow'] },
-    { name: 'external-link', description: 'External link indicator', tags: ['new-tab', 'outbound', 'link'] },
-    { name: 'maximize', description: 'Maximize/fullscreen', tags: ['expand', 'fullscreen', 'window'] },
-    { name: 'minimize', description: 'Minimize/exit fullscreen', tags: ['collapse', 'exit', 'window'] },
+    {
+      name: 'menu-dots',
+      description: 'Three dots menu (kebab)',
+      tags: ['more', 'options', 'overflow'],
+    },
+    {
+      name: 'external-link',
+      description: 'External link indicator',
+      tags: ['new-tab', 'outbound', 'link'],
+    },
+    {
+      name: 'maximize',
+      description: 'Maximize/fullscreen',
+      tags: ['expand', 'fullscreen', 'window'],
+    },
+    {
+      name: 'minimize',
+      description: 'Minimize/exit fullscreen',
+      tags: ['collapse', 'exit', 'window'],
+    },
   ],
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -112,7 +148,11 @@ export const ICON_LIST: Record<IconCategory, IconSpec[]> = {
     { name: 'table', description: 'Data table', tags: ['grid', 'spreadsheet', 'rows'] },
     { name: 'cloud', description: 'Cloud storage', tags: ['online', 'sync', 'backup'] },
     { name: 'cloud-upload', description: 'Upload to cloud', tags: ['sync', 'backup', 'save'] },
-    { name: 'cloud-download', description: 'Download from cloud', tags: ['sync', 'restore', 'get'] },
+    {
+      name: 'cloud-download',
+      description: 'Download from cloud',
+      tags: ['sync', 'restore', 'get'],
+    },
     { name: 'sync', description: 'Sync/synchronize', tags: ['refresh', 'update', 'cloud'] },
     { name: 'calendar', description: 'Calendar/date', tags: ['date', 'schedule', 'event'] },
     { name: 'clock', description: 'Time/clock', tags: ['time', 'schedule', 'duration'] },
@@ -129,7 +169,11 @@ export const ICON_LIST: Record<IconCategory, IconSpec[]> = {
     { name: 'unlock', description: 'Unlocked', tags: ['open', 'unsecure', 'access'] },
     { name: 'key', description: 'Key/access', tags: ['password', 'auth', 'credential'] },
     { name: 'shield', description: 'Security shield', tags: ['protect', 'secure', 'guard'] },
-    { name: 'shield-check', description: 'Verified/protected', tags: ['verified', 'secure', 'safe'] },
+    {
+      name: 'shield-check',
+      description: 'Verified/protected',
+      tags: ['verified', 'secure', 'safe'],
+    },
     { name: 'shield-x', description: 'Not protected', tags: ['vulnerable', 'warning', 'unsafe'] },
     { name: 'eye', description: 'Visible/show', tags: ['view', 'visible', 'show-password'] },
     { name: 'eye-off', description: 'Hidden/hide', tags: ['hide', 'invisible', 'hide-password'] },
@@ -203,10 +247,18 @@ export const ICON_LIST: Record<IconCategory, IconSpec[]> = {
     { name: 'loading', description: 'Loading spinner', tags: ['wait', 'progress', 'busy'] },
     { name: 'progress', description: 'Progress indicator', tags: ['loading', 'percent', 'bar'] },
     { name: 'online', description: 'Online/connected', tags: ['active', 'available', 'green'] },
-    { name: 'offline', description: 'Offline/disconnected', tags: ['inactive', 'unavailable', 'gray'] },
+    {
+      name: 'offline',
+      description: 'Offline/disconnected',
+      tags: ['inactive', 'unavailable', 'gray'],
+    },
     { name: 'battery-full', description: 'Battery full', tags: ['power', 'charge', 'energy'] },
     { name: 'battery-low', description: 'Battery low', tags: ['power', 'charge', 'warning'] },
-    { name: 'battery-charging', description: 'Battery charging', tags: ['power', 'charge', 'plug'] },
+    {
+      name: 'battery-charging',
+      description: 'Battery charging',
+      tags: ['power', 'charge', 'plug'],
+    },
   ],
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -214,7 +266,11 @@ export const ICON_LIST: Record<IconCategory, IconSpec[]> = {
   // ═══════════════════════════════════════════════════════════════════════════
   social: [
     { name: 'heart', description: 'Like/favorite', tags: ['love', 'favorite', 'like'] },
-    { name: 'heart-filled', description: 'Liked/favorited', tags: ['loved', 'favorited', 'active'] },
+    {
+      name: 'heart-filled',
+      description: 'Liked/favorited',
+      tags: ['loved', 'favorited', 'active'],
+    },
     { name: 'star', description: 'Star/rate', tags: ['favorite', 'rate', 'bookmark'] },
     { name: 'star-filled', description: 'Starred/rated', tags: ['favorited', 'rated', 'active'] },
     { name: 'thumbs-up', description: 'Thumbs up', tags: ['like', 'approve', 'positive'] },

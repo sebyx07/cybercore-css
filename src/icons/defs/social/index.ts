@@ -1,0 +1,11 @@
+export { heart } from './heart';
+export { heartFilled } from './heart-filled';
+export { star } from './star';
+export { starFilled } from './star-filled';
+export { thumbsUp } from './thumbs-up';
+export { thumbsDown } from './thumbs-down';
+export { bookmark } from './bookmark';
+export { bookmarkFilled } from './bookmark-filled';
+export { flag } from './flag';
+export { award } from './award';
+export { trending } from './trending';

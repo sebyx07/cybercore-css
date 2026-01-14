@@ -1,6 +1,6 @@
 {
   "name": "cybercore-css",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "description": "A pure CSS cyberpunk design system inspired by Cyberpunk 2077. Zero JavaScript, framework-agnostic, 2026+ optimized.",
   "main": "dist/cybercore.css",
@@ -31,6 +31,66 @@
       "types": "./src/icons/individual.ts",
       "import": "./src/icons/individual.ts",
       "default": "./src/icons/individual.ts"
+    },
+    "./icons/defs": {
+      "types": "./src/icons/defs/index.ts",
+      "import": "./src/icons/defs/index.ts",
+      "default": "./src/icons/defs/index.ts"
+    },
+    "./icons/defs/navigation": {
+      "types": "./src/icons/defs/navigation/index.ts",
+      "import": "./src/icons/defs/navigation/index.ts",
+      "default": "./src/icons/defs/navigation/index.ts"
+    },
+    "./icons/defs/actions": {
+      "types": "./src/icons/defs/actions/index.ts",
+      "import": "./src/icons/defs/actions/index.ts",
+      "default": "./src/icons/defs/actions/index.ts"
+    },
+    "./icons/defs/media": {
+      "types": "./src/icons/defs/media/index.ts",
+      "import": "./src/icons/defs/media/index.ts",
+      "default": "./src/icons/defs/media/index.ts"
+    },
+    "./icons/defs/communication": {
+      "types": "./src/icons/defs/communication/index.ts",
+      "import": "./src/icons/defs/communication/index.ts",
+      "default": "./src/icons/defs/communication/index.ts"
+    },
+    "./icons/defs/data": {
+      "types": "./src/icons/defs/data/index.ts",
+      "import": "./src/icons/defs/data/index.ts",
+      "default": "./src/icons/defs/data/index.ts"
+    },
+    "./icons/defs/security": {
+      "types": "./src/icons/defs/security/index.ts",
+      "import": "./src/icons/defs/security/index.ts",
+      "default": "./src/icons/defs/security/index.ts"
+    },
+    "./icons/defs/tech": {
+      "types": "./src/icons/defs/tech/index.ts",
+      "import": "./src/icons/defs/tech/index.ts",
+      "default": "./src/icons/defs/tech/index.ts"
+    },
+    "./icons/defs/files": {
+      "types": "./src/icons/defs/files/index.ts",
+      "import": "./src/icons/defs/files/index.ts",
+      "default": "./src/icons/defs/files/index.ts"
+    },
+    "./icons/defs/status": {
+      "types": "./src/icons/defs/status/index.ts",
+      "import": "./src/icons/defs/status/index.ts",
+      "default": "./src/icons/defs/status/index.ts"
+    },
+    "./icons/defs/social": {
+      "types": "./src/icons/defs/social/index.ts",
+      "import": "./src/icons/defs/social/index.ts",
+      "default": "./src/icons/defs/social/index.ts"
+    },
+    "./icons/types": {
+      "types": "./src/icons/types.ts",
+      "import": "./src/icons/types.ts",
+      "default": "./src/icons/types.ts"
     },
     "./dist/*": "./dist/*",
     "./scss/*": "./src/scss/*"
@@ -84,7 +144,9 @@
     "futuristic",
     "pure-css",
     "no-javascript",
-    "framework-agnostic"
+    "framework-agnostic",
+    "icons",
+    "svg-icons"
   ],
   "author": "sebyx07",
   "license": "MIT",

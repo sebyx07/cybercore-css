@@ -6,6 +6,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-01-14
+
+### Added
+
+- **Cyber Icons System** - 153 cyberpunk-themed SVG icons
+  - 10 icon categories: navigation, actions, media, communication, data,
+    security, tech, files, status, social
+  - 4 style variants: outline, solid, duotone, glitch
+  - Full TypeScript support with type definitions
+  - Tree-shakeable individual icon imports
+  - Utility functions: `renderIcon()`, `getIcon()`, `iconExists()`,
+    `createSpriteSheet()`
+  - Data URI support for CSS backgrounds
+  - Icon validation and testing infrastructure
+
+- **Icon Documentation**
+  - Interactive icon browser in demo site
+  - Full API documentation
+  - Usage examples for all import patterns
+
+### Changed
+
+- Updated README with icon system documentation
+- Added `cybercore-css/icons` and `cybercore-css/icons/individual` exports to
+  package.json
+
+---
+
 ## [0.1.0] - 2026-01-13
 
 ### Added

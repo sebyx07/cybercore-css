@@ -1,14 +1,89 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 
+import {
+  renderIcon,
+  getRegisteredIcons,
+  getRegisteredByCategory,
+  icons,
+} from '../../../src/icons';
+
+import type { IconCategory } from '../../../src/icons';
+
+// Featured icons for the showcase grid
+const FEATURED_ICONS = [
+  'terminal',
+  'chip',
+  'signal',
+  'shield',
+  'lock',
+  'code',
+  'globe',
+  'circuit',
+  'wifi',
+  'fingerprint',
+  'qr-code',
+  'memory',
+];
+
+// Icons for the animated hero orbit
+const HERO_ORBIT_ICONS = [
+  { name: 'chip', color: 'cyan' },
+  { name: 'terminal', color: 'cyan' },
+  { name: 'shield', color: 'magenta' },
+  { name: 'signal', color: 'cyan' },
+  { name: 'lock', color: 'magenta' },
+  { name: 'code', color: 'green' },
+  { name: 'globe', color: 'cyan' },
+  { name: 'circuit', color: 'yellow' },
+] as const;
+
+// Categories to showcase on the homepage
+const CATEGORY_SHOWCASE: { category: IconCategory; label: string; color: string; icon: string }[] = [
+  { category: 'tech', label: 'Tech', color: 'cyan', icon: 'chip' },
+  { category: 'security', label: 'Security', color: 'magenta', icon: 'shield' },
+  { category: 'navigation', label: 'Navigation', color: 'cyan', icon: 'home' },
+  { category: 'actions', label: 'Actions', color: 'green', icon: 'download' },
+  { category: 'status', label: 'Status', color: 'yellow', icon: 'warning' },
+  { category: 'files', label: 'Files', color: 'cyan', icon: 'folder' },
+];
+
 function Home() {
   const [activeTab, setActiveTab] = useState(0);
+  const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+  const [iconCount, setIconCount] = useState(0);
+
+  useEffect(() => {
+    setIconCount(getRegisteredIcons().length);
+  }, []);
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="cyber-hero">
+      {/* Hero Section with Icon Orbit */}
+      <section className="cyber-hero cyber-hero--icons">
+        {/* Animated Icon Orbit */}
+        <div className="icon-orbit" aria-hidden="true">
+          {HERO_ORBIT_ICONS.map((icon, index) => {
+            const iconDef = icons[icon.name];
+            if (!iconDef) {return null;}
+            return (
+              <div
+                key={icon.name}
+                className={`icon-orbit__item icon-orbit__item--${index + 1}`}
+                style={{
+                  color: `var(--cyber-${icon.color}-500)`,
+                  filter: `drop-shadow(0 0 12px var(--cyber-${icon.color}-500))`,
+                }}
+                dangerouslySetInnerHTML={{
+                  __html: renderIcon(icon.name, { size: 32 }),
+                }}
+              />
+            );
+          })}
+        </div>
+
         <p className="cyber-hero__subtitle">[ System v2.077 Initialized ]</p>
         <h1 className="cyber-heading cyber-hero__title" data-text="CYBERCORE">
           CYBERCORE
@@ -17,18 +92,26 @@ function Home() {
           Built by AI, for AI. A cyberpunk design system where AI agents are first-class citizens.
           Pure CSS, no JavaScript—perfect for AI-powered web apps.
         </p>
-        <div className="cyber-flex cyber-gap-md">
+        <div className="cyber-flex cyber-gap-md cyber-flex--wrap cyber-justify-center">
           <a
             href="/cybercore-css/llm.txt"
             target="_blank"
             rel="noopener noreferrer"
-            className="cyber-btn cyber-btn--lg"
+            className="cyber-btn cyber-btn--lg cyber-flex cyber-items-center cyber-gap-sm"
           >
+            <span dangerouslySetInnerHTML={{ __html: renderIcon('file-text', { size: 20 }) }} />
             llm.txt
           </a>
           <Link
+            to="/icons"
+            className="cyber-btn cyber-btn--lg cyber-btn--magenta cyber-flex cyber-items-center cyber-gap-sm"
+          >
+            <span dangerouslySetInnerHTML={{ __html: renderIcon('chip', { size: 20 }) }} />
+            {iconCount}+ Icons
+          </Link>
+          <Link
             to="/components"
-            className="cyber-btn cyber-btn--lg cyber-btn--magenta cyber-btn--ghost"
+            className="cyber-btn cyber-btn--lg cyber-btn--ghost"
           >
             Components
           </Link>
@@ -92,6 +175,328 @@ function Home() {
 
         <div className="cyber-divider" />
 
+        {/* Icons Showcase Section */}
+        <section className="cyber-section">
+          <div className="cyber-section__header">
+            <h2 className="cyber-section__title">// Cyber Icons</h2>
+            <p className="cyber-section__subtitle">
+              {iconCount} cyberpunk-themed SVG icons across 10 categories
+            </p>
+          </div>
+
+          <div className="cyber-card cyber-datastream">
+            <div className="cyber-grid cyber-grid--2" style={{ gap: 'var(--space-xl)' }}>
+              {/* Icon Grid Preview */}
+              <div>
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(4, 1fr)',
+                    gap: 'var(--space-md)',
+                    marginBottom: 'var(--space-lg)',
+                  }}
+                >
+                  {FEATURED_ICONS.map((name) => {
+                    const icon = icons[name];
+                    if (!icon) {
+                      return null;
+                    }
+                    const isHovered = hoveredIcon === name;
+                    return (
+                      <div
+                        key={name}
+                        onMouseEnter={() => setHoveredIcon(name)}
+                        onMouseLeave={() => setHoveredIcon(null)}
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          gap: 'var(--space-xs)',
+                          padding: 'var(--space-sm)',
+                          background: isHovered ? 'var(--cyber-void-900)' : 'transparent',
+                          borderRadius: 'var(--radius-sm)',
+                          transition: 'all 0.2s ease',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <div
+                          style={{
+                            color: isHovered ? 'var(--cyber-cyan-400)' : 'var(--cyber-cyan-500)',
+                            filter: isHovered ? 'drop-shadow(0 0 8px var(--cyber-cyan-500))' : 'none',
+                            transition: 'all 0.2s ease',
+                            transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+                          }}
+                          dangerouslySetInnerHTML={{
+                            __html: renderIcon(name, { size: 32 }),
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontSize: 'var(--text-xs)',
+                            color: isHovered ? 'var(--cyber-cyan-400)' : 'var(--color-text-muted)',
+                            fontFamily: 'var(--font-mono)',
+                            transition: 'color 0.2s ease',
+                          }}
+                        >
+                          {name}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <Link
+                  to="/icons"
+                  className="cyber-btn cyber-btn--lg"
+                  style={{ width: '100%' }}
+                >
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: renderIcon('code', { size: 20 }),
+                    }}
+                    style={{ marginRight: 'var(--space-sm)' }}
+                  />
+                  Browse All {iconCount} Icons
+                </Link>
+              </div>
+
+              {/* Features List */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
+                <h3
+                  style={{
+                    fontSize: 'var(--text-xl)',
+                    color: 'var(--cyber-cyan-500)',
+                    marginBottom: 'var(--space-sm)',
+                  }}
+                >
+                  Pure SVG Icon System
+                </h3>
+                <div className="cyber-flex cyber-items-start cyber-gap-sm">
+                  <span
+                    style={{ color: 'var(--cyber-green-500)', flexShrink: 0 }}
+                    dangerouslySetInnerHTML={{ __html: renderIcon('check', { size: 20 }) }}
+                  />
+                  <div>
+                    <strong style={{ color: 'var(--color-text-primary)' }}>10 Categories</strong>
+                    <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)' }}>
+                      Navigation, Actions, Media, Data, Security, Tech, and more
+                    </p>
+                  </div>
+                </div>
+                <div className="cyber-flex cyber-items-start cyber-gap-sm">
+                  <span
+                    style={{ color: 'var(--cyber-green-500)', flexShrink: 0 }}
+                    dangerouslySetInnerHTML={{ __html: renderIcon('check', { size: 20 }) }}
+                  />
+                  <div>
+                    <strong style={{ color: 'var(--color-text-primary)' }}>4 Variants</strong>
+                    <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)' }}>
+                      Outline, Solid, Duotone, and Glitch effects
+                    </p>
+                  </div>
+                </div>
+                <div className="cyber-flex cyber-items-start cyber-gap-sm">
+                  <span
+                    style={{ color: 'var(--cyber-green-500)', flexShrink: 0 }}
+                    dangerouslySetInnerHTML={{ __html: renderIcon('check', { size: 20 }) }}
+                  />
+                  <div>
+                    <strong style={{ color: 'var(--color-text-primary)' }}>Color Theming</strong>
+                    <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)' }}>
+                      Cyan, Magenta, Yellow, Green - matches CYBERCORE palette
+                    </p>
+                  </div>
+                </div>
+                <div className="cyber-flex cyber-items-start cyber-gap-sm">
+                  <span
+                    style={{ color: 'var(--cyber-green-500)', flexShrink: 0 }}
+                    dangerouslySetInnerHTML={{ __html: renderIcon('check', { size: 20 }) }}
+                  />
+                  <div>
+                    <strong style={{ color: 'var(--color-text-primary)' }}>Tree-Shakeable</strong>
+                    <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)' }}>
+                      Import only what you need for smaller bundles
+                    </p>
+                  </div>
+                </div>
+
+                {/* Color demo */}
+                <div style={{ marginTop: 'var(--space-md)' }}>
+                  <p className="cyber-label" style={{ marginBottom: 'var(--space-sm)' }}>
+                    Color Variants
+                  </p>
+                  <div className="cyber-flex cyber-gap-lg">
+                    <div
+                      style={{ color: 'var(--cyber-cyan-500)', filter: 'drop-shadow(0 0 6px var(--cyber-cyan-500))' }}
+                      dangerouslySetInnerHTML={{ __html: renderIcon('shield', { size: 32 }) }}
+                    />
+                    <div
+                      style={{ color: 'var(--cyber-magenta-500)', filter: 'drop-shadow(0 0 6px var(--cyber-magenta-500))' }}
+                      dangerouslySetInnerHTML={{ __html: renderIcon('shield', { size: 32 }) }}
+                    />
+                    <div
+                      style={{ color: 'var(--cyber-yellow-500)', filter: 'drop-shadow(0 0 6px var(--cyber-yellow-500))' }}
+                      dangerouslySetInnerHTML={{ __html: renderIcon('shield', { size: 32 }) }}
+                    />
+                    <div
+                      style={{ color: 'var(--cyber-green-500)', filter: 'drop-shadow(0 0 6px var(--cyber-green-500))' }}
+                      dangerouslySetInnerHTML={{ __html: renderIcon('shield', { size: 32 }) }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div className="cyber-divider" />
+
+        {/* Icon Category Showcase */}
+        <section className="cyber-section">
+          <div className="cyber-section__header">
+            <h2 className="cyber-section__title">// Browse by Category</h2>
+            <p className="cyber-section__subtitle">Quick access to icon categories</p>
+          </div>
+
+          <div className="cyber-grid cyber-grid--3" style={{ marginBottom: 'var(--space-lg)' }}>
+            {CATEGORY_SHOWCASE.map((cat) => {
+              const categoryIcons = getRegisteredByCategory(cat.category);
+              const displayIcons = categoryIcons.slice(0, 5);
+              const isHovered = hoveredCategory === cat.category;
+
+              return (
+                <Link
+                  key={cat.category}
+                  to={`/icons?category=${cat.category}`}
+                  className={`cyber-card cyber-card--${cat.color} cyber-card--interactive`}
+                  onMouseEnter={() => setHoveredCategory(cat.category)}
+                  onMouseLeave={() => setHoveredCategory(null)}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <div className="cyber-flex cyber-items-center cyber-gap-sm" style={{ marginBottom: 'var(--space-sm)' }}>
+                    <span
+                      className={isHovered ? 'cyber-icon--pulse' : ''}
+                      style={{
+                        color: `var(--cyber-${cat.color}-500)`,
+                        filter: isHovered ? `drop-shadow(0 0 10px var(--cyber-${cat.color}-500))` : 'none',
+                        transition: 'filter 0.3s ease',
+                      }}
+                      dangerouslySetInnerHTML={{ __html: renderIcon(cat.icon, { size: 24 }) }}
+                    />
+                    <span className="cyber-h5" style={{ color: 'var(--color-text-primary)' }}>{cat.label}</span>
+                    <span className="cyber-badge cyber-badge--sm" style={{ marginLeft: 'auto' }}>
+                      {categoryIcons.length}
+                    </span>
+                  </div>
+                  <div className="cyber-flex cyber-gap-sm" style={{ minHeight: '24px' }}>
+                    {displayIcons.map((iconDef, idx) => (
+                      <span
+                        key={iconDef.name}
+                        style={{
+                          color: `var(--cyber-${cat.color}-500)`,
+                          opacity: isHovered ? 1 : 0.5,
+                          transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+                          transition: `all 0.2s ease ${idx * 50}ms`,
+                        }}
+                        dangerouslySetInnerHTML={{ __html: renderIcon(iconDef.name, { size: 20 }) }}
+                      />
+                    ))}
+                    {categoryIcons.length > 5 && (
+                      <span className="cyber-mono" style={{ fontSize: '10px', color: 'var(--color-text-muted)', alignSelf: 'center' }}>
+                        +{categoryIcons.length - 5}
+                      </span>
+                    )}
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+
+          <div className="cyber-flex cyber-justify-center">
+            <Link
+              to="/icons"
+              className="cyber-btn cyber-btn--lg cyber-neon-border cyber-flex cyber-items-center cyber-gap-sm"
+              style={{ zIndex: 1, position: 'relative' }}
+            >
+              <span dangerouslySetInnerHTML={{ __html: renderIcon('arrow-right', { size: 20 }) }} />
+              View All Categories
+            </Link>
+          </div>
+        </section>
+
+        <div className="cyber-divider" />
+
+        {/* Icon Animations Section */}
+        <section className="cyber-section">
+          <div className="cyber-section__header">
+            <h2 className="cyber-section__title">// Icon Animations</h2>
+            <p className="cyber-section__subtitle">Built-in animation utilities for dynamic interfaces</p>
+          </div>
+
+          <div className="cyber-grid cyber-grid--4">
+            <div className="cyber-card cyber-card--interactive" style={{ textAlign: 'center' }}>
+              <div style={{ padding: 'var(--space-md) 0' }}>
+                <span
+                  className="cyber-icon--spin"
+                  style={{ color: 'var(--cyber-cyan-500)', filter: 'drop-shadow(0 0 10px var(--cyber-cyan-500))' }}
+                  dangerouslySetInnerHTML={{ __html: renderIcon('loading', { size: 32 }) }}
+                />
+              </div>
+              <p className="cyber-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)' }}>
+                .cyber-icon--spin
+              </p>
+            </div>
+
+            <div className="cyber-card cyber-card--magenta cyber-card--interactive" style={{ textAlign: 'center' }}>
+              <div style={{ padding: 'var(--space-md) 0' }}>
+                <span
+                  className="cyber-icon--pulse"
+                  style={{ color: 'var(--cyber-magenta-500)', filter: 'drop-shadow(0 0 10px var(--cyber-magenta-500))' }}
+                  dangerouslySetInnerHTML={{ __html: renderIcon('signal', { size: 32 }) }}
+                />
+              </div>
+              <p className="cyber-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)' }}>
+                .cyber-icon--pulse
+              </p>
+            </div>
+
+            <div className="cyber-card cyber-card--yellow cyber-card--interactive" style={{ textAlign: 'center' }}>
+              <div style={{ padding: 'var(--space-md) 0' }}>
+                <span
+                  className="cyber-icon--glitch"
+                  style={{ color: 'var(--cyber-yellow-500)', filter: 'drop-shadow(0 0 10px var(--cyber-yellow-500))' }}
+                  dangerouslySetInnerHTML={{ __html: renderIcon('warning', { size: 32 }) }}
+                />
+              </div>
+              <p className="cyber-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)' }}>
+                .cyber-icon--glitch
+              </p>
+            </div>
+
+            <div className="cyber-card cyber-card--green cyber-card--interactive" style={{ textAlign: 'center' }}>
+              <div style={{ padding: 'var(--space-md) 0' }}>
+                <span
+                  className="cyber-animate-glow"
+                  style={{ color: 'var(--cyber-green-500)', filter: 'drop-shadow(0 0 10px var(--cyber-green-500))' }}
+                  dangerouslySetInnerHTML={{ __html: renderIcon('success', { size: 32 }) }}
+                />
+              </div>
+              <p className="cyber-mono" style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)' }}>
+                .cyber-animate-glow
+              </p>
+            </div>
+          </div>
+
+          <div className="cyber-flex cyber-justify-center cyber-mt-lg">
+            <Link to="/effects" className="cyber-btn cyber-btn--ghost cyber-flex cyber-items-center cyber-gap-sm">
+              View All Effects
+              <span dangerouslySetInnerHTML={{ __html: renderIcon('arrow-right', { size: 16 }) }} />
+            </Link>
+          </div>
+        </section>
+
+        <div className="cyber-divider" />
+
         {/* Buttons Section */}
         <section className="cyber-section">
           <div className="cyber-section__header">
@@ -100,15 +505,33 @@ function Home() {
           </div>
 
           <div className="cyber-flex cyber-flex--wrap cyber-gap-md cyber-items-center">
-            <button className="cyber-btn">Default</button>
-            <button className="cyber-btn cyber-btn--magenta">Danger</button>
-            <button className="cyber-btn cyber-btn--yellow">Warning</button>
-            <button className="cyber-btn cyber-btn--green">Success</button>
+            <button className="cyber-btn cyber-flex cyber-items-center cyber-gap-sm">
+              <span dangerouslySetInnerHTML={{ __html: renderIcon('download', { size: 16 }) }} />
+              Download
+            </button>
+            <button className="cyber-btn cyber-btn--magenta cyber-flex cyber-items-center cyber-gap-sm">
+              <span dangerouslySetInnerHTML={{ __html: renderIcon('shield', { size: 16 }) }} />
+              Security
+            </button>
+            <button className="cyber-btn cyber-btn--yellow cyber-flex cyber-items-center cyber-gap-sm">
+              <span dangerouslySetInnerHTML={{ __html: renderIcon('warning', { size: 16 }) }} />
+              Warning
+            </button>
+            <button className="cyber-btn cyber-btn--green cyber-flex cyber-items-center cyber-gap-sm">
+              <span dangerouslySetInnerHTML={{ __html: renderIcon('success', { size: 16 }) }} />
+              Confirm
+            </button>
           </div>
 
           <div className="cyber-flex cyber-flex--wrap cyber-gap-md cyber-items-center cyber-mt-lg">
-            <button className="cyber-btn cyber-btn--ghost">Ghost</button>
-            <button className="cyber-btn cyber-btn--filled">Filled</button>
+            <button className="cyber-btn cyber-btn--ghost cyber-flex cyber-items-center cyber-gap-sm">
+              <span dangerouslySetInnerHTML={{ __html: renderIcon('settings', { size: 16 }) }} />
+              Ghost
+            </button>
+            <button className="cyber-btn cyber-btn--filled cyber-flex cyber-items-center cyber-gap-sm">
+              <span dangerouslySetInnerHTML={{ __html: renderIcon('terminal', { size: 16 }) }} />
+              Filled
+            </button>
             <button className="cyber-btn cyber-btn--sm">Small</button>
             <button className="cyber-btn cyber-btn--lg">Large</button>
           </div>
