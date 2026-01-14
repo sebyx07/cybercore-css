@@ -28,7 +28,7 @@ City_
 npm install cybercore-css
 ```
 
-### CDN (Coming Soon)
+### CDN
 
 ```html
 <link
@@ -72,32 +72,15 @@ npm install cybercore-css
 
 ### Glitch Effect
 
-![Glitch Effect](dist/img.png) _Glitch text effect with chromatic aberration and
-animated distortion_
+![Glitch Effect](assets/img.png)
+
+_Glitch text effect with chromatic aberration and animated distortion_
 
 ### Neon Border
 
-![Neon Border](dist/img_1.png) _Animated neon glow border effect with pulsing
-illumination_
+![Neon Border](assets/img_1.png)
 
-### Scanlines
-
-![Scanlines](dist/img_2.png) _CRT display effect with retro scanline overlay_
-
-### Datastream
-
-![Datastream](dist/img_3.png) _Animated data transfer effect with flowing light
-streams_
-
-### Combining Effects
-
-![Combining Effects](dist/img_4.png) _Multiple effects combined for maximum
-cyberpunk impact_
-
-### Accessibility
-
-![Accessibility](dist/img_5.png) _Reduced motion support respecting user
-preferences_
+_Animated neon glow border effect with pulsing illumination_
 
 </div>
 
