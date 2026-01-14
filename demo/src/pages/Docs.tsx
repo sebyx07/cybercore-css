@@ -36,26 +36,24 @@ function Docs() {
       </header>
 
       <div className="demo-container">
-        <div className="docs-layout">
-          {/* Sidebar Navigation - becomes horizontal tabs on mobile */}
-          <nav className="docs-nav">
-            <ul className="docs-nav__list">
-              {SECTIONS.map((sec) => (
-                <li key={sec.id}>
-                  <Link
-                    to={`/docs/${sec.id}`}
-                    className={`docs-nav__link ${activeSection === sec.id ? 'docs-nav__link--active' : ''}`}
-                  >
-                    {sec.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+        {/* Tabs Navigation - same as Components page */}
+        <nav
+          className="cyber-tabs cyber-tabs--fullwidth"
+          style={{ marginBottom: 'var(--space-xl)' }}
+        >
+          {SECTIONS.map((sec) => (
+            <Link
+              key={sec.id}
+              to={`/docs/${sec.id}`}
+              className={`cyber-tab ${activeSection === sec.id ? 'cyber-tab--active' : ''}`}
+            >
+              {sec.label}
+            </Link>
+          ))}
+        </nav>
 
-          {/* Content */}
-          <div>
-            {/* Installation */}
+        <div>
+          {/* Installation */}
             {activeSection === 'installation' && (
               <section className="demo-section" style={{ paddingTop: 0 }}>
                 <h2 className="section-title">
@@ -534,7 +532,6 @@ function Docs() {
                 />
               </section>
             )}
-          </div>
         </div>
       </div>
     </div>

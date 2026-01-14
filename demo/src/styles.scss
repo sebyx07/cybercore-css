@@ -900,6 +900,10 @@ body::after {
   display: grid;
   gap: var(--space-md);
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .demo-showcase {
