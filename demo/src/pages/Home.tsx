@@ -445,7 +445,7 @@ function Home() {
             <p className="cyber-section__subtitle">Navigation patterns</p>
           </div>
 
-          <div className="cyber-tabs">
+          <div className="cyber-tabs cyber-tabs--fullwidth">
             <button
               className={`cyber-tab ${activeTab === 0 ? 'cyber-tab--active' : ''}`}
               onClick={() => setActiveTab(0)}
@@ -473,10 +473,50 @@ function Home() {
           </div>
 
           <div className="cyber-card" style={{ borderTop: 'none', marginTop: '-1px' }}>
-            <p style={{ color: 'var(--color-text-secondary)' }}>
-              Tab content would appear here. The active tab has a glowing cyan indicator at the
-              bottom.
-            </p>
+            {activeTab === 0 && (
+              <div>
+                <h4 style={{ color: 'var(--cyber-cyan-500)', marginBottom: 'var(--space-sm)' }}>
+                  System Overview
+                </h4>
+                <p style={{ color: 'var(--color-text-secondary)' }}>
+                  All neural pathways operational. Network integrity at 98.7%. Last sync: 2.3
+                  seconds ago.
+                </p>
+              </div>
+            )}
+            {activeTab === 1 && (
+              <div>
+                <h4 style={{ color: 'var(--cyber-cyan-500)', marginBottom: 'var(--space-sm)' }}>
+                  Network Analytics
+                </h4>
+                <p style={{ color: 'var(--color-text-secondary)' }}>
+                  847 nodes scanned. Data throughput: 1.2 PB/s peak. Anomalies detected: 3
+                  (resolved).
+                </p>
+              </div>
+            )}
+            {activeTab === 2 && (
+              <div>
+                <h4 style={{ color: 'var(--cyber-magenta-500)', marginBottom: 'var(--space-sm)' }}>
+                  Security Status
+                </h4>
+                <p style={{ color: 'var(--color-text-secondary)' }}>
+                  Firewall active. 12 intrusion attempts blocked in last 24h. ICE protocols engaged
+                  in sector 7G.
+                </p>
+              </div>
+            )}
+            {activeTab === 3 && (
+              <div>
+                <h4 style={{ color: 'var(--cyber-cyan-500)', marginBottom: 'var(--space-sm)' }}>
+                  Configuration
+                </h4>
+                <p style={{ color: 'var(--color-text-secondary)' }}>
+                  Neural interface: v2.077. Auto-sync: enabled. Encryption: AES-512. Theme: Night
+                  City Dark.
+                </p>
+              </div>
+            )}
           </div>
         </section>
 
