@@ -1,6 +1,6 @@
 {
   "name": "cybercore-css",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "type": "module",
   "description": "A pure CSS cyberpunk design system inspired by Cyberpunk 2077. Zero JavaScript, framework-agnostic, 2026+ optimized.",
   "main": "dist/cybercore.css",
