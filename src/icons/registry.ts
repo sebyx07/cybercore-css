@@ -2,17 +2,24 @@
  * Cyber Icons Registry
  * Maps icon names to their SVG definitions
  *
- * Icons are added here by artist agents or manually.
- * Each icon should follow the design guidelines in README.md
+ * Icons are now loaded from individual definition files in ./defs/
+ * which include all variants (outline, solid, duotone, glitch).
+ *
+ * For backwards compatibility, this file also contains inline definitions
+ * that will be merged/overridden by the defs/ definitions.
  */
 
 import type { IconDefinition, IconRegistry } from './types';
+import { buildRegistry } from './defs';
+
+// Build the primary registry from definition files (includes all variants)
+const defsRegistry = buildRegistry();
 
 /**
- * Master icon registry
- * Add new icons here following the IconDefinition format
+ * Legacy icon definitions (kept for reference, overridden by defs/)
+ * New icons should be added to ./defs/{category}/{icon-name}.ts
  */
-export const icons: IconRegistry = {
+const legacyIcons: IconRegistry = {
   // ═══════════════════════════════════════════════════════════════════════════
   // EXAMPLE ICONS - Reference implementations
   // ═══════════════════════════════════════════════════════════════════════════
@@ -2226,6 +2233,12 @@ export const icons: IconRegistry = {
   // Artist agents can add icons by following the format above
   // ═══════════════════════════════════════════════════════════════════════════
 };
+
+/**
+ * Master icon registry - merges defs/ definitions (with variants) over legacy
+ * The defs/ definitions take precedence and include all 4 variants
+ */
+export const icons: IconRegistry = { ...legacyIcons, ...defsRegistry };
 
 /**
  * Get all registered icon names

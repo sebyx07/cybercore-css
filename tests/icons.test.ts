@@ -61,16 +61,20 @@ describe('Icon SVG Structure', () => {
       // Must have xmlns
       expect(svg).toContain('xmlns="http://www.w3.org/2000/svg"');
 
-      // Should be stroke-based (not filled)
-      expect(svg).toContain('fill="none"');
-      expect(svg).toContain('stroke="currentColor"');
+      // Should be stroke-based OR filled (for -filled variants like heart-filled)
+      const isStrokeBased = svg.includes('fill="none"') && svg.includes('stroke="currentColor"');
+      const isFilled = svg.includes('fill="currentColor"');
+      expect(isStrokeBased || isFilled).toBe(true);
     });
   });
 
-  it('should have consistent stroke width', () => {
+  it('should have consistent stroke width or be a filled icon', () => {
     Object.values(icons).forEach((def) => {
-      // All icons should use 1.5 stroke width
-      expect(def.svg).toMatch(/stroke-width="1\.5"/);
+      // Icons should either use 1.5 stroke width OR be filled icons (no stroke)
+      const hasStroke = def.svg.includes('stroke-width="1.5"');
+      const isFilled =
+        def.svg.includes('fill="currentColor"') && !def.svg.includes('stroke="currentColor"');
+      expect(hasStroke || isFilled).toBe(true);
     });
   });
 
