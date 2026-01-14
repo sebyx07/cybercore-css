@@ -83,6 +83,15 @@
       outline-offset: 4px;
     }
 
+    // Disabled state
+    &:disabled,
+    &[disabled] {
+      opacity: 40%;
+      cursor: not-allowed;
+      pointer-events: none;
+      filter: grayscale(50%);
+    }
+
     // --------------------------------------------------------
     // Color Variants
     // --------------------------------------------------------

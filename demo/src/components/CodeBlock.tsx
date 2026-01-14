@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { Highlight, themes } from 'prism-react-renderer';
+
 interface CodeBlockProps {
   code: string;
   language?: string;
@@ -19,6 +21,9 @@ function CodeBlock({ code, language = 'html', title }: CodeBlockProps) {
     }
   };
 
+  // Map our language names to Prism language names
+  const prismLanguage = language === 'bash' ? 'bash' : language;
+
   return (
     <div className="code-block">
       {title && (
@@ -28,9 +33,22 @@ function CodeBlock({ code, language = 'html', title }: CodeBlockProps) {
         </div>
       )}
       <div className="code-block__content">
-        <pre className="code-block__pre">
-          <code className={`code-block__code language-${language}`}>{code.trim()}</code>
-        </pre>
+        <Highlight theme={themes.nightOwl} code={code.trim()} language={prismLanguage}>
+          {({ className, style, tokens, getLineProps, getTokenProps }) => (
+            <pre
+              className={`code-block__pre ${className}`}
+              style={{ ...style, background: 'transparent', margin: 0 }}
+            >
+              {tokens.map((line, i) => (
+                <div key={i} {...getLineProps({ line })}>
+                  {line.map((token, key) => (
+                    <span key={key} {...getTokenProps({ token })} />
+                  ))}
+                </div>
+              ))}
+            </pre>
+          )}
+        </Highlight>
         <button
           className="code-block__copy cyber-btn cyber-btn--ghost cyber-btn--sm"
           onClick={handleCopy}

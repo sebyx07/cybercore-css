@@ -64,8 +64,73 @@
   // --------------------------------------------------------
 
   .cyber-textarea {
+    display: block;
+    width: 100%;
     min-height: 120px;
+    padding: var(--space-sm);
+    border: 1px solid var(--color-border-default);
+    border-left: 3px solid var(--cyber-cyan-500);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    color: var(--color-text-primary);
+    background: var(--color-bg-tertiary);
+    transition: all var(--duration-fast);
+    outline: none;
     resize: vertical;
+
+    &::placeholder {
+      color: var(--color-text-muted);
+    }
+
+    &:focus {
+      border-color: var(--cyber-cyan-500);
+      box-shadow:
+        0 0 0 3px color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent),
+        inset 0 0 15px color-mix(in srgb, var(--cyber-cyan-500) 10%, transparent);
+    }
+  }
+
+  // --------------------------------------------------------
+  // Select
+  // --------------------------------------------------------
+
+  .cyber-select {
+    display: block;
+    width: 100%;
+    padding: var(--space-xs) var(--space-lg) var(--space-xs) var(--space-sm);
+    border: 1px solid var(--color-border-default);
+    border-left: 3px solid var(--cyber-magenta-500);
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    background: var(--color-bg-tertiary);
+
+    // Custom dropdown arrow
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ff2a6d' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--space-sm) center;
+    transition: all var(--duration-fast);
+    cursor: pointer;
+    appearance: none;
+    outline: none;
+
+    &:focus {
+      border-color: var(--cyber-magenta-500);
+      box-shadow:
+        0 0 0 3px color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent),
+        inset 0 0 15px color-mix(in srgb, var(--cyber-magenta-500) 10%, transparent);
+    }
+
+    option {
+      padding: var(--space-xs);
+      color: var(--color-text-primary);
+      background: var(--color-bg-secondary);
+    }
   }
 
   // --------------------------------------------------------

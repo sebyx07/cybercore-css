@@ -5,7 +5,9 @@ function Effects() {
     <div>
       <header className="page-header">
         <div className="demo-container">
-          <p className="demo-subtitle">&gt; VISUAL_EFFECTS_</p>
+          <p className="demo-subtitle">
+            &gt; VISUAL_EFFECTS<span className="cursor">_</span>
+          </p>
           <h1 className="cyber-h1 cyber-text-glow">Effects</h1>
           <p className="cyber-lead">
             Cyberpunk visual effects to add atmosphere and style. Glitches, neon glows, scanlines,

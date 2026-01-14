@@ -19,7 +19,9 @@ function Docs() {
     <div>
       <header className="page-header">
         <div className="demo-container">
-          <p className="demo-subtitle">&gt; DOCUMENTATION_</p>
+          <p className="demo-subtitle">
+            &gt; DOCUMENTATION<span className="cursor">_</span>
+          </p>
           <h1 className="cyber-h1 cyber-text-glow">Docs</h1>
           <p className="cyber-lead">
             Everything you need to know to get started with Cybercore CSS.

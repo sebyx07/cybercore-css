@@ -9,7 +9,9 @@ function Components() {
     <div>
       <header className="page-header">
         <div className="demo-container">
-          <p className="demo-subtitle">&gt; COMPONENT_LIBRARY_</p>
+          <p className="demo-subtitle">
+            &gt; COMPONENT_LIBRARY<span className="cursor">_</span>
+          </p>
           <h1 className="cyber-h1 cyber-text-glow">Components</h1>
           <p className="cyber-lead">
             Ready-to-use UI components with cyberpunk aesthetics. Just add the class names to your

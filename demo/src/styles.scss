@@ -697,10 +697,29 @@ body::after {
 }
 
 .demo-subtitle {
+  display: inline-flex;
+  align-items: baseline;
   font-family: var(--font-mono);
   color: var(--cyber-cyan-500);
   letter-spacing: var(--tracking-wider);
   margin-bottom: var(--space-sm);
+
+  // Blinking cursor effect
+  .cursor {
+    display: inline-block;
+    animation: blink-cursor 1s step-end infinite;
+  }
+}
+
+@keyframes blink-cursor {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 .demo-feature-grid {
@@ -734,12 +753,13 @@ body::after {
 
 .demo-code-preview {
   display: grid;
-  gap: var(--space-lg);
-  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  grid-template-columns: 1fr;
   align-items: start;
 
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+  // Larger preview first, then code below
+  .demo-preview {
+    min-height: 150px;
   }
 }
 

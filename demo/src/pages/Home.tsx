@@ -8,12 +8,12 @@ function Home() {
       {/* Hero Section */}
       <section className="cyber-hero">
         <p className="cyber-hero__subtitle">[ System v2.077 Initialized ]</p>
-        <h1 className="cyber-heading cyber-hero__title" data-text="NIGHT CITY">
-          NIGHT CITY
+        <h1 className="cyber-heading cyber-hero__title" data-text="CYBERCORE">
+          CYBERCORE
         </h1>
         <p className="cyber-hero__description">
-          Welcome to the neural interface. A next-generation design system inspired by the
-          neon-soaked streets of Night City. Built for the modern web with cutting-edge CSS.
+          Welcome to the neural interface. A cyberpunk design system built for the modern web with
+          cutting-edge CSS. Pure styles, no JavaScript.
         </p>
         <div className="cyber-flex cyber-gap-md">
           <button className="cyber-btn cyber-btn--lg">Jack In</button>
