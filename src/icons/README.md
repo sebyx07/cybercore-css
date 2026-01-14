@@ -193,7 +193,8 @@ element.innerHTML = arrowUp.svg;
 
 **Why this works for tree-shaking:**
 
-- `renderIcon('terminal')` - NOT tree-shakeable (needs full registry for string lookup)
+- `renderIcon('terminal')` - NOT tree-shakeable (needs full registry for string
+  lookup)
 - `renderIconDef(terminal)` - Tree-shakeable (bundler sees the direct import)
 
 ### Legacy Individual Imports
@@ -235,7 +236,8 @@ const uri = getIconDataUri('chip', '#00f0ff');
 
 ### `renderIcon(name, options?)`
 
-Renders an icon as an HTML string. **Not tree-shakeable** - use for convenience when bundle size isn't critical.
+Renders an icon as an HTML string. **Not tree-shakeable** - use for convenience
+when bundle size isn't critical.
 
 | Option        | Type                                                      | Default     | Description              |
 | ------------- | --------------------------------------------------------- | ----------- | ------------------------ |
@@ -248,7 +250,8 @@ Renders an icon as an HTML string. **Not tree-shakeable** - use for convenience 
 
 ### `renderIconDef(icon, options?)`
 
-Renders an icon from its definition. **Tree-shakeable** - bundler only includes icons you import.
+Renders an icon from its definition. **Tree-shakeable** - bundler only includes
+icons you import.
 
 ```ts
 import { renderIconDef } from 'cybercore-css/icons';
@@ -272,7 +275,8 @@ const svg = getIconSvg(shield, 'solid');
 
 ### `getIcon(name, variant?)`
 
-Returns the raw SVG string for an icon by name, or `null` if not found. **Not tree-shakeable**.
+Returns the raw SVG string for an icon by name, or `null` if not found. **Not
+tree-shakeable**.
 
 ### `iconExists(name)`
 
