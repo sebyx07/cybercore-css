@@ -123,12 +123,12 @@ Utilities always override components.
 
 153 cyberpunk SVG icons across 10 categories. Stroke-based, uses `currentColor`.
 
-### Install (JS/TS)
+### Install (JS/TS) - Standard
 
 ```typescript
 import { renderIcon, getIcon, icons } from 'cybercore-css/icons';
 
-// Render with options
+// Render with options (NOT tree-shakeable - includes all icons)
 const html = renderIcon('terminal', {
   size: 24,           // 16 | 20 | 24 | 32 | 48 | 64
   color: 'cyan',      // 'cyan' | 'magenta' | 'yellow' | 'green' | 'current'
@@ -137,10 +137,25 @@ const html = renderIcon('terminal', {
 
 // Get raw SVG string
 const svg = getIcon('terminal');
+```
 
-// Tree-shakeable imports
+### Install (JS/TS) - Tree-Shakeable (Optimal Bundle Size)
+
+```typescript
+import { renderIconDef, getIconSvg } from 'cybercore-css/icons';
 import { terminal, chip } from 'cybercore-css/icons/defs/tech';
 import { arrowUp } from 'cybercore-css/icons/defs/navigation';
+
+// Render with options - bundler only includes imported icons
+const html = renderIconDef(terminal, { size: 24, color: 'cyan' });
+const chipHtml = renderIconDef(chip, { size: 32, variant: 'solid' });
+
+// Get SVG string directly
+const svg = getIconSvg(arrowUp);
+const solidSvg = getIconSvg(terminal, 'solid');
+
+// Or access SVG property directly
+element.innerHTML = terminal.svg;
 ```
 
 ### Install (HTML only)

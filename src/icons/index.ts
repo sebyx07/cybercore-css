@@ -68,7 +68,9 @@ export {
 // Utilities
 export {
   renderIcon,
+  renderIconDef,
   getIcon,
+  getIconSvg,
   iconExists,
   hasVariant,
   getVariants,

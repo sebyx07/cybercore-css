@@ -3,7 +3,7 @@
  * Helper functions for rendering and working with icons
  */
 
-import type { IconProps, IconColor, IconVariant } from './types';
+import type { IconProps, IconColor, IconVariant, IconDefinition } from './types';
 import { icons, isIconRegistered, getIconDefinition } from './registry';
 
 /**
@@ -101,6 +101,61 @@ export function renderIcon(name: string, options: Partial<IconProps> = {}): stri
 
   // Inject attributes into SVG
   return svg.replace('<svg', `<svg class="${classes}" style="${style}" ${a11y}`).trim();
+}
+
+/**
+ * Render an icon from its definition (tree-shakeable)
+ * Use this with direct icon imports for optimal bundle size
+ *
+ * @example
+ * import { renderIconDef } from 'cybercore-css/icons';
+ * import { terminal } from 'cybercore-css/icons/defs/tech';
+ *
+ * const html = renderIconDef(terminal, { size: 24, color: 'cyan' });
+ */
+export function renderIconDef(icon: IconDefinition, options: Partial<IconProps> = {}): string {
+  const {
+    variant = 'outline',
+    size = 24,
+    color = 'current',
+    className = '',
+    'aria-label': ariaLabel,
+    'aria-hidden': ariaHidden = !ariaLabel,
+  } = options;
+
+  // Get SVG for requested variant
+  let svg: string;
+  if (variant === 'outline' || !icon.variants?.[variant]) {
+    svg = icon.svg;
+  } else {
+    svg = icon.variants[variant] ?? icon.svg;
+  }
+
+  // Build class list
+  const variantClass = variant !== 'outline' ? `cyber-icon--${variant}` : '';
+  const classes = ['cyber-icon', `cyber-icon--${icon.name}`, variantClass, className]
+    .filter(Boolean)
+    .join(' ');
+
+  // Build style
+  const colorValue = COLOR_MAP[color] || color;
+  const style = `width: ${size}px; height: ${size}px; color: ${colorValue};`;
+
+  // Build accessibility attributes
+  const a11y = ariaHidden ? 'aria-hidden="true"' : `aria-label="${ariaLabel}" role="img"`;
+
+  // Inject attributes into SVG
+  return svg.replace('<svg', `<svg class="${classes}" style="${style}" ${a11y}`).trim();
+}
+
+/**
+ * Get SVG string from icon definition (tree-shakeable)
+ */
+export function getIconSvg(icon: IconDefinition, variant: IconVariant = 'outline'): string {
+  if (variant === 'outline' || !icon.variants?.[variant]) {
+    return icon.svg;
+  }
+  return icon.variants[variant] ?? icon.svg;
 }
 
 /**

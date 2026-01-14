@@ -1059,19 +1059,26 @@ const allIcons = Object.keys(icons); // Array of icon names`}
               />
 
               <CodeBlock
-                title="Tree-Shakeable Imports"
+                title="Tree-Shakeable Imports (Optimal Bundle Size)"
                 language="typescript"
-                code={`// Import individual icons for smaller bundles
-import { TerminalIcon, ChipIcon, SignalIcon } from 'cybercore-css/icons/individual';
+                code={`// For smallest bundles, import icons directly + use renderIconDef
+import { renderIconDef, getIconSvg } from 'cybercore-css/icons';
+import { terminal, chip } from 'cybercore-css/icons/defs/tech';
+import { arrowUp } from 'cybercore-css/icons/defs/navigation';
 
-// Each export contains the full IconDefinition
-console.log(TerminalIcon.svg);      // Raw SVG string
-console.log(TerminalIcon.category); // 'tech'
-console.log(TerminalIcon.tags);     // ['cli', 'command', 'shell', 'console']
+// Render with full options - bundler only includes these 3 icons
+const html = renderIconDef(terminal, { size: 24, color: 'cyan' });
+const chipHtml = renderIconDef(chip, { size: 32, variant: 'solid' });
 
-// Import by category
-import { arrowUp, arrowDown } from 'cybercore-css/icons/defs/navigation';
-import { terminal, chip } from 'cybercore-css/icons/defs/tech';`}
+// Get SVG string for a specific variant
+const solidSvg = getIconSvg(terminal, 'solid');
+
+// Or access SVG directly
+element.innerHTML = arrowUp.svg;
+
+// Why this works:
+// renderIcon('terminal')     -> NOT tree-shakeable (string lookup needs all icons)
+// renderIconDef(terminal)    -> Tree-shakeable (bundler sees direct import)`}
               />
 
               <h3

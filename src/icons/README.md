@@ -173,7 +173,30 @@ const html = renderIcon('terminal', { size: 32, color: 'magenta' });
 const chipSvg = icons.chip.svg;
 ```
 
-### Tree-Shakeable Individual Imports
+### Tree-Shakeable Imports (Optimal Bundle Size)
+
+For the smallest bundle, import icons directly and use `renderIconDef`:
+
+```ts
+// Import only the icons you need
+import { renderIconDef } from 'cybercore-css/icons';
+import { terminal, chip } from 'cybercore-css/icons/defs/tech';
+import { arrowUp } from 'cybercore-css/icons/defs/navigation';
+
+// Render with full options - bundler only includes these 3 icons
+const html = renderIconDef(terminal, { size: 24, color: 'cyan' });
+const chipHtml = renderIconDef(chip, { size: 32, variant: 'solid' });
+
+// Access SVG directly
+element.innerHTML = arrowUp.svg;
+```
+
+**Why this works for tree-shaking:**
+
+- `renderIcon('terminal')` - NOT tree-shakeable (needs full registry for string lookup)
+- `renderIconDef(terminal)` - Tree-shakeable (bundler sees the direct import)
+
+### Legacy Individual Imports
 
 ```ts
 import {
@@ -212,19 +235,44 @@ const uri = getIconDataUri('chip', '#00f0ff');
 
 ### `renderIcon(name, options?)`
 
-Renders an icon as an HTML string.
+Renders an icon as an HTML string. **Not tree-shakeable** - use for convenience when bundle size isn't critical.
 
 | Option        | Type                                                      | Default     | Description              |
 | ------------- | --------------------------------------------------------- | ----------- | ------------------------ |
 | `size`        | `16 \| 20 \| 24 \| 32 \| 48 \| 64`                        | `24`        | Icon size in pixels      |
 | `color`       | `'cyan' \| 'magenta' \| 'yellow' \| 'green' \| 'current'` | `'current'` | Color variant            |
+| `variant`     | `'outline' \| 'solid' \| 'duotone' \| 'glitch'`           | `'outline'` | Icon variant             |
 | `className`   | `string`                                                  | `''`        | Additional CSS classes   |
 | `aria-label`  | `string`                                                  | -           | Accessibility label      |
 | `aria-hidden` | `boolean`                                                 | `true`      | Hide from screen readers |
 
-### `getIcon(name)`
+### `renderIconDef(icon, options?)`
 
-Returns the raw SVG string for an icon, or `null` if not found.
+Renders an icon from its definition. **Tree-shakeable** - bundler only includes icons you import.
+
+```ts
+import { renderIconDef } from 'cybercore-css/icons';
+import { terminal } from 'cybercore-css/icons/defs/tech';
+
+const html = renderIconDef(terminal, { size: 24, color: 'cyan' });
+```
+
+Same options as `renderIcon`.
+
+### `getIconSvg(icon, variant?)`
+
+Returns the SVG string from an icon definition. **Tree-shakeable**.
+
+```ts
+import { getIconSvg } from 'cybercore-css/icons';
+import { shield } from 'cybercore-css/icons/defs/security';
+
+const svg = getIconSvg(shield, 'solid');
+```
+
+### `getIcon(name, variant?)`
+
+Returns the raw SVG string for an icon by name, or `null` if not found. **Not tree-shakeable**.
 
 ### `iconExists(name)`
 
