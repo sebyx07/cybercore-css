@@ -1,0 +1,164 @@
+// ============================================================
+// Shadow & Opacity Utilities
+// Box shadows, drop shadows, and opacity
+// ============================================================
+
+@layer utilities {
+  // --------------------------------------------------------
+  // Box Shadow
+  // --------------------------------------------------------
+
+  .cyber-shadow-none {
+    box-shadow: none;
+  }
+
+  .cyber-shadow-sm {
+    box-shadow:
+      0 1px 2px 0 rgb(0 0 0 / 5%),
+      0 1px 3px 0 rgb(0 0 0 / 10%);
+  }
+
+  .cyber-shadow {
+    box-shadow:
+      0 1px 3px 0 rgb(0 0 0 / 10%),
+      0 1px 2px -1px rgb(0 0 0 / 10%);
+  }
+
+  .cyber-shadow-md {
+    box-shadow:
+      0 4px 6px -1px rgb(0 0 0 / 10%),
+      0 2px 4px -2px rgb(0 0 0 / 10%);
+  }
+
+  .cyber-shadow-lg {
+    box-shadow:
+      0 10px 15px -3px rgb(0 0 0 / 10%),
+      0 4px 6px -4px rgb(0 0 0 / 10%);
+  }
+
+  .cyber-shadow-xl {
+    box-shadow:
+      0 20px 25px -5px rgb(0 0 0 / 10%),
+      0 8px 10px -6px rgb(0 0 0 / 10%);
+  }
+
+  .cyber-shadow-2xl {
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 25%);
+  }
+
+  .cyber-shadow-inner {
+    box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 5%);
+  }
+
+  // --------------------------------------------------------
+  // Glow Shadows (Cyber themed)
+  // --------------------------------------------------------
+
+  .cyber-shadow-glow {
+    box-shadow: var(--glow-cyan);
+  }
+
+  .cyber-shadow-glow-magenta {
+    box-shadow: var(--glow-magenta);
+  }
+
+  .cyber-shadow-glow-yellow {
+    box-shadow: var(--glow-yellow);
+  }
+
+  .cyber-shadow-glow-green {
+    box-shadow: var(--glow-green);
+  }
+
+  // --------------------------------------------------------
+  // Opacity
+  // --------------------------------------------------------
+
+  .cyber-opacity-0 {
+    opacity: 0%;
+  }
+
+  .cyber-opacity-5 {
+    opacity: 5%;
+  }
+
+  .cyber-opacity-10 {
+    opacity: 10%;
+  }
+
+  .cyber-opacity-20 {
+    opacity: 20%;
+  }
+
+  .cyber-opacity-25 {
+    opacity: 25%;
+  }
+
+  .cyber-opacity-30 {
+    opacity: 30%;
+  }
+
+  .cyber-opacity-40 {
+    opacity: 40%;
+  }
+
+  .cyber-opacity-50 {
+    opacity: 50%;
+  }
+
+  .cyber-opacity-60 {
+    opacity: 60%;
+  }
+
+  .cyber-opacity-70 {
+    opacity: 70%;
+  }
+
+  .cyber-opacity-75 {
+    opacity: 75%;
+  }
+
+  .cyber-opacity-80 {
+    opacity: 80%;
+  }
+
+  .cyber-opacity-90 {
+    opacity: 90%;
+  }
+
+  .cyber-opacity-95 {
+    opacity: 95%;
+  }
+
+  .cyber-opacity-100 {
+    opacity: 100%;
+  }
+
+  // --------------------------------------------------------
+  // Backdrop Filter
+  // --------------------------------------------------------
+
+  .cyber-backdrop-blur-none {
+    backdrop-filter: blur(0);
+  }
+
+  .cyber-backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+  }
+
+  .cyber-backdrop-blur {
+    backdrop-filter: blur(8px);
+  }
+
+  .cyber-backdrop-blur-md {
+    backdrop-filter: blur(12px);
+  }
+
+  .cyber-backdrop-blur-lg {
+    backdrop-filter: blur(16px);
+  }
+
+  .cyber-backdrop-blur-xl {
+    backdrop-filter: blur(24px);
+  }
+}

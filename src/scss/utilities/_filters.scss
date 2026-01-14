@@ -1,0 +1,279 @@
+// ============================================================
+// Filter Utilities
+// Blur, brightness, contrast, grayscale, etc.
+// ============================================================
+
+@layer utilities {
+  // --------------------------------------------------------
+  // Blur
+  // --------------------------------------------------------
+
+  .cyber-blur-none {
+    filter: blur(0);
+  }
+
+  .cyber-blur-sm {
+    filter: blur(4px);
+  }
+
+  .cyber-blur {
+    filter: blur(8px);
+  }
+
+  .cyber-blur-md {
+    filter: blur(12px);
+  }
+
+  .cyber-blur-lg {
+    filter: blur(16px);
+  }
+
+  .cyber-blur-xl {
+    filter: blur(24px);
+  }
+
+  .cyber-blur-2xl {
+    filter: blur(40px);
+  }
+
+  .cyber-blur-3xl {
+    filter: blur(64px);
+  }
+
+  // --------------------------------------------------------
+  // Brightness
+  // --------------------------------------------------------
+
+  .cyber-brightness-0 {
+    filter: brightness(0);
+  }
+
+  .cyber-brightness-50 {
+    filter: brightness(0.5);
+  }
+
+  .cyber-brightness-75 {
+    filter: brightness(0.75);
+  }
+
+  .cyber-brightness-90 {
+    filter: brightness(0.9);
+  }
+
+  .cyber-brightness-95 {
+    filter: brightness(0.95);
+  }
+
+  .cyber-brightness-100 {
+    filter: brightness(1);
+  }
+
+  .cyber-brightness-105 {
+    filter: brightness(1.05);
+  }
+
+  .cyber-brightness-110 {
+    filter: brightness(1.1);
+  }
+
+  .cyber-brightness-125 {
+    filter: brightness(1.25);
+  }
+
+  .cyber-brightness-150 {
+    filter: brightness(1.5);
+  }
+
+  .cyber-brightness-200 {
+    filter: brightness(2);
+  }
+
+  // --------------------------------------------------------
+  // Contrast
+  // --------------------------------------------------------
+
+  .cyber-contrast-0 {
+    filter: contrast(0);
+  }
+
+  .cyber-contrast-50 {
+    filter: contrast(0.5);
+  }
+
+  .cyber-contrast-75 {
+    filter: contrast(0.75);
+  }
+
+  .cyber-contrast-100 {
+    filter: contrast(1);
+  }
+
+  .cyber-contrast-125 {
+    filter: contrast(1.25);
+  }
+
+  .cyber-contrast-150 {
+    filter: contrast(1.5);
+  }
+
+  .cyber-contrast-200 {
+    filter: contrast(2);
+  }
+
+  // --------------------------------------------------------
+  // Grayscale
+  // --------------------------------------------------------
+
+  .cyber-grayscale-0 {
+    filter: grayscale(0);
+  }
+
+  .cyber-grayscale {
+    filter: grayscale(100%);
+  }
+
+  .cyber-grayscale-50 {
+    filter: grayscale(50%);
+  }
+
+  // --------------------------------------------------------
+  // Hue Rotate
+  // --------------------------------------------------------
+
+  .cyber-hue-rotate-0 {
+    filter: hue-rotate(0deg);
+  }
+
+  .cyber-hue-rotate-15 {
+    filter: hue-rotate(15deg);
+  }
+
+  .cyber-hue-rotate-30 {
+    filter: hue-rotate(30deg);
+  }
+
+  .cyber-hue-rotate-60 {
+    filter: hue-rotate(60deg);
+  }
+
+  .cyber-hue-rotate-90 {
+    filter: hue-rotate(90deg);
+  }
+
+  .cyber-hue-rotate-180 {
+    filter: hue-rotate(180deg);
+  }
+
+  .cyber--hue-rotate-15 {
+    filter: hue-rotate(-15deg);
+  }
+
+  .cyber--hue-rotate-30 {
+    filter: hue-rotate(-30deg);
+  }
+
+  .cyber--hue-rotate-60 {
+    filter: hue-rotate(-60deg);
+  }
+
+  .cyber--hue-rotate-90 {
+    filter: hue-rotate(-90deg);
+  }
+
+  // --------------------------------------------------------
+  // Invert
+  // --------------------------------------------------------
+
+  .cyber-invert-0 {
+    filter: invert(0);
+  }
+
+  .cyber-invert {
+    filter: invert(100%);
+  }
+
+  // --------------------------------------------------------
+  // Saturate
+  // --------------------------------------------------------
+
+  .cyber-saturate-0 {
+    filter: saturate(0);
+  }
+
+  .cyber-saturate-50 {
+    filter: saturate(0.5);
+  }
+
+  .cyber-saturate-100 {
+    filter: saturate(1);
+  }
+
+  .cyber-saturate-150 {
+    filter: saturate(1.5);
+  }
+
+  .cyber-saturate-200 {
+    filter: saturate(2);
+  }
+
+  // --------------------------------------------------------
+  // Sepia
+  // --------------------------------------------------------
+
+  .cyber-sepia-0 {
+    filter: sepia(0);
+  }
+
+  .cyber-sepia {
+    filter: sepia(100%);
+  }
+
+  // --------------------------------------------------------
+  // Drop Shadow
+  // --------------------------------------------------------
+
+  .cyber-drop-shadow-none {
+    filter: drop-shadow(0 0 0 transparent);
+  }
+
+  .cyber-drop-shadow-sm {
+    filter: drop-shadow(0 1px 1px rgb(0 0 0 / 5%));
+  }
+
+  .cyber-drop-shadow {
+    filter: drop-shadow(0 1px 2px rgb(0 0 0 / 10%)) drop-shadow(0 1px 1px rgb(0 0 0 / 6%));
+  }
+
+  .cyber-drop-shadow-md {
+    filter: drop-shadow(0 4px 3px rgb(0 0 0 / 7%)) drop-shadow(0 2px 2px rgb(0 0 0 / 6%));
+  }
+
+  .cyber-drop-shadow-lg {
+    filter: drop-shadow(0 10px 8px rgb(0 0 0 / 4%)) drop-shadow(0 4px 3px rgb(0 0 0 / 10%));
+  }
+
+  .cyber-drop-shadow-xl {
+    filter: drop-shadow(0 20px 13px rgb(0 0 0 / 3%)) drop-shadow(0 8px 5px rgb(0 0 0 / 8%));
+  }
+
+  .cyber-drop-shadow-2xl {
+    filter: drop-shadow(0 25px 25px rgb(0 0 0 / 15%));
+  }
+
+  // Glow drop shadows
+  .cyber-drop-shadow-glow-cyan {
+    filter: drop-shadow(0 0 10px var(--cyber-cyan-500));
+  }
+
+  .cyber-drop-shadow-glow-magenta {
+    filter: drop-shadow(0 0 10px var(--cyber-magenta-500));
+  }
+
+  .cyber-drop-shadow-glow-yellow {
+    filter: drop-shadow(0 0 10px var(--cyber-yellow-500));
+  }
+
+  .cyber-drop-shadow-glow-green {
+    filter: drop-shadow(0 0 10px var(--cyber-green-500));
+  }
+}

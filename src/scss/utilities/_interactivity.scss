@@ -1,0 +1,186 @@
+// ============================================================
+// Interactivity Utilities
+// Cursor, pointer-events, user-select, scroll behavior
+// ============================================================
+
+@layer utilities {
+  // --------------------------------------------------------
+  // Cursor
+  // --------------------------------------------------------
+
+  .cyber-cursor-auto {
+    cursor: auto;
+  }
+
+  .cyber-cursor-default {
+    cursor: default;
+  }
+
+  .cyber-cursor-pointer {
+    cursor: pointer;
+  }
+
+  .cyber-cursor-wait {
+    cursor: wait;
+  }
+
+  .cyber-cursor-text {
+    cursor: text;
+  }
+
+  .cyber-cursor-move {
+    cursor: move;
+  }
+
+  .cyber-cursor-help {
+    cursor: help;
+  }
+
+  .cyber-cursor-not-allowed {
+    cursor: not-allowed;
+  }
+
+  .cyber-cursor-none {
+    cursor: none;
+  }
+
+  .cyber-cursor-crosshair {
+    cursor: crosshair;
+  }
+
+  .cyber-cursor-grab {
+    cursor: grab;
+  }
+
+  .cyber-cursor-grabbing {
+    cursor: grabbing;
+  }
+
+  .cyber-cursor-zoom-in {
+    cursor: zoom-in;
+  }
+
+  .cyber-cursor-zoom-out {
+    cursor: zoom-out;
+  }
+
+  // --------------------------------------------------------
+  // Pointer Events
+  // --------------------------------------------------------
+
+  .cyber-pointer-events-none {
+    pointer-events: none;
+  }
+
+  .cyber-pointer-events-auto {
+    pointer-events: auto;
+  }
+
+  // --------------------------------------------------------
+  // User Select
+  // --------------------------------------------------------
+
+  .cyber-select-none {
+    user-select: none;
+  }
+
+  .cyber-select-text {
+    user-select: text;
+  }
+
+  .cyber-select-all {
+    user-select: all;
+  }
+
+  .cyber-select-auto {
+    user-select: auto;
+  }
+
+  // --------------------------------------------------------
+  // Touch Action
+  // --------------------------------------------------------
+
+  .cyber-touch-auto {
+    touch-action: auto;
+  }
+
+  .cyber-touch-none {
+    touch-action: none;
+  }
+
+  .cyber-touch-pan-x {
+    touch-action: pan-x;
+  }
+
+  .cyber-touch-pan-y {
+    touch-action: pan-y;
+  }
+
+  .cyber-touch-manipulation {
+    touch-action: manipulation;
+  }
+
+  // --------------------------------------------------------
+  // Scroll Behavior
+  // --------------------------------------------------------
+
+  .cyber-scroll-auto {
+    scroll-behavior: auto;
+  }
+
+  .cyber-scroll-smooth {
+    scroll-behavior: smooth;
+  }
+
+  // --------------------------------------------------------
+  // Scroll Snap
+  // --------------------------------------------------------
+
+  .cyber-snap-start {
+    scroll-snap-align: start;
+  }
+
+  .cyber-snap-end {
+    scroll-snap-align: end;
+  }
+
+  .cyber-snap-center {
+    scroll-snap-align: center;
+  }
+
+  .cyber-snap-none {
+    scroll-snap-type: none;
+  }
+
+  .cyber-snap-x {
+    scroll-snap-type: x mandatory;
+  }
+
+  .cyber-snap-y {
+    scroll-snap-type: y mandatory;
+  }
+
+  .cyber-snap-both {
+    scroll-snap-type: both mandatory;
+  }
+
+  // --------------------------------------------------------
+  // Resize
+  // --------------------------------------------------------
+
+  .cyber-resize-none {
+    resize: none;
+  }
+
+  .cyber-resize-y {
+    resize: vertical;
+  }
+
+  .cyber-resize-x {
+    resize: horizontal;
+  }
+
+  .cyber-resize {
+    resize: both;
+  }
+}

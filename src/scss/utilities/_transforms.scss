@@ -1,0 +1,212 @@
+// ============================================================
+// Transform Utilities
+// Scale, rotate, translate, skew
+// ============================================================
+
+@layer utilities {
+  // --------------------------------------------------------
+  // Scale
+  // --------------------------------------------------------
+
+  .cyber-scale-0 {
+    transform: scale(0);
+  }
+
+  .cyber-scale-50 {
+    transform: scale(0.5);
+  }
+
+  .cyber-scale-75 {
+    transform: scale(0.75);
+  }
+
+  .cyber-scale-90 {
+    transform: scale(0.9);
+  }
+
+  .cyber-scale-95 {
+    transform: scale(0.95);
+  }
+
+  .cyber-scale-100 {
+    transform: scale(1);
+  }
+
+  .cyber-scale-105 {
+    transform: scale(1.05);
+  }
+
+  .cyber-scale-110 {
+    transform: scale(1.1);
+  }
+
+  .cyber-scale-125 {
+    transform: scale(1.25);
+  }
+
+  .cyber-scale-150 {
+    transform: scale(1.5);
+  }
+
+  // X scale
+  .cyber-scale-x-0 {
+    transform: scaleX(0);
+  }
+
+  .cyber-scale-x-100 {
+    transform: scaleX(1);
+  }
+
+  // Y scale
+  .cyber-scale-y-0 {
+    transform: scaleY(0);
+  }
+
+  .cyber-scale-y-100 {
+    transform: scaleY(1);
+  }
+
+  // --------------------------------------------------------
+  // Rotate
+  // --------------------------------------------------------
+
+  .cyber-rotate-0 {
+    transform: rotate(0deg);
+  }
+
+  .cyber-rotate-45 {
+    transform: rotate(45deg);
+  }
+
+  .cyber-rotate-90 {
+    transform: rotate(90deg);
+  }
+
+  .cyber-rotate-180 {
+    transform: rotate(180deg);
+  }
+
+  .cyber--rotate-45 {
+    transform: rotate(-45deg);
+  }
+
+  .cyber--rotate-90 {
+    transform: rotate(-90deg);
+  }
+
+  .cyber--rotate-180 {
+    transform: rotate(-180deg);
+  }
+
+  // --------------------------------------------------------
+  // Translate
+  // --------------------------------------------------------
+
+  .cyber-translate-x-0 {
+    transform: translateX(0);
+  }
+
+  .cyber-translate-x-full {
+    transform: translateX(100%);
+  }
+
+  .cyber--translate-x-full {
+    transform: translateX(-100%);
+  }
+
+  .cyber-translate-y-0 {
+    transform: translateY(0);
+  }
+
+  .cyber-translate-y-full {
+    transform: translateY(100%);
+  }
+
+  .cyber--translate-y-full {
+    transform: translateY(-100%);
+  }
+
+  // --------------------------------------------------------
+  // Skew
+  // --------------------------------------------------------
+
+  .cyber-skew-x-0 {
+    transform: skewX(0deg);
+  }
+
+  .cyber-skew-x-3 {
+    transform: skewX(3deg);
+  }
+
+  .cyber-skew-x-6 {
+    transform: skewX(6deg);
+  }
+
+  .cyber-skew-x-12 {
+    transform: skewX(12deg);
+  }
+
+  .cyber--skew-x-3 {
+    transform: skewX(-3deg);
+  }
+
+  .cyber--skew-x-6 {
+    transform: skewX(-6deg);
+  }
+
+  .cyber--skew-x-12 {
+    transform: skewX(-12deg);
+  }
+
+  .cyber-skew-y-0 {
+    transform: skewY(0deg);
+  }
+
+  .cyber-skew-y-3 {
+    transform: skewY(3deg);
+  }
+
+  .cyber-skew-y-6 {
+    transform: skewY(6deg);
+  }
+
+  // --------------------------------------------------------
+  // Transform Origin
+  // --------------------------------------------------------
+
+  .cyber-origin-center {
+    transform-origin: center;
+  }
+
+  .cyber-origin-top {
+    transform-origin: top;
+  }
+
+  .cyber-origin-top-right {
+    transform-origin: top right;
+  }
+
+  .cyber-origin-right {
+    transform-origin: right;
+  }
+
+  .cyber-origin-bottom-right {
+    transform-origin: bottom right;
+  }
+
+  .cyber-origin-bottom {
+    transform-origin: bottom;
+  }
+
+  .cyber-origin-bottom-left {
+    transform-origin: bottom left;
+  }
+
+  .cyber-origin-left {
+    transform-origin: left;
+  }
+
+  .cyber-origin-top-left {
+    transform-origin: top left;
+  }
+}

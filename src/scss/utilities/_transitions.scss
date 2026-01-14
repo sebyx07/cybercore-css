@@ -1,0 +1,173 @@
+// ============================================================
+// Transition Utilities
+// Transition property, duration, timing, delay
+// ============================================================
+
+@layer utilities {
+  // --------------------------------------------------------
+  // Transition Property
+  // --------------------------------------------------------
+
+  .cyber-transition-none {
+    transition-property: none;
+  }
+
+  .cyber-transition-all {
+    transition-duration: var(--duration-base);
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cyber-transition {
+    transition-duration: var(--duration-base);
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke,
+      opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cyber-transition-colors {
+    transition-duration: var(--duration-base);
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cyber-transition-opacity {
+    transition-duration: var(--duration-base);
+    transition-property: opacity;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cyber-transition-shadow {
+    transition-duration: var(--duration-base);
+    transition-property: box-shadow;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cyber-transition-transform {
+    transition-duration: var(--duration-base);
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  // --------------------------------------------------------
+  // Transition Duration
+  // --------------------------------------------------------
+
+  .cyber-duration-0 {
+    transition-duration: 0s;
+  }
+
+  .cyber-duration-75 {
+    transition-duration: 75ms;
+  }
+
+  .cyber-duration-100 {
+    transition-duration: 100ms;
+  }
+
+  .cyber-duration-150 {
+    transition-duration: 150ms;
+  }
+
+  .cyber-duration-200 {
+    transition-duration: 200ms;
+  }
+
+  .cyber-duration-300 {
+    transition-duration: 300ms;
+  }
+
+  .cyber-duration-500 {
+    transition-duration: 500ms;
+  }
+
+  .cyber-duration-700 {
+    transition-duration: 700ms;
+  }
+
+  .cyber-duration-1000 {
+    transition-duration: 1000ms;
+  }
+
+  // Named durations from variables
+  .cyber-duration-fast {
+    transition-duration: var(--duration-fast);
+  }
+
+  .cyber-duration-base {
+    transition-duration: var(--duration-base);
+  }
+
+  .cyber-duration-slow {
+    transition-duration: var(--duration-slow);
+  }
+
+  // --------------------------------------------------------
+  // Transition Timing Function
+  // --------------------------------------------------------
+
+  .cyber-ease-linear {
+    transition-timing-function: linear;
+  }
+
+  .cyber-ease-in {
+    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  }
+
+  .cyber-ease-out {
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .cyber-ease-in-out {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  // Named easings from variables
+  .cyber-ease-bounce {
+    transition-timing-function: var(--ease-bounce);
+  }
+
+  .cyber-ease-smooth {
+    transition-timing-function: var(--ease-smooth);
+  }
+
+  // --------------------------------------------------------
+  // Transition Delay
+  // --------------------------------------------------------
+
+  .cyber-delay-0 {
+    transition-delay: 0s;
+  }
+
+  .cyber-delay-75 {
+    transition-delay: 75ms;
+  }
+
+  .cyber-delay-100 {
+    transition-delay: 100ms;
+  }
+
+  .cyber-delay-150 {
+    transition-delay: 150ms;
+  }
+
+  .cyber-delay-200 {
+    transition-delay: 200ms;
+  }
+
+  .cyber-delay-300 {
+    transition-delay: 300ms;
+  }
+
+  .cyber-delay-500 {
+    transition-delay: 500ms;
+  }
+
+  .cyber-delay-700 {
+    transition-delay: 700ms;
+  }
+
+  .cyber-delay-1000 {
+    transition-delay: 1000ms;
+  }
+}

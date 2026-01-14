@@ -1,0 +1,168 @@
+// ============================================================
+// Position Utilities
+// Position, inset, and placement helpers
+// ============================================================
+
+@layer utilities {
+  // --------------------------------------------------------
+  // Position
+  // --------------------------------------------------------
+
+  .cyber-static {
+    position: static;
+  }
+
+  .cyber-relative {
+    position: relative;
+  }
+
+  .cyber-absolute {
+    position: absolute;
+  }
+
+  .cyber-fixed {
+    position: fixed;
+  }
+
+  .cyber-sticky {
+    position: sticky;
+  }
+
+  // --------------------------------------------------------
+  // Inset (all sides)
+  // --------------------------------------------------------
+
+  .cyber-inset-0 {
+    inset: 0;
+  }
+
+  .cyber-inset-auto {
+    inset: auto;
+  }
+
+  .cyber-inset-x-0 {
+    right: 0;
+    left: 0;
+  }
+
+  .cyber-inset-y-0 {
+    top: 0;
+    bottom: 0;
+  }
+
+  // --------------------------------------------------------
+  // Top
+  // --------------------------------------------------------
+
+  .cyber-top-0 {
+    top: 0;
+  }
+
+  .cyber-top-auto {
+    top: auto;
+  }
+
+  .cyber-top-half {
+    top: 50%;
+  }
+
+  .cyber-top-full {
+    top: 100%;
+  }
+
+  // --------------------------------------------------------
+  // Right
+  // --------------------------------------------------------
+
+  .cyber-right-0 {
+    right: 0;
+  }
+
+  .cyber-right-auto {
+    right: auto;
+  }
+
+  .cyber-right-half {
+    right: 50%;
+  }
+
+  .cyber-right-full {
+    right: 100%;
+  }
+
+  // --------------------------------------------------------
+  // Bottom
+  // --------------------------------------------------------
+
+  .cyber-bottom-0 {
+    bottom: 0;
+  }
+
+  .cyber-bottom-auto {
+    bottom: auto;
+  }
+
+  .cyber-bottom-half {
+    bottom: 50%;
+  }
+
+  .cyber-bottom-full {
+    bottom: 100%;
+  }
+
+  // --------------------------------------------------------
+  // Left
+  // --------------------------------------------------------
+
+  .cyber-left-0 {
+    left: 0;
+  }
+
+  .cyber-left-auto {
+    left: auto;
+  }
+
+  .cyber-left-half {
+    left: 50%;
+  }
+
+  .cyber-left-full {
+    left: 100%;
+  }
+
+  // --------------------------------------------------------
+  // Centering transforms
+  // --------------------------------------------------------
+
+  .cyber-translate-x-half {
+    transform: translateX(50%);
+  }
+
+  .cyber-translate-x-neg-half {
+    transform: translateX(-50%);
+  }
+
+  .cyber-translate-y-half {
+    transform: translateY(50%);
+  }
+
+  .cyber-translate-y-neg-half {
+    transform: translateY(-50%);
+  }
+
+  .cyber-center-x {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .cyber-center-y {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .cyber-center-xy {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

@@ -1,0 +1,201 @@
+// ============================================================
+// Background Utilities
+// Background colors, gradients, and properties
+// ============================================================
+
+@layer utilities {
+  // --------------------------------------------------------
+  // Background Colors
+  // --------------------------------------------------------
+
+  .cyber-bg-transparent {
+    background-color: transparent;
+  }
+
+  .cyber-bg-current {
+    background-color: currentcolor;
+  }
+
+  // Themed backgrounds
+  .cyber-bg-primary {
+    background-color: var(--color-bg-primary);
+  }
+
+  .cyber-bg-secondary {
+    background-color: var(--color-bg-secondary);
+  }
+
+  .cyber-bg-tertiary {
+    background-color: var(--color-bg-tertiary);
+  }
+
+  .cyber-bg-elevated {
+    background-color: var(--color-bg-elevated);
+  }
+
+  // Accent backgrounds
+  .cyber-bg-cyan {
+    background-color: var(--cyber-cyan-500);
+  }
+
+  .cyber-bg-cyan-subtle {
+    background-color: color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent);
+  }
+
+  .cyber-bg-magenta {
+    background-color: var(--cyber-magenta-500);
+  }
+
+  .cyber-bg-magenta-subtle {
+    background-color: color-mix(in srgb, var(--cyber-magenta-500) 15%, transparent);
+  }
+
+  .cyber-bg-yellow {
+    background-color: var(--cyber-yellow-500);
+  }
+
+  .cyber-bg-yellow-subtle {
+    background-color: color-mix(in srgb, var(--cyber-yellow-500) 15%, transparent);
+  }
+
+  .cyber-bg-green {
+    background-color: var(--cyber-green-500);
+  }
+
+  .cyber-bg-green-subtle {
+    background-color: color-mix(in srgb, var(--cyber-green-500) 15%, transparent);
+  }
+
+  // Void scale
+  .cyber-bg-void-900 {
+    background-color: var(--cyber-void-900);
+  }
+
+  .cyber-bg-void-800 {
+    background-color: var(--cyber-void-800);
+  }
+
+  .cyber-bg-void-700 {
+    background-color: var(--cyber-void-700);
+  }
+
+  // --------------------------------------------------------
+  // Background Gradients
+  // --------------------------------------------------------
+
+  .cyber-bg-gradient-cyan {
+    background: linear-gradient(135deg, var(--cyber-cyan-700) 0%, var(--cyber-cyan-500) 100%);
+  }
+
+  .cyber-bg-gradient-magenta {
+    background: linear-gradient(135deg, var(--cyber-magenta-700) 0%, var(--cyber-magenta-500) 100%);
+  }
+
+  .cyber-bg-gradient-yellow {
+    background: linear-gradient(135deg, var(--cyber-yellow-700) 0%, var(--cyber-yellow-500) 100%);
+  }
+
+  .cyber-bg-gradient-green {
+    background: linear-gradient(135deg, var(--cyber-green-700) 0%, var(--cyber-green-500) 100%);
+  }
+
+  .cyber-bg-gradient-cyber {
+    background: linear-gradient(135deg, var(--cyber-cyan-500) 0%, var(--cyber-magenta-500) 100%);
+  }
+
+  // --------------------------------------------------------
+  // Background Size
+  // --------------------------------------------------------
+
+  .cyber-bg-auto {
+    background-size: auto;
+  }
+
+  .cyber-bg-cover {
+    background-size: cover;
+  }
+
+  .cyber-bg-contain {
+    background-size: contain;
+  }
+
+  // --------------------------------------------------------
+  // Background Position
+  // --------------------------------------------------------
+
+  .cyber-bg-center {
+    background-position: center;
+  }
+
+  .cyber-bg-top {
+    background-position: top;
+  }
+
+  .cyber-bg-bottom {
+    background-position: bottom;
+  }
+
+  .cyber-bg-left {
+    background-position: left;
+  }
+
+  .cyber-bg-right {
+    background-position: right;
+  }
+
+  // --------------------------------------------------------
+  // Background Repeat
+  // --------------------------------------------------------
+
+  .cyber-bg-repeat {
+    background-repeat: repeat;
+  }
+
+  .cyber-bg-no-repeat {
+    background-repeat: no-repeat;
+  }
+
+  .cyber-bg-repeat-x {
+    background-repeat: repeat-x;
+  }
+
+  .cyber-bg-repeat-y {
+    background-repeat: repeat-y;
+  }
+
+  // --------------------------------------------------------
+  // Background Attachment
+  // --------------------------------------------------------
+
+  .cyber-bg-fixed {
+    background-attachment: fixed;
+  }
+
+  .cyber-bg-local {
+    background-attachment: local;
+  }
+
+  .cyber-bg-scroll {
+    background-attachment: scroll;
+  }
+
+  // --------------------------------------------------------
+  // Background Clip
+  // --------------------------------------------------------
+
+  .cyber-bg-clip-border {
+    background-clip: border-box;
+  }
+
+  .cyber-bg-clip-padding {
+    background-clip: padding-box;
+  }
+
+  .cyber-bg-clip-content {
+    background-clip: content-box;
+  }
+
+  .cyber-bg-clip-text {
+    background-clip: text;
+  }
+}

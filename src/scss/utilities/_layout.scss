@@ -1,0 +1,202 @@
+// ============================================================
+// Layout Utilities
+// Overflow, z-index, object-fit, aspect-ratio
+// ============================================================
+
+@layer utilities {
+  // --------------------------------------------------------
+  // Overflow
+  // --------------------------------------------------------
+
+  .cyber-overflow-auto {
+    overflow: auto;
+  }
+
+  .cyber-overflow-hidden {
+    overflow: hidden;
+  }
+
+  .cyber-overflow-visible {
+    overflow: visible;
+  }
+
+  .cyber-overflow-scroll {
+    overflow: scroll;
+  }
+
+  .cyber-overflow-x-auto {
+    overflow-x: auto;
+  }
+
+  .cyber-overflow-x-hidden {
+    overflow-x: hidden;
+  }
+
+  .cyber-overflow-x-scroll {
+    overflow-x: scroll;
+  }
+
+  .cyber-overflow-y-auto {
+    overflow-y: auto;
+  }
+
+  .cyber-overflow-y-hidden {
+    overflow-y: hidden;
+  }
+
+  .cyber-overflow-y-scroll {
+    overflow-y: scroll;
+  }
+
+  // --------------------------------------------------------
+  // Z-Index
+  // --------------------------------------------------------
+
+  .cyber-z-0 {
+    z-index: 0;
+  }
+
+  .cyber-z-10 {
+    z-index: 10;
+  }
+
+  .cyber-z-20 {
+    z-index: 20;
+  }
+
+  .cyber-z-30 {
+    z-index: 30;
+  }
+
+  .cyber-z-40 {
+    z-index: 40;
+  }
+
+  .cyber-z-50 {
+    z-index: 50;
+  }
+
+  .cyber-z-auto {
+    z-index: auto;
+  }
+
+  .cyber-z-dropdown {
+    z-index: 1000;
+  }
+
+  .cyber-z-sticky {
+    z-index: 1020;
+  }
+
+  .cyber-z-fixed {
+    z-index: 1030;
+  }
+
+  .cyber-z-modal-backdrop {
+    z-index: 1040;
+  }
+
+  .cyber-z-modal {
+    z-index: 1050;
+  }
+
+  .cyber-z-popover {
+    z-index: 1060;
+  }
+
+  .cyber-z-tooltip {
+    z-index: 1070;
+  }
+
+  // --------------------------------------------------------
+  // Object Fit
+  // --------------------------------------------------------
+
+  .cyber-object-contain {
+    object-fit: contain;
+  }
+
+  .cyber-object-cover {
+    object-fit: cover;
+  }
+
+  .cyber-object-fill {
+    object-fit: fill;
+  }
+
+  .cyber-object-none {
+    object-fit: none;
+  }
+
+  .cyber-object-scale-down {
+    object-fit: scale-down;
+  }
+
+  // --------------------------------------------------------
+  // Object Position
+  // --------------------------------------------------------
+
+  .cyber-object-center {
+    object-position: center;
+  }
+
+  .cyber-object-top {
+    object-position: top;
+  }
+
+  .cyber-object-bottom {
+    object-position: bottom;
+  }
+
+  .cyber-object-left {
+    object-position: left;
+  }
+
+  .cyber-object-right {
+    object-position: right;
+  }
+
+  // --------------------------------------------------------
+  // Aspect Ratio
+  // --------------------------------------------------------
+
+  .cyber-aspect-auto {
+    aspect-ratio: auto;
+  }
+
+  .cyber-aspect-square {
+    aspect-ratio: 1 / 1;
+  }
+
+  .cyber-aspect-video {
+    aspect-ratio: 16 / 9;
+  }
+
+  .cyber-aspect-4-3 {
+    aspect-ratio: 4 / 3;
+  }
+
+  .cyber-aspect-3-2 {
+    aspect-ratio: 3 / 2;
+  }
+
+  .cyber-aspect-2-1 {
+    aspect-ratio: 2 / 1;
+  }
+
+  // --------------------------------------------------------
+  // Visibility
+  // --------------------------------------------------------
+
+  .cyber-visible {
+    visibility: visible;
+  }
+
+  .cyber-invisible {
+    visibility: hidden;
+  }
+
+  .cyber-collapse {
+    visibility: collapse;
+  }
+}
