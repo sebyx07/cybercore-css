@@ -119,6 +119,70 @@ CSS layers for cascade control:
 
 Utilities always override components.
 
+## Icons
+
+153 cyberpunk SVG icons across 10 categories. Stroke-based, uses `currentColor`.
+
+### Install (JS/TS)
+
+```typescript
+import { renderIcon, getIcon, icons } from 'cybercore-css/icons';
+
+// Render with options
+const html = renderIcon('terminal', {
+  size: 24,           // 16 | 20 | 24 | 32 | 48 | 64
+  color: 'cyan',      // 'cyan' | 'magenta' | 'yellow' | 'green' | 'current'
+  variant: 'outline', // 'outline' | 'solid' | 'duotone' | 'glitch'
+});
+
+// Get raw SVG string
+const svg = getIcon('terminal');
+
+// Tree-shakeable imports
+import { terminal, chip } from 'cybercore-css/icons/defs/tech';
+import { arrowUp } from 'cybercore-css/icons/defs/navigation';
+```
+
+### Install (HTML only)
+
+Copy SVG directly from `node_modules/cybercore-css/src/icons/svg/` or inline:
+
+```html
+<span class="cyber-icon cyber-icon--cyan" style="width: 24px; height: 24px;">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+       stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- SVG paths here -->
+  </svg>
+</span>
+```
+
+### Icon Categories
+
+- **navigation** (14): arrow-up, arrow-down, arrow-left, arrow-right, chevron-up, chevron-down, chevron-left, chevron-right, home, menu, menu-dots, external-link, maximize, minimize
+- **actions** (23): search, filter, sort, edit, delete, copy, paste, cut, download, upload, share, save, undo, redo, plus, minus, check, x, refresh, drag, pin, link, unlink
+- **media** (17): play, pause, stop, skip-back, skip-forward, rewind, fast-forward, volume-high, volume-low, volume-off, mic, mic-off, camera, camera-off, image, video, music
+- **communication** (10): bell, bell-off, message, mail, inbox, send, at-sign, phone, phone-off, video-call
+- **data** (14): chart-bar, chart-line, chart-pie, database, table, cloud, cloud-upload, cloud-download, sync, calendar, clock, timer, hash, percent
+- **security** (15): lock, unlock, key, shield, shield-check, shield-x, eye, eye-off, fingerprint, user, users, user-plus, user-minus, log-in, log-out
+- **tech** (22): terminal, code, chip, circuit, wifi, wifi-off, bluetooth, server, api, git-branch, git-commit, git-merge, git-pull, bug, settings, sliders, zap, cpu, memory, globe, qr-code, signal
+- **files** (15): file, file-text, file-code, file-image, file-video, file-audio, file-archive, file-plus, file-minus, folder, folder-open, folder-plus, archive, clipboard, attachment
+- **status** (12): info, warning, error, success, help, loading, progress, online, offline, battery-full, battery-low, battery-charging
+- **social** (11): heart, heart-filled, star, star-filled, thumbs-up, thumbs-down, bookmark, bookmark-filled, flag, award, trending
+
+### Icon CSS Classes
+
+- `.cyber-icon--cyan`, `--magenta`, `--yellow`, `--green` - colors
+- `.cyber-icon--sm` (16px), `--md` (24px), `--lg` (32px), `--xl` (48px) - sizes
+- `.cyber-icon--spin`, `--pulse`, `--glitch` - animations
+
+### Icon Variants
+
+Each icon has 4 variants:
+- `outline` - Default, stroke-based (1.5px)
+- `solid` - Filled icons
+- `duotone` - Two-tone with opacity
+- `glitch` - Offset duplicates for cyber effect
+
 ## Accessibility
 
 - `prefers-reduced-motion` respected
