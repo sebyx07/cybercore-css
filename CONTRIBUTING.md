@@ -1,10 +1,12 @@
 # Contributing to CYBERCORE CSS
 
-Thank you for your interest in contributing to CYBERCORE CSS! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to CYBERCORE CSS! This document
+provides guidelines and instructions for contributing.
 
 ## Code of Conduct
 
-By participating in this project, you agree to maintain a respectful and inclusive environment for everyone.
+By participating in this project, you agree to maintain a respectful and
+inclusive environment for everyone.
 
 ## Getting Started
 
@@ -35,6 +37,7 @@ By participating in this project, you agree to maintain a respectful and inclusi
 ### Branch Naming
 
 Use descriptive branch names:
+
 - `feat/feature-name` - New features
 - `fix/bug-description` - Bug fixes
 - `docs/description` - Documentation updates
@@ -70,6 +73,7 @@ npm run build:css        # Build CSS only
 ### CSS/SCSS Contributions
 
 1. **Use CSS Layers**: All styles must be wrapped in appropriate `@layer`:
+
    ```scss
    @layer components {
      .cyber-component { ... }
@@ -81,13 +85,16 @@ npm run build:css        # Build CSS only
    - Modifier: `.cyber-component--variant`
    - Element: `.cyber-component__element`
 
-3. **Use Design Tokens**: Reference CSS custom properties from `_variables.scss`:
+3. **Use Design Tokens**: Reference CSS custom properties from
+   `_variables.scss`:
+
    ```scss
    color: var(--cyber-cyan-500);
    padding: var(--space-md);
    ```
 
 4. **Support Reduced Motion**: Include `prefers-reduced-motion` media queries:
+
    ```scss
    @media (prefers-reduced-motion: reduce) {
      animation: none;
@@ -152,6 +159,7 @@ See `src/icons/README.md` for detailed guidelines.
 ### Bug Reports
 
 Include:
+
 - Browser and version
 - Steps to reproduce
 - Expected vs actual behavior
@@ -160,14 +168,17 @@ Include:
 ### Feature Requests
 
 Include:
+
 - Clear description of the feature
 - Use case explanation
 - Example implementation if possible
 
 ## Questions?
 
-Open a [GitHub Discussion](https://github.com/sebyx07/cybercore-css/discussions) for questions or ideas.
+Open a [GitHub Discussion](https://github.com/sebyx07/cybercore-css/discussions)
+for questions or ideas.
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the MIT License.
+By contributing, you agree that your contributions will be licensed under the
+MIT License.
