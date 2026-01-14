@@ -65,10 +65,8 @@ jobs:
       - name: Verify package contents
         run: npm pack --dry-run
 
-      - name: Publish to NPM
+      - name: Publish to NPM (Trusted Publishing)
         run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   # Create GitHub Release
   release:
@@ -157,6 +155,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [validate, publish, release]
     if: failure()
+    permissions:
+      issues: write
     steps:
       - name: Create issue on failure
         uses: actions/github-script@v7
