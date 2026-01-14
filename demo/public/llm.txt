@@ -204,6 +204,10 @@ Each icon has 4 variants:
 - WCAG AA contrast
 - `.cyber-sr-only` for screen reader text
 
+## Related
+
+- **CYBERCORE CHARTS** - Companion SVG chart library: github.com/sebyx07/cybercore-charts
+
 ## Links
 
 - GitHub: github.com/sebyx07/cybercore-css
