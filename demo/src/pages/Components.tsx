@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 import CodeBlock from '../components/CodeBlock';
 
@@ -9,7 +10,11 @@ function Components() {
   const [isDropdownMagentaOpen, setIsDropdownMagentaOpen] = useState(false);
   const [isDropdownRightOpen, setIsDropdownRightOpen] = useState(false);
   const [isClickOutsideDropdownOpen, setIsClickOutsideDropdownOpen] = useState(false);
+  const [modalVariant, setModalVariant] = useState<'' | 'magenta' | 'yellow' | 'green'>('');
+  const [modalSize, setModalSize] = useState<'' | 'sm' | 'lg' | 'xl' | 'fullscreen'>('');
+  const [modalAnimation, setModalAnimation] = useState<'' | 'slide-up' | 'zoom'>('');
   const clickOutsideDropdownRef = useRef<HTMLDivElement>(null);
+  const modalDialogRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -21,6 +26,26 @@ function Components() {
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
   }, []);
+
+  // Close modal on escape key and click outside
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsModalOpen(false);
+    };
+    const handleModalClickOutside = (e: MouseEvent) => {
+      if (modalDialogRef.current && !modalDialogRef.current.contains(e.target as Node)) {
+        setIsModalOpen(false);
+      }
+    };
+    if (isModalOpen) {
+      document.addEventListener('keydown', handleEscape);
+      document.addEventListener('mousedown', handleModalClickOutside);
+    }
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener('mousedown', handleModalClickOutside);
+    };
+  }, [isModalOpen]);
 
   return (
     <div>
@@ -792,45 +817,54 @@ function Components() {
               <span className="cyber-text-cyan">//</span> Modal
             </h2>
 
+            {/* Modal rendered via Portal to escape stacking context */}
+            {createPortal(
+              <div
+                className={`cyber-modal ${isModalOpen ? 'cyber-modal--open' : ''} ${modalVariant ? `cyber-modal--${modalVariant}` : ''} ${modalSize ? `cyber-modal--${modalSize}` : ''} ${modalAnimation ? `cyber-modal--${modalAnimation}` : ''}`}
+              >
+                <div className="cyber-modal__dialog" ref={modalDialogRef}>
+                  <div className="cyber-modal__header">
+                    <h3 className="cyber-modal__title">System Alert</h3>
+                    <button
+                      className="cyber-modal__close"
+                      onClick={() => setIsModalOpen(false)}
+                      aria-label="Close modal"
+                    >
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                  <div className="cyber-modal__body">
+                    <p>
+                      Connection to the mainframe has been established. All systems are
+                      operational and ready for neural interface synchronization.
+                    </p>
+                    <p style={{ marginTop: 'var(--space-sm)', fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)' }}>
+                      Color: {modalVariant || 'cyan'} | Size: {modalSize || 'default'} | Animation: {modalAnimation || 'scale'}
+                    </p>
+                  </div>
+                  <div className="cyber-modal__footer">
+                    <button
+                      className="cyber-btn cyber-btn--ghost"
+                      onClick={() => setIsModalOpen(false)}
+                    >
+                      Cancel
+                    </button>
+                    <button className="cyber-btn" onClick={() => setIsModalOpen(false)}>
+                      Confirm
+                    </button>
+                  </div>
+                </div>
+              </div>,
+              document.body
+            )}
+
             <div className="demo-code-preview">
               <div className="demo-preview">
                 <button className="cyber-btn" onClick={() => setIsModalOpen(true)}>
                   Open Modal
                 </button>
-
-                <div className={`cyber-modal ${isModalOpen ? 'cyber-modal--open' : ''}`}>
-                  <div className="cyber-modal__dialog">
-                    <div className="cyber-modal__header">
-                      <h3 className="cyber-modal__title">System Alert</h3>
-                      <button
-                        className="cyber-modal__close"
-                        onClick={() => setIsModalOpen(false)}
-                        aria-label="Close modal"
-                      >
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M18 6L6 18M6 6l12 12" />
-                        </svg>
-                      </button>
-                    </div>
-                    <div className="cyber-modal__body">
-                      <p>
-                        Connection to the mainframe has been established. All systems are
-                        operational and ready for neural interface synchronization.
-                      </p>
-                    </div>
-                    <div className="cyber-modal__footer">
-                      <button
-                        className="cyber-btn cyber-btn--ghost"
-                        onClick={() => setIsModalOpen(false)}
-                      >
-                        Cancel
-                      </button>
-                      <button className="cyber-btn" onClick={() => setIsModalOpen(false)}>
-                        Confirm
-                      </button>
-                    </div>
-                  </div>
-                </div>
               </div>
               <CodeBlock
                 title="Modal with Header, Body & Footer"
@@ -860,12 +894,36 @@ function Components() {
                 className="demo-preview"
                 style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-sm)' }}
               >
-                <p className="cyber-label">Color variants change the accent color:</p>
+                <p className="cyber-label">Color variants change the accent color (click to try):</p>
                 <div className="demo-showcase">
-                  <span className="cyber-badge">Default (Cyan)</span>
-                  <span className="cyber-badge cyber-badge--magenta">--magenta</span>
-                  <span className="cyber-badge cyber-badge--yellow">--yellow</span>
-                  <span className="cyber-badge cyber-badge--green">--green</span>
+                  <button
+                    className="cyber-badge"
+                    onClick={() => { setModalVariant(''); setIsModalOpen(true); }}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    Default (Cyan)
+                  </button>
+                  <button
+                    className="cyber-badge cyber-badge--magenta"
+                    onClick={() => { setModalVariant('magenta'); setIsModalOpen(true); }}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    --magenta
+                  </button>
+                  <button
+                    className="cyber-badge cyber-badge--yellow"
+                    onClick={() => { setModalVariant('yellow'); setIsModalOpen(true); }}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    --yellow
+                  </button>
+                  <button
+                    className="cyber-badge cyber-badge--green"
+                    onClick={() => { setModalVariant('green'); setIsModalOpen(true); }}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    --green
+                  </button>
                 </div>
               </div>
               <CodeBlock
@@ -884,13 +942,43 @@ function Components() {
                 className="demo-preview"
                 style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-sm)' }}
               >
-                <p className="cyber-label">Size variants control the dialog width:</p>
+                <p className="cyber-label">Size variants control the dialog width (click to try):</p>
                 <div className="demo-showcase">
-                  <span className="cyber-badge cyber-badge--sm">--sm (360px)</span>
-                  <span className="cyber-badge">Default (500px)</span>
-                  <span className="cyber-badge">--lg (720px)</span>
-                  <span className="cyber-badge">--xl (960px)</span>
-                  <span className="cyber-badge cyber-badge--magenta">--fullscreen</span>
+                  <button
+                    className="cyber-badge"
+                    onClick={() => { setModalSize('sm'); setIsModalOpen(true); }}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    --sm (360px)
+                  </button>
+                  <button
+                    className="cyber-badge"
+                    onClick={() => { setModalSize(''); setIsModalOpen(true); }}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    Default (500px)
+                  </button>
+                  <button
+                    className="cyber-badge"
+                    onClick={() => { setModalSize('lg'); setIsModalOpen(true); }}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    --lg (720px)
+                  </button>
+                  <button
+                    className="cyber-badge"
+                    onClick={() => { setModalSize('xl'); setIsModalOpen(true); }}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    --xl (960px)
+                  </button>
+                  <button
+                    className="cyber-badge cyber-badge--magenta"
+                    onClick={() => { setModalSize('fullscreen'); setIsModalOpen(true); }}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    --fullscreen
+                  </button>
                 </div>
               </div>
               <CodeBlock
@@ -910,11 +998,29 @@ function Components() {
                 className="demo-preview"
                 style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-sm)' }}
               >
-                <p className="cyber-label">Animation variants for entrance effects:</p>
+                <p className="cyber-label">Animation variants for entrance effects (click to try):</p>
                 <div className="demo-showcase">
-                  <span className="cyber-badge">Default (scale)</span>
-                  <span className="cyber-badge cyber-badge--green">--slide-up</span>
-                  <span className="cyber-badge cyber-badge--yellow">--zoom</span>
+                  <button
+                    className="cyber-badge"
+                    onClick={() => { setModalAnimation(''); setIsModalOpen(true); }}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    Default (scale)
+                  </button>
+                  <button
+                    className="cyber-badge cyber-badge--green"
+                    onClick={() => { setModalAnimation('slide-up'); setIsModalOpen(true); }}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    --slide-up
+                  </button>
+                  <button
+                    className="cyber-badge cyber-badge--yellow"
+                    onClick={() => { setModalAnimation('zoom'); setIsModalOpen(true); }}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    --zoom
+                  </button>
                 </div>
               </div>
               <CodeBlock
@@ -924,6 +1030,78 @@ function Components() {
 <div class="cyber-modal cyber-modal--open"> <!-- default scale -->
 <div class="cyber-modal cyber-modal--slide-up cyber-modal--open">
 <div class="cyber-modal cyber-modal--zoom cyber-modal--open">`}
+              />
+            </div>
+
+            <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-sm)' }}
+              >
+                <p className="cyber-label">JavaScript: Close on Click Outside & Escape Key</p>
+                <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)' }}>
+                  Try it: Click outside the modal or press Escape to close it.
+                </p>
+              </div>
+              <CodeBlock
+                title="Click Outside & Escape - Vanilla JS"
+                language="javascript"
+                code={`// Close modal on backdrop click
+document.querySelector('.cyber-modal').addEventListener('click', (e) => {
+  // Only close if clicking the backdrop, not the dialog
+  if (e.target.classList.contains('cyber-modal')) {
+    e.target.classList.remove('cyber-modal--open');
+  }
+});
+
+// Close modal on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.cyber-modal--open').forEach(modal => {
+      modal.classList.remove('cyber-modal--open');
+    });
+  }
+});`}
+              />
+            </div>
+
+            <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-sm)' }}
+              >
+                <p className="cyber-label">React Example</p>
+              </div>
+              <CodeBlock
+                title="Click Outside & Escape - React"
+                language="javascript"
+                code={`const [isOpen, setIsOpen] = useState(false);
+const dialogRef = useRef(null);
+
+useEffect(() => {
+  const handleEscape = (e) => {
+    if (e.key === 'Escape') setIsOpen(false);
+  };
+  const handleClickOutside = (e) => {
+    if (dialogRef.current && !dialogRef.current.contains(e.target)) {
+      setIsOpen(false);
+    }
+  };
+  if (isOpen) {
+    document.addEventListener('keydown', handleEscape);
+    document.addEventListener('mousedown', handleClickOutside);
+  }
+  return () => {
+    document.removeEventListener('keydown', handleEscape);
+    document.removeEventListener('mousedown', handleClickOutside);
+  };
+}, [isOpen]);
+
+<div className={\`cyber-modal \${isOpen ? 'cyber-modal--open' : ''}\`}>
+  <div className="cyber-modal__dialog" ref={dialogRef}>
+    ...
+  </div>
+</div>`}
               />
             </div>
           </section>
