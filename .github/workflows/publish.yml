@@ -1,4 +1,4 @@
-name: Publish to NPM
+name: Publish Package
 
 on:
   push:
@@ -71,11 +71,52 @@ jobs:
       - name: Publish to NPM (Trusted Publishing via OIDC)
         run: npm publish --access public
 
+  # Publish to GitHub Packages
+  publish-gpr:
+    name: Publish to GitHub Packages
+    runs-on: ubuntu-latest
+    needs: publish
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js for GitHub Packages
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@sebyx07'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build package
+        run: npm run build
+
+      - name: Configure package for GitHub Packages
+        run: |
+          # Update package.json with scoped name for GitHub Packages
+          node -e "
+            const pkg = require('./package.json');
+            pkg.name = '@sebyx07/cybercore-css';
+            pkg.publishConfig = { registry: 'https://npm.pkg.github.com' };
+            require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2));
+          "
+
+      - name: Publish to GitHub Packages
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   # Create GitHub Release
   release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
-    needs: publish
+    needs: [publish, publish-gpr]
     permissions:
       contents: write
     steps:
@@ -129,8 +170,14 @@ jobs:
 
             ### Installation
 
+            **From npm:**
             ```bash
             npm install cybercore-css@${{ steps.get_version.outputs.VERSION }}
+            ```
+
+            **From GitHub Packages:**
+            ```bash
+            npm install @sebyx07/cybercore-css@${{ steps.get_version.outputs.VERSION }} --registry=https://npm.pkg.github.com
             ```
 
             ### CDN Links
@@ -156,7 +203,7 @@ jobs:
   notify-failure:
     name: Notify on Failure
     runs-on: ubuntu-latest
-    needs: [validate, publish, release]
+    needs: [validate, publish, publish-gpr, release]
     if: failure()
     permissions:
       issues: write
