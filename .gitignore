@@ -62,6 +62,9 @@ coverage/
 # Temporary files
 tmp/
 temp/
+
+# Playwright
+.playwright-mcp/
 *.tmp
 *.temp
 
