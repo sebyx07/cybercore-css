@@ -55,6 +55,29 @@
   // Text with Glow
   // --------------------------------------------------------
 
+  // Base glow (cyan)
+  .cyber-text-glow {
+    color: var(--cyber-cyan-500);
+    text-shadow: var(--glow-text-cyan);
+
+    // BEM modifiers
+    &--magenta {
+      color: var(--cyber-magenta-500);
+      text-shadow: var(--glow-text-magenta);
+    }
+
+    &--yellow {
+      color: var(--cyber-yellow-500);
+      text-shadow: var(--glow-text-yellow);
+    }
+
+    &--green {
+      color: var(--cyber-green-500);
+      text-shadow: var(--glow-text-green);
+    }
+  }
+
+  // Alternative flat naming (keep for backwards compatibility)
   .cyber-text-glow-cyan {
     color: var(--cyber-cyan-500);
     text-shadow: var(--glow-text-cyan);

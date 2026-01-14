@@ -6,7 +6,7 @@
   .cyber-neon-border {
     position: relative;
 
-    // Rainbow gradient border with blur glow
+    // Rainbow gradient border with blur glow (default: cyan theme)
     &::before {
       content: "";
       position: absolute;
@@ -24,6 +24,53 @@
       animation: neon-flow 4s linear infinite;
       filter: blur(6px);
       inset: -3px;
+    }
+
+    // Magenta variant
+    &--magenta::before {
+      background: linear-gradient(
+        90deg,
+        var(--cyber-magenta-500, #ff2a6d),
+        var(--cyber-cyan-500, #00f0ff),
+        var(--cyber-magenta-500, #ff2a6d),
+        var(--cyber-yellow-500, #fcee0a),
+        var(--cyber-magenta-500, #ff2a6d)
+      );
+    }
+
+    // Cyan only variant
+    &--cyan::before {
+      background: linear-gradient(
+        90deg,
+        var(--cyber-cyan-400, #33f3ff),
+        var(--cyber-cyan-600, #00c4cc),
+        var(--cyber-cyan-500, #00f0ff),
+        var(--cyber-cyan-400, #33f3ff)
+      );
+    }
+
+    // Yellow variant
+    &--yellow::before {
+      background: linear-gradient(
+        90deg,
+        var(--cyber-yellow-500, #fcee0a),
+        var(--cyber-green-500, #05ffa1),
+        var(--cyber-yellow-500, #fcee0a),
+        var(--cyber-cyan-500, #00f0ff),
+        var(--cyber-yellow-500, #fcee0a)
+      );
+    }
+
+    // Green variant
+    &--green::before {
+      background: linear-gradient(
+        90deg,
+        var(--cyber-green-500, #05ffa1),
+        var(--cyber-cyan-500, #00f0ff),
+        var(--cyber-green-500, #05ffa1),
+        var(--cyber-yellow-500, #fcee0a),
+        var(--cyber-green-500, #05ffa1)
+      );
     }
   }
 
