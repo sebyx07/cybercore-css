@@ -15,6 +15,7 @@ function App() {
         <Route path="components/:tab" element={<Components />} />
         <Route path="effects" element={<Effects />} />
         <Route path="docs" element={<Docs />} />
+        <Route path="docs/:section" element={<Docs />} />
       </Route>
     </Routes>
   );

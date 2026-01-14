@@ -1,19 +1,25 @@
-import { useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
 import CodeBlock from '../components/CodeBlock';
 
-function Docs() {
-  const [activeSection, setActiveSection] = useState('installation');
+const SECTIONS = [
+  { id: 'installation', label: 'Installation' },
+  { id: 'usage', label: 'Usage' },
+  { id: 'customization', label: 'Customization' },
+  { id: 'colors', label: 'Color System' },
+  { id: 'typography', label: 'Typography' },
+  { id: 'spacing', label: 'Spacing' },
+  { id: 'utilities', label: 'Utilities' },
+] as const;
 
-  const sections = [
-    { id: 'installation', label: 'Installation' },
-    { id: 'usage', label: 'Usage' },
-    { id: 'customization', label: 'Customization' },
-    { id: 'colors', label: 'Color System' },
-    { id: 'typography', label: 'Typography' },
-    { id: 'spacing', label: 'Spacing' },
-    { id: 'utilities', label: 'Utilities' },
-  ];
+type SectionType = (typeof SECTIONS)[number]['id'];
+
+function Docs() {
+  const { section } = useParams<{ section?: string }>();
+  const validIds = SECTIONS.map((s) => s.id);
+  const activeSection: SectionType = validIds.includes(section as SectionType)
+    ? (section as SectionType)
+    : 'installation';
 
   return (
     <div>
@@ -34,14 +40,14 @@ function Docs() {
           {/* Sidebar Navigation - becomes horizontal tabs on mobile */}
           <nav className="docs-nav">
             <ul className="docs-nav__list">
-              {sections.map((section) => (
-                <li key={section.id}>
-                  <button
-                    onClick={() => setActiveSection(section.id)}
-                    className={`docs-nav__link ${activeSection === section.id ? 'docs-nav__link--active' : ''}`}
+              {SECTIONS.map((sec) => (
+                <li key={sec.id}>
+                  <Link
+                    to={`/docs/${sec.id}`}
+                    className={`docs-nav__link ${activeSection === sec.id ? 'docs-nav__link--active' : ''}`}
                   >
-                    {section.label}
-                  </button>
+                    {sec.label}
+                  </Link>
                 </li>
               ))}
             </ul>

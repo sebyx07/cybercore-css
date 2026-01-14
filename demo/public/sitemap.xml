@@ -97,6 +97,48 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://sebyx07.github.io/cybercore-css/#/docs/installation</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sebyx07.github.io/cybercore-css/#/docs/usage</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sebyx07.github.io/cybercore-css/#/docs/customization</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sebyx07.github.io/cybercore-css/#/docs/colors</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sebyx07.github.io/cybercore-css/#/docs/typography</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sebyx07.github.io/cybercore-css/#/docs/spacing</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sebyx07.github.io/cybercore-css/#/docs/utilities</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://sebyx07.github.io/cybercore-css/llm.txt</loc>
     <lastmod>2026-01-14</lastmod>
     <changefreq>monthly</changefreq>
