@@ -462,7 +462,9 @@ MIT License - Use it, hack it, share it.
 
 ## 🔗 Related Projects
 
-- **[CYBERCORE CHARTS](https://github.com/sebyx07/cybercore-charts)** - Zero-dependency SVG chart library with the same cyberpunk aesthetic. Neon glows, dark themes, and AI-optimized.
+- **[CYBERCORE CHARTS](https://github.com/sebyx07/cybercore-charts)** -
+  Zero-dependency SVG chart library with the same cyberpunk aesthetic. Neon
+  glows, dark themes, and AI-optimized.
 
 ---
 
