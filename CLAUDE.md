@@ -180,6 +180,30 @@ Start the dev server (`npm run dev`) first, then use browser tools to inspect.
 - Consistent type imports (`import type`)
 - Import order: builtins → external → internal → parent → sibling → type
 
+## Releases
+
+Releases are automated via GitHub Actions. To create a new release:
+
+```bash
+# 1. Bump version (patch/minor/major)
+npm version patch --no-git-tag-version
+
+# 2. Build the project
+npm run build
+
+# 3. Commit the release
+git add -A
+git commit -m "chore: release vX.X.X"
+git push
+
+# 4. Create and push tag to trigger GitHub Actions
+git tag vX.X.X
+git push origin vX.X.X
+```
+
+GitHub Actions will automatically publish to npm and GitHub Packages when a new
+tag is pushed.
+
 ## Key Constraints
 
 - Framework is pure CSS—no JavaScript dependencies

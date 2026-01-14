@@ -74,7 +74,8 @@ npm install cybercore-css
 
 ![Glitch Effect](assets/img.png)
 
-_Glitch text effect with chromatic aberration, scanlines, and animated distortion_
+_Glitch text effect with chromatic aberration, scanlines, and animated
+distortion_
 
 ### Neon Border
 
