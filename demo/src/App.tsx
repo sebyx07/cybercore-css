@@ -6,6 +6,7 @@ import Docs from './pages/Docs';
 import Effects from './pages/Effects';
 import Home from './pages/Home';
 import Icons from './pages/Icons';
+import NotFound from './pages/NotFound';
 import Utilities from './pages/Utilities';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="utilities/:tab" element={<Utilities />} />
         <Route path="docs" element={<Docs />} />
         <Route path="docs/:section" element={<Docs />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );

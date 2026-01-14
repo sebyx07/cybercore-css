@@ -125,9 +125,12 @@
 
     --radius-sm: 2px;
     --radius-md: 4px;
+    --radius-lg: 8px;
+    --radius-full: 9999px;
     --radius-cyber: 0 12px 0 12px;
     --border-thin: 1px;
     --border-medium: 2px;
+    --border-thick: 3px;
 
     // --------------------------------------------------------
     // Animation
@@ -135,11 +138,13 @@
 
     --ease-cyber: cubic-bezier(0.77, 0, 0.175, 1);
     --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --duration-fast: 150ms;
     --duration-normal: 300ms;
     --duration-slow: 500ms;
     --transition-fast: var(--duration-fast) ease;
     --transition-base: var(--duration-normal) ease;
+    --transition-slow: var(--duration-slow) ease;
 
     // --------------------------------------------------------
     // Z-Index (optimized: removed unused --z-base, --z-raised, --z-overlay)

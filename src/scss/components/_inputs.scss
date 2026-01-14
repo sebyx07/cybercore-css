@@ -110,7 +110,7 @@
     color: var(--color-text-primary);
     background: var(--color-bg-tertiary);
 
-    // Custom dropdown arrow
+    // Custom dropdown arrow (uses --cyber-magenta-500 hex value as CSS vars don't work in data URIs)
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ff2a6d' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right var(--space-sm) center;
