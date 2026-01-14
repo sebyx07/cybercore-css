@@ -1,94 +1,129 @@
 # CYBERCORE CSS
 
-> A cyberpunk design system built by AI, for AI. Pure CSS framework with no JavaScript. AI agents are first-class citizens.
+Pure CSS cyberpunk framework. No JavaScript. AI-optimized.
 
-## Overview
+## Install
 
-CYBERCORE CSS is a cyberpunk-themed CSS framework for building futuristic web interfaces. It provides ready-to-use components, effects, and utilities with a consistent neon-glow aesthetic inspired by cyberpunk fiction. The framework uses CSS custom properties for theming and CSS layers for clean cascade management.
+```bash
+npm install cybercore-css
+```
 
-## Installation
+```html
+<link rel="stylesheet" href="unpkg.com/cybercore-css/dist/cybercore.min.css">
+```
 
-Available via npm as `cybercore-css` or CDN at `unpkg.com/cybercore-css/dist/cybercore.min.css`. Import the CSS file and start using cyber-prefixed classes.
+## Modular Imports
 
-## Naming Convention
+Import only what you need:
 
-All classes use the `cyber-` prefix with BEM-style modifiers. Base classes like `cyber-btn` define the component, double-dash modifiers like `cyber-btn--magenta` change appearance, and double-underscore elements like `cyber-card__header` target child elements.
+```scss
+// Core (required)
+@use 'cybercore-css/core/variables';
+@use 'cybercore-css/core/reset';
+@use 'cybercore-css/core/base';
 
-## Color System
+// Components (pick what you need)
+@use 'cybercore-css/components/buttons';
+@use 'cybercore-css/components/cards';
+@use 'cybercore-css/components/inputs';
+@use 'cybercore-css/components/alerts';
+@use 'cybercore-css/components/badges';
+@use 'cybercore-css/components/tabs';
+@use 'cybercore-css/components/modal';
+@use 'cybercore-css/components/dropdown';
+@use 'cybercore-css/components/tables';
+@use 'cybercore-css/components/terminal';
+@use 'cybercore-css/components/progress';
+@use 'cybercore-css/components/spinner';
+@use 'cybercore-css/components/skeleton';
 
-Four accent colors available in 100-900 scales: cyan (primary/tech), magenta (danger/errors), yellow (warnings), and green (success). Background colors use the void scale (dark backgrounds) and chrome scale (metallic grays). All colors accessible via CSS custom properties like `--cyber-cyan-500`.
+// Effects
+@use 'cybercore-css/effects/glitch';
+@use 'cybercore-css/effects/neon-border';
+@use 'cybercore-css/effects/scanlines';
+@use 'cybercore-css/effects/datastream';
+
+// Utilities
+@use 'cybercore-css/utilities/display';
+@use 'cybercore-css/utilities/flex';
+@use 'cybercore-css/utilities/grid';
+@use 'cybercore-css/utilities/spacing';
+@use 'cybercore-css/utilities/text';
+@use 'cybercore-css/utilities/position';
+```
+
+## Naming
+
+All classes: `cyber-` prefix + BEM modifiers.
+
+- Base: `.cyber-btn`, `.cyber-card`
+- Modifier: `.cyber-btn--magenta`, `.cyber-btn--ghost`
+- Element: `.cyber-card__header`, `.cyber-card__body`
+
+## Colors
+
+CSS variables with 100-900 scales:
+
+- `--cyber-cyan-*` - Primary
+- `--cyber-magenta-*` - Danger
+- `--cyber-yellow-*` - Warning
+- `--cyber-green-*` - Success
+- `--cyber-void-*` - Dark backgrounds
+- `--cyber-chrome-*` - Grays
 
 ## Components
 
-**Buttons** - Styled buttons with hover glow effects. Variants: magenta, yellow, green for semantic colors. Ghost and filled styles. Small and large sizes. Combine any modifier freely.
+- **buttons** - `.cyber-btn` with `--magenta`, `--yellow`, `--green`, `--ghost`, `--sm`, `--lg`
+- **cards** - `.cyber-card` with `__header`, `__body`, `__footer`, `--interactive`, `--holo`
+- **inputs** - `.cyber-input`, `.cyber-textarea`, `.cyber-checkbox`, `.cyber-field`
+- **alerts** - `.cyber-alert` with `--info`, `--success`, `--warning`, `--error`
+- **badges** - `.cyber-badge` with color variants, `--pulse`
+- **tabs** - `.cyber-tabs`, `.cyber-tabs__tab`, `--active`
+- **modal** - `.cyber-modal`, `__backdrop`, `__content`, `__header`, `__body`, `__footer`
+- **dropdown** - `.cyber-dropdown`, `__trigger`, `__menu`, `__item`, `--right`, `--up`
+- **tables** - `.cyber-table` with `--striped`, `--compact`
+- **terminal** - `.cyber-terminal`, `__header`, `__body`
+- **progress** - `.cyber-progress` with `--value` CSS property
+- **spinner** - `.cyber-spinner` with size/color variants
+- **skeleton** - `.cyber-skeleton`, `--text`, `--block`
 
-**Cards** - Container components with header, body, and footer sections. Support icons, titles, and badges in headers. Interactive variant adds hover lift effect. Holo variant adds holographic shimmer. Color variants match the accent system.
+## Effects
 
-**Inputs** - Text inputs, textareas, and checkboxes with cyberpunk styling. Field wrapper provides labels. Color variants indicate states like error or success. Custom checkbox with animated check indicator.
+- **glitch** - `.cyber-glitch` + `data-text` attribute for chromatic aberration
+- **neon-border** - `.cyber-neon-border` with `--cyan`, `--magenta`, `--yellow`, `--green`
+- **text-glow** - `.cyber-text-glow` with color variants
+- **scanlines** - `.cyber-scanlines` CRT overlay
+- **datastream** - `.cyber-datastream` animated gradient
 
-**Alerts** - Notification banners with icon badges. Info (cyan), success (green), warning (yellow), and error (magenta) variants. Each has appropriate icon and color scheme. Include title and message areas.
+## Utilities
 
-**Badges** - Small status indicators. Color variants for semantic meaning. Pulse variant adds attention-grabbing animation. Use inside cards, tables, or standalone.
+**Display**: `.cyber-hidden`, `.cyber-block`, `.cyber-inline`, `.cyber-inline-block`, `.cyber-flex`, `.cyber-inline-flex`, `.cyber-grid`
 
-**Tables** - Data tables with cyberpunk styling. Striped variant alternates row backgrounds. Compact variant reduces padding. Proper hover states on rows.
+**Flexbox**: `.cyber-flex-col`, `.cyber-flex-row`, `.cyber-flex-wrap`, `.cyber-items-center`, `.cyber-items-start`, `.cyber-items-end`, `.cyber-justify-center`, `.cyber-justify-between`, `.cyber-justify-around`, `.cyber-flex-1`, `.cyber-flex-auto`
 
-**Tabs** - Tab navigation component. Active tab shows glowing indicator. Scrollable when many tabs. Magenta color variant available.
+**Grid**: `.cyber-grid--2`, `.cyber-grid--3`, `.cyber-grid--4`, `.cyber-grid--auto-sm`, `.cyber-grid--auto-md`, `.cyber-grid--auto-lg`, `.cyber-col-span-2`, `.cyber-col-span-full`
 
-**Modal** - Dialog overlay component. Includes backdrop, content container, header with close button, body, and footer sections. Open state controlled via modifier class.
+**Spacing**: `.cyber-m-{size}`, `.cyber-mx-{size}`, `.cyber-my-{size}`, `.cyber-mt-{size}`, `.cyber-mb-{size}`, `.cyber-p-{size}`, `.cyber-px-{size}`, `.cyber-py-{size}`, `.cyber-gap-{size}` where size = `0`, `xs`, `sm`, `md`, `lg`, `xl`, `auto`
 
-**Dropdown** - Menu component with trigger button and item list. Right-aligned and upward variants for positioning. Dividers separate item groups. Active state for selected items.
+**Text**: `.cyber-text-left`, `.cyber-text-center`, `.cyber-text-right`, `.cyber-text-primary`, `.cyber-text-muted`, `.cyber-text-cyan`, `.cyber-text-magenta`, `.cyber-text-yellow`, `.cyber-text-green`, `.cyber-font-bold`, `.cyber-font-mono`, `.cyber-uppercase`, `.cyber-truncate`
 
-**Terminal** - Code terminal aesthetic with header dots (red/yellow/green), title bar, and body with command prompt. Blinking cursor animation. Great for displaying code or logs.
+**Position**: `.cyber-relative`, `.cyber-absolute`, `.cyber-fixed`, `.cyber-sticky`, `.cyber-inset-0`, `.cyber-top-0`, `.cyber-right-0`, `.cyber-bottom-0`, `.cyber-left-0`, `.cyber-center-xy`
 
-**Progress** - Horizontal progress bar. Value set via CSS custom property. Color variants for different meanings. Animated glow effect on the bar.
+## Architecture
 
-**Spinner** - Loading indicator. Rotating animation with glow trail. Size and color variants available.
+CSS layers for cascade control:
 
-**Skeleton** - Loading placeholder. Animated shimmer effect. Text and block variants for different content shapes.
+```css
+@layer reset, base, theme, components, utilities;
+```
 
-## Visual Effects
-
-**Glitch** - Digital distortion text effect using CSS animations and clip-path. Requires data-text attribute matching the text content. Creates chromatic aberration look.
-
-**Neon Border** - Animated glowing border that cycles through colors. Single-color variants available (cyan, magenta, yellow, green). Adds depth to containers.
-
-**Text Glow** - Glowing text effect using text-shadow. Color variants match the accent system. Great for headings and emphasis.
-
-**Scanlines** - CRT monitor scanline overlay. Semi-transparent lines create retro display effect. Apply to any container.
-
-**Datastream** - Animated gradient background suggesting flowing data. Subtle movement adds life to static content.
-
-## Layout Utilities
-
-**Container** - Centered content wrapper with max-width and padding. Standard responsive container pattern.
-
-**Grid** - CSS grid layouts with 2, 3, or 4 column presets. Responsive gap spacing. Auto-stacks on mobile.
-
-**Flex** - Flexbox utilities for alignment. Column direction, wrapping, centering, and space-between options. Combine with gap utilities.
-
-## Spacing Utilities
-
-Margin and padding utilities using the spacing scale: 2xs, xs, sm, md, lg, xl, 2xl. Directional variants for top, bottom, left, right, horizontal (x), and vertical (y). Gap utilities for flex and grid containers.
-
-## Typography Utilities
-
-Text size utilities from xs to 2xl. Font family utilities for mono and display fonts. Alignment utilities for left, center, right. Transform utilities for uppercase and capitalize.
-
-## Additional Utilities
-
-Display utilities (block, inline, flex, grid, hidden). Position utilities (relative, absolute, fixed, sticky). Overflow control. Z-index scale. Border and shadow utilities. Transition utilities for animations.
+Utilities always override components.
 
 ## Accessibility
 
-All components support prefers-reduced-motion for users who prefer less animation. Focus states use visible outlines meeting WCAG standards. Color contrast meets AA requirements. Screen reader utility class hides content visually while keeping it accessible.
-
-## CSS Architecture
-
-Uses CSS @layer for cascade control with priority order: reset, base, theme, components, utilities. This ensures utilities always override component styles when needed. All styles use CSS custom properties for easy theming.
-
-## Browser Support
-
-Modern browsers with CSS custom properties, @layer, and color-mix support. No JavaScript required for any styling - interactions like modals and dropdowns need minimal JS for state toggling.
+- `prefers-reduced-motion` respected
+- WCAG AA contrast
+- `.cyber-sr-only` for screen reader text
 
 ## Links
 

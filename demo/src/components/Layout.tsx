@@ -70,6 +70,17 @@ function Layout() {
             </li>
             <li>
               <NavLink
+                to="/utilities"
+                className={({ isActive }) =>
+                  `cyber-nav__link ${isActive ? 'cyber-nav__link--active' : ''}`
+                }
+                onClick={closeMenu}
+              >
+                Utilities
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
                 to="/docs"
                 className={({ isActive }) =>
                   `cyber-nav__link ${isActive ? 'cyber-nav__link--active' : ''}`

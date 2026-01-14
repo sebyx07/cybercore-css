@@ -5,6 +5,7 @@ import Components from './pages/Components';
 import Docs from './pages/Docs';
 import Effects from './pages/Effects';
 import Home from './pages/Home';
+import Utilities from './pages/Utilities';
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
         <Route path="components" element={<Components />} />
         <Route path="components/:tab" element={<Components />} />
         <Route path="effects" element={<Effects />} />
+        <Route path="utilities" element={<Utilities />} />
+        <Route path="utilities/:tab" element={<Utilities />} />
         <Route path="docs" element={<Docs />} />
         <Route path="docs/:section" element={<Docs />} />
       </Route>
