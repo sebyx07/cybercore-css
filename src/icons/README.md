@@ -21,6 +21,129 @@ Icons are included with CYBERCORE CSS:
 npm install cybercore-css
 ```
 
+## Quick Start
+
+### Simple HTML/CSS (No Build Tools)
+
+Copy SVG files directly from `node_modules/cybercore-css/src/icons/svg/` or use
+the CDN:
+
+```html
+<!-- Include CSS for icon utilities -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/cybercore-css/dist/cybercore.min.css"
+/>
+
+<!-- Option 1: Copy SVG inline -->
+<span class="cyber-icon cyber-icon--cyan" style="width: 24px; height: 24px;">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <polyline points="4 17 10 11 4 5" />
+    <line x1="12" y1="19" x2="20" y2="19" />
+  </svg>
+</span>
+
+<!-- Option 2: Use as background image -->
+<span class="my-icon"></span>
+<style>
+  .my-icon {
+    width: 24px;
+    height: 24px;
+    background-image: url('path/to/terminal.svg');
+    background-size: contain;
+  }
+</style>
+```
+
+**Icon CSS Classes:**
+
+- `.cyber-icon--cyan` / `--magenta` / `--yellow` / `--green` - Color variants
+- `.cyber-icon--sm` (16px) / `--md` (24px) / `--lg` (32px) / `--xl` (48px) -
+  Sizes
+- `.cyber-icon--spin` / `--pulse` / `--glitch` - Animations
+
+### React / Next.js / Vite
+
+```tsx
+import { renderIcon, getRegisteredIcons } from 'cybercore-css/icons';
+
+function App() {
+  return (
+    <div>
+      {/* Method 1: Render as HTML string */}
+      <span
+        dangerouslySetInnerHTML={{
+          __html: renderIcon('terminal', { size: 24, color: 'cyan' }),
+        }}
+      />
+
+      {/* Method 2: Create a reusable Icon component */}
+      <Icon name="shield" size={32} color="magenta" />
+    </div>
+  );
+}
+
+// Reusable Icon Component
+function Icon({ name, size = 24, color = 'current', className = '' }) {
+  return (
+    <span
+      className={`cyber-icon ${className}`}
+      style={{
+        color: color !== 'current' ? `var(--cyber-${color}-500)` : undefined,
+      }}
+      dangerouslySetInnerHTML={{ __html: renderIcon(name, { size }) }}
+    />
+  );
+}
+```
+
+### Vue.js
+
+```vue
+<template>
+  <span v-html="iconHtml" class="cyber-icon"></span>
+</template>
+
+<script setup>
+import { computed } from 'vue';
+import { renderIcon } from 'cybercore-css/icons';
+
+const props = defineProps({
+  name: String,
+  size: { type: Number, default: 24 },
+  color: { type: String, default: 'cyan' },
+});
+
+const iconHtml = computed(() =>
+  renderIcon(props.name, { size: props.size, color: props.color })
+);
+</script>
+```
+
+### Svelte
+
+```svelte
+<script>
+  import { renderIcon } from 'cybercore-css/icons';
+
+  export let name = 'terminal';
+  export let size = 24;
+  export let color = 'cyan';
+
+  $: html = renderIcon(name, { size, color });
+</script>
+
+<span class="cyber-icon" {@html html}></span>
+```
+
 ## Usage
 
 ### Import Everything

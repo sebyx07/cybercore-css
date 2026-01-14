@@ -10,12 +10,9 @@ export const bellOff: IconDefinition = {
   description: 'Notifications disabled (bell with slash)',
   tags: ['notification', 'disabled', 'mute', 'silent', 'off'],
   svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M8.7 8.7A6 6 0 0 1 18 8c0 4.5 1.5 7 2.5 8.5"/>
+  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
   <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-  <path d="M3 17s1.5-2 2-5"/>
-  <path d="M6 8c0-.5.1-1 .2-1.5"/>
-  <line x1="3" y1="3" x2="21" y2="21"/>
-  <line x1="10" y1="4" x2="14" y2="4"/>
+  <line x1="2" y1="2" x2="22" y2="22"/>
 </svg>`,
   variants: {
     solid: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">

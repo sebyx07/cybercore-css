@@ -1513,20 +1513,17 @@ export const icons: IconRegistry = {
   circuit: {
     name: 'circuit',
     category: 'tech',
-    description: 'Circuit board pattern with nodes',
-    tags: ['electronics', 'board', 'hardware', 'connection'],
+    description: 'Circuit board pattern',
+    tags: ['circuit', 'board', 'electronics', 'pcb', 'connections'],
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="6" cy="6" r="2"/>
-  <circle cx="18" cy="6" r="2"/>
-  <circle cx="6" cy="18" r="2"/>
-  <circle cx="18" cy="18" r="2"/>
-  <line x1="8" y1="6" x2="16" y2="6"/>
-  <line x1="6" y1="8" x2="6" y2="16"/>
-  <line x1="18" y1="8" x2="18" y2="16"/>
-  <line x1="8" y1="18" x2="16" y2="18"/>
-  <line x1="12" y1="6" x2="12" y2="10"/>
-  <line x1="6" y1="12" x2="10" y2="12"/>
-  <circle cx="12" cy="12" r="1.5"/>
+  <rect x="4" y="4" width="16" height="16" rx="2"/>
+  <circle cx="8" cy="8" r="1"/>
+  <circle cx="16" cy="8" r="1"/>
+  <circle cx="8" cy="16" r="1"/>
+  <circle cx="16" cy="16" r="1"/>
+  <line x1="8" y1="9" x2="8" y2="15"/>
+  <line x1="16" y1="9" x2="16" y2="15"/>
+  <line x1="9" y1="12" x2="15" y2="12"/>
 </svg>`,
   },
 
@@ -1831,36 +1828,13 @@ export const icons: IconRegistry = {
   'bell-off': {
     name: 'bell-off',
     category: 'communication',
-    description: 'Notifications disabled',
-    tags: ['mute', 'silent', 'do-not-disturb', 'off'],
+    description: 'Notifications disabled (bell with slash)',
+    tags: ['notification', 'disabled', 'mute', 'silent', 'off'],
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M8.56 3.69A6 6 0 0 1 18 8c0 2.5.5 4.5 1.2 6"/>
-  <path d="M9 17H3s1.5-1.5 2-5"/>
+  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
   <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-  <line x1="3" y1="3" x2="21" y2="21"/>
-  <path d="M14.5 8.5l1-1"/>
+  <line x1="2" y1="2" x2="22" y2="22"/>
 </svg>`,
-    variants: {
-      solid: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-  <path d="M12 2c.552 0 1 .448 1 1v1.07A6.002 6.002 0 0 1 18 10c0 1.5.3 2.8.7 4l-15 15L2.3 27.6 4.3 25.6 3 24.5v-.5c1-1 2-2.5 2.5-4.5L21 3.7l-1.4-1.4-6.6 6.6V3c0-.552.448-1 1-1zm1 19c0 .552-.448 1-1 1s-1-.448-1-1h2z"/>
-  <path d="M3.7 3l18 18-1.4 1.4-18-18z"/>
-</svg>`,
-      duotone: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M8.56 3.69A6 6 0 0 1 18 8c0 2.5.5 4.5 1.2 6" fill="currentColor" opacity="0.3"/>
-  <path d="M8.56 3.69A6 6 0 0 1 18 8c0 2.5.5 4.5 1.2 6"/>
-  <path d="M9 17H3s1.5-1.5 2-5"/>
-  <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-  <line x1="3" y1="3" x2="21" y2="21"/>
-</svg>`,
-      glitch: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M8.56 3.69A6 6 0 0 1 18 8c0 2.5.5 4.5 1.2 6" transform="translate(1,-1)" opacity="0.5"/>
-  <path d="M8.56 3.69A6 6 0 0 1 18 8c0 2.5.5 4.5 1.2 6"/>
-  <path d="M9 17H3s1.5-1.5 2-5"/>
-  <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-  <line x1="3" y1="3" x2="21" y2="21" transform="translate(1,-1)" opacity="0.5"/>
-  <line x1="3" y1="3" x2="21" y2="21"/>
-</svg>`,
-    },
   },
 
   message: {
@@ -2036,35 +2010,12 @@ export const icons: IconRegistry = {
   'phone-off': {
     name: 'phone-off',
     category: 'communication',
-    description: 'End call or phone disabled',
-    tags: ['hangup', 'end', 'disconnect', 'decline'],
+    description: 'End call (phone with X)',
+    tags: ['phone', 'end', 'hangup', 'disconnect', 'off'],
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07"/>
-  <path d="M5 5a19.5 19.5 0 0 0 1.5 3.5"/>
-  <path d="M2.1 4.11A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81"/>
+  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
   <line x1="2" y1="2" x2="22" y2="22"/>
 </svg>`,
-    variants: {
-      solid: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-  <path d="M2.707 1.293a1 1 0 0 0-1.414 1.414l1.42 1.42A2 2 0 0 0 2 5.99c0 9.28 7.72 17 17.01 17 .54 0 .99-.26.99-.99v-3.45c0-.54-.45-.99-.99-.99-1.23 0-2.42-.2-3.53-.56-.28-.11-.59-.03-.79.17l-1.57 1.97c-1.16-.56-2.24-1.27-3.24-2.09l12.41-12.41a1 1 0 0 0-1.414-1.414L2.707 1.293z"/>
-  <line x1="2" y1="2" x2="22" y2="22" stroke="currentColor" stroke-width="2"/>
-</svg>`,
-      duotone: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07" fill="currentColor" opacity="0.3"/>
-  <path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07"/>
-  <path d="M5 5a19.5 19.5 0 0 0 1.5 3.5"/>
-  <path d="M2.1 4.11A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81"/>
-  <line x1="2" y1="2" x2="22" y2="22"/>
-</svg>`,
-      glitch: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07" transform="translate(1,-1)" opacity="0.5"/>
-  <path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07"/>
-  <path d="M5 5a19.5 19.5 0 0 0 1.5 3.5"/>
-  <path d="M2.1 4.11A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81"/>
-  <line x1="2" y1="2" x2="22" y2="22" transform="translate(1,-1)" opacity="0.5"/>
-  <line x1="2" y1="2" x2="22" y2="22"/>
-</svg>`,
-    },
   },
 
   'video-call': {
