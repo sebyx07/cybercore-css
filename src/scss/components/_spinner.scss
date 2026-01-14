@@ -23,6 +23,7 @@
       border: var(--spinner-thickness) solid transparent;
       border-radius: 50%;
       inset: 0;
+      will-change: transform;
     }
 
     // Outer ring (clockwise) - cyan top border
@@ -258,6 +259,20 @@
 
     20% {
       transform: scaleY(1);
+    }
+  }
+
+  // Reduced motion support for accessibility
+  @media (prefers-reduced-motion: reduce) {
+    .cyber-spinner,
+    .cyber-spinner::before,
+    .cyber-spinner::after {
+      animation: none;
+    }
+
+    .cyber-spinner-dots span,
+    .cyber-spinner-bars span {
+      animation: none;
     }
   }
 

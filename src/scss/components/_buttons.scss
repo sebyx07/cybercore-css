@@ -34,8 +34,12 @@
     color: var(--btn-color);
     background: var(--btn-bg);
 
-    // Animation
-    transition: all var(--duration-fast) var(--ease-cyber);
+    // Animation - specific properties for better performance
+    transition:
+      color var(--duration-fast) var(--ease-cyber),
+      background-color var(--duration-fast) var(--ease-cyber),
+      border-color var(--duration-fast) var(--ease-cyber),
+      box-shadow var(--duration-fast) var(--ease-cyber);
     cursor: pointer;
     isolation: isolate;
 

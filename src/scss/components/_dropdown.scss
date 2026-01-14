@@ -23,7 +23,10 @@
       text-transform: uppercase;
       color: var(--color-text-primary);
       background: var(--color-bg-tertiary);
-      transition: all var(--duration-fast);
+      transition:
+        color var(--duration-fast),
+        background-color var(--duration-fast),
+        border-color var(--duration-fast);
       cursor: pointer;
 
       &:hover {
@@ -97,7 +100,9 @@
       text-align: left;
       color: var(--color-text-secondary);
       background: transparent;
-      transition: all var(--duration-fast);
+      transition:
+        color var(--duration-fast),
+        background-color var(--duration-fast);
       cursor: pointer;
 
       &:hover {

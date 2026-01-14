@@ -3,6 +3,24 @@
 // Tab navigation with active state glow
 // ============================================================
 
+// Local mixin for cyber scrollbar (avoids duplication)
+@mixin cyber-scrollbar {
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--color-bg-secondary);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background: var(--cyber-chrome-600);
+  }
+}
+
 @layer components {
   .cyber-tabs {
     display: flex;
@@ -23,24 +41,11 @@
 
     // Scrollable variant for mobile or constrained spaces
     &--scrollable {
+      @include cyber-scrollbar;
+
       flex-wrap: nowrap;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
-
-      // Hide scrollbar on webkit browsers for cleaner look
-      &::-webkit-scrollbar {
-        height: 4px;
-      }
-
-      &::-webkit-scrollbar-track {
-        background: var(--color-bg-secondary);
-      }
-
-      &::-webkit-scrollbar-thumb {
-        border-radius: 2px;
-        background: var(--cyber-chrome-600);
-      }
 
       .cyber-tabs__list {
         flex-wrap: nowrap;
@@ -54,23 +59,11 @@
 
     // Responsive: scroll on mobile by default
     @media (width <= 768px) {
+      @include cyber-scrollbar;
+
       flex-wrap: nowrap;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
-
-      &::-webkit-scrollbar {
-        height: 4px;
-      }
-
-      &::-webkit-scrollbar-track {
-        background: var(--color-bg-secondary);
-      }
-
-      &::-webkit-scrollbar-thumb {
-        border-radius: 2px;
-        background: var(--cyber-chrome-600);
-      }
 
       .cyber-tab {
         flex: none;
@@ -198,7 +191,9 @@
     white-space: nowrap;
     color: var(--color-text-secondary);
     background: var(--color-bg-secondary);
-    transition: all var(--duration-fast);
+    transition:
+      color var(--duration-fast),
+      background-color var(--duration-fast);
     cursor: pointer;
 
     &:hover {

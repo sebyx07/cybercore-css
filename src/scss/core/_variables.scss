@@ -8,71 +8,45 @@
     // Color System
     // --------------------------------------------------------
 
-    // Primary Cyans
-    --cyber-cyan-100: #e0fcff;
-    --cyber-cyan-200: #bef8fd;
+    // Primary Cyans (optimized: removed unused 100, 200, 800 shades)
     --cyber-cyan-300: #87eaf2;
     --cyber-cyan-400: #54d1db;
     --cyber-cyan-500: #00f0ff;
     --cyber-cyan-600: #00c4cc;
     --cyber-cyan-700: #0097a7;
-    --cyber-cyan-800: #007a87;
     --cyber-cyan-900: #005d6a;
 
-    // Hot Magentas
-    --cyber-magenta-100: #ffe0f0;
-    --cyber-magenta-200: #ffb8d9;
-    --cyber-magenta-300: #ff8cc2;
-    --cyber-magenta-400: #ff5caa;
+    // Hot Magentas (optimized: removed unused 100-400, 600, 800, 900 shades)
     --cyber-magenta-500: #ff2a6d;
-    --cyber-magenta-600: #d91a5a;
     --cyber-magenta-700: #b31248;
-    --cyber-magenta-800: #8c0b37;
-    --cyber-magenta-900: #660527;
 
-    // Electric Yellows
-    --cyber-yellow-100: #fff9db;
-    --cyber-yellow-200: #fff3b8;
-    --cyber-yellow-300: #ffec8a;
-    --cyber-yellow-400: #ffe55c;
+    // Electric Yellows (optimized: removed unused 100-400, 600, 800, 900 shades)
     --cyber-yellow-500: #fcee0a;
-    --cyber-yellow-600: #d4c908;
     --cyber-yellow-700: #aca406;
-    --cyber-yellow-800: #857f04;
-    --cyber-yellow-900: #5d5a03;
 
-    // Toxic Greens
-    --cyber-green-100: #d0ffe0;
-    --cyber-green-200: #a1ffc1;
-    --cyber-green-300: #72ffa2;
+    // Toxic Greens (optimized: removed unused 100-300, 600, 800 shades)
     --cyber-green-400: #43ff83;
     --cyber-green-500: #05ffa1;
-    --cyber-green-600: #04d485;
     --cyber-green-700: #03a969;
-    --cyber-green-800: #027e4d;
     --cyber-green-900: #015331;
 
-    // Void Blacks
+    // Void Blacks (optimized: removed unused 600 shade)
     --cyber-void-100: #2a2d3a;
     --cyber-void-200: #1f2230;
     --cyber-void-300: #181a25;
     --cyber-void-400: #12141d;
     --cyber-void-500: #0d0e14;
-    --cyber-void-600: #0a0b10;
     --cyber-void-700: #07080c;
     --cyber-void-800: #040508;
     --cyber-void-900: #010204;
 
-    // Chrome Grays
+    // Chrome Grays (optimized: removed unused 700-900 shades)
     --cyber-chrome-100: #f0f1f5;
     --cyber-chrome-200: #d1d4de;
     --cyber-chrome-300: #b2b7c7;
     --cyber-chrome-400: #939ab0;
     --cyber-chrome-500: #747d99;
     --cyber-chrome-600: #5c647a;
-    --cyber-chrome-700: #444b5c;
-    --cyber-chrome-800: #2c323d;
-    --cyber-chrome-900: #14191f;
 
     // --------------------------------------------------------
     // Semantic Colors
@@ -131,10 +105,6 @@
     --tracking-wide: 0.05em;
     --tracking-wider: 0.1em;
 
-    // Line Height
-    --leading-tight: 1.1;
-    --leading-normal: 1.6;
-
     // --------------------------------------------------------
     // Spacing
     // --------------------------------------------------------
@@ -172,21 +142,17 @@
     --transition-base: var(--duration-normal) ease;
 
     // --------------------------------------------------------
-    // Z-Index
+    // Z-Index (optimized: removed unused --z-base, --z-raised, --z-overlay)
     // --------------------------------------------------------
 
-    --z-base: 0;
-    --z-raised: 10;
     --z-sticky: 100;
-    --z-overlay: 200;
     --z-modal: 1000;
 
     // --------------------------------------------------------
-    // Effects
+    // Effects (optimized: removed unused --chromatic-offset)
     // --------------------------------------------------------
 
     --noise-opacity: 0.03;
     --scanline-opacity: 0.04;
-    --chromatic-offset: 2px;
   }
 }

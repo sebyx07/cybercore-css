@@ -1,0 +1,96 @@
+// ============================================================
+// Shared Mixins - Performance Optimized
+// ============================================================
+
+// --------------------------------------------------------
+// Color Variant Mixin
+// Reduces duplication across components using color variants
+// --------------------------------------------------------
+
+@mixin color-variant($property: --accent-color, $glow-property: null) {
+  &--magenta {
+    #{$property}: var(--cyber-magenta-500);
+
+    @if $glow-property {
+      #{$glow-property}: var(--glow-magenta);
+    }
+  }
+
+  &--yellow {
+    #{$property}: var(--cyber-yellow-500);
+
+    @if $glow-property {
+      #{$glow-property}: var(--glow-yellow);
+    }
+  }
+
+  &--green {
+    #{$property}: var(--cyber-green-500);
+
+    @if $glow-property {
+      #{$glow-property}: var(--glow-green);
+    }
+  }
+}
+
+// --------------------------------------------------------
+// Cyber Scrollbar Mixin
+// Consistent scrollbar styling across components
+// --------------------------------------------------------
+
+@mixin cyber-scrollbar($height: 4px) {
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    height: $height;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--color-bg-secondary);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background: var(--cyber-chrome-600);
+  }
+}
+
+// --------------------------------------------------------
+// Transition Properties Mixin
+// Avoid "transition: all" for better performance
+// --------------------------------------------------------
+
+@mixin transition-colors($duration: var(--duration-fast)) {
+  transition:
+    color $duration,
+    background-color $duration,
+    border-color $duration,
+    box-shadow $duration;
+}
+
+@mixin transition-interactive($duration: var(--duration-fast), $easing: ease) {
+  transition:
+    color $duration $easing,
+    background-color $duration $easing,
+    border-color $duration $easing,
+    box-shadow $duration $easing,
+    opacity $duration $easing;
+}
+
+// --------------------------------------------------------
+// Reduced Motion Mixin
+// Consistent accessibility support
+// --------------------------------------------------------
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+@mixin reduced-motion-content {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}

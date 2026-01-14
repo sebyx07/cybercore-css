@@ -21,25 +21,23 @@ describe('CSS Custom Properties', () => {
   describe('Color Variables', () => {
     it('should define cyber-cyan color scale', () => {
       expect(css).toMatch(/--cyber-cyan-500/);
-      expect(css).toMatch(/--cyber-cyan-100/);
-      expect(css).toMatch(/--cyber-cyan-900/);
+      expect(css).toMatch(/--cyber-cyan-300/);
+      expect(css).toMatch(/--cyber-cyan-700/);
     });
 
     it('should define cyber-magenta color scale', () => {
       expect(css).toMatch(/--cyber-magenta-500/);
-      expect(css).toMatch(/--cyber-magenta-100/);
-      expect(css).toMatch(/--cyber-magenta-900/);
+      expect(css).toMatch(/--cyber-magenta-700/);
     });
 
     it('should define cyber-yellow color scale', () => {
       expect(css).toMatch(/--cyber-yellow-500/);
-      expect(css).toMatch(/--cyber-yellow-100/);
-      expect(css).toMatch(/--cyber-yellow-900/);
+      expect(css).toMatch(/--cyber-yellow-700/);
     });
 
     it('should define cyber-green color scale', () => {
       expect(css).toMatch(/--cyber-green-500/);
-      expect(css).toMatch(/--cyber-green-100/);
+      expect(css).toMatch(/--cyber-green-400/);
       expect(css).toMatch(/--cyber-green-900/);
     });
 
@@ -52,7 +50,7 @@ describe('CSS Custom Properties', () => {
     it('should define cyber-chrome color scale', () => {
       expect(css).toMatch(/--cyber-chrome-500/);
       expect(css).toMatch(/--cyber-chrome-100/);
-      expect(css).toMatch(/--cyber-chrome-900/);
+      expect(css).toMatch(/--cyber-chrome-600/);
     });
   });
 
@@ -107,11 +105,6 @@ describe('CSS Custom Properties', () => {
       expect(css).toMatch(/--text-5xl/);
     });
 
-    it('should define line-height variables', () => {
-      expect(css).toMatch(/--leading-tight/);
-      expect(css).toMatch(/--leading-normal/);
-    });
-
     it('should define letter-spacing variables', () => {
       expect(css).toMatch(/--tracking-wide/);
       expect(css).toMatch(/--tracking-wider/);
@@ -159,7 +152,6 @@ describe('CSS Custom Properties', () => {
 
   describe('Z-Index Scale', () => {
     it('should define z-index variables', () => {
-      expect(css).toMatch(/--z-base/);
       expect(css).toMatch(/--z-sticky/);
       expect(css).toMatch(/--z-modal/);
     });
