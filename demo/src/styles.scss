@@ -384,6 +384,7 @@ body::after {
 
 .cyber-nav {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--space-md);
   padding: var(--space-sm) var(--space-lg);
@@ -413,6 +414,49 @@ body::after {
     }
   }
 
+  // Hamburger toggle button (hidden on desktop)
+  &__toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: var(--space-xs);
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: border-color var(--duration-fast);
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--cyber-cyan-500);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--cyber-cyan-500);
+      outline-offset: 2px;
+    }
+  }
+
+  &__toggle-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--cyber-cyan-500);
+    transition:
+      transform var(--duration-fast),
+      opacity var(--duration-fast);
+  }
+
+  // Menu container for links and actions
+  &__menu {
+    display: contents;
+  }
+
   &__links {
     display: flex;
     gap: var(--space-2xs);
@@ -422,6 +466,9 @@ body::after {
 
   &__link {
     position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 44px;
     padding: var(--space-xs) var(--space-sm);
     font-family: var(--font-display);
     font-size: var(--text-sm);
@@ -453,6 +500,110 @@ body::after {
     &:hover::before,
     &--active::before {
       transform: translateX(0);
+    }
+  }
+
+  // Actions container for status and GitHub button
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  // Mobile styles
+  @media (max-width: 768px) {
+    padding: var(--space-sm) var(--space-md);
+
+    &__brand {
+      font-size: var(--text-lg);
+      letter-spacing: 0.1em;
+    }
+
+    &__toggle {
+      display: flex;
+    }
+
+    &__menu {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      padding-top: var(--space-md);
+      border-top: 1px solid var(--color-border-default);
+      margin-top: var(--space-sm);
+    }
+
+    &--open &__menu {
+      display: flex;
+    }
+
+    // Hamburger animation when open
+    &--open &__toggle-bar:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    &--open &__toggle-bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    &--open &__toggle-bar:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    &__links {
+      flex-direction: column;
+      gap: 0;
+      width: 100%;
+      margin-left: 0;
+    }
+
+    &__link {
+      width: 100%;
+      min-height: 48px;
+      padding: var(--space-sm) var(--space-md);
+      font-size: var(--text-base);
+      border-bottom: 1px solid var(--color-border-default);
+
+      &::before {
+        bottom: auto;
+        top: 0;
+        left: auto;
+        right: 0;
+        width: 3px;
+        height: 100%;
+        transform: translateY(-101%);
+      }
+
+      &:hover::before,
+      &--active::before {
+        transform: translateY(0);
+      }
+    }
+
+    &__actions {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-sm);
+      width: 100%;
+      padding-top: var(--space-md);
+    }
+
+    .cyber-status {
+      justify-content: center;
+    }
+
+    .cyber-btn {
+      width: 100%;
+      justify-content: center;
+      min-height: 48px;
+    }
+  }
+
+  // Small mobile adjustments
+  @media (max-width: 480px) {
+    padding: var(--space-xs) var(--space-sm);
+
+    &__brand {
+      font-size: var(--text-base);
     }
   }
 }
@@ -634,9 +785,16 @@ body::after {
 .demo-section {
   padding: var(--space-xl) 0;
   border-bottom: 1px solid var(--color-border-default);
+  font-size: var(--text-lg);
+  line-height: 1.7;
 
   &:last-child {
     border-bottom: none;
+  }
+
+  p {
+    font-size: var(--text-lg);
+    line-height: 1.7;
   }
 }
 
@@ -655,6 +813,8 @@ body::after {
 
 .demo-box {
   padding: var(--space-lg);
+  font-size: var(--text-base);
+  line-height: 1.7;
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-md);
@@ -790,7 +950,8 @@ body::after {
 }
 
 .demo-footer {
-  padding: var(--space-lg);
+  padding: var(--space-md);
+  font-size: var(--text-xs);
   text-align: center;
   border-top: 1px solid var(--color-border-default);
   color: var(--color-text-muted);
@@ -874,8 +1035,11 @@ body::after {
 
   &__pre {
     margin: 0;
-    padding: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    min-height: 80px;
     overflow-x: auto;
+    font-size: var(--text-sm);
+    line-height: 1.7;
     background: transparent;
     border-radius: 0;
   }

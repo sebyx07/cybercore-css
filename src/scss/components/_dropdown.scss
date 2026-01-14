@@ -1,0 +1,174 @@
+// ============================================================
+// Dropdown Component
+// Accessible dropdown menu with cyberpunk styling
+// ============================================================
+
+@layer components {
+  .cyber-dropdown {
+    position: relative;
+    display: inline-block;
+
+    // Dropdown trigger button
+    &__trigger {
+      display: inline-flex;
+      gap: var(--space-xs);
+      align-items: center;
+      padding: var(--space-xs) var(--space-sm);
+      border: var(--border-thin) solid var(--color-border-default);
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-text-primary);
+      background: var(--color-bg-tertiary);
+      transition: all var(--duration-fast);
+      cursor: pointer;
+
+      &:hover {
+        border-color: var(--cyber-cyan-500);
+        background: var(--color-bg-elevated);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--cyber-cyan-500);
+        outline-offset: 2px;
+      }
+
+      // Arrow icon
+      &::after {
+        content: "";
+        width: 0;
+        height: 0;
+        border-top: 5px solid currentcolor;
+        border-right: 4px solid transparent;
+        border-left: 4px solid transparent;
+        transition: transform var(--duration-fast);
+      }
+    }
+
+    // Dropdown menu
+    &__menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 1000;
+      min-width: 180px;
+      margin-top: var(--space-2xs);
+      padding: var(--space-2xs) 0;
+      border: var(--border-thin) solid var(--color-border-default);
+      border-left: 3px solid var(--cyber-cyan-500);
+      background: var(--color-bg-secondary);
+      box-shadow:
+        0 10px 25px color-mix(in srgb, var(--cyber-void-900) 60%, transparent),
+        0 0 15px color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent);
+      opacity: 0%;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition:
+        opacity var(--duration-fast),
+        visibility var(--duration-fast),
+        transform var(--duration-fast);
+      list-style: none;
+    }
+
+    // Menu item
+    &__item {
+      display: block;
+      width: 100%;
+      padding: var(--space-xs) var(--space-sm);
+      border: none;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      text-align: left;
+      color: var(--color-text-secondary);
+      background: transparent;
+      transition: all var(--duration-fast);
+      cursor: pointer;
+
+      &:hover {
+        color: var(--cyber-cyan-500);
+        background: color-mix(in srgb, var(--cyber-cyan-500) 10%, transparent);
+      }
+
+      &:focus-visible {
+        color: var(--cyber-cyan-500);
+        background: color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent);
+        outline: none;
+      }
+
+      &--active {
+        color: var(--cyber-cyan-500);
+
+        &::before {
+          content: "> ";
+        }
+      }
+
+      &--disabled {
+        opacity: 50%;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+    }
+
+    // Divider
+    &__divider {
+      height: 1px;
+      margin: var(--space-2xs) 0;
+      background: var(--color-border-default);
+    }
+
+    // Open state
+    &--open {
+      .cyber-dropdown__trigger::after {
+        transform: rotate(180deg);
+      }
+
+      .cyber-dropdown__menu {
+        opacity: 100%;
+        visibility: visible;
+        transform: translateY(0);
+      }
+    }
+
+    // Right-aligned variant
+    &--right .cyber-dropdown__menu {
+      right: 0;
+      left: auto;
+    }
+
+    // Up direction variant
+    &--up .cyber-dropdown__menu {
+      top: auto;
+      bottom: 100%;
+      margin-top: 0;
+      margin-bottom: var(--space-2xs);
+      transform: translateY(10px);
+    }
+
+    &--up.cyber-dropdown--open .cyber-dropdown__menu {
+      transform: translateY(0);
+    }
+
+    // Color variants
+    &--magenta {
+      .cyber-dropdown__menu {
+        box-shadow:
+          0 10px 25px color-mix(in srgb, var(--cyber-void-900) 60%, transparent),
+          0 0 15px color-mix(in srgb, var(--cyber-magenta-500) 15%, transparent);
+        border-left-color: var(--cyber-magenta-500);
+      }
+
+      .cyber-dropdown__item:hover,
+      .cyber-dropdown__item:focus-visible {
+        color: var(--cyber-magenta-500);
+        background: color-mix(in srgb, var(--cyber-magenta-500) 10%, transparent);
+      }
+
+      .cyber-dropdown__item--active {
+        color: var(--cyber-magenta-500);
+      }
+    }
+  }
+}

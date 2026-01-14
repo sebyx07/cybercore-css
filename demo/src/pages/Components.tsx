@@ -4,6 +4,10 @@ import CodeBlock from '../components/CodeBlock';
 
 function Components() {
   const [activeTab, setActiveTab] = useState('buttons');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownMagentaOpen, setIsDropdownMagentaOpen] = useState(false);
+  const [isDropdownRightOpen, setIsDropdownRightOpen] = useState(false);
 
   return (
     <div>
@@ -35,6 +39,9 @@ function Components() {
             'progress',
             'tables',
             'terminal',
+            'modal',
+            'dropdown',
+            'nav',
             'misc',
           ].map((tab) => (
             <button
@@ -536,6 +543,328 @@ function Components() {
     <span class="cyber-terminal__cursor"></span>
   </div>
 </div>`}
+              />
+            </div>
+          </section>
+        )}
+
+        {/* Modal Section */}
+        {activeTab === 'modal' && (
+          <section className="demo-section">
+            <h2 className="section-title">
+              <span className="cyber-text-cyan">//</span> Modal
+            </h2>
+
+            <div className="demo-code-preview">
+              <div className="demo-preview">
+                <button className="cyber-btn" onClick={() => setIsModalOpen(true)}>
+                  Open Modal
+                </button>
+
+                <div className={`cyber-modal ${isModalOpen ? 'cyber-modal--open' : ''}`}>
+                  <div className="cyber-modal__dialog">
+                    <div className="cyber-modal__header">
+                      <h3 className="cyber-modal__title">System Alert</h3>
+                      <button
+                        className="cyber-modal__close"
+                        onClick={() => setIsModalOpen(false)}
+                        aria-label="Close modal"
+                      >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M18 6L6 18M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                    <div className="cyber-modal__body">
+                      <p>
+                        Connection to the mainframe has been established. All systems are operational
+                        and ready for neural interface synchronization.
+                      </p>
+                    </div>
+                    <div className="cyber-modal__footer">
+                      <button
+                        className="cyber-btn cyber-btn--ghost"
+                        onClick={() => setIsModalOpen(false)}
+                      >
+                        Cancel
+                      </button>
+                      <button className="cyber-btn" onClick={() => setIsModalOpen(false)}>
+                        Confirm
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <CodeBlock
+                title="Modal with Header, Body & Footer"
+                language="html"
+                code={`<div class="cyber-modal cyber-modal--open">
+  <div class="cyber-modal__dialog">
+    <div class="cyber-modal__header">
+      <h3 class="cyber-modal__title">System Alert</h3>
+      <button class="cyber-modal__close">
+        <svg><!-- close icon --></svg>
+      </button>
+    </div>
+    <div class="cyber-modal__body">
+      <p>Modal content goes here.</p>
+    </div>
+    <div class="cyber-modal__footer">
+      <button class="cyber-btn cyber-btn--ghost">Cancel</button>
+      <button class="cyber-btn">Confirm</button>
+    </div>
+  </div>
+</div>`}
+              />
+            </div>
+
+            <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
+              <div className="demo-preview">
+                <div className="demo-showcase">
+                  <span className="cyber-badge">Default</span>
+                  <span className="cyber-badge cyber-badge--magenta">--magenta</span>
+                  <span className="cyber-badge cyber-badge--yellow">--yellow</span>
+                  <span className="cyber-badge cyber-badge--green">--green</span>
+                </div>
+              </div>
+              <CodeBlock
+                title="Color Variants"
+                language="html"
+                code={`<!-- Add variant class to cyber-modal -->
+<div class="cyber-modal cyber-modal--magenta cyber-modal--open">
+<div class="cyber-modal cyber-modal--yellow cyber-modal--open">
+<div class="cyber-modal cyber-modal--green cyber-modal--open">`}
+              />
+            </div>
+
+            <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
+              <div className="demo-preview">
+                <div className="demo-showcase">
+                  <span className="cyber-badge">--sm</span>
+                  <span className="cyber-badge">Default</span>
+                  <span className="cyber-badge">--lg</span>
+                  <span className="cyber-badge">--xl</span>
+                  <span className="cyber-badge">--fullscreen</span>
+                </div>
+              </div>
+              <CodeBlock
+                title="Size Variants"
+                language="html"
+                code={`<!-- Add size class to cyber-modal -->
+<div class="cyber-modal cyber-modal--sm cyber-modal--open">
+<div class="cyber-modal cyber-modal--lg cyber-modal--open">
+<div class="cyber-modal cyber-modal--xl cyber-modal--open">
+<div class="cyber-modal cyber-modal--fullscreen cyber-modal--open">`}
+              />
+            </div>
+          </section>
+        )}
+
+        {/* Dropdown Section */}
+        {activeTab === 'dropdown' && (
+          <section className="demo-section">
+            <h2 className="section-title">
+              <span className="cyber-text-cyan">//</span> Dropdown
+            </h2>
+
+            <div className="demo-code-preview">
+              <div className="demo-preview">
+                <div className={`cyber-dropdown ${isDropdownOpen ? 'cyber-dropdown--open' : ''}`}>
+                  <button
+                    className="cyber-dropdown__trigger"
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  >
+                    Select Action
+                  </button>
+                  <ul className="cyber-dropdown__menu">
+                    <li>
+                      <button className="cyber-dropdown__item">Initialize</button>
+                    </li>
+                    <li>
+                      <button className="cyber-dropdown__item cyber-dropdown__item--active">
+                        Connect
+                      </button>
+                    </li>
+                    <li>
+                      <button className="cyber-dropdown__item">Sync Data</button>
+                    </li>
+                    <li className="cyber-dropdown__divider" />
+                    <li>
+                      <button className="cyber-dropdown__item cyber-dropdown__item--disabled">
+                        Disconnect
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <CodeBlock
+                title="Basic Dropdown"
+                language="html"
+                code={`<div class="cyber-dropdown cyber-dropdown--open">
+  <button class="cyber-dropdown__trigger">Select Action</button>
+  <ul class="cyber-dropdown__menu">
+    <li><button class="cyber-dropdown__item">Initialize</button></li>
+    <li><button class="cyber-dropdown__item cyber-dropdown__item--active">Connect</button></li>
+    <li><button class="cyber-dropdown__item">Sync Data</button></li>
+    <li class="cyber-dropdown__divider"></li>
+    <li><button class="cyber-dropdown__item cyber-dropdown__item--disabled">Disconnect</button></li>
+  </ul>
+</div>`}
+              />
+            </div>
+
+            <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
+              <div className="demo-preview">
+                <div
+                  className={`cyber-dropdown cyber-dropdown--magenta ${isDropdownMagentaOpen ? 'cyber-dropdown--open' : ''}`}
+                >
+                  <button
+                    className="cyber-dropdown__trigger"
+                    onClick={() => setIsDropdownMagentaOpen(!isDropdownMagentaOpen)}
+                  >
+                    Danger Zone
+                  </button>
+                  <ul className="cyber-dropdown__menu">
+                    <li>
+                      <button className="cyber-dropdown__item">Override Security</button>
+                    </li>
+                    <li>
+                      <button className="cyber-dropdown__item">Purge Cache</button>
+                    </li>
+                    <li>
+                      <button className="cyber-dropdown__item">System Reset</button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <CodeBlock
+                title="Magenta Variant"
+                language="html"
+                code={`<div class="cyber-dropdown cyber-dropdown--magenta cyber-dropdown--open">
+  <button class="cyber-dropdown__trigger">Danger Zone</button>
+  <ul class="cyber-dropdown__menu">
+    <li><button class="cyber-dropdown__item">Override Security</button></li>
+    <li><button class="cyber-dropdown__item">Purge Cache</button></li>
+    <li><button class="cyber-dropdown__item">System Reset</button></li>
+  </ul>
+</div>`}
+              />
+            </div>
+
+            <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
+              <div className="demo-preview" style={{ justifyContent: 'flex-end' }}>
+                <div
+                  className={`cyber-dropdown cyber-dropdown--right ${isDropdownRightOpen ? 'cyber-dropdown--open' : ''}`}
+                >
+                  <button
+                    className="cyber-dropdown__trigger"
+                    onClick={() => setIsDropdownRightOpen(!isDropdownRightOpen)}
+                  >
+                    Right Aligned
+                  </button>
+                  <ul className="cyber-dropdown__menu">
+                    <li>
+                      <button className="cyber-dropdown__item">Option Alpha</button>
+                    </li>
+                    <li>
+                      <button className="cyber-dropdown__item">Option Beta</button>
+                    </li>
+                    <li>
+                      <button className="cyber-dropdown__item">Option Gamma</button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <CodeBlock
+                title="Right Aligned"
+                language="html"
+                code={`<div class="cyber-dropdown cyber-dropdown--right cyber-dropdown--open">
+  <button class="cyber-dropdown__trigger">Right Aligned</button>
+  <ul class="cyber-dropdown__menu">
+    <li><button class="cyber-dropdown__item">Option Alpha</button></li>
+    <li><button class="cyber-dropdown__item">Option Beta</button></li>
+    <li><button class="cyber-dropdown__item">Option Gamma</button></li>
+  </ul>
+</div>`}
+              />
+            </div>
+          </section>
+        )}
+
+        {/* Nav Section */}
+        {activeTab === 'nav' && (
+          <section className="demo-section">
+            <h2 className="section-title">
+              <span className="cyber-text-cyan">//</span> Navigation
+            </h2>
+
+            <div className="demo-code-preview">
+              <div className="demo-preview" style={{ alignItems: 'stretch' }}>
+                <nav className="cyber-nav" style={{ position: 'relative', width: '100%' }}>
+                  <span className="cyber-nav__brand">CyberCore</span>
+                  <ul className="cyber-nav__links">
+                    <li>
+                      <span className="cyber-nav__link cyber-nav__link--active">Home</span>
+                    </li>
+                    <li>
+                      <span className="cyber-nav__link">Systems</span>
+                    </li>
+                    <li>
+                      <span className="cyber-nav__link">Network</span>
+                    </li>
+                    <li>
+                      <span className="cyber-nav__link">Terminal</span>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+              <CodeBlock
+                title="Navigation Bar"
+                language="html"
+                code={`<nav class="cyber-nav">
+  <a href="#" class="cyber-nav__brand">CyberCore</a>
+  <ul class="cyber-nav__links">
+    <li><a href="#" class="cyber-nav__link cyber-nav__link--active">Home</a></li>
+    <li><a href="#" class="cyber-nav__link">Systems</a></li>
+    <li><a href="#" class="cyber-nav__link">Network</a></li>
+    <li><a href="#" class="cyber-nav__link">Terminal</a></li>
+  </ul>
+</nav>`}
+              />
+            </div>
+
+            <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
+              <div className="demo-preview" style={{ alignItems: 'stretch' }}>
+                <nav className="cyber-nav" style={{ position: 'relative', width: '100%' }}>
+                  <span className="cyber-nav__brand">NetWatch</span>
+                  <ul className="cyber-nav__links">
+                    <li>
+                      <span className="cyber-nav__link">Dashboard</span>
+                    </li>
+                    <li>
+                      <span className="cyber-nav__link">Logs</span>
+                    </li>
+                  </ul>
+                  <div className="cyber-status">
+                    <span className="cyber-status__dot" />
+                    Online
+                  </div>
+                </nav>
+              </div>
+              <CodeBlock
+                title="Nav with Status Indicator"
+                language="html"
+                code={`<nav class="cyber-nav">
+  <a href="#" class="cyber-nav__brand">NetWatch</a>
+  <ul class="cyber-nav__links">
+    <li><a href="#" class="cyber-nav__link">Dashboard</a></li>
+    <li><a href="#" class="cyber-nav__link">Logs</a></li>
+  </ul>
+  <div class="cyber-status">
+    <span class="cyber-status__dot"></span>
+    Online
+  </div>
+</nav>`}
               />
             </div>
           </section>

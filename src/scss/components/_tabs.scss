@@ -6,6 +6,7 @@
 @layer components {
   .cyber-tabs {
     display: flex;
+    flex-wrap: wrap;
     gap: 2px;
     padding: 2px;
     background: var(--color-border-default);
@@ -13,10 +14,68 @@
     // Tab list container (for semantic list usage)
     &__list {
       display: flex;
+      flex-wrap: wrap;
       gap: 2px;
       margin: 0;
       padding: 0;
       list-style: none;
+    }
+
+    // Scrollable variant for mobile or constrained spaces
+    &--scrollable {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+
+      // Hide scrollbar on webkit browsers for cleaner look
+      &::-webkit-scrollbar {
+        height: 4px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: var(--color-bg-secondary);
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 2px;
+        background: var(--cyber-chrome-600);
+      }
+
+      .cyber-tabs__list {
+        flex-wrap: nowrap;
+      }
+
+      .cyber-tab {
+        flex: none;
+        white-space: nowrap;
+      }
+    }
+
+    // Responsive: scroll on mobile by default
+    @media (width <= 768px) {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+
+      &::-webkit-scrollbar {
+        height: 4px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: var(--color-bg-secondary);
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 2px;
+        background: var(--cyber-chrome-600);
+      }
+
+      .cyber-tab {
+        flex: none;
+        white-space: nowrap;
+      }
     }
 
     // Tab panels container
@@ -106,8 +165,16 @@
       }
 
       .cyber-tab {
-        flex: 1;
+        flex: 1 1 auto;
         justify-content: center;
+        min-width: fit-content;
+      }
+
+      // On mobile, fullwidth tabs scroll instead of shrink
+      @media (width <= 768px) {
+        .cyber-tab {
+          flex: none;
+        }
       }
     }
   }
@@ -116,7 +183,7 @@
   .cyber-tab {
     position: relative;
     display: inline-flex;
-    flex: 1;
+    flex: none;
     gap: var(--space-xs);
     align-items: center;
     justify-content: center;
@@ -128,6 +195,7 @@
     letter-spacing: 0.05em;
     text-decoration: none;
     text-transform: uppercase;
+    white-space: nowrap;
     color: var(--color-text-secondary);
     background: var(--color-bg-secondary);
     transition: all var(--duration-fast);
