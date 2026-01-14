@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import CodeBlock from '../components/CodeBlock';
 
@@ -8,6 +8,19 @@ function Components() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDropdownMagentaOpen, setIsDropdownMagentaOpen] = useState(false);
   const [isDropdownRightOpen, setIsDropdownRightOpen] = useState(false);
+  const [isClickOutsideDropdownOpen, setIsClickOutsideDropdownOpen] = useState(false);
+  const clickOutsideDropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (clickOutsideDropdownRef.current && !clickOutsideDropdownRef.current.contains(e.target as Node)) {
+        setIsClickOutsideDropdownOpen(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
 
   return (
     <div>
@@ -1041,6 +1054,86 @@ function Components() {
     <li><button class="cyber-dropdown__item">Option Beta</button></li>
     <li><button class="cyber-dropdown__item">Option Gamma</button></li>
   </ul>
+</div>`}
+              />
+            </div>
+
+            <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
+              <div className="demo-preview">
+                <div
+                  ref={clickOutsideDropdownRef}
+                  className={`cyber-dropdown ${isClickOutsideDropdownOpen ? 'cyber-dropdown--open' : ''}`}
+                >
+                  <button
+                    className="cyber-dropdown__trigger"
+                    onClick={() => setIsClickOutsideDropdownOpen(!isClickOutsideDropdownOpen)}
+                  >
+                    Click Outside to Close
+                  </button>
+                  <ul className="cyber-dropdown__menu">
+                    <li>
+                      <button className="cyber-dropdown__item">Option One</button>
+                    </li>
+                    <li>
+                      <button className="cyber-dropdown__item">Option Two</button>
+                    </li>
+                    <li>
+                      <button className="cyber-dropdown__item">Option Three</button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <CodeBlock
+                title="Click Outside - Vanilla JS"
+                language="javascript"
+                code={`// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+  document.querySelectorAll('.cyber-dropdown--open').forEach(dropdown => {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove('cyber-dropdown--open');
+    }
+  });
+});
+
+// Toggle dropdown on trigger click
+document.querySelectorAll('.cyber-dropdown__trigger').forEach(trigger => {
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const dropdown = trigger.closest('.cyber-dropdown');
+    dropdown.classList.toggle('cyber-dropdown--open');
+  });
+});`}
+              />
+            </div>
+
+            <div className="demo-code-preview" style={{ marginTop: 'var(--space-xl)' }}>
+              <div
+                className="demo-preview"
+                style={{ flexDirection: 'column', alignItems: 'stretch', gap: 'var(--space-sm)' }}
+              >
+                <p className="cyber-label">React Example</p>
+              </div>
+              <CodeBlock
+                title="Click Outside - React"
+                language="javascript"
+                code={`const [isOpen, setIsOpen] = useState(false);
+const dropdownRef = useRef(null);
+
+useEffect(() => {
+  const handleClickOutside = (e) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+      setIsOpen(false);
+    }
+  };
+  document.addEventListener('click', handleClickOutside);
+  return () => document.removeEventListener('click', handleClickOutside);
+}, []);
+
+<div ref={dropdownRef} className={\`cyber-dropdown \${isOpen ? 'cyber-dropdown--open' : ''}\`}>
+  <button className="cyber-dropdown__trigger" onClick={() => setIsOpen(!isOpen)}>
+    Select
+  </button>
+  <ul className="cyber-dropdown__menu">...</ul>
 </div>`}
               />
             </div>
