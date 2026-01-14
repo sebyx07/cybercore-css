@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
 import {
   icons,
@@ -42,6 +42,7 @@ const COLORS: { id: IconColor; label: string; cssVar: string }[] = [
 ];
 
 const SIZES = [16, 20, 24, 32, 48] as const;
+const ICONS_PER_PAGE = 30;
 
 function Icons() {
   const [selectedCategory, setSelectedCategory] = useState<IconCategory | 'all'>('all');
@@ -51,6 +52,7 @@ function Icons() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState(ICONS_PER_PAGE);
 
   // Get filtered icons
   const filteredIcons = useMemo(() => {
@@ -80,6 +82,16 @@ function Icons() {
     }
 
     return iconList;
+  }, [selectedCategory, searchQuery]);
+
+  // Reset visible count when filters change
+  const displayedIcons = useMemo(() => {
+    return filteredIcons.slice(0, visibleCount);
+  }, [filteredIcons, visibleCount]);
+
+  // Reset visible count when category or search changes
+  useEffect(() => {
+    setVisibleCount(ICONS_PER_PAGE);
   }, [selectedCategory, searchQuery]);
 
   // Get category counts
@@ -289,7 +301,7 @@ const svg = getIcon('${iconName}'${selectedVariant !== 'outline' ? `, '${selecte
                 gap: 'var(--space-sm)',
               }}
             >
-              {filteredIcons.map((name) => {
+              {displayedIcons.map((name) => {
                 const availableVariants = getVariants(name);
                 const hasSelectedVariant = availableVariants.includes(selectedVariant);
                 const variantToUse = hasSelectedVariant ? selectedVariant : 'outline';
@@ -352,6 +364,18 @@ const svg = getIcon('${iconName}'${selectedVariant !== 'outline' ? `, '${selecte
                   </button>
                 );
               })}
+            </div>
+          )}
+
+          {/* Load More Button */}
+          {filteredIcons.length > visibleCount && (
+            <div style={{ textAlign: 'center', marginTop: 'var(--space-xl)' }}>
+              <button
+                className="cyber-btn cyber-btn--ghost"
+                onClick={() => setVisibleCount((prev) => prev + ICONS_PER_PAGE)}
+              >
+                Load More ({filteredIcons.length - visibleCount} remaining)
+              </button>
             </div>
           )}
         </section>
