@@ -96,3 +96,6 @@ storybook-static/
 *.pid
 *.seed
 *.pid.lock
+
+# Temporary files
+tmp/

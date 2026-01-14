@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alerts - CYBERCORE CSS</title>
+  <link rel="stylesheet" href="../dist/cybercore.css">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cyber-void-950);
+      padding: 2rem;
+    }
+    .alert-stack {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="alert-stack">
+    <div class="cyber-alert">
+      <strong>[ INFO ]</strong> System update available. Prepare for maintenance window at 03:00 UTC.
+    </div>
+    <div class="cyber-alert cyber-alert--success">
+      <strong>[ SUCCESS ]</strong> Neural link established. Data sync complete. Latency: 12ms.
+    </div>
+    <div class="cyber-alert cyber-alert--warning">
+      <strong>[ WARNING ]</strong> High network traffic detected. Performance may be degraded.
+    </div>
+    <div class="cyber-alert cyber-alert--error">
+      <strong>[ CRITICAL ]</strong> Firewall breach detected. Initiating lockdown protocol.
+    </div>
+  </div>
+</body>
+</html>

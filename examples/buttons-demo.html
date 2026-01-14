@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buttons - CYBERCORE CSS</title>
+  <link rel="stylesheet" href="../dist/cybercore.css">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cyber-void-950);
+      padding: 2rem;
+    }
+    .control-panel {
+      background: linear-gradient(180deg, rgba(20,20,30,0.8) 0%, rgba(10,10,15,0.9) 100%);
+      border: 1px solid rgba(0,240,255,0.2);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      position: relative;
+    }
+    .control-panel::before {
+      content: 'CONTROL INTERFACE v2.5';
+      position: absolute;
+      top: -10px;
+      left: 20px;
+      background: var(--cyber-void-950);
+      padding: 0 1rem;
+      font-size: 0.75rem;
+      color: var(--cyber-cyan-500);
+      font-family: var(--font-mono);
+      letter-spacing: 0.1em;
+    }
+    .section {
+      margin-bottom: 2rem;
+    }
+    .section:last-child {
+      margin-bottom: 0;
+    }
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      margin-bottom: 1rem;
+      opacity: 0.6;
+    }
+    .btn-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="control-panel cyber-noise">
+    <div class="section">
+      <p class="cyber-mono section-label">// PRIMARY ACTIONS</p>
+      <div class="btn-row">
+        <button class="cyber-btn">EXECUTE</button>
+        <button class="cyber-btn cyber-btn--magenta">TERMINATE</button>
+        <button class="cyber-btn cyber-btn--green">CONFIRM</button>
+        <button class="cyber-btn cyber-btn--yellow">STANDBY</button>
+      </div>
+    </div>
+    <div class="section">
+      <p class="cyber-mono section-label">// SECONDARY ACTIONS</p>
+      <div class="btn-row">
+        <button class="cyber-btn cyber-btn--outline">SCAN NETWORK</button>
+        <button class="cyber-btn cyber-btn--ghost">CANCEL OPERATION</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

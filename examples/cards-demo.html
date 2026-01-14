@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cards - CYBERCORE CSS</title>
+  <link rel="stylesheet" href="../dist/cybercore.css">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cyber-void-950);
+      padding: 2rem;
+      gap: 2rem;
+    }
+    .cyber-card {
+      width: 300px;
+    }
+    .stat {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .stat:last-child { border-bottom: none; }
+    .stat-label { opacity: 0.6; font-size: 0.875rem; }
+    .stat-value { font-weight: bold; }
+    .header-icon {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="cyber-card cyber-datastream">
+    <div class="cyber-card__header">
+      <div class="header-icon">
+        <span style="font-size: 1.25rem;">🖥️</span>
+        <h4 class="cyber-h5" style="margin: 0;">SYSTEM MONITOR</h4>
+      </div>
+    </div>
+    <div class="cyber-card__body">
+      <div class="stat">
+        <span class="cyber-mono stat-label">CPU Load</span>
+        <span class="cyber-mono stat-value cyber-text-cyan">47%</span>
+      </div>
+      <div class="stat">
+        <span class="cyber-mono stat-label">Memory</span>
+        <span class="cyber-mono stat-value cyber-text-green">12.4 GB</span>
+      </div>
+      <div class="stat">
+        <span class="cyber-mono stat-label">Network</span>
+        <span class="cyber-mono stat-value cyber-text-yellow">2.1 Gbps</span>
+      </div>
+    </div>
+    <div class="cyber-card__footer">
+      <span class="cyber-badge cyber-badge--green">All Systems Go</span>
+    </div>
+  </div>
+
+  <div class="cyber-card">
+    <div class="cyber-card__header">
+      <div class="header-icon">
+        <span style="font-size: 1.25rem;">🚨</span>
+        <h4 class="cyber-h5" style="margin: 0;">THREAT DETECTED</h4>
+      </div>
+    </div>
+    <div class="cyber-card__body">
+      <p style="margin: 0 0 1rem 0;">Unauthorized access attempt from external IP. Intrusion countermeasures activated.</p>
+      <p class="cyber-mono" style="font-size: 0.75rem; opacity: 0.6; margin: 0;">
+        Source: 45.33.32.156<br>
+        Time: 03:42:15 UTC
+      </p>
+    </div>
+    <div class="cyber-card__footer" style="display: flex; gap: 0.5rem;">
+      <button class="cyber-btn cyber-btn--sm cyber-btn--magenta">BLOCK IP</button>
+      <button class="cyber-btn cyber-btn--sm cyber-btn--ghost">ANALYZE</button>
+    </div>
+  </div>
+</body>
+</html>

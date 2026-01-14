@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - CYBERCORE CSS</title>
+  <link rel="stylesheet" href="../dist/cybercore.css">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--cyber-void-950);
+      padding: 2rem;
+    }
+    .dashboard {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(0,240,255,0.2);
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: rgba(10,10,20,0.6);
+      border: 1px solid rgba(0,240,255,0.15);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin: 0.5rem 0;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      opacity: 0.6;
+    }
+    .progress-section {
+      background: rgba(10,10,20,0.6);
+      border: 1px solid rgba(0,240,255,0.15);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+    .progress-item {
+      margin-bottom: 1.25rem;
+    }
+    .progress-item:last-child {
+      margin-bottom: 0;
+    }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard cyber-scanlines">
+    <div class="header">
+      <h1 class="cyber-mono cyber-text-glow">NETWATCH DASHBOARD</h1>
+      <div>
+        <span class="cyber-badge cyber-badge--green">● ONLINE</span>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="stat-card cyber-neon-border">
+        <div class="stat-label cyber-mono">ACTIVE CONNECTIONS</div>
+        <div class="stat-value cyber-text-cyan">2,847</div>
+      </div>
+      <div class="stat-card cyber-neon-border cyber-neon-border--magenta">
+        <div class="stat-label cyber-mono">THREATS BLOCKED</div>
+        <div class="stat-value cyber-text-magenta">156</div>
+      </div>
+      <div class="stat-card cyber-neon-border cyber-neon-border--green">
+        <div class="stat-label cyber-mono">UPTIME</div>
+        <div class="stat-value cyber-text-green">99.9%</div>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <div class="progress-item">
+        <div class="progress-header cyber-mono">
+          <span>CPU USAGE</span>
+          <span class="cyber-text-cyan">67%</span>
+        </div>
+        <div class="cyber-progress">
+          <div class="cyber-progress__bar" style="width: 67%"></div>
+        </div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-header cyber-mono">
+          <span>MEMORY</span>
+          <span class="cyber-text-magenta">82%</span>
+        </div>
+        <div class="cyber-progress cyber-progress--magenta">
+          <div class="cyber-progress__bar" style="width: 82%"></div>
+        </div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-header cyber-mono">
+          <span>BANDWIDTH</span>
+          <span class="cyber-text-green">45%</span>
+        </div>
+        <div class="cyber-progress cyber-progress--green">
+          <div class="cyber-progress__bar" style="width: 45%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

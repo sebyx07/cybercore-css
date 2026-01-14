@@ -74,13 +74,43 @@ npm install cybercore-css
 
 ![Glitch Effect](assets/img.png)
 
-_Glitch text effect with chromatic aberration and animated distortion_
+_Glitch text effect with chromatic aberration, scanlines, and animated distortion_
 
 ### Neon Border
 
 ![Neon Border](assets/img_1.png)
 
-_Animated neon glow border effect with pulsing illumination_
+_Animated neon glow borders in cyan, magenta, and green variants_
+
+### Terminal
+
+![Terminal](assets/terminal.png)
+
+_Cyberpunk terminal component with scanlines and colored output_
+
+### Buttons
+
+![Buttons](assets/buttons.png)
+
+_Button variants: primary colors, outline, and ghost styles_
+
+### Cards
+
+![Cards](assets/cards.png)
+
+_Card components with datastream effect and interactive elements_
+
+### Icons
+
+![Icons](assets/icons.png)
+
+_153 cyberpunk-themed SVG icons across 10 categories with search and filters_
+
+### Dashboard Showcase
+
+![Dashboard](assets/showcase.png)
+
+_Full dashboard example combining multiple CYBERCORE components_
 
 </div>
 

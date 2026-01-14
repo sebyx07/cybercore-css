@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Table - CYBERCORE CSS</title>
+  <link rel="stylesheet" href="../dist/cybercore.css">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cyber-void-950);
+      padding: 2rem;
+    }
+    .container {
+      width: 100%;
+      max-width: 800px;
+    }
+    .table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .table-header h2 {
+      margin: 0;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="table-header">
+      <h2 class="cyber-mono cyber-text-cyan">// NETWORK USERS</h2>
+      <span class="cyber-badge">4 ACTIVE</span>
+    </div>
+    <table class="cyber-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>USER</th>
+          <th>ROLE</th>
+          <th>STATUS</th>
+          <th>LAST SEEN</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cyber-mono">001</td>
+          <td>ghost_runner</td>
+          <td>Admin</td>
+          <td><span class="cyber-badge cyber-badge--green">Active</span></td>
+          <td class="cyber-mono">Now</td>
+        </tr>
+        <tr>
+          <td class="cyber-mono">002</td>
+          <td>netwatch_42</td>
+          <td>Operator</td>
+          <td><span class="cyber-badge cyber-badge--green">Active</span></td>
+          <td class="cyber-mono">2m ago</td>
+        </tr>
+        <tr>
+          <td class="cyber-mono">003</td>
+          <td>zero_cool</td>
+          <td>User</td>
+          <td><span class="cyber-badge cyber-badge--yellow">Idle</span></td>
+          <td class="cyber-mono">15m ago</td>
+        </tr>
+        <tr>
+          <td class="cyber-mono">004</td>
+          <td>crash_override</td>
+          <td>User</td>
+          <td><span class="cyber-badge cyber-badge--magenta">Locked</span></td>
+          <td class="cyber-mono">3h ago</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

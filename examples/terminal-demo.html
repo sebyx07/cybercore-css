@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terminal - CYBERCORE CSS</title>
+  <link rel="stylesheet" href="../dist/cybercore.css">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, #0d0d12 0%, #050508 100%);
+      padding: 2rem;
+    }
+    .cyber-terminal {
+      width: 100%;
+      max-width: 700px;
+      box-shadow:
+        0 0 60px rgba(0,240,255,0.15),
+        0 25px 50px rgba(0,0,0,0.5);
+    }
+    .line { margin: 0.25rem 0; }
+    .success { color: var(--cyber-green-500); }
+    .warning { color: var(--cyber-yellow-500); }
+    .error { color: var(--cyber-magenta-500); }
+    .muted { color: var(--color-text-muted); }
+    .cyan { color: var(--cyber-cyan-500); }
+  </style>
+</head>
+<body>
+  <div class="cyber-terminal cyber-scanlines">
+    <div class="cyber-terminal__header">
+      <span class="cyber-terminal__dot cyber-terminal__dot--red"></span>
+      <span class="cyber-terminal__dot cyber-terminal__dot--yellow"></span>
+      <span class="cyber-terminal__dot cyber-terminal__dot--green"></span>
+      <span style="margin-left: auto; font-size: 0.75rem; opacity: 0.5;">netrunner@localhost</span>
+    </div>
+    <div class="cyber-terminal__body">
+      <p class="line muted">Last login: 2077-01-14 03:42:15 from 192.168.1.1</p>
+      <p class="line"><span class="cyber-terminal__prompt">$</span> <span class="cyan">./hack</span> --target=arasaka --stealth</p>
+      <p class="line muted">[INFO] Initializing breach protocol...</p>
+      <p class="line muted">[INFO] Bypassing ICE layer 1... done</p>
+      <p class="line muted">[INFO] Bypassing ICE layer 2... done</p>
+      <p class="line warning">[WARN] Daemon detected - deploying countermeasures</p>
+      <p class="line success">[SUCCESS] Access granted - 47 files found</p>
+      <p class="line success">[SUCCESS] Data exfiltration complete</p>
+      <p class="line"><span class="cyber-terminal__prompt">$</span> <span class="cyber-terminal__cursor"></span></p>
+    </div>
+  </div>
+</body>
+</html>

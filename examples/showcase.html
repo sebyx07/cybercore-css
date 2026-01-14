@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CYBERCORE CSS - Full Showcase</title>
+  <link rel="stylesheet" href="../dist/cybercore.css">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--cyber-void-950);
+      color: var(--color-text-primary);
+      font-family: var(--font-sans);
+    }
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      grid-template-rows: auto 1fr;
+    }
+
+    /* Top Nav */
+    .topnav {
+      grid-column: 1 / -1;
+      background: rgba(10,10,20,0.95);
+      border-bottom: 1px solid rgba(0,240,255,0.2);
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .topnav__brand {
+      font-size: 1.25rem;
+      font-weight: bold;
+      letter-spacing: 0.1em;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .topnav__brand span {
+      color: var(--cyber-cyan-500);
+    }
+    .topnav__right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyber-cyan-500), var(--cyber-magenta-500));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.875rem;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background: rgba(8,8,15,0.98);
+      border-right: 1px solid rgba(0,240,255,0.1);
+      padding: 1.5rem 1rem;
+    }
+    .sidebar__section {
+      margin-bottom: 2rem;
+    }
+    .sidebar__title {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--cyber-cyan-500);
+      margin-bottom: 0.75rem;
+      padding-left: 0.75rem;
+    }
+    .sidebar__nav {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .sidebar__item {
+      padding: 0.65rem 0.75rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.875rem;
+      transition: all 0.2s;
+      margin-bottom: 0.25rem;
+    }
+    .sidebar__item:hover {
+      background: rgba(0,240,255,0.05);
+    }
+    .sidebar__item--active {
+      background: rgba(0,240,255,0.1);
+      color: var(--cyber-cyan-500);
+      border-left: 2px solid var(--cyber-cyan-500);
+    }
+    .sidebar__icon {
+      width: 18px;
+      height: 18px;
+      opacity: 0.7;
+    }
+
+    /* Main Content */
+    .main {
+      padding: 2rem;
+      overflow-y: auto;
+      background: linear-gradient(180deg, rgba(10,10,20,0.5) 0%, transparent 50%);
+    }
+    .main__header {
+      margin-bottom: 2rem;
+    }
+    .main__header h1 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.75rem;
+    }
+    .main__header p {
+      margin: 0;
+      opacity: 0.6;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: rgba(15,15,25,0.8);
+      border: 1px solid rgba(0,240,255,0.1);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+    .stat-card__label {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      opacity: 0.6;
+      margin-bottom: 0.5rem;
+    }
+    .stat-card__value {
+      font-size: 1.75rem;
+      font-weight: bold;
+    }
+    .stat-card__change {
+      font-size: 0.75rem;
+      margin-top: 0.5rem;
+    }
+    .stat-card__change--up { color: var(--cyber-green-500); }
+    .stat-card__change--down { color: var(--cyber-magenta-500); }
+
+    /* Content Grid */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+    }
+
+    /* Activity Table */
+    .activity-section {
+      background: rgba(15,15,25,0.6);
+      border: 1px solid rgba(0,240,255,0.1);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .section-header h3 {
+      margin: 0;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* Alerts Panel */
+    .alerts-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .mini-alert {
+      background: rgba(15,15,25,0.8);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      border-left: 3px solid;
+    }
+    .mini-alert--info { border-color: var(--cyber-cyan-500); }
+    .mini-alert--warning { border-color: var(--cyber-yellow-500); }
+    .mini-alert--error { border-color: var(--cyber-magenta-500); }
+    .mini-alert__title {
+      font-size: 0.8rem;
+      font-weight: bold;
+      margin-bottom: 0.25rem;
+    }
+    .mini-alert__text {
+      font-size: 0.75rem;
+      opacity: 0.7;
+    }
+    .mini-alert__time {
+      font-size: 0.65rem;
+      opacity: 0.5;
+      margin-top: 0.5rem;
+    }
+
+    /* Terminal Widget */
+    .terminal-widget {
+      margin-top: 1rem;
+    }
+    .terminal-widget .cyber-terminal {
+      font-size: 0.8rem;
+    }
+    .terminal-widget .cyber-terminal__body {
+      max-height: 150px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="app cyber-noise">
+    <!-- Top Navigation -->
+    <nav class="topnav">
+      <div class="topnav__brand">
+        <span>◈</span> NETRUNNER<span>OS</span>
+      </div>
+      <div class="topnav__right">
+        <input type="text" class="cyber-input" placeholder="Search systems..." style="width: 250px; height: 36px; font-size: 0.875rem;">
+        <button class="cyber-btn cyber-btn--sm">
+          <span style="margin-right: 0.5rem;">+</span> NEW
+        </button>
+        <span class="cyber-badge cyber-badge--green">● SECURE</span>
+        <div class="avatar">GR</div>
+      </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar__section">
+        <div class="sidebar__title cyber-mono">// NAVIGATION</div>
+        <ul class="sidebar__nav">
+          <li class="sidebar__item sidebar__item--active">
+            <span>📊</span> Dashboard
+          </li>
+          <li class="sidebar__item">
+            <span>🖥️</span> Systems
+          </li>
+          <li class="sidebar__item">
+            <span>🔒</span> Security
+          </li>
+          <li class="sidebar__item">
+            <span>📡</span> Network
+          </li>
+          <li class="sidebar__item">
+            <span>📁</span> Files
+          </li>
+        </ul>
+      </div>
+      <div class="sidebar__section">
+        <div class="sidebar__title cyber-mono">// MONITORING</div>
+        <ul class="sidebar__nav">
+          <li class="sidebar__item">
+            <span>📈</span> Analytics
+          </li>
+          <li class="sidebar__item">
+            <span>🔔</span> Alerts
+            <span class="cyber-badge cyber-badge--magenta" style="margin-left: auto; font-size: 0.65rem;">3</span>
+          </li>
+          <li class="sidebar__item">
+            <span>📜</span> Logs
+          </li>
+        </ul>
+      </div>
+      <div class="sidebar__section">
+        <div class="sidebar__title cyber-mono">// QUICK ACTIONS</div>
+        <button class="cyber-btn cyber-btn--outline" style="width: 100%; margin-bottom: 0.5rem;">
+          Run Scan
+        </button>
+        <button class="cyber-btn cyber-btn--ghost" style="width: 100%;">
+          View Reports
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+      <div class="main__header">
+        <h1 class="cyber-glitch" data-text="SYSTEM OVERVIEW" style="font-size: 1.5rem;">SYSTEM OVERVIEW</h1>
+        <p class="cyber-mono">Last updated: 2077-01-14 03:42:15 UTC</p>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card cyber-neon-border">
+          <div class="stat-card__label cyber-mono">ACTIVE NODES</div>
+          <div class="stat-card__value cyber-text-cyan">2,847</div>
+          <div class="stat-card__change stat-card__change--up">↑ 12% from last hour</div>
+        </div>
+        <div class="stat-card cyber-neon-border cyber-neon-border--magenta">
+          <div class="stat-card__label cyber-mono">THREATS BLOCKED</div>
+          <div class="stat-card__value cyber-text-magenta">156</div>
+          <div class="stat-card__change stat-card__change--down">↑ 23% detected</div>
+        </div>
+        <div class="stat-card cyber-neon-border cyber-neon-border--green">
+          <div class="stat-card__label cyber-mono">UPTIME</div>
+          <div class="stat-card__value cyber-text-green">99.97%</div>
+          <div class="stat-card__change stat-card__change--up">Stable</div>
+        </div>
+        <div class="stat-card cyber-neon-border cyber-neon-border--yellow">
+          <div class="stat-card__label cyber-mono">BANDWIDTH</div>
+          <div class="stat-card__value cyber-text-yellow">847<span style="font-size: 1rem;">Gbps</span></div>
+          <div class="stat-card__change">Normal load</div>
+        </div>
+      </div>
+
+      <!-- Content Grid -->
+      <div class="content-grid">
+        <!-- Activity Table -->
+        <div class="activity-section">
+          <div class="section-header">
+            <h3 class="cyber-mono">// RECENT ACTIVITY</h3>
+            <button class="cyber-btn cyber-btn--sm cyber-btn--ghost">View All</button>
+          </div>
+          <table class="cyber-table">
+            <thead>
+              <tr>
+                <th>TIME</th>
+                <th>EVENT</th>
+                <th>SOURCE</th>
+                <th>STATUS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="cyber-mono">03:42:15</td>
+                <td>Login attempt</td>
+                <td class="cyber-mono">192.168.1.45</td>
+                <td><span class="cyber-badge cyber-badge--green">Success</span></td>
+              </tr>
+              <tr>
+                <td class="cyber-mono">03:41:08</td>
+                <td>Firewall update</td>
+                <td class="cyber-mono">SYSTEM</td>
+                <td><span class="cyber-badge">Complete</span></td>
+              </tr>
+              <tr>
+                <td class="cyber-mono">03:40:22</td>
+                <td>Intrusion blocked</td>
+                <td class="cyber-mono">45.33.32.156</td>
+                <td><span class="cyber-badge cyber-badge--magenta">Blocked</span></td>
+              </tr>
+              <tr>
+                <td class="cyber-mono">03:38:55</td>
+                <td>Data sync</td>
+                <td class="cyber-mono">NODE-07</td>
+                <td><span class="cyber-badge cyber-badge--yellow">Pending</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Progress Bars -->
+          <div style="margin-top: 1.5rem;">
+            <div class="section-header">
+              <h3 class="cyber-mono">// SYSTEM RESOURCES</h3>
+            </div>
+            <div style="margin-bottom: 1rem;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                <span class="cyber-mono" style="font-size: 0.75rem;">CPU</span>
+                <span class="cyber-mono cyber-text-cyan" style="font-size: 0.75rem;">67%</span>
+              </div>
+              <div class="cyber-progress"><div class="cyber-progress__bar" style="width: 67%"></div></div>
+            </div>
+            <div style="margin-bottom: 1rem;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                <span class="cyber-mono" style="font-size: 0.75rem;">MEMORY</span>
+                <span class="cyber-mono cyber-text-magenta" style="font-size: 0.75rem;">82%</span>
+              </div>
+              <div class="cyber-progress cyber-progress--magenta"><div class="cyber-progress__bar" style="width: 82%"></div></div>
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                <span class="cyber-mono" style="font-size: 0.75rem;">STORAGE</span>
+                <span class="cyber-mono cyber-text-green" style="font-size: 0.75rem;">45%</span>
+              </div>
+              <div class="cyber-progress cyber-progress--green"><div class="cyber-progress__bar" style="width: 45%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Panel -->
+        <div>
+          <!-- Alerts -->
+          <div class="alerts-panel">
+            <div class="mini-alert mini-alert--error">
+              <div class="mini-alert__title cyber-text-magenta">🚨 Security Alert</div>
+              <div class="mini-alert__text">Unusual login pattern detected from external IP</div>
+              <div class="mini-alert__time cyber-mono">2 minutes ago</div>
+            </div>
+            <div class="mini-alert mini-alert--warning">
+              <div class="mini-alert__title cyber-text-yellow">⚠️ High Memory Usage</div>
+              <div class="mini-alert__text">NODE-12 memory usage exceeded 80%</div>
+              <div class="mini-alert__time cyber-mono">15 minutes ago</div>
+            </div>
+            <div class="mini-alert mini-alert--info">
+              <div class="mini-alert__title cyber-text-cyan">ℹ️ Update Available</div>
+              <div class="mini-alert__text">Firmware v2.4.1 ready for deployment</div>
+              <div class="mini-alert__time cyber-mono">1 hour ago</div>
+            </div>
+          </div>
+
+          <!-- Mini Terminal -->
+          <div class="terminal-widget">
+            <div class="cyber-terminal">
+              <div class="cyber-terminal__header">
+                <span class="cyber-terminal__dot cyber-terminal__dot--red"></span>
+                <span class="cyber-terminal__dot cyber-terminal__dot--yellow"></span>
+                <span class="cyber-terminal__dot cyber-terminal__dot--green"></span>
+              </div>
+              <div class="cyber-terminal__body">
+                <span class="cyber-terminal__prompt">$</span> status --all<br>
+                <span style="color: var(--cyber-green-500)">[OK]</span> All systems operational<br>
+                <span class="cyber-terminal__prompt">$</span> <span class="cyber-terminal__cursor"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
