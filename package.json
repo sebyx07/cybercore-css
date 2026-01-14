@@ -11,6 +11,7 @@
   "files": [
     "dist",
     "src/scss",
+    "src/icons",
     "src/cybercore.d.ts",
     "README.md",
     "LICENSE"
@@ -20,6 +21,16 @@
       "style": "./dist/cybercore.css",
       "sass": "./src/scss/cybercore.scss",
       "default": "./dist/cybercore.css"
+    },
+    "./icons": {
+      "types": "./src/icons/index.ts",
+      "import": "./src/icons/index.ts",
+      "default": "./src/icons/index.ts"
+    },
+    "./icons/individual": {
+      "types": "./src/icons/individual.ts",
+      "import": "./src/icons/individual.ts",
+      "default": "./src/icons/individual.ts"
     },
     "./dist/*": "./dist/*",
     "./scss/*": "./src/scss/*"
@@ -48,8 +59,10 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
+    "test:icons": "vitest run tests/icons.test.ts",
     "test:visual": "playwright test",
     "test:visual:update": "playwright test --update-snapshots",
+    "validate:icons": "npx tsx scripts/validate-icons.ts",
     "typecheck": "tsc --noEmit --project demo/tsconfig.json",
     "prepublishOnly": "npm run build:css",
     "release": "npm run build && changeset publish",

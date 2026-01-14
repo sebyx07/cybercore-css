@@ -94,7 +94,35 @@ Imports the framework from `../../src/scss/cybercore.scss`.
 - `css-build.test.ts` - Verifies SCSS compiles without errors
 - `css-output.test.ts` - Checks compiled CSS contains expected classes
 - `variables.test.ts` - Validates CSS custom properties are defined
+- `icons.test.ts` - Validates icon registry and rendering
 - `visual/` - Playwright visual regression tests
+
+### Icons System (`src/icons/`)
+
+Cyberpunk-themed SVG icon system. 150+ icon specs across 10 categories.
+
+**Structure:**
+
+- `types.ts` - TypeScript definitions (IconDefinition, IconVariant, etc.)
+- `icon-list.ts` - Master list of all icons to be created (specs)
+- `registry.ts` - Actual SVG implementations (add icons here)
+- `individual.ts` - Tree-shakeable individual exports
+- `utils.ts` - Rendering utilities (renderIcon, getIcon, etc.)
+- `index.ts` - Main entry point with all exports
+
+**Commands:**
+
+```bash
+npm run test:icons       # Run icon tests
+npm run validate:icons   # Validate all icons in registry
+```
+
+**Icon Variants:**
+
+- `outline` - Stroke-based, default style (1.5px stroke)
+- `solid` - Filled icons for emphasis
+- `duotone` - Two-tone with primary/secondary colors
+- `glitch` - Animated/glitchy variant for cyber effects
 
 ## Browser Visual Debugging
 
@@ -158,3 +186,71 @@ Start the dev server (`npm run dev`) first, then use browser tools to inspect.
 - All components must support `prefers-reduced-motion`
 - Demo uses HashRouter (`/#/path`) for GitHub Pages
 - Node 20+ required
+
+## SVG Icon Artist Agent
+
+Use this agent when creating cyberpunk-themed SVG icons for the icon system.
+
+**When to use:**
+
+- Creating new icons from the `icon-list.ts` specs
+- Adding icon variants (solid, duotone, glitch)
+- Batch generating icons by category
+
+**Icon Design Guidelines:**
+
+```svg
+<!-- Template for all icons -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+     stroke="currentColor" stroke-width="1.5"
+     stroke-linecap="round" stroke-linejoin="round">
+  <!-- Icon paths here -->
+</svg>
+```
+
+**Requirements:**
+
+- ViewBox: Always `0 0 24 24`
+- Stroke-based: `fill="none" stroke="currentColor"`
+- Stroke width: `1.5` (consistent across all icons)
+- Use `currentColor` for theming support
+- Keep simple - recognizable at 16px
+- No inline styles, scripts, or external references
+
+**Adding Icons to Registry:**
+
+```typescript
+// In src/icons/registry.ts
+'icon-name': {
+  name: 'icon-name',
+  category: 'tech', // navigation|actions|media|communication|data|security|tech|files|status|social
+  description: 'Brief description',
+  tags: ['tag1', 'tag2'],
+  svg: `<svg>...</svg>`,
+  variants: {
+    solid: `<svg>...</svg>`,      // Optional
+    duotone: `<svg>...</svg>`,    // Optional
+    glitch: `<svg>...</svg>`,     // Optional
+  },
+},
+```
+
+**Variant Guidelines:**
+
+- `outline`: Default, 1.5px stroke, no fill
+- `solid`: Filled shapes, use `fill="currentColor"`
+- `duotone`: Primary stroke + secondary fill with `opacity="0.3"`
+- `glitch`: Include subtle offset/duplicate paths for glitch effect
+
+**After Adding Icons:**
+
+1. Add export to `src/icons/individual.ts`
+2. Run `npm run validate:icons` to check
+3. Run `npm run test:icons` to verify
+
+**Color Palette for Reference:**
+
+- Cyan: `#00f0ff` (primary/tech)
+- Magenta: `#ff00aa` (danger)
+- Yellow: `#f0ff00` (warning)
+- Green: `#00ff88` (success)
