@@ -184,10 +184,8 @@ function Home() {
               {/* Icon Grid Preview */}
               <div>
                 <div
+                  className="cyber-grid--4"
                   style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(4, 1fr)',
-                    gap: 'var(--space-md)',
                     marginBottom: 'var(--space-lg)',
                   }}
                 >
@@ -844,7 +842,7 @@ function Home() {
             <p className="cyber-section__subtitle">Active connections</p>
           </div>
 
-          <div className="cyber-card" style={{ padding: 0, overflow: 'hidden' }}>
+          <div className="cyber-card" style={{ padding: 0, overflowX: 'auto' }}>
             <table className="cyber-table">
               <thead>
                 <tr>
