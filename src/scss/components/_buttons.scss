@@ -92,6 +92,24 @@
       filter: grayscale(50%);
     }
 
+    // Touch devices: disable hover fill effect to prevent stuck states
+    @media (hover: none) {
+      &::before {
+        display: none;
+      }
+
+      &:hover {
+        color: var(--btn-color);
+        box-shadow: none;
+      }
+
+      &:active {
+        color: var(--cyber-void-500);
+        background: var(--btn-color);
+        box-shadow: var(--btn-glow);
+      }
+    }
+
     // --------------------------------------------------------
     // Color Variants
     // --------------------------------------------------------

@@ -1161,10 +1161,147 @@ body::after {
     top: var(--space-xs);
     right: var(--space-xs);
     opacity: 0.6;
-    transition: opacity var(--transition-fast);
+    transition: opacity var(--transition-fast), color var(--transition-fast);
+    z-index: 10;
 
     &:hover {
       opacity: 1;
+    }
+
+    &--copied {
+      opacity: 1;
+      color: var(--cyber-green-500) !important;
+      border-color: var(--cyber-green-500) !important;
+    }
+
+    // Remove hover effect on touch devices
+    @media (hover: none) {
+      opacity: 0.8;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &:active {
+        opacity: 1;
+      }
+    }
+  }
+
+  // Mobile: Make copy button more visible and accessible
+  @media (max-width: 640px) {
+    &__pre {
+      padding: var(--space-sm);
+      padding-right: var(--space-xl); // Make room for copy button
+      font-size: var(--text-xs);
+    }
+
+    &__copy {
+      position: relative;
+      top: auto;
+      right: auto;
+      display: block;
+      width: 100%;
+      margin-top: var(--space-xs);
+      opacity: 1;
+      border-top: 1px solid var(--color-border-default);
+      border-radius: 0;
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+// ============================================================
+// DOCS PAGE LAYOUT
+// ============================================================
+
+.docs-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: var(--space-xl);
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+}
+
+.docs-nav {
+  position: sticky;
+  top: 100px;
+  align-self: start;
+
+  @media (max-width: 768px) {
+    position: relative;
+    top: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 calc(-1 * var(--space-md));
+    padding: 0 var(--space-md);
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    > li {
+      margin-bottom: var(--space-xs);
+    }
+
+    @media (max-width: 768px) {
+      display: flex;
+      gap: var(--space-xs);
+      padding-bottom: var(--space-sm);
+
+      > li {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__link {
+    display: block;
+    width: 100%;
+    padding: var(--space-xs) var(--space-sm);
+    text-align: left;
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    white-space: nowrap;
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: none;
+    border-left: 2px solid transparent;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+
+    &:hover {
+      color: var(--cyber-cyan-500);
+    }
+
+    &--active {
+      color: var(--cyber-cyan-500);
+      background: color-mix(in srgb, var(--cyber-cyan-500) 10%, transparent);
+      border-left-color: var(--cyber-cyan-500);
+    }
+
+    @media (max-width: 768px) {
+      padding: var(--space-xs) var(--space-sm);
+      border-left: none;
+      border-bottom: 2px solid transparent;
+      border-radius: var(--radius-sm);
+
+      &--active {
+        border-bottom-color: var(--cyber-cyan-500);
+        border-left-color: transparent;
+      }
     }
   }
 }

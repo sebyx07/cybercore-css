@@ -11,10 +11,12 @@ interface CodeBlockProps {
 function CodeBlock({ code, language = 'html', title }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = async () => {
+  const handleCopy = async (e: React.MouseEvent<HTMLButtonElement>) => {
     try {
       await navigator.clipboard.writeText(code);
       setCopied(true);
+      // Remove focus to prevent stuck hover/focus state on mobile
+      e.currentTarget.blur();
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error('Failed to copy:', err);
@@ -50,11 +52,11 @@ function CodeBlock({ code, language = 'html', title }: CodeBlockProps) {
           )}
         </Highlight>
         <button
-          className="code-block__copy cyber-btn cyber-btn--ghost cyber-btn--sm"
+          className={`code-block__copy cyber-btn cyber-btn--ghost cyber-btn--sm ${copied ? 'code-block__copy--copied' : ''}`}
           onClick={handleCopy}
           aria-label={copied ? 'Copied!' : 'Copy code'}
         >
-          {copied ? 'Copied!' : 'Copy'}
+          {copied ? '✓ Copied!' : 'Copy'}
         </button>
       </div>
     </div>

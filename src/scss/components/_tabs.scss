@@ -211,6 +211,24 @@
       outline-offset: -2px;
     }
 
+    // Touch devices: prevent stuck hover states
+    @media (hover: none) {
+      &:hover {
+        color: var(--color-text-secondary);
+        background: var(--color-bg-secondary);
+      }
+
+      &:active {
+        color: var(--color-text-primary);
+        background: var(--color-bg-tertiary);
+      }
+
+      &--active:hover {
+        color: var(--cyber-cyan-500);
+        background: var(--color-bg-tertiary);
+      }
+    }
+
     // Active state
     &--active {
       color: var(--cyber-cyan-500);

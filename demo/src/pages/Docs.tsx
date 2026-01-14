@@ -30,40 +30,15 @@ function Docs() {
       </header>
 
       <div className="demo-container">
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: 'var(--space-xl)' }}>
-          {/* Sidebar Navigation */}
-          <nav style={{ position: 'sticky', top: '100px', alignSelf: 'start' }}>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+        <div className="docs-layout">
+          {/* Sidebar Navigation - becomes horizontal tabs on mobile */}
+          <nav className="docs-nav">
+            <ul className="docs-nav__list">
               {sections.map((section) => (
-                <li key={section.id} style={{ marginBottom: 'var(--space-xs)' }}>
+                <li key={section.id}>
                   <button
                     onClick={() => setActiveSection(section.id)}
-                    style={{
-                      display: 'block',
-                      width: '100%',
-                      padding: 'var(--space-xs) var(--space-sm)',
-                      textAlign: 'left',
-                      fontFamily: 'var(--font-display)',
-                      fontSize: 'var(--text-sm)',
-                      fontWeight: 500,
-                      textTransform: 'uppercase',
-                      letterSpacing: 'var(--tracking-wide)',
-                      color:
-                        activeSection === section.id
-                          ? 'var(--cyber-cyan-500)'
-                          : 'var(--color-text-secondary)',
-                      background:
-                        activeSection === section.id
-                          ? 'color-mix(in srgb, var(--cyber-cyan-500) 10%, transparent)'
-                          : 'transparent',
-                      border: 'none',
-                      borderLeft:
-                        activeSection === section.id
-                          ? '2px solid var(--cyber-cyan-500)'
-                          : '2px solid transparent',
-                      cursor: 'pointer',
-                      transition: 'all var(--transition-fast)',
-                    }}
+                    className={`docs-nav__link ${activeSection === section.id ? 'docs-nav__link--active' : ''}`}
                   >
                     {section.label}
                   </button>

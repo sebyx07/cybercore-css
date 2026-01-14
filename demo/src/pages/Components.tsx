@@ -1,10 +1,30 @@
 import { useState, useRef, useEffect } from 'react';
+
 import { createPortal } from 'react-dom';
+import { useParams, Link } from 'react-router-dom';
 
 import CodeBlock from '../components/CodeBlock';
 
+const TABS = [
+  'buttons',
+  'inputs',
+  'cards',
+  'badges',
+  'alerts',
+  'progress',
+  'tables',
+  'terminal',
+  'modal',
+  'dropdown',
+  'nav',
+  'misc',
+] as const;
+
+type TabType = (typeof TABS)[number];
+
 function Components() {
-  const [activeTab, setActiveTab] = useState('buttons');
+  const { tab } = useParams<{ tab?: string }>();
+  const activeTab: TabType = TABS.includes(tab as TabType) ? (tab as TabType) : 'buttons';
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDropdownMagentaOpen, setIsDropdownMagentaOpen] = useState(false);
@@ -30,7 +50,7 @@ function Components() {
   // Close modal on escape key and click outside
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsModalOpen(false);
+      if (e.key === 'Escape') {setIsModalOpen(false);}
     };
     const handleModalClickOutside = (e: MouseEvent) => {
       if (modalDialogRef.current && !modalDialogRef.current.contains(e.target as Node)) {
@@ -68,27 +88,14 @@ function Components() {
           className="cyber-tabs cyber-tabs--fullwidth"
           style={{ marginBottom: 'var(--space-xl)' }}
         >
-          {[
-            'buttons',
-            'inputs',
-            'cards',
-            'badges',
-            'alerts',
-            'progress',
-            'tables',
-            'terminal',
-            'modal',
-            'dropdown',
-            'nav',
-            'misc',
-          ].map((tab) => (
-            <button
-              key={tab}
-              className={`cyber-tab ${activeTab === tab ? 'cyber-tab--active' : ''}`}
-              onClick={() => setActiveTab(tab)}
+          {TABS.map((tabName) => (
+            <Link
+              key={tabName}
+              to={`/components/${tabName}`}
+              className={`cyber-tab ${activeTab === tabName ? 'cyber-tab--active' : ''}`}
             >
-              {tab}
-            </button>
+              {tabName}
+            </Link>
           ))}
         </nav>
 

@@ -12,6 +12,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="components" element={<Components />} />
+        <Route path="components/:tab" element={<Components />} />
         <Route path="effects" element={<Effects />} />
         <Route path="docs" element={<Docs />} />
       </Route>

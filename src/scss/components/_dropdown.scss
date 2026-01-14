@@ -65,7 +65,7 @@
       box-shadow:
         0 10px 25px color-mix(in srgb, var(--cyber-void-900) 60%, transparent),
         0 0 15px color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent);
-      opacity: 0;
+      opacity: 0%;
       visibility: hidden;
       transform: translateY(-10px);
       transition:
@@ -140,7 +140,7 @@
       }
 
       .cyber-dropdown__menu {
-        opacity: 1;
+        opacity: 100%;
         visibility: visible;
         transform: translateY(0);
       }
@@ -153,7 +153,7 @@
       }
 
       .cyber-dropdown__menu {
-        opacity: 1;
+        opacity: 100%;
         visibility: visible;
         transform: translateY(0);
       }
@@ -163,8 +163,8 @@
     &--right .cyber-dropdown__menu {
       right: 0;
       left: auto;
-      border-left: var(--border-thin) solid var(--color-border-default);
       border-right: 3px solid var(--cyber-cyan-500);
+      border-left: var(--border-thin) solid var(--color-border-default);
     }
 
     &--right.cyber-dropdown--magenta .cyber-dropdown__menu {
