@@ -2,6 +2,8 @@ import { Link, useParams } from 'react-router-dom';
 
 import CodeBlock from '../components/CodeBlock';
 
+import './styles-utilities.scss';
+
 const TABS = [
   { id: 'display', label: 'Display' },
   { id: 'flex', label: 'Flexbox' },
