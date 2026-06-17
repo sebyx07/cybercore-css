@@ -73,11 +73,17 @@
   // --------------------------------------------------------
 
   .cyber-icon {
-    display: inline-block;
-    flex-shrink: 0;
-    transform-box: view-box;
-    transform-origin: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     vertical-align: middle;
+    transform-origin: center;
+  }
+
+  .cyber-icon > svg {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   // --------------------------------------------------------
