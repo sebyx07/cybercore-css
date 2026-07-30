@@ -36,6 +36,24 @@
   }
 
   // --------------------------------------------------------
+  // Input group wrapper (icon + input)
+  // --------------------------------------------------------
+
+  .cyber-input-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-bg-default);
+    border-radius: var(--radius-cyber);
+    padding: 0 var(--space-sm);
+
+    &__addon {
+        flex-shrink:0;
+    }
+  }
+
+  // --------------------------------------------------------
   // Field wrapper (label + input)
   // --------------------------------------------------------
 
