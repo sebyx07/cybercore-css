@@ -44,6 +44,7 @@
   }
 
   .cyber-nav__link {
+    display: inline-block;
     position: relative;
     padding: var(--space-xs) var(--space-sm);
     overflow: hidden;
