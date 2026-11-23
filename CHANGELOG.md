@@ -8,6 +8,8 @@ Releases are cut by merging a `package.json` version bump: see [RELEASE.md](RELE
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-11-23
+
 ### Added
 
 - **New components:** switch (`cyber-switch`), toast (`cyber-toast`), accordion (`cyber-accordion`, on native `<details>`), tooltip (`cyber-tooltip`), breadcrumb (`cyber-breadcrumb`), pagination (`cyber-pagination`) and HUD frame (`cyber-hud`, `cyber-stat`, `cyber-divider`).

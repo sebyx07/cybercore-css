@@ -31,11 +31,11 @@ Pin the version, so a new release never changes your page under you:
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/cybercore-css@0.3.0/dist/cybercore.min.css"
+  href="https://cdn.jsdelivr.net/npm/cybercore-css@0.4.0/dist/cybercore.min.css"
 />
 ```
 
-The same file is on unpkg: `https://unpkg.com/cybercore-css@0.3.0/dist/cybercore.min.css`. The [getting started page](https://sebyx07.github.io/cybercore-css/docs/) prints this tag with a Subresource Integrity hash if you want one.
+The same file is on unpkg: `https://unpkg.com/cybercore-css@0.4.0/dist/cybercore.min.css`. The [getting started page](https://sebyx07.github.io/cybercore-css/docs/) prints this tag with a Subresource Integrity hash if you want one.
 
 ### npm
 
@@ -91,7 +91,7 @@ A complete page. Save it as `index.html` and open it:
     <title>Deck status</title>
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/cybercore-css@0.3.0/dist/cybercore.min.css"
+      href="https://cdn.jsdelivr.net/npm/cybercore-css@0.4.0/dist/cybercore.min.css"
     />
   </head>
   <body>
