@@ -1,0 +1,10 @@
+{
+  "workspace": "./tmp/ui-debugger-mcp",
+  "targets": {
+    "app": {
+      "adapter": "browser",
+      "headless": true,
+      "url": "http://localhost:3000"
+    }
+  }
+}
