@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# one-command stop, run by developerz.ai when a session ends — established by the developerz.ai maintainer agent for the maintainers of this repository. One command; adjust as the repo grows.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+# Nothing detected to stop (no compose file at the repo root). Replace with the command
+# that stops what bin/dev starts: idempotent, exit 0 when nothing runs, never remove data.
+true

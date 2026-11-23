@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# one-command check (typecheck + lint + test): established by the developerz.ai maintainer agent for the maintainers of this repository. One command; adjust as the repo grows.
+#   bin/check <path>...   no fast gate in this repository yet: runs the full gate
+#   bin/check [--full]    the full gate, one run at a time on this machine
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+full_gate() (
+  exec 9>&-
+  set -e
+  npm run typecheck && npm run lint && npm run test
+)
+
+paths=()
+full=0
+forced=""
+literal=0
+for arg in "$@"; do
+  if [ "$literal" = 1 ]; then paths+=("$arg"); continue; fi
+  case "$arg" in
+    --) literal=1 ;;
+    --full) full=1 ;;
+    -*) echo "bin/check: unknown option '$arg' (usage: bin/check <path>... | bin/check [--full])" >&2; exit 64 ;;
+    *) paths+=("$arg") ;;
+  esac
+done
+if [ "$full" = 1 ]; then paths=(); fi
+if [ "${#paths[@]}" -gt 0 ]; then echo "dz-gate-scope: full_forced (${paths[0]})"; fi
+# The full gate, one run at a time on this machine: parallel full suites exhaust its
+# memory. A second run waits here. The gate itself does not inherit the lock.
+lock="/tmp/sebyx07-cybercore-css-check.lock"
+{ : >>"$lock"; } 2>/dev/null || true
+if command -v flock >/dev/null 2>&1 && [ -r "$lock" ]; then
+  exec 9<"$lock"
+  ticks=0
+  while :; do
+    got=0
+    flock -w 60 9 || got=$?
+    if [ "$got" != 1 ]; then break; fi
+    ticks=$((ticks + 1))
+    # A line per interval while the lock is held, then one last line and silence: a
+    # holder that is stopped must not be hidden behind keep-alives for ever.
+    if [ "$ticks" -le 60 ]; then
+      echo "bin/check: waiting for another full check of this repository on this machine" >&2
+    elif [ "$ticks" -eq 61 ]; then
+      echo "bin/check: still waiting after 3600 s; the run holding the lock may be stopped. Waiting without further output" >&2
+    fi
+  done
+fi
+full_gate
