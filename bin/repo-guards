@@ -37,22 +37,26 @@ fail() {
 # uncommented <file> — the file without its comment-only lines (nothing when it is missing).
 uncommented() { [ -f "$1" ] && grep -vE '^[[:space:]]*#' "$1"; }
 
+# Reads all of its input (unlike grep -q), so the writer never dies of SIGPIPE
+# and trips pipefail: true when a line matches the extended regex $1.
+matches() { [ "$(grep -cE "$1")" -gt 0 ]; }
+
 # 1. Parity. `bin/check` must end the command: `bin/check fast` or `files` is not the gate.
 [ -f "$ci" ] || fail "$ci is missing" "The gate has no CI: restore the workflow."
-uncommented "$ci" | grep -qE '(^|[[:space:]])bin/check[[:space:]]*$' ||
+uncommented "$ci" | matches '(^|[[:space:]])bin/check[[:space:]]*$' ||
   fail "$ci does not run the full bin/check" "CI must run the local gate: a step with 'run: bin/check'."
-uncommented "$ci" | grep -qE '^[[:space:]]*name:[[:space:]]*"?CI OK"?[[:space:]]*$' ||
+uncommented "$ci" | matches '^[[:space:]]*name:[[:space:]]*"?CI OK"?[[:space:]]*$' ||
   fail "$ci has no job named 'CI OK'" "The ruleset and .dz/maintainer/maintainer.yml require that check: restore the aggregate job."
 [ -f "$release" ] || fail "$release is missing" "Merging a package.json version bump is the release; without the workflow nothing publishes."
 if [ -f "$release" ]; then
-  uncommented "$release" | grep -qE '(uses:[[:space:]]*\./\.github/workflows/ci\.yml|(^|[[:space:]])bin/check)[[:space:]]*$' ||
+  uncommented "$release" | matches '(uses:[[:space:]]*\./\.github/workflows/ci\.yml|(^|[[:space:]])bin/check)[[:space:]]*$' ||
     fail "$release publishes without the gate" "It must call ci.yml (uses: ./.github/workflows/ci.yml) or run bin/check before npm publish."
-  uncommented "$release" | grep -qE 'NPM_TOKEN|NODE_AUTH_TOKEN' &&
+  uncommented "$release" | matches 'NPM_TOKEN|NODE_AUTH_TOKEN' &&
     fail "$release uses an npm token" "Publishing is npm trusted publishing (OIDC, id-token: write): no token secret."
 fi
-uncommented bin/check | grep -qE '(^|[[:space:]])bin/repo-guards[[:space:]]*$' ||
+uncommented bin/check | matches '(^|[[:space:]])bin/repo-guards[[:space:]]*$' ||
   fail "bin/check no longer runs bin/repo-guards" "Restore the 'run_step guards bin/repo-guards' lines."
-uncommented bin/check | grep -qE '(^|[[:space:]])bin/docs-check[[:space:]]*$' ||
+uncommented bin/check | matches '(^|[[:space:]])bin/docs-check[[:space:]]*$' ||
   fail "bin/check no longer runs bin/docs-check" "Restore the 'run_step docs bin/docs-check' line of the full tier."
 
 # steps <array name> — the npm scripts bin/check lists in that array.
