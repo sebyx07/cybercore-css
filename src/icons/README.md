@@ -25,15 +25,11 @@ npm install cybercore-css
 
 ### Simple HTML/CSS (No Build Tools)
 
-Copy SVG files directly from `node_modules/cybercore-css/src/icons/svg/` or use
-the CDN:
+Copy the SVG markup of an icon from the [icons page of the demo](https://sebyx07.github.io/cybercore-css/icons/) and paste it inline:
 
 ```html
 <!-- Include CSS for icon utilities -->
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/cybercore-css/dist/cybercore.min.css"
-/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cybercore-css/dist/cybercore.min.css" />
 
 <!-- Option 1: Copy SVG inline -->
 <span class="cyber-icon cyber-icon--cyan" style="width: 24px; height: 24px;">
@@ -122,9 +118,7 @@ const props = defineProps({
   color: { type: String, default: 'cyan' },
 });
 
-const iconHtml = computed(() =>
-  renderIcon(props.name, { size: props.size, color: props.color })
-);
+const iconHtml = computed(() => renderIcon(props.name, { size: props.size, color: props.color }));
 </script>
 ```
 
@@ -200,11 +194,7 @@ element.innerHTML = arrowUp.svg;
 ### Legacy Individual Imports
 
 ```ts
-import {
-  ChipIcon,
-  TerminalIcon,
-  SignalIcon,
-} from 'cybercore-css/icons/individual';
+import { ChipIcon, TerminalIcon, SignalIcon } from 'cybercore-css/icons/individual';
 
 // Each export is the raw SVG string
 element.innerHTML = ChipIcon;

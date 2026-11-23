@@ -1,0 +1,27 @@
+// ============================================================
+// Reduced motion
+// Follows `prefers-reduced-motion: reduce`, or force it per subtree with
+// data-motion="reduce". Every duration token collapses to 0ms, so anything
+// timed with tokens (transitions, token-driven animations) becomes instant.
+// Components still guard their own decorative keyframes.
+// ============================================================
+
+@use "../abstracts/tokens";
+
+@mixin reduced-motion {
+  @each $name, $value in tokens.$durations {
+    --duration-#{$name}: 0ms;
+  }
+}
+
+@layer theme {
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      @include reduced-motion;
+    }
+  }
+
+  [data-motion="reduce"] {
+    @include reduced-motion;
+  }
+}

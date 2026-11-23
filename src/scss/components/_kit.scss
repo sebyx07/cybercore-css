@@ -1,0 +1,221 @@
+// ============================================================
+// Component Kit
+// Mixins shared by every component: the cut-corner frame, focus ring,
+// media-query guards and mask icons. Emits no CSS on its own.
+// Components read core tokens through var() with a literal fallback, so a
+// single partial still renders when it is loaded without core/variables.
+// Preference overrides (reduced motion, more contrast, forced colours) are
+// written as plain at-rules at the end of each partial: they must come after
+// the rules they override.
+// ============================================================
+
+// --------------------------------------------------------
+// Media guards
+// --------------------------------------------------------
+
+@mixin motion-safe {
+  @media (prefers-reduced-motion: no-preference) {
+    @content;
+  }
+}
+
+// Hover only where a real pointer exists, so touch never gets a stuck state
+@mixin hover {
+  @media (hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+// --------------------------------------------------------
+// Focus ring
+// One ring for every interactive component. Outline (not box-shadow) so it
+// survives forced-colors and is never clipped by the frame.
+// --------------------------------------------------------
+
+@mixin focus-ring($color: var(--focus-ring-color, var(--cyber-cyan-300)), $offset: null) {
+  outline: var(--focus-ring-width, 2px) solid $color;
+
+  @if $offset {
+    outline-offset: $offset;
+  } @else {
+    outline-offset: var(--focus-ring-offset, 3px);
+  }
+}
+
+// --------------------------------------------------------
+// Typography helpers
+// --------------------------------------------------------
+
+// Smallest text a component may set. --text-xs is fluid and dips to ~10px
+// on phones; labels, hints and badges stay readable with an 11px floor.
+$text-xs: max(var(--text-xs), 0.6875rem);
+
+@mixin label-text($size: var(--text-sm), $tracking: 0.08em) {
+  font-family: var(--font-display);
+  font-size: $size;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: $tracking;
+  text-transform: uppercase;
+}
+
+// --------------------------------------------------------
+// Cut-corner frame
+// Draws border + fill on ::before and clips *that*, leaving the host
+// unclipped. So glows (filter: drop-shadow), focus rings and overflowing
+// children (menus, tooltips) are never cut off, and the diagonal edges get a
+// real border stroke.
+// Driven by custom properties on the host:
+//   --frame-cut            corner size (0px = plain rectangle)
+//   --frame-border-width   border + diagonal stroke width
+//   --frame-border-style   solid | dashed
+//   --frame-border-color
+//   --frame-bg             fill colour
+//   --frame-bg-image       optional extra layer (sweep fill, holo, grid)
+//   --frame-bg-size / --frame-bg-position / --frame-bg-repeat
+// --------------------------------------------------------
+
+@mixin cut-frame {
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border: var(--frame-border-width, 1px) var(--frame-border-style, solid)
+      var(--frame-border-color, var(--color-border-default));
+    background-color: var(--frame-bg, transparent);
+    background-image:
+      linear-gradient(
+        to top right,
+        transparent calc(50% - var(--frame-border-width, 1px) - 0.5px),
+        var(--frame-border-color, var(--color-border-default))
+          calc(50% - var(--frame-border-width, 1px) - 0.5px),
+        var(--frame-border-color, var(--color-border-default)) 50%,
+        transparent 50%
+      ),
+      linear-gradient(
+        to bottom left,
+        transparent calc(50% - var(--frame-border-width, 1px) - 0.5px),
+        var(--frame-border-color, var(--color-border-default))
+          calc(50% - var(--frame-border-width, 1px) - 0.5px),
+        var(--frame-border-color, var(--color-border-default)) 50%,
+        transparent 50%
+      ),
+      var(--frame-bg-image, none);
+    background-repeat: no-repeat, no-repeat, var(--frame-bg-repeat, no-repeat);
+    background-position:
+      top right,
+      bottom left,
+      var(--frame-bg-position, 0 0);
+    background-size:
+      var(--frame-cut, 12px) var(--frame-cut, 12px),
+      var(--frame-cut, 12px) var(--frame-cut, 12px),
+      var(--frame-bg-size, 100% 100%);
+    transition:
+      background-color var(--duration-fast) ease,
+      border-color var(--duration-fast) ease,
+      background-size var(--duration-normal) var(--ease-cyber);
+    pointer-events: none;
+    background-origin: border-box;
+    clip-path: polygon(
+      0 0,
+      calc(100% - var(--frame-cut, 12px)) 0,
+      100% var(--frame-cut, 12px),
+      100% 100%,
+      var(--frame-cut, 12px) 100%,
+      0 calc(100% - var(--frame-cut, 12px))
+    );
+    inset: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::before {
+      transition-duration: 0.01ms;
+    }
+  }
+
+  // Forced colours repaint the border but not the painted corner strokes:
+  // fall back to a plain rectangle with a full system-colour border
+  @media (forced-colors: active) {
+    &::before {
+      background-image: none;
+      clip-path: none;
+    }
+  }
+}
+
+// --------------------------------------------------------
+// HUD corner brackets, painted as four background bars on a pseudo-element
+// --------------------------------------------------------
+
+@mixin corner-brackets($color, $length: 24px, $weight: 2px) {
+  background-image:
+    linear-gradient($color, $color), linear-gradient($color, $color),
+    linear-gradient($color, $color), linear-gradient($color, $color);
+  background-repeat: no-repeat;
+  background-position:
+    top left,
+    top left,
+    bottom right,
+    bottom right;
+  background-size:
+    $length $weight,
+    $weight $length,
+    $length $weight,
+    $weight $length;
+}
+
+// --------------------------------------------------------
+// Scrollbar
+// --------------------------------------------------------
+
+@mixin scrollbar($size: 6px) {
+  scrollbar-color: var(--cyber-chrome-600) transparent;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: $size;
+    height: $size;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--cyber-chrome-600);
+  }
+}
+
+// --------------------------------------------------------
+// Mask icons (16px grid). The glyph takes the element's `background-color`,
+// so it follows component colour variables.
+// --------------------------------------------------------
+
+$icon-info: "M7 3h2v2H7zM7 7h2v6H7z";
+$icon-warning: "M8 1l7 13H1zM7 6v4h2V6zM7 11v2h2v-2z";
+$icon-error: "M3.3 2L8 6.6 12.7 2 14 3.3 9.4 8 14 12.7 12.7 14 8 9.4 3.3 14 2 12.7 6.6 8 2 3.3z";
+$icon-success: "M6.2 12.6L1.8 8.2l1.5-1.5 2.9 2.9 6.5-6.5 1.5 1.5z";
+$icon-chevron: "M4.5 2.5L6 1l7 7-7 7-1.5-1.5L10 8z";
+
+@function icon-url($path) {
+  @return url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='#{$path}'/%3E%3C/svg%3E");
+}
+
+@mixin mask-icon($path, $size: 1em) {
+  flex: none;
+  width: $size;
+  height: $size;
+  background-color: currentcolor;
+  mask: icon-url($path) center / contain no-repeat;
+
+  // Forced colours repaint backgrounds, which would erase a masked glyph
+  @media (forced-colors: active) {
+    background-color: CanvasText;
+    forced-color-adjust: none;
+  }
+}

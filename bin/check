@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+# The gate. CI runs this script (bin/repo-guards fails when it stops), so green here is green there.
+#
+#   bin/check                 pre-PR gate: repo guards + every step in FULL_STEPS below + bin/docs-check
+#   bin/check fast            inner loop: repo guards + the FAST_STEPS subset (no demo, no typecheck)
+#   bin/check files <path>…   only the named files: stylelint on .scss, eslint on .ts/.tsx,
+#                             prettier on all of them, vitest on the tests related to them
+#
+# Exit: 0 green · 75 environment missing (nothing was graded — run bin/setup) · 1 a check failed.
+# Every failure prints the failing command and the command to rerun just that step.
+#
+# `fast` blind spots: the demo (its lint, types and build), formatting, the icon validation, the
+# bundle-size budget, the npm package contents and the docs truth check (bin/docs-check).
+# `files` also skips the repo guards and the Sass build of files no test compiles.
+# Agents sharing this checkout run `bin/check files <their paths>` only.
+set -uo pipefail
+# shellcheck source-path=SCRIPTDIR source=_dx.sh
+source "$(dirname "${BASH_SOURCE[0]}")/_dx.sh"
+cd "$ROOT" || exit 1
+
+# The npm scripts each tier runs, in order. FAST_STEPS must be a subset of FULL_STEPS.
+FULL_STEPS=(lint format:check typecheck test validate:icons build check:size check:package)
+FAST_STEPS=(lint:css test)
+
+usage() { sed -n '2,15p' "$0" | sed 's/^# \{0,1\}//'; }
+
+mode="${1:-full}"
+case "$mode" in
+  full | fast) [ "$#" -le 1 ] || { usage >&2; exit 2; } ;;
+  files) shift; [ "$#" -ge 1 ] || { usage >&2; exit 2; } ;;
+  -h | --help)
+    usage
+    printf '\nfull: %s\nfast: %s\n' "${FULL_STEPS[*]}" "${FAST_STEPS[*]}"
+    exit 0
+    ;;
+  *) usage >&2; exit 2 ;;
+esac
+
+failed=()
+
+# run_step <name> <command…> — runs the command, records a failure, keeps going.
+run_step() {
+  local name="$1" status
+  shift
+  step "$name: $*"
+  "$@"
+  status=$?
+  if [ "$status" -eq 0 ]; then
+    ok "$name"
+  else
+    printf '  ✗ %s (exit %s)\n' "$name" "$status"
+    failed+=("$name|$*")
+  fi
+}
+
+use_node require
+require_deps
+
+case "$mode" in
+  full)
+    run_step guards bin/repo-guards
+    for script in "${FULL_STEPS[@]}"; do run_step "$script" npm run --silent "$script"; done
+    run_step docs bin/docs-check
+    ;;
+  fast)
+    run_step guards bin/repo-guards
+    for script in "${FAST_STEPS[@]}"; do run_step "$script" npm run --silent "$script"; done
+    ;;
+  files)
+    scss=() js=() all=()
+    for path in "$@"; do
+      [ -e "$path" ] || { echo "bin/check files: no such file: $path" >&2; exit 2; }
+      case "$path" in
+        *.scss) scss+=("$path"); all+=("$path") ;;
+        *.ts | *.tsx | *.js | *.mjs) js+=("$path"); all+=("$path") ;;
+        *.json | *.md | *.yml | *.yaml | *.css | *.html) all+=("$path") ;;
+      esac
+    done
+    if [ "${#scss[@]}" -gt 0 ]; then run_step lint:css npx --no-install stylelint "${scss[@]}"; fi
+    if [ "${#js[@]}" -gt 0 ]; then run_step lint:js npx --no-install eslint "${js[@]}"; fi
+    if [ "${#all[@]}" -gt 0 ]; then
+      run_step format:check npx --no-install prettier --check --ignore-unknown "${all[@]}"
+    fi
+    # `vitest related` runs the tests whose import graph reaches the named files. The CSS tests
+    # compile src/scss/ through Sass, not through imports, so a named .scss runs the whole suite.
+    if [ "${#scss[@]}" -gt 0 ]; then
+      run_step test npx --no-install vitest run
+    else
+      run_step test npx --no-install vitest related --run --passWithNoTests "$@"
+    fi
+    ;;
+esac
+
+if [ "${#failed[@]}" -eq 0 ]; then
+  printf '\nbin/check %s: GREEN\n' "$mode"
+  exit 0
+fi
+
+printf '\nbin/check %s: FAILED (%s step(s))\n' "$mode" "${#failed[@]}"
+for entry in "${failed[@]}"; do
+  name="${entry%%|*}"
+  command="${entry#*|}"
+  case "$name" in
+    test) rerun='npx vitest run <tests/file.test.ts>   (one file; -t "<name>" for one test)' ;;
+    *) rerun="$command" ;;
+  esac
+  printf '  ✗ %s\n      failing command: %s\n      rerun:           %s\n' "$name" "$command" "$rerun"
+done
+printf '  autofix: "npm run lint:fix" (stylelint, eslint) and "npm run format" (prettier).\n'
+exit 1

@@ -1,0 +1,8 @@
+// ============================================================
+// Themes - accent (data-theme), high contrast, reduced motion
+// Load after core/variables: these rules override its tokens.
+// ============================================================
+
+@forward "accents";
+@forward "contrast";
+@forward "motion";

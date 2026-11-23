@@ -1,0 +1,58 @@
+name: Bug report
+description: A component, effect, utility or icon that renders or behaves wrong
+labels: [bug]
+body:
+  - type: textarea
+    id: markup
+    attributes:
+      label: Minimal HTML
+      description: The smallest markup that shows the problem. A CodePen or JSFiddle link with the CDN stylesheet is ideal.
+      render: html
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected
+      description: What it should look like or do.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual
+      description: What happens instead. A screenshot helps a lot for visual bugs.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: cybercore-css version
+      description: 'From package.json, or the version in your CDN URL.'
+      placeholder: '0.3.0'
+    validations:
+      required: true
+  - type: dropdown
+    id: source
+    attributes:
+      label: How do you load it?
+      options:
+        - CDN <link> (jsDelivr, unpkg)
+        - npm, importing dist/cybercore.css
+        - npm, importing the SCSS sources
+        - Icons module (cybercore-css/icons)
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser and OS
+      placeholder: 'Firefox 133 on Windows 11, 1440px wide'
+    validations:
+      required: true
+  - type: checkboxes
+    id: a11y
+    attributes:
+      label: Does it affect accessibility?
+      options:
+        - label: Keyboard focus, contrast, reduced motion or screen-reader output is affected

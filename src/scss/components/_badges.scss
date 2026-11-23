@@ -1,198 +1,217 @@
 // ============================================================
 // Badges Component
-// Inline pill badges with variants
+// .cyber-badge — angular status tag. `--pill` restores the round shape.
 // ============================================================
+
+@use "kit";
+
+// Reduced-motion overrides, shared by the media query and data-motion="reduce"
+@mixin -reduced-motion {
+  .cyber-badge,
+  .cyber-badge::after {
+    animation: none;
+  }
+}
 
 @layer components {
   .cyber-badge {
+    --badge-color: var(--color-accent, var(--cyber-cyan-500));
+    --badge-text: var(--badge-color);
+    --badge-bg: color-mix(in srgb, var(--badge-color) 14%, transparent);
+
+    // Frame wiring
+    --frame-cut: 6px;
+    --frame-border-color: color-mix(in srgb, var(--badge-color) 75%, transparent);
+    --frame-bg: var(--badge-bg);
+
+    @include kit.cut-frame;
+    @include kit.label-text(kit.$text-xs, 0.06em);
+
     display: inline-flex;
     gap: var(--space-3xs);
     align-items: center;
-    padding: var(--space-3xs) var(--space-sm);
-    border: var(--border-thin) solid var(--cyber-cyan-500);
-    border-radius: var(--radius-full);
-    font-family: var(--font-display);
-    font-size: var(--text-xs);
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    min-height: 1.5rem;
+    padding: 0.125rem var(--space-xs);
+    line-height: 1.2;
     white-space: nowrap;
-    color: var(--cyber-cyan-500);
-    background: color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
-    transition:
-      background var(--transition-fast),
-      box-shadow var(--transition-fast);
+    color: var(--badge-text);
+    vertical-align: middle;
 
-    // Icon support
     svg,
     &__icon {
-      flex-shrink: 0;
+      flex: none;
       width: 0.875em;
       height: 0.875em;
     }
 
     // --------------------------------------------------------
-    // Color Variants
+    // Colour variants
     // --------------------------------------------------------
 
+    &--cyan {
+      --badge-color: var(--cyber-cyan-500);
+    }
+
     &--magenta {
-      border-color: var(--cyber-magenta-500);
-      color: var(--cyber-magenta-500);
-      background: color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent);
+      --badge-color: var(--cyber-magenta-500);
     }
 
     &--yellow {
-      border-color: var(--cyber-yellow-500);
-      color: var(--cyber-yellow-500);
-      background: color-mix(in srgb, var(--cyber-yellow-500) 20%, transparent);
+      --badge-color: var(--cyber-yellow-500);
     }
 
     &--green {
-      border-color: var(--cyber-green-500);
-      color: var(--cyber-green-500);
-      background: color-mix(in srgb, var(--cyber-green-500) 20%, transparent);
+      --badge-color: var(--cyber-green-500);
     }
 
     &--chrome {
-      border-color: var(--cyber-chrome-500);
-      color: var(--cyber-chrome-300);
-      background: color-mix(in srgb, var(--cyber-chrome-500) 20%, transparent);
+      --badge-color: var(--cyber-chrome-400);
+      --badge-text: var(--cyber-chrome-200);
     }
 
     // --------------------------------------------------------
-    // Style Variants
+    // Style variants
     // --------------------------------------------------------
 
     &--filled {
-      border-color: var(--cyber-cyan-500);
-      color: var(--cyber-void-500);
-      background: var(--cyber-cyan-500);
-
-      &.cyber-badge--magenta {
-        border-color: var(--cyber-magenta-500);
-        background: var(--cyber-magenta-500);
-      }
-
-      &.cyber-badge--yellow {
-        border-color: var(--cyber-yellow-500);
-        background: var(--cyber-yellow-500);
-      }
-
-      &.cyber-badge--green {
-        border-color: var(--cyber-green-500);
-        background: var(--cyber-green-500);
-      }
+      --badge-text: var(--color-text-on-accent, var(--cyber-void-500));
+      --badge-bg: var(--badge-color);
+      --frame-border-color: var(--badge-color);
     }
 
     &--ghost {
-      border-color: transparent;
-      background: transparent;
+      --badge-bg: transparent;
+      --frame-border-color: transparent;
+    }
 
-      &:hover {
-        background: color-mix(in srgb, currentcolor 10%, transparent);
+    // Round tag, no cut corner
+    &--pill {
+      --frame-cut: 0;
+
+      padding-inline: var(--space-sm);
+
+      &::before {
+        border-radius: var(--radius-full);
       }
     }
 
-    // --------------------------------------------------------
-    // Pulse Animation Variant
-    // Uses box-shadow animation on the badge itself
-    // --------------------------------------------------------
-
+    // Draws attention with a soft pulsing halo
     &--pulse {
-      animation: badge-pulse 2s ease-in-out infinite;
+      animation: cyber-badge-pulse 2s ease-in-out infinite;
     }
 
     // --------------------------------------------------------
-    // Size Variants
+    // Sizes
     // --------------------------------------------------------
 
     &--sm {
-      padding: 2px var(--space-2xs);
-      font-size: 0.625rem;
+      --frame-cut: 4px;
+
+      min-height: 1.25rem;
+      padding: 0 var(--space-2xs);
+      font-size: 0.6875rem;
     }
 
     &--lg {
-      padding: var(--space-2xs) var(--space-sm);
+      --frame-cut: 8px;
+
+      min-height: 2rem;
+      padding: var(--space-3xs) var(--space-sm);
       font-size: var(--text-sm);
     }
 
-    // --------------------------------------------------------
-    // Counter Badge (for notifications)
-    // --------------------------------------------------------
-
+    // Notification count
     &--counter {
+      --frame-cut: 0;
+
       justify-content: center;
       min-width: 1.5rem;
-      height: 1.5rem;
-      padding: 0;
-      border-radius: 50%;
+      padding: 0 0.375rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0;
+      font-variant-numeric: tabular-nums;
     }
 
     // --------------------------------------------------------
-    // Status indicators
+    // Presence: a leading dot plus colour
     // --------------------------------------------------------
 
-    &--online {
-      border-color: var(--cyber-green-500);
-      color: var(--cyber-green-500);
-      background: color-mix(in srgb, var(--cyber-green-500) 20%, transparent);
-
-      &::before {
+    &--online,
+    &--offline,
+    &--busy,
+    &--away {
+      &::after {
         content: "";
-        width: 6px;
-        height: 6px;
+        order: -1;
+        width: 0.4375rem;
+        height: 0.4375rem;
         border-radius: 50%;
-        background: var(--cyber-green-500);
-        animation: badge-pulse 2s ease-in-out infinite;
+        color: var(--badge-color);
+        background: currentcolor;
+      }
+    }
+
+    &--online {
+      --badge-color: var(--cyber-green-500);
+
+      &::after {
+        animation: cyber-badge-pulse 2s ease-in-out infinite;
       }
     }
 
     &--offline {
-      border-color: var(--cyber-chrome-500);
-      color: var(--cyber-chrome-500);
-      background: color-mix(in srgb, var(--cyber-chrome-500) 20%, transparent);
+      --badge-color: var(--cyber-chrome-400);
+      --badge-text: var(--cyber-chrome-300);
 
-      &::before {
-        content: "";
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--cyber-chrome-500);
+      &::after {
+        border: 1px solid currentcolor;
+        background: transparent;
       }
     }
 
     &--busy {
-      border-color: var(--cyber-magenta-500);
-      color: var(--cyber-magenta-500);
-      background: color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent);
+      --badge-color: var(--cyber-magenta-500);
 
-      &::before {
-        content: "";
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--cyber-magenta-500);
-        animation: badge-pulse 1s ease-in-out infinite;
+      &::after {
+        animation: cyber-badge-pulse 1s ease-in-out infinite;
       }
     }
-  }
 
-  // Pulse animation - box-shadow animation matching demo
-  @keyframes badge-pulse {
-    0%,
-    100% {
-      box-shadow: 0 0 0 0 currentcolor;
-    }
-
-    50% {
-      box-shadow: 0 0 0 6px transparent;
+    &--away {
+      --badge-color: var(--cyber-yellow-500);
     }
   }
 
-  // Badge group
   .cyber-badge-group {
     display: inline-flex;
     flex-wrap: wrap;
     gap: var(--space-2xs);
+    align-items: center;
+  }
+
+  // Halo expands and fades; no layout impact
+  @keyframes cyber-badge-pulse {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, currentcolor 70%, transparent);
+    }
+
+    70%,
+    100% {
+      box-shadow: 0 0 0 0.4rem transparent;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    @include -reduced-motion;
+  }
+
+  [data-motion="reduce"] {
+    @include -reduced-motion;
+  }
+
+  @media (prefers-contrast: more) {
+    .cyber-badge {
+      --frame-border-color: var(--badge-color);
+    }
   }
 }

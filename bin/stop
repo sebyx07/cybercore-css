@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Stops the dev server that `bin/dev --detach` started. Idempotent.
+#
+#   bin/stop
+set -euo pipefail
+# shellcheck source-path=SCRIPTDIR source=_dx.sh
+source "$(dirname "${BASH_SOURCE[0]}")/_dx.sh"
+
+if [ ! -f "$DEV_PID_FILE" ]; then
+  echo "bin/stop: nothing to stop (no detached bin/dev)."
+  exit 0
+fi
+
+pid="$(cat "$DEV_PID_FILE")"
+if kill -0 "$pid" 2>/dev/null; then
+  # The pid leads its own process group (bin/dev starts it with setsid).
+  kill -- "-$pid" 2>/dev/null || kill "$pid"
+  ok "stopped the dev server (pid $pid)"
+else
+  echo "bin/stop: pid $pid is not running; removing the stale pid file."
+fi
+rm -f "$DEV_PID_FILE"

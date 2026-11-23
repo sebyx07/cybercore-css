@@ -1,48 +1,71 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/cybercore-css/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0d0e14" />
 
-    <!-- Primary Meta Tags -->
-    <title>CYBERCORE CSS - Cyberpunk Design System</title>
-    <meta name="title" content="CYBERCORE CSS - Cyberpunk Design System" />
-    <meta name="description" content="A pure CSS cyberpunk design framework for building futuristic interfaces. Inspired by Cyberpunk 2077 and Blade Runner. Zero JavaScript, 153 icons, glitch effects, neon glows, and more." />
-    <meta name="keywords" content="CSS framework, cyberpunk, design system, UI components, dark theme, neon, glitch effect, web development, frontend" />
-    <meta name="author" content="sebyx07" />
+    <title>Cybercore CSS: Cyberpunk UI in pure CSS</title>
+    <meta name="description" content="Cybercore CSS is a pure CSS cyberpunk design system: neon components, glitch effects, design tokens and 150+ SVG icons. No JavaScript, works with any framework." />
     <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="%SITE_URL%/" />
+    <link rel="icon" type="image/svg+xml" href="/cybercore-css/favicon.svg" />
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://sebyx07.github.io/cybercore-css/" />
-    <meta property="og:title" content="CYBERCORE CSS - Cyberpunk Design System" />
-    <meta property="og:description" content="A pure CSS cyberpunk design framework for building futuristic interfaces. Glitch effects, neon glows, 153 icons, and more." />
-    <meta property="og:image" content="https://raw.githubusercontent.com/sebyx07/cybercore-css/main/assets/showcase.png" />
-    <meta property="og:image:width" content="1400" />
-    <meta property="og:image:height" content="900" />
+    <meta property="og:site_name" content="Cybercore CSS" />
+    <meta property="og:url" content="%SITE_URL%/" />
+    <meta property="og:title" content="Cybercore CSS: Cyberpunk UI in pure CSS" />
+    <meta property="og:description" content="Cybercore CSS is a pure CSS cyberpunk design system: neon components, glitch effects, design tokens and 150+ SVG icons. No JavaScript, works with any framework." />
+    <meta property="og:image" content="%SITE_URL%/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Cybercore CSS: a neon deck status panel with a terminal, progress bars and badges" />
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://sebyx07.github.io/cybercore-css/" />
-    <meta property="twitter:title" content="CYBERCORE CSS - Cyberpunk Design System" />
-    <meta property="twitter:description" content="A pure CSS cyberpunk design framework for building futuristic interfaces. Glitch effects, neon glows, 153 icons, and more." />
-    <meta property="twitter:image" content="https://raw.githubusercontent.com/sebyx07/cybercore-css/main/assets/showcase.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Cybercore CSS: Cyberpunk UI in pure CSS" />
+    <meta name="twitter:description" content="Cybercore CSS is a pure CSS cyberpunk design system: neon components, glitch effects, design tokens and 150+ SVG icons. No JavaScript, works with any framework." />
+    <meta name="twitter:image" content="%SITE_URL%/og.png" />
 
-    <!-- Theme Color -->
-    <meta name="theme-color" content="#0a0a0f" />
-    <meta name="msapplication-TileColor" content="#0a0a0f" />
-
-    <!-- Google Fonts -->
+    <!-- The same font link the install guide prints (src/site.ts) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&family=Rajdhani:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="%FONTS_HREF%" rel="stylesheet" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "Cybercore CSS",
+        "description": "A pure CSS cyberpunk design system: neon components, glitch effects, design tokens and SVG icons. No JavaScript.",
+        "url": "https://sebyx07.github.io/cybercore-css/",
+        "codeRepository": "https://github.com/sebyx07/cybercore-css",
+        "programmingLanguage": ["CSS", "SCSS"],
+        "license": "https://opensource.org/licenses/MIT",
+        "author": { "@type": "Person", "name": "sebyx07", "url": "https://github.com/sebyx07" }
+      }
+    </script>
+
+    <script>
+      // Apply the saved theme before first paint.
+      try {
+        var theme = localStorage.getItem('cybercore-theme');
+        if (theme) document.documentElement.dataset.theme = theme;
+      } catch (error) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <main style="max-width: 40rem; margin: 4rem auto; padding: 0 1rem; font-family: system-ui, sans-serif; color: #f0f1f5">
+        <h1>Cybercore CSS</h1>
+        <p>A pure CSS cyberpunk design system. The framework needs no JavaScript. This documentation site does.</p>
+        <p>
+          <a href="https://github.com/sebyx07/cybercore-css#readme" style="color: #00f0ff">Read the docs on GitHub</a> or install with
+          <code>npm install cybercore-css</code>.
+        </p>
+      </main>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

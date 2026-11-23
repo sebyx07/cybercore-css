@@ -1,184 +1,213 @@
 // ============================================================
 // Tables Component
-// Data tables with cyber styling
+// .cyber-table — data table. Wrap in .cyber-table-wrapper to scroll sideways.
+// A11y: give the table a <caption>, mark sortable columns with `aria-sort`
+// and put a <button> inside the <th> so sorting works from the keyboard.
+// A scrolling wrapper needs `tabindex="0"`, `role="region"` and a label.
 // ============================================================
+
+@use "kit";
+
+// Reduced-motion overrides, shared by the media query and data-motion="reduce"
+@mixin -reduced-motion {
+  .cyber-table tbody tr {
+    transition: none;
+  }
+
+  .cyber-table .cell-status--pending::before {
+    animation: none;
+  }
+}
 
 @layer components {
   .cyber-table {
+    --table-accent: var(--color-accent, var(--cyber-cyan-500));
+    --table-cell-padding: var(--space-xs) var(--space-sm);
+
     width: 100%;
     font-family: var(--font-mono);
     font-size: var(--text-sm);
+    color: var(--color-text-secondary);
     border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
 
-    // Table header
-    thead {
+    caption {
+      padding: var(--space-xs) var(--space-sm);
+      font-family: var(--font-mono);
+      font-size: kit.$text-xs;
+      letter-spacing: 0.08em;
+      text-align: start;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      caption-side: bottom;
+    }
+
+    th,
+    td {
+      padding: var(--table-cell-padding);
+      text-align: start;
+      vertical-align: middle;
+    }
+
+    // --------------------------------------------------------
+    // Header
+    // --------------------------------------------------------
+
+    thead th {
+      @include kit.label-text(var(--text-sm), 0.06em);
+
+      border-bottom: 2px solid var(--table-accent);
+      white-space: nowrap;
+      color: var(--table-accent);
       background: var(--color-bg-tertiary);
 
-      th {
-        padding: var(--space-sm);
-        border-bottom: 2px solid var(--cyber-cyan-500);
-        font-family: var(--font-display);
-        font-weight: 700;
-        letter-spacing: 0.05em;
-        text-align: left;
-        text-transform: uppercase;
-        color: var(--cyber-cyan-500);
+      // Sortable column: `aria-sort` on the <th>, `data-sortable` also works
+      &[aria-sort],
+      &[data-sortable] {
+        cursor: pointer;
+        user-select: none;
 
-        // Sortable header indicator
-        &[data-sortable] {
-          cursor: pointer;
-          user-select: none;
+        &::after {
+          content: "";
+          display: inline-block;
+          width: 0;
+          height: 0;
+          border-top: 5px solid currentcolor;
+          border-right: 4px solid transparent;
+          border-left: 4px solid transparent;
+          opacity: 35%;
+          transition: opacity var(--duration-fast) ease;
+          margin-inline-start: var(--space-2xs);
+          vertical-align: middle;
+        }
 
-          &::after {
-            content: "";
-            display: inline-block;
-            width: 0;
-            height: 0;
-            margin-left: var(--space-xs);
-            border-top: 4px solid currentcolor;
-            border-right: 4px solid transparent;
-            border-left: 4px solid transparent;
-            opacity: 30%;
-            transition: opacity var(--transition-fast);
-            vertical-align: middle;
-          }
+        &:hover::after {
+          opacity: 75%;
+        }
+      }
 
-          &:hover::after {
-            opacity: 70%;
-          }
+      &[aria-sort="ascending"]::after,
+      &[data-sort="asc"]::after {
+        border-top: 0;
+        border-bottom: 5px solid currentcolor;
+        opacity: 100%;
+      }
 
-          &[data-sort="asc"]::after {
-            border-top: none;
-            border-bottom: 4px solid currentcolor;
-            opacity: 100%;
-          }
+      &[aria-sort="descending"]::after,
+      &[data-sort="desc"]::after {
+        opacity: 100%;
+      }
 
-          &[data-sort="desc"]::after {
-            opacity: 100%;
-          }
+      // Sort button fills the header cell and inherits its type
+      button {
+        min-height: 1.5rem;
+        padding: 0;
+        border: 0;
+        font: inherit;
+        letter-spacing: inherit;
+        text-transform: inherit;
+        color: inherit;
+        background: none;
+        cursor: pointer;
+
+        &:focus-visible {
+          @include kit.focus-ring(var(--table-accent));
         }
       }
     }
 
-    // Table body
+    // --------------------------------------------------------
+    // Body + footer
+    // --------------------------------------------------------
+
     tbody {
       tr {
-        transition: background var(--duration-fast);
-
-        &:hover {
-          background: color-mix(in srgb, var(--cyber-cyan-500) 5%, transparent);
-        }
+        transition: background-color var(--duration-fast) ease;
       }
 
-      td {
-        padding: var(--space-sm);
+      td,
+      th {
         border-bottom: 1px solid var(--color-border-default);
       }
-    }
 
-    // Table footer
-    tfoot {
-      background: var(--color-bg-tertiary);
-
-      td {
-        padding: var(--space-sm);
-        border-top: 1px solid var(--color-border-default);
+      th {
         font-weight: 600;
         color: var(--color-text-primary);
       }
-    }
 
-    // --------------------------------------------------------
-    // Striped Variant
-    // --------------------------------------------------------
-
-    &--striped {
-      tbody tr:nth-child(even) {
-        background: color-mix(in srgb, var(--cyber-void-500) 50%, transparent);
-      }
-
-      tbody tr:nth-child(even):hover {
-        background: color-mix(in srgb, var(--cyber-cyan-500) 8%, transparent);
+      tr:hover {
+        background: color-mix(in srgb, var(--table-accent) 6%, transparent);
       }
     }
 
+    tfoot {
+      td,
+      th {
+        border-top: 2px solid var(--color-border-default);
+        font-weight: 600;
+        color: var(--color-text-primary);
+        background: var(--color-bg-tertiary);
+      }
+    }
+
     // --------------------------------------------------------
-    // Bordered Variant
+    // Variants
     // --------------------------------------------------------
+
+    &--striped tbody tr:nth-child(even) {
+      background: color-mix(in srgb, var(--cyber-chrome-500) 6%, transparent);
+
+      &:hover {
+        background: color-mix(in srgb, var(--table-accent) 9%, transparent);
+      }
+    }
 
     &--bordered {
       th,
       td {
-        border: var(--border-thin) solid var(--color-border-default);
+        border: 1px solid var(--color-border-default);
       }
 
       thead th {
-        border-bottom-color: var(--cyber-cyan-500);
-        border-bottom-width: var(--border-medium);
+        border-bottom: 2px solid var(--table-accent);
       }
     }
-
-    // --------------------------------------------------------
-    // Compact Variant
-    // --------------------------------------------------------
 
     &--compact {
-      font-size: var(--text-xs);
+      --table-cell-padding: var(--space-3xs) var(--space-xs);
 
-      thead th,
-      tbody td,
-      tfoot td {
-        padding: var(--space-xs);
+      font-size: kit.$text-xs;
+
+      thead th {
+        font-size: kit.$text-xs;
       }
     }
 
-    // --------------------------------------------------------
-    // Responsive wrapper
-    // --------------------------------------------------------
+    // Header stays put while the wrapper scrolls vertically
+    &--sticky thead th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
 
-    &-wrapper {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+    &--magenta {
+      --table-accent: var(--cyber-magenta-500);
+    }
 
-      // Fade edges to indicate scroll
-      &::before,
-      &::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 20px;
-        opacity: 0%;
-        transition: opacity var(--transition-fast);
-        pointer-events: none;
-      }
+    &--yellow {
+      --table-accent: var(--cyber-yellow-500);
+    }
 
-      &::before {
-        left: 0;
-        background: linear-gradient(90deg, var(--color-bg-primary), transparent);
-      }
-
-      &::after {
-        right: 0;
-        background: linear-gradient(-90deg, var(--color-bg-primary), transparent);
-      }
-
-      &[data-scroll-left]::before {
-        opacity: 100%;
-      }
-
-      &[data-scroll-right]::after {
-        opacity: 100%;
-      }
+    &--green {
+      --table-accent: var(--cyber-green-500);
     }
 
     // --------------------------------------------------------
-    // Cell utilities
+    // Cell + row helpers
     // --------------------------------------------------------
 
     .cell-number {
-      font-family: var(--font-mono);
-      text-align: right;
+      text-align: end;
     }
 
     .cell-status {
@@ -188,28 +217,34 @@
 
       &::before {
         content: "";
-        width: 8px;
-        height: 8px;
+        flex: none;
+        width: 0.5rem;
+        height: 0.5rem;
         border-radius: 50%;
         background: var(--cyber-chrome-500);
       }
 
       &--active::before {
         background: var(--cyber-green-500);
-        box-shadow: 0 0 6px var(--cyber-green-500);
+        box-shadow: 0 0 0.4rem var(--cyber-green-500);
       }
 
+      // Hollow dot: a second cue besides colour
       &--inactive::before {
-        background: var(--cyber-chrome-600);
+        border: 1px solid var(--cyber-chrome-400);
+        background: transparent;
       }
 
       &--pending::before {
         background: var(--cyber-yellow-500);
-        animation: status-pulse 1.5s ease-in-out infinite;
+        animation: cyber-status-blink 1.5s ease-in-out infinite;
       }
 
+      // Square: errors differ in shape too
       &--error::before {
+        border-radius: 0;
         background: var(--cyber-magenta-500);
+        box-shadow: 0 0 0.4rem var(--cyber-magenta-500);
       }
     }
 
@@ -219,26 +254,85 @@
       justify-content: flex-end;
     }
 
-    // Highlighted row
+    // Highlight: accent bar painted inside the first cell (no layout shift)
     tr.row-highlight {
-      border-left: var(--border-thick) solid var(--cyber-cyan-500);
-      background: color-mix(in srgb, var(--cyber-cyan-500) 10%, transparent);
+      background: color-mix(in srgb, var(--table-accent) 9%, transparent);
+
+      > :first-child {
+        box-shadow: inset 3px 0 0 var(--table-accent);
+      }
     }
 
-    // Selected row
-    tr.row-selected {
-      background: color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent);
+    tr.row-selected,
+    tr[aria-selected="true"] {
+      color: var(--color-text-primary);
+      background: color-mix(in srgb, var(--table-accent) 14%, transparent);
     }
   }
 
-  @keyframes status-pulse {
-    0%,
-    100% {
-      opacity: 100%;
+  // --------------------------------------------------------
+  // Scroll wrapper. Edge shadows appear only while there is more to scroll
+  // (background-attachment trick, no script).
+  // --------------------------------------------------------
+
+  .cyber-table-wrapper {
+    @include kit.scrollbar;
+
+    border: 1px solid var(--color-border-default);
+    overflow: auto;
+    background:
+      linear-gradient(90deg, var(--color-bg-secondary) 30%, transparent) left / 2.5rem 100%
+        no-repeat local,
+      linear-gradient(270deg, var(--color-bg-secondary) 30%, transparent) right / 2.5rem 100%
+        no-repeat local,
+      linear-gradient(
+          90deg,
+          color-mix(in srgb, var(--cyber-cyan-500) 22%, transparent),
+          transparent
+        )
+        left / 0.75rem 100% no-repeat scroll,
+      linear-gradient(
+          270deg,
+          color-mix(in srgb, var(--cyber-cyan-500) 22%, transparent),
+          transparent
+        )
+        right / 0.75rem 100% no-repeat scroll,
+      var(--color-bg-secondary);
+
+    &:focus-visible {
+      @include kit.focus-ring;
     }
 
+    // Header cells would hide the shadows otherwise
+    .cyber-table thead th,
+    .cyber-table tfoot td,
+    .cyber-table tfoot th {
+      background: color-mix(in srgb, var(--color-bg-tertiary) 80%, transparent);
+    }
+  }
+
+  @keyframes cyber-status-blink {
     50% {
-      opacity: 40%;
+      opacity: 35%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    @include -reduced-motion;
+  }
+
+  [data-motion="reduce"] {
+    @include -reduced-motion;
+  }
+
+  @media (prefers-contrast: more) {
+    .cyber-table {
+      color: var(--color-text-primary);
+
+      tbody td,
+      tbody th {
+        border-bottom-color: var(--cyber-chrome-500);
+      }
     }
   }
 }

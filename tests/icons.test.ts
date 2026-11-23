@@ -3,14 +3,13 @@
  * Validates icon registry, structure, and rendering
  */
 
-import { describe, it, expect, beforeAll } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import {
   icons,
   getIcon,
   renderIcon,
   iconExists,
   getRegisteredIcons,
-  isIconRegistered,
   createSpriteSheet,
   getIconDataUri,
   ICON_LIST,
@@ -184,7 +183,7 @@ describe('Icon List (Specs)', () => {
   });
 
   it('should have valid icon specs', () => {
-    Object.entries(ICON_LIST).forEach(([category, specs]) => {
+    Object.values(ICON_LIST).forEach((specs) => {
       specs.forEach((spec) => {
         expect(spec.name).toBeDefined();
         expect(spec.name.length).toBeGreaterThan(0);

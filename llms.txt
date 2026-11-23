@@ -1,0 +1,556 @@
+# Cybercore CSS
+
+> A pure CSS cyberpunk design framework: neon components, effects, utilities, design tokens and SVG icons. One stylesheet, no JavaScript shipped, works with any framework. This file is the reference for AI tools writing markup with it. Version 0.3.0.
+
+- Demo and per-component docs: https://sebyx07.github.io/cybercore-css/ (each component: `/components/<name>/`)
+- Source: https://github.com/sebyx07/cybercore-css · npm: `cybercore-css` · License: MIT
+- This file describes the `main` branch. A class marked "Sass module only" is not in the CDN stylesheet.
+
+## Rules for writing markup
+
+1. Use only classes listed in this file. Never invent a `cyber-*` class: an unknown class renders unstyled, with no error.
+2. Names are BEM: `cyber-<block>`, `cyber-<block>__<element>`, `cyber-<block>--<modifier>`. A modifier is added next to the block class, never alone: `class="cyber-btn cyber-btn--magenta"`.
+3. Colour modifiers mean the same everywhere: none = cyan (default, neutral), `--magenta` = danger, `--yellow` = warning, `--green` = success, `--chrome` = neutral grey (where listed).
+4. The design is dark-only. Do not add a light theme, white backgrounds or dark text on the page background.
+5. The framework ships no script. Use real elements (`<button type="button">`, `<a href>`, `<label>` + `<input>`, `<details>`, `<dialog>`), so keyboard and screen readers work with no code. State is read from native state and ARIA attributes: `disabled`, `:checked`, `[open]`, `aria-selected="true"`, `aria-expanded="true"`, `aria-current="page"`, `aria-disabled="true"`, `aria-busy="true"`, `aria-invalid="true"`.
+6. Tabs, modal (class form), dropdown (class form), toast and the mobile nav need the page to toggle an attribute or class; the notes below say which. Prefer the forms that need none: `<details>` dropdown and accordion, native `<dialog>`, checkbox switch.
+7. Customize with tokens (CSS custom properties), not by overriding component internals: `--color-accent`, `--space-md`, `--glow-intensity`. Your own unlayered CSS always wins over the framework's layers.
+8. Effects (glitch, scanlines, noise, neon border) are decoration. Use at most one or two per view, never on body text, and never to carry meaning.
+9. Every icon-only control needs `aria-label`. Every input needs a `<label>`.
+
+## Install
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cybercore-css@0.3.0/dist/cybercore.min.css">
+```
+
+```bash
+npm install cybercore-css
+```
+
+- Bundler, CSS: `import 'cybercore-css';`
+- Bundler, Sass: `@use "cybercore-css";`, or the core plus single modules: `@use "cybercore-css/scss/core";` then `@use "cybercore-css/scss/components/buttons";`. Sass-only API (token maps, mixins, no CSS): `@use "cybercore-css/scss/abstracts" as cyber;`
+- Sass CLI: `sass --pkg-importer=node` with `@use "pkg:cybercore-css";`
+- Optional fonts (not bundled; system fonts are the fallback): Orbitron, Rajdhani, Exo 2, JetBrains Mono from Google Fonts.
+
+Cascade layers, lowest priority first: `reset, base, theme, components, utilities`. Unlayered CSS overrides all of them.
+
+Themes: set `data-theme` on `<html>` or any element. Built in: `acid`, `amber`, `cyan`, `magenta`. Also `data-contrast="high"` and `data-motion="reduce"`.
+
+## Page skeleton
+
+```html
+<body>
+  <nav class="cyber-nav" aria-label="Main">
+    <a class="cyber-nav__brand" href="/">Brand</a>
+    <div class="cyber-nav__menu">
+      <ul class="cyber-nav__links">
+        <li><a class="cyber-nav__link" aria-current="page" href="/">Home</a></li>
+        <li><a class="cyber-nav__link" href="/docs">Docs</a></li>
+      </ul>
+    </div>
+  </nav>
+  <main class="cyber-p-lg">
+    <h1 class="cyber-glitch" data-text="System online">System online</h1>
+    <div class="cyber-grid cyber-grid--3 cyber-gap-md">
+      <div class="cyber-card">
+        <div class="cyber-card__header"><span class="cyber-card__title">Uplink</span></div>
+        <p class="cyber-text-secondary">All subsystems nominal.</p>
+        <button class="cyber-btn" type="button">Run diagnostics</button>
+      </div>
+    </div>
+  </main>
+</body>
+```
+
+## Components
+
+One section per Sass module. Listed as: block · modifiers · elements.
+
+### buttons
+
+On `<button type="button">` or `<a>`. One `cyber-btn--filled` per view for the primary action; `cyber-btn--ghost` for low priority. Loading: `cyber-btn--loading` or `aria-busy="true"`. Icon-only: `cyber-btn--icon` plus `aria-label`.
+
+```html
+<button class="cyber-btn cyber-btn--filled" type="button">Deploy</button>
+<button class="cyber-btn cyber-btn--magenta" type="button">Purge</button>
+<button class="cyber-btn cyber-btn--ghost cyber-btn--sm" type="button" disabled>Cancel</button>
+```
+
+- `cyber-btn` · modifiers: `cyber-btn--block` `cyber-btn--chrome` `cyber-btn--cyan` `cyber-btn--disabled` `cyber-btn--filled` `cyber-btn--ghost` `cyber-btn--green` `cyber-btn--icon` `cyber-btn--lg` `cyber-btn--loading` `cyber-btn--magenta` `cyber-btn--sm` `cyber-btn--yellow`
+- `cyber-btn-group` · modifiers: `cyber-btn-group--attached`
+
+### inputs
+
+Wrap each control in `cyber-field` with a label. Invalid state: `aria-invalid="true"` (or `cyber-input--error`), with the message in `cyber-field__error` linked by `aria-describedby`.
+
+```html
+<div class="cyber-field">
+  <label class="cyber-field__label" for="handle">Handle</label>
+  <input class="cyber-input" id="handle" type="text" aria-describedby="handle-hint">
+  <span class="cyber-field__hint" id="handle-hint">Shown to other runners.</span>
+</div>
+<label class="cyber-checkbox">
+  <input type="checkbox">
+  <span class="cyber-checkbox__box"></span>
+  <span class="cyber-checkbox__label">Deep scan</span>
+</label>
+<label class="cyber-radio">
+  <input type="radio" name="route">
+  <span class="cyber-radio__dot"></span>
+  <span class="cyber-radio__label">Direct route</span>
+</label>
+<div class="cyber-input-group">
+  <span class="cyber-input-group__addon">@</span>
+  <input class="cyber-input" type="text" aria-label="User">
+</div>
+```
+
+- `cyber-checkbox` · modifiers: `cyber-checkbox--green` `cyber-checkbox--magenta` `cyber-checkbox--yellow` · elements: `cyber-checkbox__box` `cyber-checkbox__dot` `cyber-checkbox__label`
+- `cyber-field` · elements: `cyber-field__error` `cyber-field__hint` `cyber-field__label` `cyber-field__label--required` `cyber-field__success`
+- `cyber-input` · modifiers: `cyber-input--error` `cyber-input--green` `cyber-input--lg` `cyber-input--magenta` `cyber-input--sm` `cyber-input--success` `cyber-input--warning` `cyber-input--yellow`
+- `cyber-input-group` · elements: `cyber-input-group__addon`
+- `cyber-radio` · modifiers: `cyber-radio--green` `cyber-radio--magenta` `cyber-radio--yellow` · elements: `cyber-radio__box` `cyber-radio__dot` `cyber-radio__label`
+- `cyber-range` · modifiers: `cyber-range--green` `cyber-range--magenta` `cyber-range--yellow`
+- `cyber-select` · modifiers: `cyber-select--error` `cyber-select--green` `cyber-select--lg` `cyber-select--magenta` `cyber-select--sm` `cyber-select--success` `cyber-select--warning` `cyber-select--yellow`
+- `cyber-textarea` · modifiers: `cyber-textarea--error` `cyber-textarea--green` `cyber-textarea--lg` `cyber-textarea--magenta` `cyber-textarea--sm` `cyber-textarea--success` `cyber-textarea--warning` `cyber-textarea--yellow`
+
+### switch
+
+A native checkbox; no script.
+
+```html
+<label class="cyber-switch">
+  <input type="checkbox" role="switch">
+  <span class="cyber-switch__track"></span>
+  <span class="cyber-switch__label">Stealth mode</span>
+</label>
+```
+
+- `cyber-switch` · modifiers: `cyber-switch--green` `cyber-switch--lg` `cyber-switch--magenta` `cyber-switch--sm` `cyber-switch--yellow` · elements: `cyber-switch__label` `cyber-switch__track`
+
+### cards
+
+Set the fill with the `--card-bg` custom property, not `background`.
+
+```html
+<div class="cyber-card cyber-card--interactive">
+  <div class="cyber-card__header">
+    <span class="cyber-card__title">Relay 04</span>
+    <span class="cyber-card__badge">LIVE</span>
+  </div>
+  <div class="cyber-card__body">Latency 12 ms.</div>
+  <div class="cyber-card__footer"><button class="cyber-btn cyber-btn--sm" type="button">Open</button></div>
+</div>
+```
+
+- `cyber-card` · modifiers: `cyber-card--active` `cyber-card--compact` `cyber-card--flat` `cyber-card--glow` `cyber-card--green` `cyber-card--holo` `cyber-card--interactive` `cyber-card--magenta` `cyber-card--scanlines` `cyber-card--yellow` · elements: `cyber-card__badge` `cyber-card__body` `cyber-card__footer` `cyber-card__header` `cyber-card__icon` `cyber-card__subtitle` `cyber-card__title`
+
+### badges
+
+```html
+<span class="cyber-badge cyber-badge--green">Online</span>
+<span class="cyber-badge cyber-badge--magenta cyber-badge--filled">3 alerts</span>
+```
+
+- `cyber-badge` · modifiers: `cyber-badge--away` `cyber-badge--busy` `cyber-badge--chrome` `cyber-badge--counter` `cyber-badge--cyan` `cyber-badge--filled` `cyber-badge--ghost` `cyber-badge--green` `cyber-badge--lg` `cyber-badge--magenta` `cyber-badge--offline` `cyber-badge--online` `cyber-badge--pill` `cyber-badge--pulse` `cyber-badge--sm` `cyber-badge--yellow` · elements: `cyber-badge__icon`
+- `cyber-badge-group`
+
+### alerts
+
+`role="status"` for routine messages, `role="alert"` only for blocking errors. Say the severity in the text.
+
+```html
+<div class="cyber-alert cyber-alert--warning" role="status">
+  <div class="cyber-alert__body">
+    <div class="cyber-alert__title">Heat rising</div>
+    Core at 86%. Throttling in 30 seconds.
+  </div>
+</div>
+```
+
+- `cyber-alert` · modifiers: `cyber-alert--error` `cyber-alert--info` `cyber-alert--success` `cyber-alert--warning` · elements: `cyber-alert__actions` `cyber-alert__body` `cyber-alert__close` `cyber-alert__title`
+
+### toast
+
+Styling only: inserting, timing and removing toasts is the page's script. Mount the region empty, then insert toasts so they are announced.
+
+```html
+<div class="cyber-toast-region" role="region" aria-label="Notifications">
+  <div class="cyber-toast cyber-toast--success" role="status">
+    <div class="cyber-toast__title">Uplink stable</div>
+    <div class="cyber-toast__message">All nodes synced.</div>
+    <button class="cyber-toast__close" type="button" aria-label="Dismiss"></button>
+  </div>
+</div>
+```
+
+- `cyber-toast` · modifiers: `cyber-toast--error` `cyber-toast--success` `cyber-toast--warning` · elements: `cyber-toast__actions` `cyber-toast__close` `cyber-toast__message` `cyber-toast__timer` `cyber-toast__title`
+- `cyber-toast-region` · modifiers: `cyber-toast-region--center` `cyber-toast-region--start` `cyber-toast-region--top`
+
+### progress
+
+Set the amount with the `--progress-value` custom property (or an inline width on the bar). Indeterminate: `cyber-progress--indeterminate` and no `aria-valuenow`.
+
+```html
+<div class="cyber-progress" role="progressbar" aria-label="Upload" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="--progress-value: 60%">
+  <div class="cyber-progress__bar"></div>
+</div>
+```
+
+- `cyber-progress` · modifiers: `cyber-progress--green` `cyber-progress--indeterminate` `cyber-progress--lg` `cyber-progress--magenta` `cyber-progress--no-animation` `cyber-progress--segmented` `cyber-progress--sm` `cyber-progress--yellow` · elements: `cyber-progress__bar` `cyber-progress__segment` `cyber-progress__segment--active` `cyber-progress__value`
+- `cyber-progress-circle` · modifiers: `cyber-progress-circle--green` `cyber-progress-circle--magenta` `cyber-progress-circle--yellow` · elements: `cyber-progress-circle__bar` `cyber-progress-circle__svg` `cyber-progress-circle__track` `cyber-progress-circle__value`
+
+### spinner
+
+Wrap in `role="status"` with visually hidden text, or mark it `aria-hidden="true"` when text nearby says the same.
+
+```html
+<div role="status"><div class="cyber-spinner cyber-spinner--sm"></div><span class="cyber-sr-only">Loading</span></div>
+```
+
+- `cyber-spinner` · modifiers: `cyber-spinner--chrome` `cyber-spinner--dotted` `cyber-spinner--glow` `cyber-spinner--green` `cyber-spinner--lg` `cyber-spinner--magenta` `cyber-spinner--md` `cyber-spinner--pulse` `cyber-spinner--single` `cyber-spinner--sm` `cyber-spinner--xl` `cyber-spinner--xs` `cyber-spinner--yellow`
+- `cyber-spinner-bars` · modifiers: `cyber-spinner-bars--green` `cyber-spinner-bars--magenta` `cyber-spinner-bars--yellow`
+- `cyber-spinner-dots` · modifiers: `cyber-spinner-dots--green` `cyber-spinner-dots--magenta` `cyber-spinner-dots--yellow`
+- `cyber-spinner-overlay` · elements: `cyber-spinner-overlay__text`
+
+### skeleton
+
+Placeholders are decoration: `aria-hidden="true"` on them, `aria-busy="true"` on the region that is loading.
+
+- `cyber-skeleton` · modifiers: `cyber-skeleton--avatar` `cyber-skeleton--avatar-lg` `cyber-skeleton--avatar-sm` `cyber-skeleton--badge` `cyber-skeleton--button` `cyber-skeleton--cyan` `cyber-skeleton--glow` `cyber-skeleton--green` `cyber-skeleton--magenta` `cyber-skeleton--no-animation` `cyber-skeleton--pulse` `cyber-skeleton--square` `cyber-skeleton--text` `cyber-skeleton--thumbnail` `cyber-skeleton--title` `cyber-skeleton--wave` `cyber-skeleton--yellow`
+- `cyber-skeleton-card` · elements: `cyber-skeleton-card__body` `cyber-skeleton-card__header`
+- `cyber-skeleton-list` · elements: `cyber-skeleton-list__content` `cyber-skeleton-list__item`
+- `cyber-skeleton-profile` · elements: `cyber-skeleton-profile__info`
+- `cyber-skeleton-table` · elements: `cyber-skeleton-table__cell` `cyber-skeleton-table__row` `cyber-skeleton-table__row--header`
+
+### tables
+
+Wrap in `cyber-table-wrapper` to scroll sideways (give the wrapper `tabindex="0"`, `role="region"` and a label). Give the table a `<caption>`.
+
+```html
+<div class="cyber-table-wrapper" tabindex="0" role="region" aria-label="Nodes">
+  <table class="cyber-table cyber-table--striped">
+    <thead><tr><th>Node</th><th>Status</th></tr></thead>
+    <tbody><tr><td>relay-04</td><td>Online</td></tr></tbody>
+  </table>
+</div>
+```
+
+- `cyber-table` · modifiers: `cyber-table--bordered` `cyber-table--compact` `cyber-table--green` `cyber-table--magenta` `cyber-table--sticky` `cyber-table--striped` `cyber-table--yellow`
+- `cyber-table-wrapper`
+
+### tabs
+
+Needs script: move `aria-selected="true"` and the `hidden` attribute, with arrow-key roving `tabindex`.
+
+```html
+<div class="cyber-tabs" role="tablist" aria-label="Sections">
+  <button class="cyber-tab" role="tab" aria-selected="true" aria-controls="p1" id="t1">Status</button>
+  <button class="cyber-tab" role="tab" aria-selected="false" aria-controls="p2" id="t2" tabindex="-1">Logs</button>
+</div>
+<div class="cyber-tabs__panel" role="tabpanel" id="p1" aria-labelledby="t1" tabindex="0">…</div>
+<div class="cyber-tabs__panel" role="tabpanel" id="p2" aria-labelledby="t2" tabindex="0" hidden>…</div>
+```
+
+- `cyber-tab` · modifiers: `cyber-tab--active` `cyber-tab--disabled` `cyber-tab--green` `cyber-tab--magenta` `cyber-tab--yellow` · elements: `cyber-tab__badge` `cyber-tab__icon`
+- `cyber-tabs` · modifiers: `cyber-tabs--fullwidth` `cyber-tabs--pills` `cyber-tabs--scrollable` `cyber-tabs--vertical` · elements: `cyber-tabs__list` `cyber-tabs__panel` `cyber-tabs__panel--active` `cyber-tabs__panels`
+
+### accordion
+
+Native `<details>`; no script. Give sibling items the same `name` to keep one open at a time.
+
+```html
+<div class="cyber-accordion">
+  <details class="cyber-accordion__item" name="faq" open>
+    <summary class="cyber-accordion__trigger">What ships?</summary>
+    <div class="cyber-accordion__content">One stylesheet.</div>
+  </details>
+</div>
+```
+
+- `cyber-accordion` · modifiers: `cyber-accordion--green` `cyber-accordion--magenta` `cyber-accordion--spaced` `cyber-accordion--yellow` · elements: `cyber-accordion__content` `cyber-accordion__item` `cyber-accordion__trigger`
+
+### dropdown
+
+Preferred, no script: `<details>`. Script form: toggle `cyber-dropdown--open` and `aria-expanded` on the trigger; Esc closes and returns focus.
+
+```html
+<details class="cyber-dropdown">
+  <summary class="cyber-dropdown__trigger">Node</summary>
+  <div class="cyber-dropdown__menu">
+    <a class="cyber-dropdown__item" href="/restart">Restart</a>
+    <div class="cyber-dropdown__divider"></div>
+    <a class="cyber-dropdown__item cyber-dropdown__item--danger" href="/purge">Purge</a>
+  </div>
+</details>
+```
+
+- `cyber-dropdown` · modifiers: `cyber-dropdown--css-only` `cyber-dropdown--end` `cyber-dropdown--green` `cyber-dropdown--magenta` `cyber-dropdown--open` `cyber-dropdown--right` `cyber-dropdown--up` `cyber-dropdown--yellow` · elements: `cyber-dropdown__divider` `cyber-dropdown__header` `cyber-dropdown__item` `cyber-dropdown__item--active` `cyber-dropdown__item--danger` `cyber-dropdown__item--disabled` `cyber-dropdown__menu` `cyber-dropdown__trigger`
+
+### tooltip
+
+Pure CSS, shown on hover and keyboard focus. Never put essential or interactive content in a tooltip.
+
+```html
+<button class="cyber-btn cyber-tooltip" type="button" data-tooltip="Copy link" aria-label="Copy link">⧉</button>
+<span class="cyber-tooltip">
+  <button class="cyber-btn" type="button" aria-describedby="tip-1">Deploy</button>
+  <span class="cyber-tooltip__content" role="tooltip" id="tip-1">Ships to production</span>
+</span>
+```
+
+- `cyber-tooltip` · modifiers: `cyber-tooltip--align-end` `cyber-tooltip--align-start` `cyber-tooltip--bottom` `cyber-tooltip--end` `cyber-tooltip--green` `cyber-tooltip--magenta` `cyber-tooltip--start` `cyber-tooltip--yellow` · elements: `cyber-tooltip__content`
+
+### modal
+
+Preferred: native `<dialog class="cyber-dialog">`, opened with `dialog.showModal()` (focus trap, Esc and inert page come free; return focus to the trigger on close). Class form: `cyber-modal` backdrop + `cyber-modal__dialog`, opened by adding `cyber-modal--open`, with `role="dialog" aria-modal="true" aria-labelledby` and focus handled by the page.
+
+```html
+<dialog class="cyber-dialog" aria-labelledby="purge-title">
+  <div class="cyber-modal__header">
+    <h2 class="cyber-modal__title" id="purge-title">Purge cache?</h2>
+    <button class="cyber-modal__close" type="button" aria-label="Close"></button>
+  </div>
+  <div class="cyber-modal__body">This clears session data.</div>
+  <div class="cyber-modal__footer"><button class="cyber-btn cyber-btn--magenta" type="button">Purge</button></div>
+</dialog>
+```
+
+- `cyber-dialog` · modifiers: `cyber-dialog--green` `cyber-dialog--lg` `cyber-dialog--magenta` `cyber-dialog--sm` `cyber-dialog--yellow`
+- `cyber-modal` · modifiers: `cyber-modal--fullscreen` `cyber-modal--green` `cyber-modal--lg` `cyber-modal--magenta` `cyber-modal--open` `cyber-modal--slide-up` `cyber-modal--sm` `cyber-modal--xl` `cyber-modal--yellow` `cyber-modal--zoom` · elements: `cyber-modal__body` `cyber-modal__close` `cyber-modal__dialog` `cyber-modal__footer` `cyber-modal__header` `cyber-modal__title`
+- `cyber-modal-confirm` · elements: `cyber-modal-confirm__icon` `cyber-modal-confirm__icon--error` `cyber-modal-confirm__icon--success` `cyber-modal-confirm__icon--warning` `cyber-modal-confirm__message` `cyber-modal-confirm__title`
+
+### nav
+
+Sticky top bar. The mobile menu needs script: the toggle button flips `cyber-nav--open` on the nav and its own `aria-expanded`. Current page: `aria-current="page"` on the link.
+
+```html
+<nav class="cyber-nav" aria-label="Main">
+  <a class="cyber-nav__brand" href="/">Brand</a>
+  <button class="cyber-nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menu">
+    <span class="cyber-nav__toggle-bar"></span><span class="cyber-nav__toggle-bar"></span><span class="cyber-nav__toggle-bar"></span>
+  </button>
+  <div class="cyber-nav__menu" id="menu">
+    <ul class="cyber-nav__links">
+      <li><a class="cyber-nav__link" aria-current="page" href="/">Home</a></li>
+    </ul>
+    <div class="cyber-nav__actions"><a class="cyber-btn cyber-btn--sm" href="/login">Jack in</a></div>
+  </div>
+</nav>
+```
+
+- `cyber-nav` · modifiers: `cyber-nav--open` · elements: `cyber-nav__actions` `cyber-nav__brand` `cyber-nav__link` `cyber-nav__link--active` `cyber-nav__links` `cyber-nav__menu` `cyber-nav__toggle` `cyber-nav__toggle-bar`
+- `cyber-status` · modifiers: `cyber-status--error` `cyber-status--offline` `cyber-status--warning` · elements: `cyber-status__dot`
+
+### breadcrumb
+
+```html
+<nav class="cyber-breadcrumb" aria-label="Breadcrumb">
+  <ol class="cyber-breadcrumb__list">
+    <li class="cyber-breadcrumb__item"><a class="cyber-breadcrumb__link" href="/">Root</a></li>
+    <li class="cyber-breadcrumb__item" aria-current="page">Relay 04</li>
+  </ol>
+</nav>
+```
+
+- `cyber-breadcrumb` · modifiers: `cyber-breadcrumb--chevron` `cyber-breadcrumb--green` `cyber-breadcrumb--magenta` `cyber-breadcrumb--yellow` · elements: `cyber-breadcrumb__item` `cyber-breadcrumb__item--active` `cyber-breadcrumb__link` `cyber-breadcrumb__list`
+
+### pagination
+
+Current page: `aria-current="page"`. A link with no destination: drop `href`, add `aria-disabled="true"`.
+
+```html
+<nav class="cyber-pagination" aria-label="Pagination">
+  <ul class="cyber-pagination__list">
+    <li><a class="cyber-pagination__link" href="?p=1" aria-label="Previous page">&lt;</a></li>
+    <li><a class="cyber-pagination__link" href="?p=2" aria-current="page">2</a></li>
+    <li><span class="cyber-pagination__ellipsis">…</span></li>
+  </ul>
+</nav>
+```
+
+- `cyber-pagination` · modifiers: `cyber-pagination--green` `cyber-pagination--lg` `cyber-pagination--magenta` `cyber-pagination--sm` `cyber-pagination--yellow` · elements: `cyber-pagination__ellipsis` `cyber-pagination__link` `cyber-pagination__link--active` `cyber-pagination__link--disabled` `cyber-pagination__list`
+
+### terminal
+
+A console window. A live log is `role="log"`; a scrolling body needs `tabindex="0"`.
+
+```html
+<div class="cyber-terminal">
+  <div class="cyber-terminal__header">
+    <span class="cyber-terminal__dot cyber-terminal__dot--red"></span>
+    <span class="cyber-terminal__dot cyber-terminal__dot--yellow"></span>
+    <span class="cyber-terminal__dot cyber-terminal__dot--green"></span>
+    <span class="cyber-terminal__title">deck://boot</span>
+  </div>
+  <div class="cyber-terminal__body">
+    <div class="cyber-terminal__line"><span class="cyber-terminal__prompt">$</span><span class="cyber-terminal__command">status</span></div>
+    <div class="cyber-terminal__line cyber-terminal__line--success">all nodes online</div>
+  </div>
+</div>
+```
+
+- `cyber-terminal` · modifiers: `cyber-terminal--cyan` `cyber-terminal--fullheight` `cyber-terminal--glow` `cyber-terminal--lg` `cyber-terminal--magenta` `cyber-terminal--no-header` `cyber-terminal--rounded` `cyber-terminal--scanlines` `cyber-terminal--sm` · elements: `cyber-terminal__body` `cyber-terminal__command` `cyber-terminal__cursor` `cyber-terminal__dot` `cyber-terminal__dot--green` `cyber-terminal__dot--red` `cyber-terminal__dot--yellow` `cyber-terminal__header` `cyber-terminal__input` `cyber-terminal__input-field` `cyber-terminal__line` `cyber-terminal__line--error` `cyber-terminal__line--info` `cyber-terminal__line--input` `cyber-terminal__line--output` `cyber-terminal__line--success` `cyber-terminal__line--warning` `cyber-terminal__prompt` `cyber-terminal__title`
+- `cyber-terminal-ascii`
+- `cyber-terminal-typing`
+
+### hud
+
+A heads-up-display frame with corner brackets; also `cyber-stat` (a big readout) and `cyber-divider`.
+
+```html
+<section class="cyber-hud" aria-labelledby="sector">
+  <h3 class="cyber-hud__label" id="sector">Sector 7</h3>
+  <p>Perimeter secure.</p>
+</section>
+```
+
+- `cyber-divider` · modifiers: `cyber-divider--green` `cyber-divider--magenta` `cyber-divider--plain` `cyber-divider--yellow`
+- `cyber-hud` · modifiers: `cyber-hud--green` `cyber-hud--grid` `cyber-hud--magenta` `cyber-hud--yellow` · elements: `cyber-hud__label` `cyber-hud__meta` `cyber-hud__scan`
+- `cyber-stat` · modifiers: `cyber-stat--green` `cyber-stat--magenta` `cyber-stat--start` `cyber-stat--yellow` · elements: `cyber-stat__delta` `cyber-stat__delta--down` `cyber-stat__delta--up` `cyber-stat__label` `cyber-stat__value`
+
+## Effects
+
+Decorative. All stop under reduced motion and never block pointer events.
+
+### datastream
+
+Animated vertical light sweep on a container.
+
+- `cyber-datastream`
+
+### glitch
+
+Text glitch. The `data-text` attribute must repeat the text.
+
+```html
+<h1 class="cyber-glitch" data-text="System online">System online</h1>
+```
+
+- `cyber-glitch` · modifiers: `cyber-glitch--hover` `cyber-glitch--intense` `cyber-glitch--subtle`
+- `cyber-heading`
+
+### neon-border
+
+Animated glow frame around its content: wrap a card or panel in it.
+
+```html
+<div class="cyber-neon-border"><div class="cyber-card">…</div></div>
+```
+
+- `cyber-neon-border` · modifiers: `cyber-neon-border--cyan` `cyber-neon-border--green` `cyber-neon-border--magenta` `cyber-neon-border--yellow`
+
+### noise
+
+Static noise texture overlay on a container.
+
+- `cyber-noise` · modifiers: `cyber-noise--animated`
+
+### scanlines
+
+CRT scanline overlay on a container.
+
+- `cyber-scanlines` · modifiers: `cyber-scanlines--fine` `cyber-scanlines--flicker` `cyber-scanlines--heavy` `cyber-scanlines--scroll`
+
+## Utilities
+
+Single-purpose helpers on the same tokens as the components. Size suffixes are token keys (`xs`, `sm`, `md`, `lg`, `xl`). In the CDN bundle:
+
+- **accessibility**: `cyber-focus-visible` `cyber-motion-reduce` `cyber-motion-safe` `cyber-not-sr` `cyber-sr-only` `cyber-sr-only-focusable`
+- **animation**: `cyber-animate-bounce` `cyber-animate-float` `cyber-animate-glow` `cyber-animate-none` `cyber-animate-paused` `cyber-animate-ping` `cyber-animate-pulse` `cyber-animate-running` `cyber-animate-spin` `cyber-boot` `cyber-delay-100` `cyber-delay-1000` `cyber-delay-200` `cyber-delay-300` `cyber-delay-500` `cyber-duration-fast` `cyber-duration-normal` `cyber-duration-slow` `cyber-duration-slower` `cyber-transition` `cyber-transition-fast` `cyber-transition-none` `cyber-transition-slow`
+- **display**: `cyber-block` `cyber-flex` `cyber-grid` `cyber-hidden` `cyber-inline` `cyber-inline-block` `cyber-inline-flex`
+- **flex**: `cyber-flex-1` `cyber-flex-auto` `cyber-flex-col` `cyber-flex-none` `cyber-flex-nowrap` `cyber-flex-row` `cyber-flex-wrap` `cyber-gap-lg` `cyber-gap-md` `cyber-gap-sm` `cyber-gap-xl` `cyber-gap-xs` `cyber-items-center` `cyber-items-end` `cyber-items-start` `cyber-items-stretch` `cyber-justify-around` `cyber-justify-between` `cyber-justify-center` `cyber-justify-end` `cyber-justify-start`
+- **grid**: `cyber-col-span-2` `cyber-col-span-3` `cyber-col-span-full` `cyber-grid--2` `cyber-grid--3` `cyber-grid--4` `cyber-grid--auto-lg` `cyber-grid--auto-md` `cyber-grid--auto-sm`
+- **icons**: `cyber-icon` `cyber-icon--cyan` `cyber-icon--glitch` `cyber-icon--green` `cyber-icon--inline` `cyber-icon--lg` `cyber-icon--magenta` `cyber-icon--md` `cyber-icon--pulse` `cyber-icon--sm` `cyber-icon--spin` `cyber-icon--xl` `cyber-icon--yellow`
+- **spacing**: `cyber-m-0` `cyber-m-auto` `cyber-m-lg` `cyber-m-md` `cyber-m-sm` `cyber-m-xs` `cyber-mb-0` `cyber-mb-lg` `cyber-mb-md` `cyber-mb-sm` `cyber-mb-xl` `cyber-mb-xs` `cyber-mt-0` `cyber-mt-lg` `cyber-mt-md` `cyber-mt-sm` `cyber-mt-xl` `cyber-mt-xs` `cyber-mx-auto` `cyber-mx-lg` `cyber-mx-md` `cyber-mx-sm` `cyber-my-lg` `cyber-my-md` `cyber-my-sm` `cyber-my-xl` `cyber-p-0` `cyber-p-lg` `cyber-p-md` `cyber-p-sm` `cyber-p-xl` `cyber-p-xs` `cyber-px-0` `cyber-px-lg` `cyber-px-md` `cyber-px-sm` `cyber-py-0` `cyber-py-lg` `cyber-py-md` `cyber-py-sm` `cyber-py-xl`
+- **text**: `cyber-capitalize` `cyber-font-body` `cyber-font-bold` `cyber-font-display` `cyber-font-medium` `cyber-font-mono` `cyber-font-normal` `cyber-font-semibold` `cyber-line-clamp-2` `cyber-line-clamp-3` `cyber-lowercase` `cyber-text-center` `cyber-text-cyan` `cyber-text-glow` `cyber-text-glow--green` `cyber-text-glow--magenta` `cyber-text-glow--yellow` `cyber-text-glow-cyan` `cyber-text-glow-green` `cyber-text-glow-magenta` `cyber-text-glow-yellow` `cyber-text-green` `cyber-text-left` `cyber-text-magenta` `cyber-text-muted` `cyber-text-primary` `cyber-text-right` `cyber-text-secondary` `cyber-text-yellow` `cyber-truncate` `cyber-uppercase`
+
+Sass module only (not in the CDN bundle; load the module, or write plain CSS with the tokens). Full list: https://github.com/sebyx07/cybercore-css/blob/main/docs/UTILITIES.md
+
+- **backgrounds** (41 classes, `@use "cybercore-css/scss/utilities/backgrounds"`): `cyber-bg-auto` `cyber-bg-bottom` `cyber-bg-center` `cyber-bg-clip-border` `cyber-bg-clip-content` `cyber-bg-clip-padding` `cyber-bg-clip-text` `cyber-bg-contain` `cyber-bg-cover` `cyber-bg-current` `cyber-bg-cyan` `cyber-bg-cyan-subtle` `cyber-bg-elevated` `cyber-bg-fixed` …
+- **borders** (41 classes, `@use "cybercore-css/scss/utilities/borders"`): `cyber-border` `cyber-border-0` `cyber-border-2` `cyber-border-4` `cyber-border-b` `cyber-border-b-0` `cyber-border-cyan` `cyber-border-dashed` `cyber-border-default` `cyber-border-dotted` `cyber-border-green` `cyber-border-l` `cyber-border-l-0` `cyber-border-magenta` …
+- **filters** (59 classes, `@use "cybercore-css/scss/utilities/filters"`): `cyber--hue-rotate-15` `cyber--hue-rotate-30` `cyber--hue-rotate-60` `cyber--hue-rotate-90` `cyber-blur` `cyber-blur-2xl` `cyber-blur-3xl` `cyber-blur-lg` `cyber-blur-md` `cyber-blur-none` `cyber-blur-sm` `cyber-blur-xl` `cyber-brightness-0` `cyber-brightness-100` …
+- **interactivity** (38 classes, `@use "cybercore-css/scss/utilities/interactivity"`): `cyber-cursor-auto` `cyber-cursor-crosshair` `cyber-cursor-default` `cyber-cursor-grab` `cyber-cursor-grabbing` `cyber-cursor-help` `cyber-cursor-move` `cyber-cursor-none` `cyber-cursor-not-allowed` `cyber-cursor-pointer` `cyber-cursor-text` `cyber-cursor-wait` `cyber-cursor-zoom-in` `cyber-cursor-zoom-out` …
+- **layout** (43 classes, `@use "cybercore-css/scss/utilities/layout"`): `cyber-aspect-2-1` `cyber-aspect-3-2` `cyber-aspect-4-3` `cyber-aspect-auto` `cyber-aspect-square` `cyber-aspect-video` `cyber-collapse` `cyber-invisible` `cyber-object-bottom` `cyber-object-center` `cyber-object-contain` `cyber-object-cover` `cyber-object-fill` `cyber-object-left` …
+- **position** (32 classes, `@use "cybercore-css/scss/utilities/position"`): `cyber-absolute` `cyber-bottom-0` `cyber-bottom-auto` `cyber-bottom-full` `cyber-bottom-half` `cyber-center-x` `cyber-center-xy` `cyber-center-y` `cyber-fixed` `cyber-inset-0` `cyber-inset-auto` `cyber-inset-x-0` `cyber-inset-y-0` `cyber-left-0` …
+- **shadows** (33 classes, `@use "cybercore-css/scss/utilities/shadows"`): `cyber-backdrop-blur` `cyber-backdrop-blur-lg` `cyber-backdrop-blur-md` `cyber-backdrop-blur-none` `cyber-backdrop-blur-sm` `cyber-backdrop-blur-xl` `cyber-opacity-0` `cyber-opacity-10` `cyber-opacity-100` `cyber-opacity-20` `cyber-opacity-25` `cyber-opacity-30` `cyber-opacity-40` `cyber-opacity-5` …
+- **sizing** (49 classes, `@use "cybercore-css/scss/utilities/sizing"`): `cyber-h-auto` `cyber-h-fit` `cyber-h-full` `cyber-h-half` `cyber-h-max` `cyber-h-min` `cyber-h-screen` `cyber-h-third` `cyber-h-two-thirds` `cyber-max-h-full` `cyber-max-h-none` `cyber-max-h-screen` `cyber-max-w-2xl` `cyber-max-w-3xl` …
+- **transforms** (46 classes, `@use "cybercore-css/scss/utilities/transforms"`): `cyber--rotate-180` `cyber--rotate-45` `cyber--rotate-90` `cyber--skew-x-12` `cyber--skew-x-3` `cyber--skew-x-6` `cyber--translate-x-full` `cyber--translate-y-full` `cyber-origin-bottom` `cyber-origin-bottom-left` `cyber-origin-bottom-right` `cyber-origin-center` `cyber-origin-left` `cyber-origin-right` …
+- **transitions** (34 classes, `@use "cybercore-css/scss/utilities/transitions"`): `cyber-delay-0` `cyber-delay-100` `cyber-delay-1000` `cyber-delay-150` `cyber-delay-200` `cyber-delay-300` `cyber-delay-500` `cyber-delay-700` `cyber-delay-75` `cyber-duration-0` `cyber-duration-100` `cyber-duration-1000` `cyber-duration-150` `cyber-duration-200` …
+
+## Tokens
+
+CSS custom properties on `:root`. Read them in your own CSS (`color: var(--color-accent)`) and override them globally or on a subtree. Prefer the semantic `--color-*` tokens over palette steps.
+
+- `--border-medium` `--border-thick` `--border-thin`
+- `--clip-lg` `--clip-md` `--clip-sm` `--clip-xl` `--clip-xs`
+- `--color-accent` `--color-accent-dark` `--color-accent-light` `--color-accent-muted` `--color-accent-soft`
+- `--color-bg-default` `--color-bg-elevated` `--color-bg-inset` `--color-bg-overlay` `--color-bg-primary` `--color-bg-secondary` `--color-bg-tertiary`
+- `--color-border-accent` `--color-border-default` `--color-border-strong` `--color-border-subtle`
+- `--color-danger` `--color-danger-soft`
+- `--color-info` `--color-info-soft`
+- `--color-link` `--color-link-hover`
+- `--color-secondary`
+- `--color-selection-bg`
+- `--color-success` `--color-success-soft`
+- `--color-text-disabled` `--color-text-muted` `--color-text-on-accent` `--color-text-placeholder` `--color-text-primary` `--color-text-secondary`
+- `--color-warning` `--color-warning-soft`
+- `--control-height-lg` `--control-height-md` `--control-height-sm`
+- `--cyber-acid-<step>` with steps 100, 200, 300, 400, 500, 600, 700, 800, 900
+- `--cyber-amber-<step>` with steps 100, 200, 300, 400, 500, 600, 700, 800, 900
+- `--cyber-chrome-<step>` with steps 100, 200, 300, 400, 500, 600, 700, 800, 900
+- `--cyber-cyan-<step>` with steps 100, 200, 300, 400, 500, 600, 700, 800, 900
+- `--cyber-green-<step>` with steps 100, 200, 300, 400, 500, 600, 700, 800, 900
+- `--cyber-magenta-<step>` with steps 100, 200, 300, 400, 500, 600, 700, 800, 900
+- `--cyber-violet-<step>` with steps 100, 200, 300, 400, 500, 600, 700, 800, 900
+- `--cyber-void-<step>` with steps 100, 200, 300, 400, 500, 600, 700, 800, 900, 950
+- `--cyber-yellow-<step>` with steps 100, 200, 300, 400, 500, 600, 700, 800, 900
+- `--duration-base` `--duration-fast` `--duration-instant` `--duration-normal` `--duration-slow` `--duration-slower`
+- `--ease-bounce` `--ease-cyber` `--ease-in` `--ease-in-out` `--ease-linear` `--ease-out` `--ease-out-expo` `--ease-smooth`
+- `--focus-ring-color` `--focus-ring-offset` `--focus-ring-width`
+- `--font-body` `--font-display` `--font-mono` `--font-orbitron` `--font-weight-black` `--font-weight-bold` `--font-weight-light` `--font-weight-medium` `--font-weight-normal` `--font-weight-semibold`
+- `--glow-accent` `--glow-cyan` `--glow-green` `--glow-intensity` `--glow-magenta` `--glow-text-accent` `--glow-text-cyan` `--glow-text-green` `--glow-text-magenta` `--glow-text-yellow` `--glow-yellow`
+- `--leading-none` `--leading-normal` `--leading-relaxed` `--leading-snug` `--leading-tight`
+- `--noise-opacity`
+- `--radius-2xl` `--radius-cyber` `--radius-full` `--radius-lg` `--radius-md` `--radius-none` `--radius-sm` `--radius-xl`
+- `--scanline-opacity`
+- `--space-2xl` `--space-2xs` `--space-3xl` `--space-3xs` `--space-lg` `--space-md` `--space-sm` `--space-xl` `--space-xs`
+- `--text-2xl` `--text-3xl` `--text-4xl` `--text-5xl` `--text-base` `--text-lg` `--text-sm` `--text-xl` `--text-xs`
+- `--tracking-normal` `--tracking-tight` `--tracking-wide` `--tracking-wider` `--tracking-widest`
+- `--transition-base` `--transition-fast` `--transition-slow`
+- `--z-base` `--z-dropdown` `--z-fixed` `--z-modal` `--z-modal-backdrop` `--z-overlay` `--z-popover` `--z-raised` `--z-sticky` `--z-toast` `--z-tooltip`
+
+Component properties: set on the component (inline or in your CSS) to adjust one instance, for example `style="--progress-value: 60%"` or `.my-panel { --card-bg: var(--color-bg-inset); }`.
+
+`--accordion-accent` `--accordion-bar` `--alert-color` `--alert-icon` `--badge-bg` `--badge-color` `--badge-text` `--bar-color` `--bar-height` `--bar-width` `--breadcrumb-accent` `--btn-bg` `--btn-color` `--btn-cut` `--btn-glow` `--btn-height` `--btn-on-color` `--btn-padding` `--card-accent` `--card-bg` `--card-border` `--card-cut` `--card-padding` `--check-color` `--confirm-color` `--divider-color` `--dot-color` `--dot-size` `--dropdown-accent` `--frame-bg` `--frame-bg-image` `--frame-bg-position` `--frame-bg-repeat` `--frame-bg-size` `--frame-border-color` `--frame-border-style` `--frame-border-width` `--frame-cut` `--glitch-color-1` `--glitch-color-2` `--glitch-duration` `--glitch-offset` `--hud-bg` `--hud-bracket` `--hud-color` `--input-accent` `--input-bg` `--input-border` `--input-height` `--modal-accent` `--modal-width` `--nav-accent` `--pagination-accent` `--pagination-size` `--progress-color` `--progress-height` `--progress-size` `--progress-stroke` `--progress-value` `--range-color` `--range-value` `--skeleton-base` `--skeleton-glow` `--skeleton-shine` `--spinner-color-primary` `--spinner-color-secondary` `--spinner-size` `--spinner-thickness` `--stat-color` `--status-color` `--switch-color` `--switch-height` `--switch-thumb` `--switch-width` `--tab-color` `--table-accent` `--table-cell-padding` `--terminal-border` `--terminal-color` `--terminal-text` `--toast-color` `--toast-duration` `--toast-icon` `--tooltip-color` `--tooltip-gap` `--tooltip-shift-x` `--tooltip-shift-y` `--typing-chars`
+
+## Icons
+
+150+ SVG icons as strings, in ten categories (navigation, actions, media, communication, data, security, tech, files, status, social) and up to four variants (outline, solid, duotone, glitch). They use `currentColor`.
+
+```js
+import { renderIcon } from 'cybercore-css/icons';
+const svg = renderIcon('terminal', { size: 24, variant: 'outline', 'aria-label': 'Open terminal' });
+```
+
+```js
+import { terminal } from 'cybercore-css/icons/defs/tech'; // one category, tree-shakeable
+```
+
+Without a bundler, copy the SVG markup from https://sebyx07.github.io/cybercore-css/icons/ inline. Icon names: browse that page; do not guess them.
+
+## Accessibility contract
+
+- Focus rings are built in; never add `outline: none`.
+- Motion stops under `prefers-reduced-motion: reduce`; do not add your own looping animation without the same guard.
+- Contrast is tuned for text on the `--color-bg-*` surfaces. Text on a neon fill must use `--color-text-on-accent`.
+- The stylesheet cannot add semantics: roles, labels and keyboard behaviour in the snippets above are part of using each component correctly.
+
+## Browser support
+
+Chrome and Edge 111+, Firefox 121+, Safari 16.2+ (cascade layers, `color-mix()`, `:has()`).
+
+## Related
+
+- cybercore-charts, SVG charts in the same style: https://github.com/sebyx07/cybercore-charts

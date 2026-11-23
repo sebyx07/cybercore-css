@@ -1,213 +1,270 @@
 // ============================================================
 // Dropdown Component
-// Accessible dropdown menu with cyberpunk styling
+// .cyber-dropdown — menu button. Three ways to open it:
+// 1. <details class="cyber-dropdown"> with <summary class="cyber-dropdown__trigger">
+//    — pure CSS, keyboard-operable, closes on a second click.
+// 2. `.cyber-dropdown--open` toggled by script (set `aria-expanded` on the trigger).
+// 3. `.cyber-dropdown--css-only` — opens while focus is inside.
+// A11y: for an action menu use `role="menu"` + `role="menuitem"` and arrow-key
+// roving focus from script. For plain navigation a list of links needs no role.
+// Esc must close the menu and return focus to the trigger.
 // ============================================================
+
+@use "kit";
+
+// Reduced-motion overrides, shared by the media query and data-motion="reduce"
+@mixin -reduced-motion {
+  .cyber-dropdown__menu,
+  .cyber-dropdown__trigger::after {
+    transition-duration: 0.01ms;
+  }
+
+  .cyber-dropdown__menu,
+  .cyber-dropdown--up .cyber-dropdown__menu {
+    transform: none;
+  }
+}
 
 @layer components {
   .cyber-dropdown {
+    --dropdown-accent: var(--color-accent, var(--cyber-cyan-500));
+
     position: relative;
     display: inline-block;
 
-    // Dropdown trigger button
+    // Trigger
     &__trigger {
+      @include kit.label-text(var(--text-sm), 0.05em);
+
       display: inline-flex;
       gap: var(--space-xs);
       align-items: center;
-      padding: var(--space-xs) var(--space-sm);
-      border: var(--border-thin) solid var(--color-border-default);
-      border-radius: var(--radius-sm);
-      font-family: var(--font-display);
-      font-size: var(--text-sm);
+      min-height: var(--control-height-md, 2.75rem);
+      padding: var(--space-3xs) var(--space-sm);
+      border: 1px solid var(--color-border-strong, var(--cyber-chrome-600));
       font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
       color: var(--color-text-primary);
       background: var(--color-bg-tertiary);
       transition:
-        color var(--duration-fast),
-        background-color var(--duration-fast),
-        border-color var(--duration-fast);
+        color var(--duration-fast) ease,
+        background-color var(--duration-fast) ease,
+        border-color var(--duration-fast) ease;
       cursor: pointer;
+      user-select: none;
+      list-style: none;
 
-      &:hover {
-        border-color: var(--cyber-cyan-500);
+      @include kit.hover {
+        border-color: var(--dropdown-accent);
         background: var(--color-bg-elevated);
       }
 
-      &:focus-visible {
-        outline: 2px solid var(--cyber-cyan-500);
-        outline-offset: 2px;
+      // Hide the native <summary> marker
+      &::-webkit-details-marker {
+        display: none;
       }
 
-      // Arrow icon
+      // Chevron
       &::after {
         content: "";
-        width: 0;
-        height: 0;
-        border-top: 5px solid currentcolor;
-        border-right: 4px solid transparent;
-        border-left: 4px solid transparent;
-        transition: transform var(--duration-fast);
+        width: 0.4rem;
+        height: 0.4rem;
+        margin-top: -0.2rem;
+        border-right: 2px solid var(--dropdown-accent);
+        border-bottom: 2px solid var(--dropdown-accent);
+        transform: rotate(45deg);
+        transition: transform var(--duration-fast) ease;
+      }
+
+      &:focus-visible {
+        @include kit.focus-ring(var(--dropdown-accent));
+
+        border-color: var(--dropdown-accent);
       }
     }
 
-    // Dropdown menu
+    // Menu
     &__menu {
       position: absolute;
       top: 100%;
-      left: 0;
-      z-index: 1050;
-      min-width: 180px;
-      margin: var(--space-2xs) 0 0;
-      padding: var(--space-2xs) 0;
-      padding-left: 0;
-      border: var(--border-thin) solid var(--color-border-default);
-      border-left: 3px solid var(--cyber-cyan-500);
-      border-radius: var(--radius-sm);
+      z-index: var(--z-dropdown, 1050);
+      min-width: 11.25rem;
+      max-width: min(20rem, 90vw);
+      margin: var(--space-3xs) 0 0;
+      padding: var(--space-3xs) 0;
+      border: 1px solid var(--color-border-strong, var(--cyber-chrome-600));
       background: var(--color-bg-secondary);
       box-shadow:
-        0 10px 25px color-mix(in srgb, var(--cyber-void-900) 60%, transparent),
-        0 0 15px color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent);
+        0 0.75rem 1.5rem color-mix(in srgb, var(--cyber-void-900) 70%, transparent),
+        0 0 1rem color-mix(in srgb, var(--dropdown-accent) 14%, transparent);
       opacity: 0%;
       visibility: hidden;
-      transform: translateY(-10px);
+      transform: translateY(-6px);
       transition:
-        opacity var(--duration-fast),
-        visibility var(--duration-fast),
-        transform var(--duration-fast);
-
-      // Reset list styles completely
+        opacity var(--duration-fast) ease,
+        visibility var(--duration-fast) ease,
+        transform var(--duration-fast) var(--ease-out-expo);
+      border-inline-start: 3px solid var(--dropdown-accent);
+      inset-inline-start: 0;
       list-style: none;
-      list-style-type: none;
 
-      // Reset nested list items
-      > li {
+      // Zero specificity, so element classes on the <li> still apply
+      > :where(li) {
         margin: 0;
         padding: 0;
         list-style: none;
-        list-style-type: none;
       }
     }
 
-    // Menu item
+    // Section caption inside the menu
+    &__header {
+      padding: var(--space-3xs) var(--space-sm);
+      font-family: var(--font-mono);
+      font-size: kit.$text-xs;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+    }
+
+    // Item: a <button> or <a>
     &__item {
-      display: block;
+      display: flex;
+      gap: var(--space-xs);
+      align-items: center;
       width: 100%;
-      padding: var(--space-xs) var(--space-sm);
-      border: none;
+      min-height: 2.5rem;
+      padding: var(--space-3xs) var(--space-sm);
+      border: 0;
       font-family: var(--font-mono);
       font-size: var(--text-sm);
-      text-align: left;
+      text-align: start;
+      text-decoration: none;
       color: var(--color-text-secondary);
       background: transparent;
       transition:
-        color var(--duration-fast),
-        background-color var(--duration-fast);
+        color var(--duration-fast) ease,
+        background-color var(--duration-fast) ease;
       cursor: pointer;
 
-      &:hover {
-        color: var(--cyber-cyan-500);
-        background: color-mix(in srgb, var(--cyber-cyan-500) 10%, transparent);
+      @include kit.hover {
+        color: var(--dropdown-accent);
+        background: color-mix(in srgb, var(--dropdown-accent) 10%, transparent);
       }
 
+      // Inset ring: the menu clips nothing, but items sit edge to edge
       &:focus-visible {
-        color: var(--cyber-cyan-500);
-        background: color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent);
-        outline: none;
+        @include kit.focus-ring(var(--dropdown-accent), -2px);
+
+        color: var(--dropdown-accent);
+        background: color-mix(in srgb, var(--dropdown-accent) 14%, transparent);
       }
 
-      &--active {
-        color: var(--cyber-cyan-500);
+      &--active,
+      &[aria-current="true"],
+      &[aria-checked="true"] {
+        color: var(--dropdown-accent);
 
         &::before {
-          content: "> ";
+          content: ">";
         }
       }
 
-      &--disabled {
+      &--danger {
+        --dropdown-accent: var(--cyber-magenta-500);
+
+        color: var(--cyber-magenta-500);
+      }
+
+      &--disabled,
+      &:disabled,
+      &[aria-disabled="true"] {
         opacity: 50%;
         cursor: not-allowed;
         pointer-events: none;
       }
     }
 
-    // Divider
     &__divider {
       height: 1px;
-      margin: var(--space-2xs) 0;
+      margin: var(--space-3xs) 0;
+      border: 0;
       background: var(--color-border-default);
     }
 
-    // Open state (JS toggle)
-    &--open {
-      .cyber-dropdown__trigger::after {
-        transform: rotate(180deg);
-      }
+    // --------------------------------------------------------
+    // Open states
+    // --------------------------------------------------------
 
-      .cyber-dropdown__menu {
-        opacity: 100%;
-        visibility: visible;
-        transform: translateY(0);
-      }
-    }
-
-    // CSS-only mode: opens on focus, closes when clicking outside
+    &--open,
+    &[open],
     &--css-only:focus-within {
       .cyber-dropdown__trigger::after {
-        transform: rotate(180deg);
+        margin-top: 0.2rem;
+        transform: rotate(225deg);
       }
 
       .cyber-dropdown__menu {
         opacity: 100%;
         visibility: visible;
-        transform: translateY(0);
+        transform: none;
       }
     }
 
-    // Right-aligned variant
+    // --------------------------------------------------------
+    // Placement
+    // --------------------------------------------------------
+
+    // Align the menu to the trailing edge (`--right` kept as an alias)
+    &--end .cyber-dropdown__menu,
     &--right .cyber-dropdown__menu {
-      right: 0;
-      left: auto;
-      border-right: 3px solid var(--cyber-cyan-500);
-      border-left: var(--border-thin) solid var(--color-border-default);
+      inset-inline: auto 0;
     }
 
-    &--right.cyber-dropdown--magenta .cyber-dropdown__menu {
-      border-right-color: var(--cyber-magenta-500);
-    }
-
-    // Up direction variant
     &--up .cyber-dropdown__menu {
       top: auto;
       bottom: 100%;
-      margin-top: 0;
-      margin-bottom: var(--space-2xs);
-      transform: translateY(10px);
+      margin: 0 0 var(--space-3xs);
+      transform: translateY(6px);
     }
 
     &--up.cyber-dropdown--open .cyber-dropdown__menu,
+    &--up[open] .cyber-dropdown__menu,
     &--up.cyber-dropdown--css-only:focus-within .cyber-dropdown__menu {
-      transform: translateY(0);
+      transform: none;
     }
 
-    // Color variants
+    // --------------------------------------------------------
+    // Colours
+    // --------------------------------------------------------
+
     &--magenta {
-      .cyber-dropdown__menu {
-        box-shadow:
-          0 10px 25px color-mix(in srgb, var(--cyber-void-900) 60%, transparent),
-          0 0 15px color-mix(in srgb, var(--cyber-magenta-500) 15%, transparent);
-        border-left-color: var(--cyber-magenta-500);
-      }
+      --dropdown-accent: var(--cyber-magenta-500);
+    }
 
-      .cyber-dropdown__item:hover,
-      .cyber-dropdown__item:focus-visible {
-        color: var(--cyber-magenta-500);
-        background: color-mix(in srgb, var(--cyber-magenta-500) 10%, transparent);
-      }
+    &--yellow {
+      --dropdown-accent: var(--cyber-yellow-500);
+    }
 
-      .cyber-dropdown__item--active {
-        color: var(--cyber-magenta-500);
-      }
+    &--green {
+      --dropdown-accent: var(--cyber-green-500);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    @include -reduced-motion;
+  }
+
+  [data-motion="reduce"] {
+    @include -reduced-motion;
+  }
+
+  @media (prefers-contrast: more) {
+    .cyber-dropdown__trigger,
+    .cyber-dropdown__menu {
+      border-color: var(--cyber-chrome-300);
+    }
+
+    .cyber-dropdown__item {
+      color: var(--color-text-primary);
     }
   }
 }

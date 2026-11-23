@@ -1,1143 +1,215 @@
-import { useState, useEffect } from 'react';
+import { Link } from 'react-router';
 
-import { Link } from 'react-router-dom';
+import CodeBlock from '../components/CodeBlock';
+import CopyButton from '../components/CopyButton';
+import InstallTabs from '../components/InstallTabs';
+import ModuleGallery from '../components/ModuleGallery';
+import ThemeShowcase from '../components/ThemeShowcase';
+import { docsBundle } from '../lib/docs';
+import { ENTRIES } from '../lib/entries';
+import { formatBytes, meta } from '../lib/meta';
+import { THEMES } from '../lib/theme';
+import { CHARTS_URL, FONTS_SNIPPET, NPM_INSTALL } from '../site';
 
-import { renderIcon, getRegisteredIcons, getRegisteredByCategory, icons } from '../../../src/icons';
+const { heroPanel, iconCount, iconSample, chartSample } = docsBundle;
 
-import type { IconCategory } from '../../../src/icons';
-
-// Featured icons for the showcase grid
-const FEATURED_ICONS = [
-  'terminal',
-  'chip',
-  'signal',
-  'shield',
-  'lock',
-  'code',
-  'globe',
-  'circuit',
-  'wifi',
-  'fingerprint',
-  'qr-code',
-  'memory',
+const FACTS: { term: string; value: string }[] = [
+  { term: 'JavaScript shipped', value: '0 bytes' },
+  { term: 'Stylesheet, gzipped', value: formatBytes(meta.css.gzipBytes) },
+  { term: 'Components', value: String(ENTRIES.components.length) },
+  { term: 'Icons', value: String(iconCount) },
+  { term: 'Cascade layers', value: meta.layers.join(' › ') },
 ];
 
-// Icons for the animated hero orbit
-const HERO_ORBIT_ICONS = [
-  { name: 'chip', color: 'cyan' },
-  { name: 'terminal', color: 'cyan' },
-  { name: 'shield', color: 'magenta' },
-  { name: 'signal', color: 'cyan' },
-  { name: 'lock', color: 'magenta' },
-  { name: 'code', color: 'green' },
-  { name: 'globe', color: 'cyan' },
-  { name: 'circuit', color: 'yellow' },
-] as const;
-
-// Categories to showcase on the homepage
-const CATEGORY_SHOWCASE: { category: IconCategory; label: string; color: string; icon: string }[] =
-  [
-    { category: 'tech', label: 'Tech', color: 'cyan', icon: 'chip' },
-    { category: 'security', label: 'Security', color: 'magenta', icon: 'shield' },
-    { category: 'navigation', label: 'Navigation', color: 'cyan', icon: 'home' },
-    { category: 'actions', label: 'Actions', color: 'green', icon: 'download' },
-    { category: 'status', label: 'Status', color: 'yellow', icon: 'warning' },
-    { category: 'files', label: 'Files', color: 'cyan', icon: 'folder' },
-  ];
-
 function Home() {
-  const [activeTab, setActiveTab] = useState(0);
-  const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
-  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
-  const [iconCount, setIconCount] = useState(0);
-
-  useEffect(() => {
-    setIconCount(getRegisteredIcons().length);
-  }, []);
+  // The home page runs on the default bundle alone, so it shows what that bundle styles.
+  const documented = ENTRIES.components.filter((entry) => entry.doc && entry.module?.inBundle);
 
   return (
-    <div>
-      {/* Hero Section with Icon Orbit */}
-      <section className="cyber-hero cyber-hero--icons">
-        {/* Animated Icon Orbit */}
-        <div className="icon-orbit" aria-hidden="true">
-          {HERO_ORBIT_ICONS.map((icon, index) => {
-            const iconDef = icons[icon.name];
-            if (!iconDef) {
-              return null;
-            }
-            return (
-              <div
-                key={icon.name}
-                className={`icon-orbit__item icon-orbit__item--${index + 1}`}
-                style={{
-                  color: `var(--cyber-${icon.color}-500)`,
-                  filter: `drop-shadow(0 0 12px var(--cyber-${icon.color}-500))`,
-                }}
-                dangerouslySetInnerHTML={{
-                  __html: renderIcon(icon.name, { size: 32 }),
-                }}
-              />
-            );
-          })}
-        </div>
+    <>
+      <section className="site-hero" aria-labelledby="hero-title">
+        <div className="site-wrap site-hero__grid">
+          <div className="site-hero__copy">
+            <h1 id="hero-title" className="site-hero__title">
+              Cyberpunk interfaces in{' '}
+              <span
+                className="cyber-glitch cyber-inline-block cyber-text-cyan"
+                data-text="pure CSS"
+              >
+                pure CSS
+              </span>
+            </h1>
+            <p className="site-hero__lead">
+              Neon components, glitch effects and design tokens in one stylesheet. No JavaScript, no
+              build step, any framework.
+            </p>
+            <div className="cyber-flex cyber-flex-wrap cyber-gap-sm">
+              <Link to="/docs" className="cyber-btn cyber-btn--filled cyber-btn--lg">
+                Get started
+              </Link>
+              <Link to="/components" className="cyber-btn cyber-btn--lg">
+                Browse components
+              </Link>
+            </div>
+            <div className="site-hero__install">
+              <code className="site-hero__command">{NPM_INSTALL}</code>
+              <CopyButton text={NPM_INSTALL} label="Copy npm install command" />
+            </div>
+          </div>
 
-        <p className="cyber-hero__subtitle">[ System v2.077 Initialized ]</p>
-        <h1 className="cyber-heading cyber-hero__title" data-text="CYBERCORE">
-          CYBERCORE
-        </h1>
-        <p className="cyber-hero__description">
-          Built by AI, for AI. A cyberpunk design system where AI agents are first-class citizens.
-          Pure CSS, no JavaScript—perfect for AI-powered web apps.
-        </p>
-        <div className="cyber-flex cyber-gap-md cyber-flex--wrap cyber-justify-center">
-          <a
-            href="/cybercore-css/llm.txt"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cyber-btn cyber-btn--lg cyber-flex cyber-items-center cyber-gap-sm"
-          >
-            <span dangerouslySetInnerHTML={{ __html: renderIcon('file-text', { size: 20 }) }} />
-            llm.txt
-          </a>
-          <Link
-            to="/icons"
-            className="cyber-btn cyber-btn--lg cyber-btn--magenta cyber-flex cyber-items-center cyber-gap-sm"
-          >
-            <span dangerouslySetInnerHTML={{ __html: renderIcon('chip', { size: 20 }) }} />
-            {iconCount}+ Icons
-          </Link>
-          <Link to="/components" className="cyber-btn cyber-btn--lg cyber-btn--ghost">
-            Components
-          </Link>
+          <div className="site-hero__panel">
+            {/* Markup comes from the docs data files in this repo, never from users. */}
+            <div dangerouslySetInnerHTML={{ __html: heroPanel }} />
+            <details className="site-hero__source">
+              <summary>This panel is 100% Cybercore. See the markup</summary>
+              <CodeBlock code={heroPanel} language="html" title="Deck status panel" />
+            </details>
+          </div>
         </div>
       </section>
 
-      <main className="cyber-container">
-        {/* Stats Section */}
-        <section className="cyber-section">
-          <div className="cyber-grid cyber-grid--4">
-            <div className="cyber-card cyber-card--interactive">
-              <div className="cyber-stat">
-                <div className="cyber-stat__value">847.3</div>
-                <div className="cyber-stat__label">TB/s Bandwidth</div>
-              </div>
-            </div>
-            <div className="cyber-card cyber-card--magenta cyber-card--interactive">
-              <div className="cyber-stat">
-                <div
-                  className="cyber-stat__value"
-                  style={{
-                    color: 'var(--cyber-magenta-500)',
-                    textShadow: '0 0 10px var(--cyber-magenta-500)',
-                  }}
-                >
-                  12
-                </div>
-                <div className="cyber-stat__label">Active Threats</div>
-              </div>
-            </div>
-            <div className="cyber-card cyber-card--yellow cyber-card--interactive">
-              <div className="cyber-stat">
-                <div
-                  className="cyber-stat__value"
-                  style={{
-                    color: 'var(--cyber-yellow-500)',
-                    textShadow: '0 0 10px var(--cyber-yellow-500)',
-                  }}
-                >
-                  98.7%
-                </div>
-                <div className="cyber-stat__label">System Integrity</div>
-              </div>
-            </div>
-            <div className="cyber-card cyber-card--green cyber-card--interactive">
-              <div className="cyber-stat">
-                <div
-                  className="cyber-stat__value"
-                  style={{
-                    color: 'var(--cyber-green-500)',
-                    textShadow: '0 0 10px var(--cyber-green-500)',
-                  }}
-                >
-                  $247K
-                </div>
-                <div className="cyber-stat__label">Crypto Balance</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div className="cyber-divider" />
-
-        {/* Icons Showcase Section */}
-        <section className="cyber-section">
-          <div className="cyber-section__header">
-            <h2 className="cyber-section__title">// Cyber Icons</h2>
-            <p className="cyber-section__subtitle">
-              {iconCount} cyberpunk-themed SVG icons across 10 categories
+      <section className="site-band" aria-labelledby="install-title">
+        <div className="site-wrap site-split">
+          <div>
+            <h2 id="install-title" className="site-band__title">
+              Install in one line
+            </h2>
+            <p className="site-band__lead">
+              Pull it from npm or link the CDN build. Add the fonts and every class on this site
+              works in your page.
             </p>
-          </div>
-
-          <div className="cyber-card cyber-datastream">
-            <div className="cyber-grid cyber-grid--2" style={{ gap: 'var(--space-xl)' }}>
-              {/* Icon Grid Preview */}
-              <div>
-                <div
-                  className="cyber-grid--4"
-                  style={{
-                    marginBottom: 'var(--space-lg)',
-                  }}
-                >
-                  {FEATURED_ICONS.map((name) => {
-                    const icon = icons[name];
-                    if (!icon) {
-                      return null;
-                    }
-                    const isHovered = hoveredIcon === name;
-                    return (
-                      <div
-                        key={name}
-                        onMouseEnter={() => setHoveredIcon(name)}
-                        onMouseLeave={() => setHoveredIcon(null)}
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          alignItems: 'center',
-                          gap: 'var(--space-xs)',
-                          padding: 'var(--space-sm)',
-                          background: isHovered ? 'var(--cyber-void-900)' : 'transparent',
-                          borderRadius: 'var(--radius-sm)',
-                          transition: 'all 0.2s ease',
-                          cursor: 'pointer',
-                        }}
-                      >
-                        <div
-                          style={{
-                            color: isHovered ? 'var(--cyber-cyan-400)' : 'var(--cyber-cyan-500)',
-                            filter: isHovered
-                              ? 'drop-shadow(0 0 8px var(--cyber-cyan-500))'
-                              : 'none',
-                            transition: 'all 0.2s ease',
-                            transform: isHovered ? 'scale(1.1)' : 'scale(1)',
-                          }}
-                          dangerouslySetInnerHTML={{
-                            __html: renderIcon(name, { size: 32 }),
-                          }}
-                        />
-                        <span
-                          style={{
-                            fontSize: 'var(--text-xs)',
-                            color: isHovered ? 'var(--cyber-cyan-400)' : 'var(--color-text-muted)',
-                            fontFamily: 'var(--font-mono)',
-                            transition: 'color 0.2s ease',
-                          }}
-                        >
-                          {name}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                <Link to="/icons" className="cyber-btn cyber-btn--lg" style={{ width: '100%' }}>
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html: renderIcon('code', { size: 20 }),
-                    }}
-                    style={{ marginRight: 'var(--space-sm)' }}
-                  />
-                  Browse All {iconCount} Icons
-                </Link>
-              </div>
-
-              {/* Features List */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-md)' }}>
-                <h3
-                  style={{
-                    fontSize: 'var(--text-xl)',
-                    color: 'var(--cyber-cyan-500)',
-                    marginBottom: 'var(--space-sm)',
-                  }}
-                >
-                  Pure SVG Icon System
-                </h3>
-                <div className="cyber-flex cyber-items-start cyber-gap-sm">
-                  <span
-                    style={{ color: 'var(--cyber-green-500)', flexShrink: 0 }}
-                    dangerouslySetInnerHTML={{ __html: renderIcon('check', { size: 20 }) }}
-                  />
-                  <div>
-                    <strong style={{ color: 'var(--color-text-primary)' }}>10 Categories</strong>
-                    <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)' }}>
-                      Navigation, Actions, Media, Data, Security, Tech, and more
-                    </p>
-                  </div>
-                </div>
-                <div className="cyber-flex cyber-items-start cyber-gap-sm">
-                  <span
-                    style={{ color: 'var(--cyber-green-500)', flexShrink: 0 }}
-                    dangerouslySetInnerHTML={{ __html: renderIcon('check', { size: 20 }) }}
-                  />
-                  <div>
-                    <strong style={{ color: 'var(--color-text-primary)' }}>4 Variants</strong>
-                    <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)' }}>
-                      Outline, Solid, Duotone, and Glitch effects
-                    </p>
-                  </div>
-                </div>
-                <div className="cyber-flex cyber-items-start cyber-gap-sm">
-                  <span
-                    style={{ color: 'var(--cyber-green-500)', flexShrink: 0 }}
-                    dangerouslySetInnerHTML={{ __html: renderIcon('check', { size: 20 }) }}
-                  />
-                  <div>
-                    <strong style={{ color: 'var(--color-text-primary)' }}>Color Theming</strong>
-                    <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)' }}>
-                      Cyan, Magenta, Yellow, Green - matches CYBERCORE palette
-                    </p>
-                  </div>
-                </div>
-                <div className="cyber-flex cyber-items-start cyber-gap-sm">
-                  <span
-                    style={{ color: 'var(--cyber-green-500)', flexShrink: 0 }}
-                    dangerouslySetInnerHTML={{ __html: renderIcon('check', { size: 20 }) }}
-                  />
-                  <div>
-                    <strong style={{ color: 'var(--color-text-primary)' }}>Tree-Shakeable</strong>
-                    <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)' }}>
-                      Import only what you need for smaller bundles
-                    </p>
-                  </div>
-                </div>
-
-                {/* Color demo */}
-                <div style={{ marginTop: 'var(--space-md)' }}>
-                  <p className="cyber-label" style={{ marginBottom: 'var(--space-sm)' }}>
-                    Color Variants
-                  </p>
-                  <div className="cyber-flex cyber-gap-lg">
-                    <div
-                      style={{
-                        color: 'var(--cyber-cyan-500)',
-                        filter: 'drop-shadow(0 0 6px var(--cyber-cyan-500))',
-                      }}
-                      dangerouslySetInnerHTML={{ __html: renderIcon('shield', { size: 32 }) }}
-                    />
-                    <div
-                      style={{
-                        color: 'var(--cyber-magenta-500)',
-                        filter: 'drop-shadow(0 0 6px var(--cyber-magenta-500))',
-                      }}
-                      dangerouslySetInnerHTML={{ __html: renderIcon('shield', { size: 32 }) }}
-                    />
-                    <div
-                      style={{
-                        color: 'var(--cyber-yellow-500)',
-                        filter: 'drop-shadow(0 0 6px var(--cyber-yellow-500))',
-                      }}
-                      dangerouslySetInnerHTML={{ __html: renderIcon('shield', { size: 32 }) }}
-                    />
-                    <div
-                      style={{
-                        color: 'var(--cyber-green-500)',
-                        filter: 'drop-shadow(0 0 6px var(--cyber-green-500))',
-                      }}
-                      dangerouslySetInnerHTML={{ __html: renderIcon('shield', { size: 32 }) }}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div className="cyber-divider" />
-
-        {/* Icon Category Showcase */}
-        <section className="cyber-section">
-          <div className="cyber-section__header">
-            <h2 className="cyber-section__title">// Browse by Category</h2>
-            <p className="cyber-section__subtitle">Quick access to icon categories</p>
-          </div>
-
-          <div className="cyber-grid cyber-grid--3" style={{ marginBottom: 'var(--space-lg)' }}>
-            {CATEGORY_SHOWCASE.map((cat) => {
-              const categoryIcons = getRegisteredByCategory(cat.category);
-              const displayIcons = categoryIcons.slice(0, 5);
-              const isHovered = hoveredCategory === cat.category;
-
-              return (
-                <Link
-                  key={cat.category}
-                  to={`/icons?category=${cat.category}`}
-                  className={`cyber-card cyber-card--${cat.color} cyber-card--interactive`}
-                  onMouseEnter={() => setHoveredCategory(cat.category)}
-                  onMouseLeave={() => setHoveredCategory(null)}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <div
-                    className="cyber-flex cyber-items-center cyber-gap-sm"
-                    style={{ marginBottom: 'var(--space-sm)' }}
-                  >
-                    <span
-                      className={isHovered ? 'cyber-icon--pulse' : ''}
-                      style={{
-                        color: `var(--cyber-${cat.color}-500)`,
-                        filter: isHovered
-                          ? `drop-shadow(0 0 10px var(--cyber-${cat.color}-500))`
-                          : 'none',
-                        transition: 'filter 0.3s ease',
-                      }}
-                      dangerouslySetInnerHTML={{ __html: renderIcon(cat.icon, { size: 24 }) }}
-                    />
-                    <span className="cyber-h5" style={{ color: 'var(--color-text-primary)' }}>
-                      {cat.label}
-                    </span>
-                    <span className="cyber-badge cyber-badge--sm" style={{ marginLeft: 'auto' }}>
-                      {categoryIcons.length}
-                    </span>
-                  </div>
-                  <div className="cyber-flex cyber-gap-sm" style={{ minHeight: '24px' }}>
-                    {displayIcons.map((iconDef, idx) => (
-                      <span
-                        key={iconDef.name}
-                        style={{
-                          color: `var(--cyber-${cat.color}-500)`,
-                          opacity: isHovered ? 1 : 0.5,
-                          transform: isHovered ? 'scale(1.1)' : 'scale(1)',
-                          transition: `all 0.2s ease ${idx * 50}ms`,
-                        }}
-                        dangerouslySetInnerHTML={{ __html: renderIcon(iconDef.name, { size: 20 }) }}
-                      />
-                    ))}
-                    {categoryIcons.length > 5 && (
-                      <span
-                        className="cyber-mono"
-                        style={{
-                          fontSize: '10px',
-                          color: 'var(--color-text-muted)',
-                          alignSelf: 'center',
-                        }}
-                      >
-                        +{categoryIcons.length - 5}
-                      </span>
-                    )}
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-
-          <div className="cyber-flex cyber-justify-center">
-            <Link
-              to="/icons"
-              className="cyber-btn cyber-btn--lg cyber-neon-border cyber-flex cyber-items-center cyber-gap-sm"
-              style={{ zIndex: 1, position: 'relative' }}
-            >
-              <span dangerouslySetInnerHTML={{ __html: renderIcon('arrow-right', { size: 20 }) }} />
-              View All Categories
+            <Link to="/docs" className="site-more">
+              Read the full setup guide
             </Link>
           </div>
-        </section>
+          <div className="site-stack">
+            <InstallTabs />
+            <CodeBlock code={FONTS_SNIPPET} language="html" title="Fonts" />
+          </div>
+        </div>
+      </section>
 
-        <div className="cyber-divider" />
-
-        {/* Icon Animations Section */}
-        <section className="cyber-section">
-          <div className="cyber-section__header">
-            <h2 className="cyber-section__title">// Icon Animations</h2>
-            <p className="cyber-section__subtitle">
-              Built-in animation utilities for dynamic interfaces
+      <section className="site-band" aria-labelledby="gallery-title">
+        <div className="site-wrap">
+          <div className="site-band__head">
+            <h2 id="gallery-title" className="site-band__title">
+              Components, running live
+            </h2>
+            <p className="site-band__lead">
+              Nothing below is a screenshot. Each tile renders the same markup its page lets you
+              copy.
             </p>
           </div>
+          <ModuleGallery entries={documented} as="h3" />
+          <p className="site-band__foot">
+            <Link to="/components" className="site-more">
+              See all {ENTRIES.components.length} components
+            </Link>
+          </p>
+        </div>
+      </section>
 
-          <div className="cyber-grid cyber-grid--4">
-            <div className="cyber-card cyber-card--interactive" style={{ textAlign: 'center' }}>
-              <div style={{ padding: 'var(--space-md) 0' }}>
-                <span
-                  className="cyber-icon--spin"
-                  style={{
-                    color: 'var(--cyber-cyan-500)',
-                    filter: 'drop-shadow(0 0 10px var(--cyber-cyan-500))',
-                  }}
-                  dangerouslySetInnerHTML={{ __html: renderIcon('loading', { size: 32 }) }}
-                />
+      <section className="site-band" aria-labelledby="themes-title">
+        <div className="site-wrap">
+          <div className="site-band__head">
+            <h2 id="themes-title" className="site-band__title">
+              {THEMES.length > 1 ? 'One attribute changes the city' : 'Retune it with tokens'}
+            </h2>
+            <p className="site-band__lead">
+              {THEMES.length > 1
+                ? 'Themes are sets of custom properties. Pick one and this whole site follows, because it reads the same tokens you will.'
+                : 'Every colour, font and space is a custom property. Override a token and each component that reads it follows.'}
+            </p>
+          </div>
+          <ThemeShowcase />
+          <p className="site-band__foot">
+            <Link to="/docs/theming" className="site-more">
+              Browse every token
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      <section className="site-band" aria-labelledby="facts-title">
+        <div className="site-wrap site-split">
+          <div>
+            <h2 id="facts-title" className="site-band__title">
+              Small, layered, honest about motion
+            </h2>
+            <p className="site-band__lead">
+              Styles live in cascade layers, so your own CSS wins without specificity fights.
+              Animated effects stop when the visitor asks for reduced motion.
+            </p>
+          </div>
+          <dl className="site-specs">
+            {FACTS.map((fact) => (
+              <div key={fact.term} className="site-specs__row">
+                <dt>{fact.term}</dt>
+                <dd>{fact.value}</dd>
               </div>
-              <p
-                className="cyber-mono"
-                style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)' }}
-              >
-                .cyber-icon--spin
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      <section className="site-band" aria-labelledby="more-title">
+        <div className="site-wrap">
+          <h2 id="more-title" className="site-band__title">
+            Icons and charts in the same skin
+          </h2>
+          <div className="site-duo">
+            <div className="site-duo__item">
+              <div
+                className="site-duo__icons cyber-text-cyan"
+                aria-hidden="true"
+                // Icon SVGs come from the framework's own registry.
+                dangerouslySetInnerHTML={{ __html: iconSample }}
+              />
+              <h3 className="site-duo__title">{iconCount} SVG icons</h3>
+              <p>
+                Outline, solid, duotone and glitch variants. Import one icon or the whole set, with
+                types.
               </p>
+              <Link to="/icons" className="site-more">
+                Search the icons
+              </Link>
             </div>
-
-            <div
-              className="cyber-card cyber-card--magenta cyber-card--interactive"
-              style={{ textAlign: 'center' }}
-            >
-              <div style={{ padding: 'var(--space-md) 0' }}>
-                <span
-                  className="cyber-icon--pulse"
-                  style={{
-                    color: 'var(--cyber-magenta-500)',
-                    filter: 'drop-shadow(0 0 10px var(--cyber-magenta-500))',
-                  }}
-                  dangerouslySetInnerHTML={{ __html: renderIcon('signal', { size: 32 }) }}
-                />
-              </div>
-              <p
-                className="cyber-mono"
-                style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)' }}
-              >
-                .cyber-icon--pulse
+            <div className="site-duo__item">
+              <div
+                className="site-duo__icons cyber-text-magenta"
+                aria-hidden="true"
+                // Icon SVGs come from the framework's own registry.
+                dangerouslySetInnerHTML={{ __html: chartSample }}
+              />
+              <h3 className="site-duo__title">cybercore-charts</h3>
+              <p>
+                A zero-dependency SVG chart library in the same neon palette, for the dashboards
+                these components end up in.
               </p>
-            </div>
-
-            <div
-              className="cyber-card cyber-card--yellow cyber-card--interactive"
-              style={{ textAlign: 'center' }}
-            >
-              <div style={{ padding: 'var(--space-md) 0' }}>
-                <span
-                  className="cyber-icon--glitch"
-                  style={{
-                    color: 'var(--cyber-yellow-500)',
-                    filter: 'drop-shadow(0 0 10px var(--cyber-yellow-500))',
-                  }}
-                  dangerouslySetInnerHTML={{ __html: renderIcon('warning', { size: 32 }) }}
-                />
-              </div>
-              <p
-                className="cyber-mono"
-                style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)' }}
-              >
-                .cyber-icon--glitch
-              </p>
-            </div>
-
-            <div
-              className="cyber-card cyber-card--green cyber-card--interactive"
-              style={{ textAlign: 'center' }}
-            >
-              <div style={{ padding: 'var(--space-md) 0' }}>
-                <span
-                  className="cyber-animate-glow"
-                  style={{
-                    color: 'var(--cyber-green-500)',
-                    filter: 'drop-shadow(0 0 10px var(--cyber-green-500))',
-                  }}
-                  dangerouslySetInnerHTML={{ __html: renderIcon('success', { size: 32 }) }}
-                />
-              </div>
-              <p
-                className="cyber-mono"
-                style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)' }}
-              >
-                .cyber-animate-glow
-              </p>
+              <a href={CHARTS_URL} className="site-more">
+                Open cybercore-charts
+              </a>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="cyber-flex cyber-justify-center cyber-mt-lg">
-            <Link
-              to="/effects"
-              className="cyber-btn cyber-btn--ghost cyber-flex cyber-items-center cyber-gap-sm"
-            >
-              View All Effects
-              <span dangerouslySetInnerHTML={{ __html: renderIcon('arrow-right', { size: 16 }) }} />
+      <section className="site-band site-close" aria-labelledby="close-title">
+        <div className="site-wrap">
+          <h2 id="close-title" className="site-close__title">
+            Start with one link tag
+          </h2>
+          <div className="cyber-flex cyber-flex-wrap cyber-gap-sm cyber-justify-center">
+            <Link to="/docs" className="cyber-btn cyber-btn--filled cyber-btn--lg">
+              Get started
+            </Link>
+            <Link to="/components" className="cyber-btn cyber-btn--lg">
+              Browse components
             </Link>
           </div>
-        </section>
-
-        <div className="cyber-divider" />
-
-        {/* Buttons Section */}
-        <section className="cyber-section">
-          <div className="cyber-section__header">
-            <h2 className="cyber-section__title">// Buttons</h2>
-            <p className="cyber-section__subtitle">Interactive controls with hover effects</p>
-          </div>
-
-          <div className="cyber-flex cyber-flex--wrap cyber-gap-md cyber-items-center">
-            <button className="cyber-btn cyber-flex cyber-items-center cyber-gap-sm">
-              <span dangerouslySetInnerHTML={{ __html: renderIcon('download', { size: 16 }) }} />
-              Download
-            </button>
-            <button className="cyber-btn cyber-btn--magenta cyber-flex cyber-items-center cyber-gap-sm">
-              <span dangerouslySetInnerHTML={{ __html: renderIcon('shield', { size: 16 }) }} />
-              Security
-            </button>
-            <button className="cyber-btn cyber-btn--yellow cyber-flex cyber-items-center cyber-gap-sm">
-              <span dangerouslySetInnerHTML={{ __html: renderIcon('warning', { size: 16 }) }} />
-              Warning
-            </button>
-            <button className="cyber-btn cyber-btn--green cyber-flex cyber-items-center cyber-gap-sm">
-              <span dangerouslySetInnerHTML={{ __html: renderIcon('success', { size: 16 }) }} />
-              Confirm
-            </button>
-          </div>
-
-          <div className="cyber-flex cyber-flex--wrap cyber-gap-md cyber-items-center cyber-mt-lg">
-            <button className="cyber-btn cyber-btn--ghost cyber-flex cyber-items-center cyber-gap-sm">
-              <span dangerouslySetInnerHTML={{ __html: renderIcon('settings', { size: 16 }) }} />
-              Ghost
-            </button>
-            <button className="cyber-btn cyber-btn--filled cyber-flex cyber-items-center cyber-gap-sm">
-              <span dangerouslySetInnerHTML={{ __html: renderIcon('terminal', { size: 16 }) }} />
-              Filled
-            </button>
-            <button className="cyber-btn cyber-btn--sm">Small</button>
-            <button className="cyber-btn cyber-btn--lg">Large</button>
-          </div>
-        </section>
-
-        <div className="cyber-divider" />
-
-        {/* Cards Section */}
-        <section className="cyber-section">
-          <div className="cyber-section__header">
-            <h2 className="cyber-section__title">// Data Cards</h2>
-            <p className="cyber-section__subtitle">Information panels with cyberpunk aesthetics</p>
-          </div>
-
-          <div className="cyber-grid cyber-grid--3">
-            {/* Neural Link Card */}
-            <div className="cyber-card cyber-card--interactive">
-              <div className="cyber-card__header">
-                <div className="cyber-card__icon">&#x26A1;</div>
-                <span className="cyber-card__title">Neural Link</span>
-                <span className="cyber-card__badge">ACTIVE</span>
-              </div>
-              <p style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--space-sm)' }}>
-                Connection stable. Bandwidth optimized for maximum data transfer.
-              </p>
-              <div className="cyber-progress" style={{ ['--progress-value' as string]: '78%' }}>
-                <div className="cyber-progress__bar" />
-              </div>
-              <p
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 'var(--text-xs)',
-                  color: 'var(--color-text-muted)',
-                  marginTop: 'var(--space-xs)',
-                }}
-              >
-                78% CAPACITY
-              </p>
-            </div>
-
-            {/* Threat Detection Card */}
-            <div className="cyber-card cyber-card--magenta cyber-card--interactive">
-              <div className="cyber-card__header">
-                <div className="cyber-card__icon">&#x1F6E1;</div>
-                <span className="cyber-card__title">Threat Detection</span>
-                <span className="cyber-badge cyber-badge--magenta cyber-badge--pulse">HIGH</span>
-              </div>
-              <p style={{ color: 'var(--color-text-secondary)', marginBottom: 'var(--space-sm)' }}>
-                Hostile ICE detected in sector 7G. Countermeasures active.
-              </p>
-              <div
-                className="cyber-progress cyber-progress--magenta"
-                style={{ ['--progress-value' as string]: '45%' }}
-              >
-                <div className="cyber-progress__bar" />
-              </div>
-              <p
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 'var(--text-xs)',
-                  color: 'var(--color-text-muted)',
-                  marginTop: 'var(--space-xs)',
-                }}
-              >
-                45% NEUTRALIZED
-              </p>
-            </div>
-
-            {/* Crypto Wallet Card */}
-            <div className="cyber-card cyber-card--green cyber-card--holo cyber-card--interactive">
-              <div className="cyber-card__header">
-                <div className="cyber-card__icon">&#x1F4B0;</div>
-                <span className="cyber-card__title">Crypto Wallet</span>
-              </div>
-              <p
-                style={{
-                  fontFamily: "'Orbitron', var(--font-display)",
-                  fontSize: 'var(--text-2xl)',
-                  color: 'var(--cyber-green-500)',
-                  textShadow: '0 0 10px var(--cyber-green-500)',
-                }}
-              >
-                $247,892.00
-              </p>
-              <p
-                style={{
-                  color: 'var(--color-text-secondary)',
-                  fontSize: 'var(--text-sm)',
-                  marginTop: 'var(--space-xs)',
-                }}
-              >
-                +12.4% from last sync
-              </p>
-              <div className="cyber-flex cyber-gap-sm cyber-mt-md">
-                <button className="cyber-btn cyber-btn--green cyber-btn--sm">Send</button>
-                <button className="cyber-btn cyber-btn--green cyber-btn--sm cyber-btn--ghost">
-                  Receive
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div className="cyber-divider" />
-
-        {/* Form Section */}
-        <section className="cyber-section">
-          <div className="cyber-grid cyber-grid--2">
-            <div>
-              <div className="cyber-section__header">
-                <h2 className="cyber-section__title">// Access Terminal</h2>
-                <p className="cyber-section__subtitle">Authenticate to the network</p>
-              </div>
-
-              <div className="cyber-card">
-                <div className="cyber-field">
-                  <label className="cyber-field__label" htmlFor="handle-input">
-                    Handle
-                  </label>
-                  <input
-                    type="text"
-                    id="handle-input"
-                    className="cyber-input"
-                    placeholder="Enter your handle..."
-                  />
-                </div>
-
-                <div className="cyber-field">
-                  <label className="cyber-field__label" htmlFor="access-key-input">
-                    Access Key
-                  </label>
-                  <input
-                    type="password"
-                    id="access-key-input"
-                    className="cyber-input"
-                    placeholder="************"
-                  />
-                </div>
-
-                <div className="cyber-field">
-                  <label className="cyber-field__label" htmlFor="message-input">
-                    Message
-                  </label>
-                  <textarea
-                    id="message-input"
-                    className="cyber-input cyber-textarea"
-                    placeholder="Enter transmission..."
-                  />
-                </div>
-
-                <div className="cyber-flex cyber-gap-md cyber-items-center cyber-mb-md">
-                  <label className="cyber-checkbox">
-                    <input type="checkbox" />
-                    <span className="cyber-checkbox__box" />
-                    <span className="cyber-checkbox__label">Remember Me</span>
-                  </label>
-
-                  <label className="cyber-checkbox">
-                    <input type="checkbox" defaultChecked />
-                    <span className="cyber-checkbox__box" />
-                    <span className="cyber-checkbox__label">Encrypt Connection</span>
-                  </label>
-                </div>
-
-                <div className="cyber-flex cyber-gap-md">
-                  <button className="cyber-btn">Connect</button>
-                  <button className="cyber-btn cyber-btn--magenta cyber-btn--ghost">Cancel</button>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div className="cyber-section__header">
-                <h2 className="cyber-section__title">// System Terminal</h2>
-                <p className="cyber-section__subtitle">Live command interface</p>
-              </div>
-
-              <div className="cyber-terminal">
-                <div className="cyber-terminal__header">
-                  <span className="cyber-terminal__dot cyber-terminal__dot--red" />
-                  <span className="cyber-terminal__dot cyber-terminal__dot--yellow" />
-                  <span className="cyber-terminal__dot cyber-terminal__dot--green" />
-                  <span className="cyber-terminal__title">NETWATCH v2.077</span>
-                </div>
-                <div className="cyber-terminal__body">
-                  <p>
-                    <span className="cyber-terminal__prompt">root@nightcity:~$</span> system
-                    --status
-                  </p>
-                  <p style={{ color: 'var(--cyber-green-500)' }}>[OK] Neural link active</p>
-                  <p style={{ color: 'var(--cyber-green-500)' }}>[OK] Firewall operational</p>
-                  <p style={{ color: 'var(--cyber-yellow-500)' }}>
-                    [WARN] 12 intrusion attempts blocked
-                  </p>
-                  <p style={{ color: 'var(--cyber-magenta-500)' }}>
-                    [ALERT] ICE detected in sector 7G
-                  </p>
-                  <p>&nbsp;</p>
-                  <p>
-                    <span className="cyber-terminal__prompt">root@nightcity:~$</span> scan --deep
-                  </p>
-                  <p>Scanning network nodes... 847 found</p>
-                  <p>Analyzing threat vectors...</p>
-                  <p>&nbsp;</p>
-                  <p>
-                    <span className="cyber-terminal__prompt">root@nightcity:~$</span>{' '}
-                    <span className="cyber-terminal__cursor" />
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div className="cyber-divider" />
-
-        {/* Alerts Section */}
-        <section className="cyber-section">
-          <div className="cyber-section__header">
-            <h2 className="cyber-section__title">// System Alerts</h2>
-            <p className="cyber-section__subtitle">Notification styles</p>
-          </div>
-
-          <div className="cyber-flex cyber-flex--col cyber-gap-md">
-            <div className="cyber-alert">
-              <div className="cyber-alert__title">Information</div>
-              <p>Neural sync complete. All systems operating within normal parameters.</p>
-            </div>
-
-            <div className="cyber-alert cyber-alert--success">
-              <div className="cyber-alert__title">Success</div>
-              <p>Data transfer complete. 847.3 TB synchronized across all nodes.</p>
-            </div>
-
-            <div className="cyber-alert cyber-alert--warning">
-              <div className="cyber-alert__title">Warning</div>
-              <p>Firewall detected 12 intrusion attempts. Countermeasures deployed.</p>
-            </div>
-
-            <div className="cyber-alert cyber-alert--error">
-              <div className="cyber-alert__title">Critical</div>
-              <p>Hostile ICE breach in sector 7G. Immediate action required.</p>
-            </div>
-          </div>
-        </section>
-
-        <div className="cyber-divider" />
-
-        {/* Table Section */}
-        <section className="cyber-section">
-          <div className="cyber-section__header">
-            <h2 className="cyber-section__title">// Network Nodes</h2>
-            <p className="cyber-section__subtitle">Active connections</p>
-          </div>
-
-          <div className="cyber-card" style={{ padding: 0, overflowX: 'auto' }}>
-            <table className="cyber-table">
-              <thead>
-                <tr>
-                  <th>Node ID</th>
-                  <th>Location</th>
-                  <th>Status</th>
-                  <th>Latency</th>
-                  <th>Bandwidth</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <code>NC-7734</code>
-                  </td>
-                  <td>Watson District</td>
-                  <td>
-                    <span className="cyber-badge cyber-badge--green">Online</span>
-                  </td>
-                  <td>12ms</td>
-                  <td>847.3 TB/s</td>
-                </tr>
-                <tr>
-                  <td>
-                    <code>NC-2891</code>
-                  </td>
-                  <td>Westbrook</td>
-                  <td>
-                    <span className="cyber-badge cyber-badge--green">Online</span>
-                  </td>
-                  <td>8ms</td>
-                  <td>623.1 TB/s</td>
-                </tr>
-                <tr>
-                  <td>
-                    <code>NC-4456</code>
-                  </td>
-                  <td>Pacifica</td>
-                  <td>
-                    <span className="cyber-badge cyber-badge--yellow">Degraded</span>
-                  </td>
-                  <td>145ms</td>
-                  <td>89.2 TB/s</td>
-                </tr>
-                <tr>
-                  <td>
-                    <code>NC-9012</code>
-                  </td>
-                  <td>Santo Domingo</td>
-                  <td>
-                    <span className="cyber-badge cyber-badge--magenta">Offline</span>
-                  </td>
-                  <td>&mdash;</td>
-                  <td>&mdash;</td>
-                </tr>
-                <tr>
-                  <td>
-                    <code>NC-5567</code>
-                  </td>
-                  <td>City Center</td>
-                  <td>
-                    <span className="cyber-badge cyber-badge--green">Online</span>
-                  </td>
-                  <td>3ms</td>
-                  <td>1.2 PB/s</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <div className="cyber-divider" />
-
-        {/* Tabs Section */}
-        <section className="cyber-section">
-          <div className="cyber-section__header">
-            <h2 className="cyber-section__title">// Interface Tabs</h2>
-            <p className="cyber-section__subtitle">Navigation patterns</p>
-          </div>
-
-          <div className="cyber-tabs cyber-tabs--fullwidth">
-            <button
-              className={`cyber-tab ${activeTab === 0 ? 'cyber-tab--active' : ''}`}
-              onClick={() => setActiveTab(0)}
-            >
-              Overview
-            </button>
-            <button
-              className={`cyber-tab ${activeTab === 1 ? 'cyber-tab--active' : ''}`}
-              onClick={() => setActiveTab(1)}
-            >
-              Analytics
-            </button>
-            <button
-              className={`cyber-tab ${activeTab === 2 ? 'cyber-tab--active' : ''}`}
-              onClick={() => setActiveTab(2)}
-            >
-              Security
-            </button>
-            <button
-              className={`cyber-tab ${activeTab === 3 ? 'cyber-tab--active' : ''}`}
-              onClick={() => setActiveTab(3)}
-            >
-              Settings
-            </button>
-          </div>
-
-          <div className="cyber-card" style={{ borderTop: 'none', marginTop: '-1px' }}>
-            {activeTab === 0 && (
-              <div>
-                <h4 style={{ color: 'var(--cyber-cyan-500)', marginBottom: 'var(--space-sm)' }}>
-                  System Overview
-                </h4>
-                <p style={{ color: 'var(--color-text-secondary)' }}>
-                  All neural pathways operational. Network integrity at 98.7%. Last sync: 2.3
-                  seconds ago.
-                </p>
-              </div>
-            )}
-            {activeTab === 1 && (
-              <div>
-                <h4 style={{ color: 'var(--cyber-cyan-500)', marginBottom: 'var(--space-sm)' }}>
-                  Network Analytics
-                </h4>
-                <p style={{ color: 'var(--color-text-secondary)' }}>
-                  847 nodes scanned. Data throughput: 1.2 PB/s peak. Anomalies detected: 3
-                  (resolved).
-                </p>
-              </div>
-            )}
-            {activeTab === 2 && (
-              <div>
-                <h4 style={{ color: 'var(--cyber-magenta-500)', marginBottom: 'var(--space-sm)' }}>
-                  Security Status
-                </h4>
-                <p style={{ color: 'var(--color-text-secondary)' }}>
-                  Firewall active. 12 intrusion attempts blocked in last 24h. ICE protocols engaged
-                  in sector 7G.
-                </p>
-              </div>
-            )}
-            {activeTab === 3 && (
-              <div>
-                <h4 style={{ color: 'var(--cyber-cyan-500)', marginBottom: 'var(--space-sm)' }}>
-                  Configuration
-                </h4>
-                <p style={{ color: 'var(--color-text-secondary)' }}>
-                  Neural interface: v2.077. Auto-sync: enabled. Encryption: AES-512. Theme: Night
-                  City Dark.
-                </p>
-              </div>
-            )}
-          </div>
-        </section>
-
-        <div className="cyber-divider" />
-
-        {/* Loading Section */}
-        <section className="cyber-section">
-          <div className="cyber-section__header">
-            <h2 className="cyber-section__title">// Loading States</h2>
-            <p className="cyber-section__subtitle">Progress indicators</p>
-          </div>
-
-          <div className="cyber-grid cyber-grid--2">
-            <div className="cyber-card">
-              <h4
-                style={{
-                  fontSize: 'var(--text-lg)',
-                  color: 'var(--cyber-cyan-500)',
-                  marginBottom: 'var(--space-md)',
-                }}
-              >
-                Progress Bars
-              </h4>
-
-              <p
-                style={{
-                  fontSize: 'var(--text-xs)',
-                  color: 'var(--color-text-muted)',
-                  marginBottom: 'var(--space-2xs)',
-                }}
-              >
-                DOWNLOAD PROGRESS
-              </p>
-              <div
-                className="cyber-progress"
-                style={{
-                  ['--progress-value' as string]: '65%',
-                  marginBottom: 'var(--space-md)',
-                }}
-              >
-                <div className="cyber-progress__bar" />
-              </div>
-
-              <p
-                style={{
-                  fontSize: 'var(--text-xs)',
-                  color: 'var(--color-text-muted)',
-                  marginBottom: 'var(--space-2xs)',
-                }}
-              >
-                THREAT ANALYSIS
-              </p>
-              <div
-                className="cyber-progress cyber-progress--magenta"
-                style={{
-                  ['--progress-value' as string]: '45%',
-                  marginBottom: 'var(--space-md)',
-                }}
-              >
-                <div className="cyber-progress__bar" />
-              </div>
-
-              <p
-                style={{
-                  fontSize: 'var(--text-xs)',
-                  color: 'var(--color-text-muted)',
-                  marginBottom: 'var(--space-2xs)',
-                }}
-              >
-                SYSTEM HEALTH
-              </p>
-              <div
-                className="cyber-progress cyber-progress--green"
-                style={{ ['--progress-value' as string]: '92%' }}
-              >
-                <div className="cyber-progress__bar" />
-              </div>
-            </div>
-
-            <div
-              className="cyber-card cyber-flex cyber-flex--col cyber-items-center cyber-justify-center"
-              style={{ minHeight: '200px' }}
-            >
-              <div className="cyber-spinner" />
-              <p
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 'var(--text-sm)',
-                  color: 'var(--color-text-muted)',
-                  marginTop: 'var(--space-md)',
-                }}
-              >
-                SYNCHRONIZING...
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <div className="cyber-divider" />
-
-        {/* Special Effects Section */}
-        <section className="cyber-section">
-          <div className="cyber-section__header">
-            <h2 className="cyber-section__title">// Special Effects</h2>
-            <p className="cyber-section__subtitle">Signature cyberpunk aesthetics</p>
-          </div>
-
-          <div className="cyber-grid cyber-grid--2">
-            <div className="cyber-card cyber-neon-border" style={{ zIndex: 1 }}>
-              <h4
-                style={{
-                  fontSize: 'var(--text-lg)',
-                  color: 'var(--cyber-cyan-500)',
-                  marginBottom: 'var(--space-sm)',
-                }}
-              >
-                Neon Border
-              </h4>
-              <p style={{ color: 'var(--color-text-secondary)' }}>
-                Animated rainbow neon glow effect that cycles through all accent colors. Perfect for
-                highlighting important elements.
-              </p>
-            </div>
-
-            <div className="cyber-card cyber-datastream">
-              <h4
-                style={{
-                  fontSize: 'var(--text-lg)',
-                  color: 'var(--cyber-cyan-500)',
-                  marginBottom: 'var(--space-sm)',
-                }}
-              >
-                Data Stream
-              </h4>
-              <p style={{ color: 'var(--color-text-secondary)' }}>
-                Subtle animated gradient that simulates data flowing through the interface. Creates
-                depth and movement.
-              </p>
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
+        </div>
+      </section>
+    </>
   );
 }
 

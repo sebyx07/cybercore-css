@@ -1,0 +1,98 @@
+// ============================================================
+// Breadcrumb Component
+// <nav class="cyber-breadcrumb" aria-label="Breadcrumb">
+//   <ol class="cyber-breadcrumb__list">
+//     <li class="cyber-breadcrumb__item"><a class="cyber-breadcrumb__link" href="/">Root</a></li>
+//     <li class="cyber-breadcrumb__item" aria-current="page">Here</li>
+//   </ol>
+// </nav>
+// ============================================================
+
+@use "kit";
+
+@layer components {
+  .cyber-breadcrumb {
+    --breadcrumb-accent: var(--color-accent, var(--cyber-cyan-500));
+
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+
+    &__list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3xs) 0;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    &__item {
+      display: inline-flex;
+      align-items: center;
+      min-height: 1.5rem;
+      color: var(--color-text-secondary);
+
+      // Separator belongs to the item that follows it, hidden from AT
+      & + &::before {
+        content: "/";
+        color: var(--cyber-magenta-500);
+        padding-inline: var(--space-2xs);
+      }
+
+      &--active,
+      &[aria-current="page"] {
+        color: var(--breadcrumb-accent);
+      }
+    }
+
+    &__link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 1.5rem;
+      color: var(--color-text-secondary);
+      transition: color var(--duration-fast) ease;
+      text-decoration-color: color-mix(in srgb, currentcolor 45%, transparent);
+      text-underline-offset: 0.25em;
+
+      @include kit.hover {
+        color: var(--breadcrumb-accent);
+      }
+
+      &:focus-visible {
+        @include kit.focus-ring(var(--breadcrumb-accent), 2px);
+
+        color: var(--breadcrumb-accent);
+      }
+
+      &[aria-current="page"] {
+        text-decoration: none;
+        color: var(--breadcrumb-accent);
+      }
+    }
+
+    // Chevron separators
+    &--chevron &__item + &__item::before {
+      content: ">";
+    }
+
+    &--magenta {
+      --breadcrumb-accent: var(--cyber-magenta-500);
+    }
+
+    &--yellow {
+      --breadcrumb-accent: var(--cyber-yellow-500);
+    }
+
+    &--green {
+      --breadcrumb-accent: var(--cyber-green-500);
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .cyber-breadcrumb__item,
+    .cyber-breadcrumb__link {
+      color: var(--color-text-primary);
+    }
+  }
+}

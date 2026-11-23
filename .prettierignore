@@ -1,44 +1,26 @@
-# Build outputs
+# Build outputs and caches
 dist/
-build/
-.vite/
-
-# Dependencies
-node_modules/
-
-# Package manager files
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
-
-# Cache
-.cache/
-.eslintcache
-.stylelintcache
-*.tsbuildinfo
-
-# Coverage
+demo/dist/
 coverage/
-.nyc_output/
-
-# Generated files
+playwright-report/
+test-results/
+*.tsbuildinfo
 *.min.css
 *.min.js
 
-# Documentation build
-docs/.vitepress/dist/
-docs/.vitepress/cache/
+# Package manager files
+package-lock.json
 
-# Storybook
-storybook-static/
+# Agent surface: prettier's markdown rewrapping mangles YAML frontmatter and skill files
+.dz/
+.claude/
+CLAUDE.md
+**/CLAUDE.md
+AGENTS.md
+llms.txt
+**/llms*.txt
 
-# Changesets (auto-generated)
-.changeset/*.md
+# Visual regression baselines
+tests/visual/**/*-snapshots/
 
-# IDE
-.idea/
-.vscode/
-
-# Misc
-*.log
 LICENSE

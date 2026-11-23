@@ -1,64 +1,50 @@
-import { useState } from 'react';
+import { highlight } from '../lib/highlight';
 
-import { Highlight, themes } from 'prism-react-renderer';
+import CopyButton from './CopyButton';
+
+import type { Grammar } from '../lib/highlight';
+
+export type CodeLanguage = 'html' | 'css' | 'scss' | 'js' | 'ts' | 'bash' | 'text';
 
 interface CodeBlockProps {
   code: string;
-  language?: string;
+  language?: CodeLanguage;
+  /** Short name shown in the header and used to label the copy button. */
   title?: string;
 }
 
+const GRAMMAR: Record<CodeLanguage, Grammar> = {
+  html: 'markup',
+  css: 'style',
+  scss: 'style',
+  js: 'script',
+  ts: 'script',
+  bash: 'none',
+  text: 'none',
+};
+
 function CodeBlock({ code, language = 'html', title }: CodeBlockProps) {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    try {
-      await navigator.clipboard.writeText(code);
-      setCopied(true);
-      // Remove focus to prevent stuck hover/focus state on mobile
-      e.currentTarget.blur();
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy:', err);
-    }
-  };
-
-  // Map our language names to Prism language names
-  const prismLanguage = language === 'bash' ? 'bash' : language;
+  const source = code.trim();
+  const name = title ?? language.toUpperCase();
 
   return (
-    <div className="code-block">
-      {title && (
-        <div className="code-block__header">
-          <span className="code-block__title cyber-label">{title}</span>
-          <span className="code-block__lang cyber-mono">{language}</span>
-        </div>
-      )}
-      <div className="code-block__content">
-        <Highlight theme={themes.nightOwl} code={code.trim()} language={prismLanguage}>
-          {({ className, style, tokens, getLineProps, getTokenProps }) => (
-            <pre
-              className={`code-block__pre ${className}`}
-              style={{ ...style, background: 'transparent', margin: 0 }}
-            >
-              {tokens.map((line, i) => (
-                <div key={i} {...getLineProps({ line })}>
-                  {line.map((token, key) => (
-                    <span key={key} {...getTokenProps({ token })} />
-                  ))}
-                </div>
-              ))}
-            </pre>
-          )}
-        </Highlight>
-        <button
-          className={`code-block__copy cyber-btn cyber-btn--ghost cyber-btn--sm ${copied ? 'code-block__copy--copied' : ''}`}
-          onClick={handleCopy}
-          aria-label={copied ? 'Copied!' : 'Copy code'}
-        >
-          {copied ? '✓ Copied!' : 'Copy'}
-        </button>
+    <div className="site-code">
+      <div className="site-code__bar">
+        <span className="site-code__title">{name}</span>
+        <CopyButton text={source} label={`Copy ${name} code`} />
       </div>
+      {/* A scrollable region has to be reachable by keyboard. */}
+      {/* eslint-disable-next-line jsx-a11y-x/no-noninteractive-tabindex */}
+      <pre className="site-code__pre" tabIndex={0} aria-label={`${name} code`}>
+        <code>
+          {highlight(source, GRAMMAR[language]).map((token, index) => (
+            // eslint-disable-next-line @eslint-react/no-array-index-key -- tokens never reorder
+            <span key={index} className={`site-tok site-tok--${token.kind}`}>
+              {token.text}
+            </span>
+          ))}
+        </code>
+      </pre>
     </div>
   );
 }

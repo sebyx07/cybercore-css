@@ -1,0 +1,298 @@
+// ============================================================
+// HUD Component
+// .cyber-hud — heads-up-display frame: four corner brackets, an optional
+// readout label on the top edge, and optional grid / scan overlays.
+// .cyber-stat — a big readout number with a caption.
+// .cyber-divider — a section rule with a centre marker.
+// <section class="cyber-hud" aria-labelledby="h">
+//   <h3 class="cyber-hud__label" id="h">Sector 7</h3>
+//   …
+// </section>
+// ============================================================
+
+@use "kit";
+
+@layer components {
+  .cyber-hud {
+    --hud-color: var(--color-accent, var(--cyber-cyan-500));
+    --hud-bracket: 18px;
+    --hud-bg: color-mix(in srgb, var(--hud-color) 4%, transparent);
+
+    position: relative;
+    padding: var(--space-md);
+    border: 1px solid color-mix(in srgb, var(--hud-color) 28%, transparent);
+    background: var(--hud-bg);
+    isolation: isolate;
+
+    // Corner brackets: top pair on ::before, bottom pair on ::after.
+    // Outset by 1px so they sit on top of the hairline border.
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      height: var(--hud-bracket);
+      border: 2px solid var(--hud-color);
+      pointer-events: none;
+      inset-inline: -1px;
+    }
+
+    &::before {
+      top: -1px;
+      border-bottom: 0;
+      mask: linear-gradient(
+        90deg,
+        #000 var(--hud-bracket),
+        transparent var(--hud-bracket) calc(100% - var(--hud-bracket)),
+        #000 calc(100% - var(--hud-bracket))
+      );
+    }
+
+    &::after {
+      bottom: -1px;
+      border-top: 0;
+      mask: linear-gradient(
+        90deg,
+        #000 var(--hud-bracket),
+        transparent var(--hud-bracket) calc(100% - var(--hud-bracket)),
+        #000 calc(100% - var(--hud-bracket))
+      );
+    }
+
+    // Readout label, sits on the top edge
+    &__label {
+      @include kit.label-text(kit.$text-xs, 0.14em);
+
+      position: absolute;
+      top: 0;
+      max-width: calc(100% - var(--hud-bracket) * 2 - var(--space-md));
+      margin: 0;
+      padding: 0 var(--space-2xs);
+      overflow: hidden;
+      white-space: nowrap;
+      color: var(--hud-color);
+      background: var(--hud-label-bg, var(--color-bg-primary));
+      transform: translateY(-50%);
+      inset-inline-start: calc(var(--hud-bracket) + var(--space-2xs));
+      text-overflow: ellipsis;
+    }
+
+    // Small trailing readout (coordinates, id, status)
+    &__meta {
+      position: absolute;
+      bottom: 0;
+      padding: 0 var(--space-2xs);
+      font-family: var(--font-mono);
+      font-size: kit.$text-xs;
+      letter-spacing: 0.06em;
+      color: var(--color-text-secondary);
+      background: var(--hud-label-bg, var(--color-bg-primary));
+      transform: translateY(50%);
+      inset-inline-end: calc(var(--hud-bracket) + var(--space-2xs));
+    }
+
+    // Blueprint grid behind the content
+    &--grid {
+      background:
+        linear-gradient(color-mix(in srgb, var(--hud-color) 9%, transparent) 1px, transparent 1px) 0
+          0 / 100% 1.5rem,
+        linear-gradient(
+            90deg,
+            color-mix(in srgb, var(--hud-color) 9%, transparent) 1px,
+            transparent 1px
+          )
+          0 0 / 1.5rem 100%,
+        var(--hud-bg);
+    }
+
+    // A scan bar sweeps down the frame
+    // A scan bar sweeps down the frame. Add the decorative element:
+    // <span class="cyber-hud__scan" aria-hidden="true"></span>
+    &__scan {
+      position: absolute;
+      top: 0;
+      z-index: -1;
+      height: 30%;
+      background: linear-gradient(
+        180deg,
+        transparent,
+        color-mix(in srgb, var(--hud-color) 14%, transparent) 85%,
+        color-mix(in srgb, var(--hud-color) 55%, transparent)
+      );
+      opacity: 0%;
+      pointer-events: none;
+      inset-inline: 0;
+
+      @include kit.motion-safe {
+        animation: cyber-hud-scan 4s linear infinite;
+      }
+    }
+
+    &--magenta {
+      --hud-color: var(--cyber-magenta-500);
+    }
+
+    &--yellow {
+      --hud-color: var(--cyber-yellow-500);
+    }
+
+    &--green {
+      --hud-color: var(--cyber-green-500);
+    }
+  }
+
+  // --------------------------------------------------------
+  // Stat readout
+  // --------------------------------------------------------
+
+  .cyber-stat {
+    --stat-color: var(--color-accent, var(--cyber-cyan-500));
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xs);
+    text-align: center;
+
+    &__value {
+      font-family: Orbitron, var(--font-display);
+      font-size: var(--text-3xl);
+      font-weight: 700;
+      line-height: 1;
+      color: var(--stat-color);
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 0 0.75rem color-mix(in srgb, var(--stat-color) 55%, transparent);
+    }
+
+    &__label {
+      @include kit.label-text(kit.$text-xs, 0.1em);
+
+      font-weight: 600;
+      color: var(--color-text-secondary);
+    }
+
+    // Change since last period: arrow + sign carry the meaning, not just colour
+    &__delta {
+      font-family: var(--font-mono);
+      font-size: kit.$text-xs;
+      color: var(--color-text-secondary);
+
+      &--up {
+        color: var(--cyber-green-500);
+
+        &::before {
+          content: "\25B2\00A0";
+        }
+      }
+
+      &--down {
+        color: var(--cyber-magenta-500);
+
+        &::before {
+          content: "\25BC\00A0";
+        }
+      }
+    }
+
+    &--start {
+      text-align: start;
+    }
+
+    &--magenta {
+      --stat-color: var(--cyber-magenta-500);
+    }
+
+    &--yellow {
+      --stat-color: var(--cyber-yellow-500);
+    }
+
+    &--green {
+      --stat-color: var(--cyber-green-500);
+    }
+  }
+
+  // --------------------------------------------------------
+  // Divider: <hr class="cyber-divider">, or a <div role="separator">
+  // --------------------------------------------------------
+
+  .cyber-divider {
+    --divider-color: var(--color-accent, var(--cyber-cyan-500));
+
+    position: relative;
+    height: 1px;
+    margin: var(--space-lg) 0;
+    border: 0;
+    overflow: visible;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--divider-color) 20%,
+      var(--divider-color) 80%,
+      transparent
+    );
+
+    // Diamond marker, cut out of the line with the page background
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0.5rem;
+      height: 0.5rem;
+      border: 1px solid var(--divider-color);
+      background: var(--divider-bg, var(--color-bg-primary));
+      box-shadow: 0 0 0 0.5rem var(--divider-bg, var(--color-bg-primary));
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    &--plain::before {
+      display: none;
+    }
+
+    &--magenta {
+      --divider-color: var(--cyber-magenta-500);
+    }
+
+    &--yellow {
+      --divider-color: var(--cyber-yellow-500);
+    }
+
+    &--green {
+      --divider-color: var(--cyber-green-500);
+    }
+  }
+
+  @keyframes cyber-hud-scan {
+    0% {
+      opacity: 0%;
+      transform: translateY(0);
+    }
+
+    10%,
+    90% {
+      opacity: 100%;
+    }
+
+    100% {
+      opacity: 0%;
+      transform: translateY(233%);
+    }
+  }
+
+  // The scan bar is decoration only: gone when motion is reduced
+  [data-motion="reduce"] .cyber-hud__scan {
+    animation: none;
+  }
+
+  @media (prefers-contrast: more) {
+    .cyber-hud {
+      border-color: var(--hud-color);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .cyber-divider {
+      border-top: 1px solid CanvasText;
+      background: none;
+    }
+  }
+}

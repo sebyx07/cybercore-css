@@ -1,0 +1,32 @@
+// ============================================================
+// High contrast
+// Follows `prefers-contrast: more`, or force it per subtree with
+// data-contrast="high". Raises secondary text and borders, thickens the
+// focus ring and dims glows (blur halos reduce legibility).
+// Windows forced-colors mode is handled by each component (system colours).
+// ============================================================
+
+@mixin high-contrast {
+  --color-text-secondary: var(--cyber-chrome-100);
+  --color-text-muted: var(--cyber-chrome-200);
+  --color-text-placeholder: var(--cyber-chrome-300);
+  --color-border-default: var(--cyber-chrome-400);
+  --color-border-subtle: var(--cyber-chrome-500);
+  --color-border-strong: var(--cyber-chrome-200);
+  --focus-ring-width: 3px;
+  --glow-intensity: 0.4;
+  --noise-opacity: 0;
+  --scanline-opacity: 0;
+}
+
+@layer theme {
+  @media (prefers-contrast: more) {
+    :root {
+      @include high-contrast;
+    }
+  }
+
+  [data-contrast="high"] {
+    @include high-contrast;
+  }
+}

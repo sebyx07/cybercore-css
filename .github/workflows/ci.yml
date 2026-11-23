@@ -1,115 +1,135 @@
 name: CI
 
+# The gate for every pull request and every push to main. Branch protection requires only the
+# aggregate "CI OK" job, so jobs can be added or renamed here without touching the ruleset.
+# release.yml calls this workflow (workflow_call) to prove a version before it is published.
+#
+# Local equivalents, job by job:
+#   check     bin/check                       (repo guards + lint, format:check, typecheck,
+#                                              test, validate:icons, build, check:size,
+#                                              check:package, docs-check)
+#   audit     npm audit --audit-level=low      (needs the registry, so not part of bin/check)
+#   visual    npm run build && npm run test:visual   (Docker; same image as below)
+#   workflows the actionlint and zizmor commands below
 on:
-  push:
-    branches: [main, develop]
   pull_request:
-    branches: [main, develop]
+  push:
+    branches: [main]
+  workflow_dispatch:
+  workflow_call:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: ${{ github.workflow }}-ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
 
 env:
-  NODE_VERSION: 20
+  CI: '1'
 
 jobs:
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
+  workflows:
+    name: Lint / workflows (actionlint + zizmor)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          persist-credentials: false
+      - name: actionlint
+        run: docker run --rm -v "$PWD:/repo" -w /repo rhysd/actionlint:1.7.12 -color
+      - name: zizmor (workflow security)
+        run: pipx run zizmor==1.33.1 --format=github .github/workflows
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run ESLint
-        run: npm run lint:js
-
-      - name: Run Stylelint
-        run: npm run lint:css
-
-      - name: Check formatting
-        run: npm run format:check
-
-  test:
-    name: Test
-    runs-on: ubuntu-latest
+  check:
+    name: Check / bin/check (lint, format, typecheck, test, icons, build, size, package, docs)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-
+          persist-credentials: false
+      # No dependency cache on purpose: release.yml calls this workflow before it publishes,
+      # and a cache a pull request could have written has no place in that chain.
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --no-audit --no-fund
+      # The local gate, so green there is green here.
+      - name: Gate
+        run: bin/check
 
-      - name: Run unit tests
-        run: npm run test:coverage
-
-      - name: Upload coverage reports
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage/lcov.info
-          flags: unittests
-          fail_ci_if_error: false
-
-  build:
-    name: Build
-    runs-on: ubuntu-latest
+  audit:
+    name: Audit / npm audit (dependency advisories)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+      # Reads package-lock.json; no install needed. The size budget and the package check
+      # (npm pack + install) run inside bin/check, in the check job.
+      - name: Audit dependencies
+        run: npm audit --audit-level=low
 
+  visual:
+    name: Visual / Playwright screenshots of the demo
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    # The pinned Playwright image renders the baselines in tests/visual/__snapshots__/;
+    # scripts/visual.sh runs the same image locally. Keep the two in step.
+    container:
+      image: mcr.microsoft.com/playwright:v1.65.1-noble@sha256:1507cbfc550a63a6b7396791ca4f00df17beb56342d2447b3f106c306f525579
+      options: --ipc=host --init
+    env:
+      HOME: /root
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Install dependencies
-        run: npm ci
-
-      - name: Build CSS framework
-        run: npm run build:css
-
-      - name: Build demo application
-        run: npm run build:demo
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+        run: npm ci --no-audit --no-fund
+      - name: Build the CSS and the demo
+        run: npm run build
+      - name: Compare screenshots
+        run: npx --no-install playwright test
+      - name: Upload the report (diffs) on failure
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: dist
-          path: dist/
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
           retention-days: 7
 
-  typecheck:
-    name: Type Check
-    runs-on: ubuntu-latest
+  ci-ok:
+    name: CI OK
+    if: always()
+    # Every job above must succeed; skipped or cancelled counts as failed.
+    needs:
+      - workflows
+      - check
+      - audit
+      - visual
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run TypeScript type check
-        run: npm run typecheck
+      - name: All required jobs passed
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo "Results: $RESULTS"
+          for r in $RESULTS; do
+            if [ "$r" != success ]; then
+              echo "::error::A required job finished with '$r'. Open the failed job above: its log names the check and the command to reproduce it locally."
+              exit 1
+            fi
+          done

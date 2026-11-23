@@ -1,76 +1,142 @@
 // ============================================================
 // Alerts Component
-// Notification alerts with icon badges
+// .cyber-alert — inline system message with a status glyph.
+// A11y: `role="status"` for routine messages, `role="alert"` only for
+// errors that block. The glyph is decorative; say the severity in the text.
 // ============================================================
+
+@use "kit";
 
 @layer components {
   .cyber-alert {
-    --alert-color: var(--cyber-cyan-500);
+    --alert-color: var(--color-accent, var(--cyber-cyan-500));
+    --alert-icon: #{kit.icon-url(kit.$icon-info)};
 
-    position: relative;
-    padding: var(--space-md);
-    padding-left: var(--space-xl);
-    border: var(--border-thin) solid var(--alert-color);
-    border-left: 4px solid var(--alert-color);
-    background: color-mix(in srgb, var(--alert-color) 10%, var(--color-bg-secondary));
+    // Frame wiring
+    --frame-cut: 12px;
+    --frame-border-color: color-mix(in srgb, var(--alert-color) 55%, transparent);
+    --frame-bg: color-mix(in srgb, var(--alert-color) 8%, var(--color-bg-secondary));
 
-    // Icon badge via ::before pseudo-element
-    &::before {
-      content: "!";
+    // Accent bar on the leading edge, clipped by the frame's cut corner
+    --frame-bg-image: linear-gradient(var(--alert-color), var(--alert-color));
+    --frame-bg-size: 4px 100%;
+
+    @include kit.cut-frame;
+
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    color: var(--color-text-primary);
+    padding-inline-start: calc(var(--space-md) + 1.5rem + var(--space-sm));
+
+    // Status glyph knocked out of a filled badge
+    &::after {
+      content: "";
       position: absolute;
-      top: 50%;
-      left: var(--space-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 24px;
-      height: 24px;
-      font-family: var(--font-display);
-      font-size: var(--text-sm);
-      font-weight: 700;
-      line-height: 1;
-      color: var(--cyber-void-500);
-      background: var(--alert-color);
-      transform: translateY(-50%);
+      top: var(--space-sm);
+      width: 1.5rem;
+      height: 1.5rem;
+      background-color: var(--alert-color);
+      inset-inline-start: var(--space-md);
+      mask:
+        var(--alert-icon) center / 0.875rem no-repeat,
+        linear-gradient(#000, #000);
+      mask-composite: exclude;
     }
 
-    // Alert title
+    &:dir(rtl) {
+      --frame-bg-position: 100% 0;
+    }
+
+    &:has(> .cyber-alert__close) {
+      padding-inline-end: calc(var(--space-md) + 2rem);
+    }
+
+    a {
+      color: var(--alert-color);
+      text-underline-offset: 0.2em;
+    }
+
     &__title {
-      margin-bottom: var(--space-2xs);
-      font-family: var(--font-display);
-      font-size: var(--text-sm);
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      @include kit.label-text(var(--text-sm), 0.06em);
+
       color: var(--alert-color);
     }
 
+    &__body {
+      color: var(--color-text-secondary);
+    }
+
+    &__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2xs);
+      margin-top: var(--space-2xs);
+    }
+
+    // Dismiss button: <button class="cyber-alert__close" aria-label="Dismiss">
+    &__close {
+      position: absolute;
+      top: var(--space-xs);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      padding: 0;
+      border: 1px solid transparent;
+      color: var(--color-text-secondary);
+      background: transparent;
+      transition:
+        color var(--duration-fast) ease,
+        border-color var(--duration-fast) ease;
+      cursor: pointer;
+      inset-inline-end: var(--space-xs);
+
+      @include kit.hover {
+        border-color: var(--alert-color);
+        color: var(--alert-color);
+      }
+
+      &::before {
+        @include kit.mask-icon(kit.$icon-error, 0.75rem);
+
+        content: "";
+      }
+
+      &:focus-visible {
+        @include kit.focus-ring(var(--alert-color), 1px);
+      }
+    }
+
     // --------------------------------------------------------
-    // Semantic Variants
+    // Semantic variants
     // --------------------------------------------------------
+
+    &--info {
+      --alert-color: var(--cyber-cyan-500);
+    }
 
     &--warning {
       --alert-color: var(--cyber-yellow-500);
-
-      &::before {
-        content: "\26A0"; // ⚠
-      }
+      --alert-icon: #{kit.icon-url(kit.$icon-warning)};
     }
 
     &--error {
       --alert-color: var(--cyber-magenta-500);
-
-      &::before {
-        content: "\2715"; // ✕
-      }
+      --alert-icon: #{kit.icon-url(kit.$icon-error)};
     }
 
     &--success {
       --alert-color: var(--cyber-green-500);
+      --alert-icon: #{kit.icon-url(kit.$icon-success)};
+    }
+  }
 
-      &::before {
-        content: "\2713"; // ✓
-      }
+  @media (forced-colors: active) {
+    .cyber-alert::after {
+      background-color: CanvasText;
+      forced-color-adjust: none;
     }
   }
 }

@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+# Public API diff: the cyber-* classes and the custom properties of this checkout's build against
+# a published version. A class or token that disappears breaks sites silently (nothing errors,
+# the style is gone), so a removal is a breaking change.
+#
+#   bin/api-diff             against the version npm serves as `latest`
+#   bin/api-diff 0.3.0       against that published version
+#
+# Prints what was removed and what was added. Exit: 0 nothing removed · 1 something was removed
+# (breaking: needs a major, or a pre-1.0 minor flagged breaking, and the owner) · 75 environment
+# missing (Node, node_modules, or the registry is unreachable: nothing was compared).
+set -uo pipefail
+# shellcheck source-path=SCRIPTDIR source=_dx.sh
+source "$(dirname "${BASH_SOURCE[0]}")/_dx.sh"
+cd "$ROOT" || exit 1
+
+case "${1:-}" in
+  -h | --help) sed -n '2,11p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+esac
+[ "$#" -le 1 ] || { echo "usage: bin/api-diff [version]" >&2; exit 2; }
+
+use_node require
+require_deps
+
+name="$(node -p 'require("./package.json").name')"
+base="${1:-latest}"
+work="$ROOT/tmp/api-diff"
+rm -rf "$work" && mkdir -p "$work/published"
+
+step "build this checkout (npm run build:css)"
+npm run --silent build:css || { echo "bin/api-diff: the build failed" >&2; exit 1; }
+
+step "fetch $name@$base from npm"
+tarball="$(cd "$work" && npm pack --silent "$name@$base" 2>/dev/null | tail -n 1)"
+if [ -z "$tarball" ] || [ ! -f "$work/$tarball" ]; then
+  env_missing "could not download $name@$base from the npm registry" "check the network and that the version exists: npm view $name versions"
+fi
+tar -xzf "$work/$tarball" -C "$work/published"
+published="$work/published/package/dist/cybercore.css"
+[ -f "$published" ] || { echo "bin/api-diff: $tarball has no dist/cybercore.css" >&2; exit 1; }
+ok "$tarball"
+
+# api <css file> <out prefix> — writes <prefix>.classes and <prefix>.tokens, sorted and unique.
+api() {
+  grep -oE '\.cyber-[A-Za-z0-9_-]+' "$1" | sed 's/^\.//' | LC_ALL=C sort -u >"$2.classes"
+  grep -oE '(^|[;{[:space:]])--[A-Za-z0-9_-]+[[:space:]]*:' "$1" | grep -oE -e '--[A-Za-z0-9_-]+' | LC_ALL=C sort -u >"$2.tokens"
+}
+api "$published" "$work/old"
+api dist/cybercore.css "$work/new"
+
+removed=0
+for kind in classes tokens; do
+  gone="$(LC_ALL=C comm -23 "$work/old.$kind" "$work/new.$kind")"
+  added="$(LC_ALL=C comm -13 "$work/old.$kind" "$work/new.$kind")"
+  printf '\n%s: %s published, %s in this build\n' "$kind" "$(wc -l <"$work/old.$kind")" "$(wc -l <"$work/new.$kind")"
+  if [ -n "$gone" ]; then
+    removed=$((removed + $(printf '%s\n' "$gone" | wc -l)))
+    printf '  REMOVED (breaking):\n'
+    printf '%s\n' "$gone" | sed 's/^/    - /'
+  fi
+  if [ -n "$added" ]; then
+    printf '  added:\n'
+    printf '%s\n' "$added" | sed 's/^/    + /'
+  fi
+done
+
+if [ "$removed" -gt 0 ]; then
+  printf '\nbin/api-diff: %s removal(s) since %s@%s — a breaking change.\n' "$removed" "$name" "$base"
+  exit 1
+fi
+printf '\nbin/api-diff: nothing removed since %s@%s.\n' "$name" "$base"

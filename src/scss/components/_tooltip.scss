@@ -1,0 +1,202 @@
+// ============================================================
+// Tooltip Component
+// Pure CSS: shown on hover and on keyboard focus.
+// Attribute form (short text labels):
+//   <button class="cyber-tooltip" data-tooltip="Copy link" aria-label="Copy link">…</button>
+// Element form (announced by screen readers through aria-describedby):
+//   <span class="cyber-tooltip">
+//     <button aria-describedby="tip-1">Deploy</button>
+//     <span class="cyber-tooltip__content" role="tooltip" id="tip-1">Ships to prod</span>
+//   </span>
+// A11y: generated content is not announced reliably, so the attribute form
+// needs the same text in `aria-label`. Never put essential or interactive
+// content in a tooltip. The bubble stays open while the pointer is over it.
+// Near a viewport edge add `--align-start` / `--align-end`.
+// ============================================================
+
+@use "kit";
+
+// Reduced-motion overrides, shared by the media query and data-motion="reduce"
+@mixin -reduced-motion {
+  .cyber-tooltip[data-tooltip]::after,
+  .cyber-tooltip__content {
+    transition-duration: 0.01ms;
+  }
+}
+
+@layer components {
+  .cyber-tooltip {
+    --tooltip-color: var(--color-accent, var(--cyber-cyan-500));
+    --tooltip-gap: 0.5rem;
+
+    position: relative;
+
+    // Inline wrappers keep their flow; buttons and links are left as they are
+    &:where(span) {
+      display: inline-flex;
+    }
+
+    &[data-tooltip]::after,
+    &__content {
+      position: absolute;
+      bottom: calc(100% + var(--tooltip-gap));
+      left: 50%;
+      z-index: var(--z-tooltip, 1100);
+      width: max-content;
+      max-width: min(16rem, 80vw);
+      padding: var(--space-3xs) var(--space-xs);
+      border: 1px solid var(--tooltip-color);
+      font-family: var(--font-mono);
+      font-size: kit.$text-xs;
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: 0.02em;
+      text-align: start;
+      text-transform: none;
+      white-space: normal;
+      color: var(--color-text-primary);
+      background: var(--color-bg-elevated);
+      box-shadow:
+        0 0.5rem 1rem color-mix(in srgb, var(--cyber-void-900) 70%, transparent),
+        0 0 0.75rem color-mix(in srgb, var(--tooltip-color) 25%, transparent);
+      opacity: 0%;
+      transform: translate(var(--tooltip-shift-x, -50%), var(--tooltip-shift-y, 4px));
+
+      // display is toggled (not visibility) so a hidden bubble near the page
+      // edge never adds scrollable overflow. allow-discrete keeps the fade-out
+      // where supported; elsewhere the bubble just appears and disappears.
+      transition:
+        opacity var(--duration-fast) ease,
+        transform var(--duration-fast) var(--ease-out-expo),
+        display var(--duration-fast) allow-discrete;
+      border-inline-start-width: 3px;
+    }
+
+    &[data-tooltip]::after {
+      content: attr(data-tooltip);
+      display: none;
+    }
+
+    &__content {
+      display: none;
+    }
+
+    // Short delay on the way in stops flicker when the pointer just passes over
+    &:hover::after,
+    &:hover > &__content,
+    &:focus-visible::after,
+    &:focus-within > &__content {
+      display: block;
+      opacity: 100%;
+      transform: translate(var(--tooltip-shift-x, -50%), 0);
+      transition-delay: 0.15s;
+
+      @starting-style {
+        opacity: 0%;
+        transform: translate(var(--tooltip-shift-x, -50%), var(--tooltip-shift-y, 4px));
+      }
+    }
+
+    // --------------------------------------------------------
+    // Placement
+    // --------------------------------------------------------
+
+    &--bottom {
+      --tooltip-shift-y: -4px;
+    }
+
+    &--bottom[data-tooltip]::after,
+    &--bottom > &__content {
+      top: calc(100% + var(--tooltip-gap));
+      bottom: auto;
+    }
+
+    // Beside the trigger, vertically centred
+    &--start,
+    &--end {
+      --tooltip-shift-x: 0;
+      --tooltip-shift-y: -50%;
+    }
+
+    &--start[data-tooltip]::after,
+    &--start > &__content,
+    &--end[data-tooltip]::after,
+    &--end > &__content {
+      top: 50%;
+      bottom: auto;
+      left: auto;
+    }
+
+    &--start[data-tooltip]::after,
+    &--start > &__content {
+      inset-inline-end: calc(100% + var(--tooltip-gap));
+    }
+
+    &--end[data-tooltip]::after,
+    &--end > &__content {
+      inset-inline-start: calc(100% + var(--tooltip-gap));
+    }
+
+    &--start:hover::after,
+    &--start:hover > &__content,
+    &--start:focus-visible::after,
+    &--start:focus-within > &__content,
+    &--end:hover::after,
+    &--end:hover > &__content,
+    &--end:focus-visible::after,
+    &--end:focus-within > &__content {
+      transform: translate(0, -50%);
+    }
+
+    // Pin the bubble to one edge of the trigger instead of centring it.
+    // Use these for triggers near the edge of the viewport.
+    &--align-start,
+    &--align-end {
+      --tooltip-shift-x: 0;
+    }
+
+    &--align-start[data-tooltip]::after,
+    &--align-start > &__content {
+      left: auto;
+      inset-inline-start: 0;
+    }
+
+    &--align-end[data-tooltip]::after,
+    &--align-end > &__content {
+      left: auto;
+      inset-inline-end: 0;
+    }
+
+    // --------------------------------------------------------
+    // Colours
+    // --------------------------------------------------------
+
+    &--magenta {
+      --tooltip-color: var(--cyber-magenta-500);
+    }
+
+    &--yellow {
+      --tooltip-color: var(--cyber-yellow-500);
+    }
+
+    &--green {
+      --tooltip-color: var(--cyber-green-500);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    @include -reduced-motion;
+  }
+
+  [data-motion="reduce"] {
+    @include -reduced-motion;
+  }
+
+  @media (prefers-contrast: more) {
+    .cyber-tooltip[data-tooltip]::after,
+    .cyber-tooltip__content {
+      border-width: 2px;
+      background: var(--cyber-void-900);
+    }
+  }
+}

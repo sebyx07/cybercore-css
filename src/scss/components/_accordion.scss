@@ -1,0 +1,172 @@
+// ============================================================
+// Accordion Component
+// Built on <details>/<summary>: open/close, keyboard and semantics are native.
+// <div class="cyber-accordion">
+//   <details class="cyber-accordion__item" name="faq" open>
+//     <summary class="cyber-accordion__trigger">Question</summary>
+//     <div class="cyber-accordion__content">Answer</div>
+//   </details>
+// </div>
+// Give sibling <details> the same `name` to allow only one open at a time.
+// ============================================================
+
+@use "kit";
+
+// Reduced-motion overrides, shared by the media query and data-motion="reduce"
+@mixin -reduced-motion {
+  .cyber-accordion__trigger::after {
+    transition: none;
+  }
+
+  .cyber-accordion__item[open] > .cyber-accordion__content {
+    animation: none;
+  }
+}
+
+@layer components {
+  .cyber-accordion {
+    --accordion-accent: var(--color-accent, var(--cyber-cyan-500));
+
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-border-default);
+    background: var(--color-bg-secondary);
+
+    &__item {
+      transition: border-color var(--duration-fast) ease;
+      border-inline-start: 3px solid transparent;
+
+      & + & {
+        border-top: 1px solid var(--color-border-default);
+      }
+
+      &[open] {
+        border-inline-start-color: var(--accordion-accent);
+      }
+    }
+
+    &__trigger {
+      @include kit.label-text(var(--text-sm), 0.06em);
+
+      display: flex;
+      gap: var(--space-sm);
+      align-items: center;
+      justify-content: space-between;
+      min-height: 3rem;
+      padding: var(--space-2xs) var(--space-md);
+      color: var(--color-text-primary);
+      transition:
+        color var(--duration-fast) ease,
+        background-color var(--duration-fast) ease;
+      cursor: pointer;
+      user-select: none;
+      list-style: none;
+
+      @include kit.hover {
+        color: var(--accordion-accent);
+        background: color-mix(in srgb, var(--accordion-accent) 6%, transparent);
+      }
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+
+      // Plus that folds into a minus: two bars, the vertical one collapses
+      &::after {
+        content: "";
+        flex: none;
+        width: 0.75rem;
+        height: 0.75rem;
+        color: var(--accordion-accent);
+        background:
+          linear-gradient(currentcolor, currentcolor) center / 100% 2px no-repeat,
+          linear-gradient(currentcolor, currentcolor) center / 2px var(--accordion-bar, 100%)
+            no-repeat;
+        transition: transform var(--duration-normal) var(--ease-out-expo);
+      }
+
+      &:focus-visible {
+        @include kit.focus-ring(var(--accordion-accent), -2px);
+      }
+    }
+
+    &__item[open] > &__trigger {
+      --accordion-bar: 0%;
+
+      color: var(--accordion-accent);
+
+      &::after {
+        transform: rotate(180deg);
+      }
+    }
+
+    &__content {
+      padding: 0 var(--space-md) var(--space-md);
+      font-size: var(--text-sm);
+      line-height: 1.65;
+      color: var(--color-text-secondary);
+    }
+
+    &__item[open] > &__content {
+      animation: cyber-accordion-in var(--duration-normal) var(--ease-out-expo);
+    }
+
+    // Separate panels instead of one joined list
+    &--spaced {
+      gap: var(--space-2xs);
+      border: 0;
+      background: transparent;
+
+      .cyber-accordion__item {
+        border: 1px solid var(--color-border-default);
+        background: var(--color-bg-secondary);
+        border-inline-start: 3px solid var(--color-border-default);
+
+        &[open] {
+          border-inline-start-color: var(--accordion-accent);
+        }
+      }
+    }
+
+    &--magenta {
+      --accordion-accent: var(--cyber-magenta-500);
+    }
+
+    &--yellow {
+      --accordion-accent: var(--cyber-yellow-500);
+    }
+
+    &--green {
+      --accordion-accent: var(--cyber-green-500);
+    }
+  }
+
+  @keyframes cyber-accordion-in {
+    from {
+      opacity: 0%;
+      transform: translateY(-4px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    @include -reduced-motion;
+  }
+
+  [data-motion="reduce"] {
+    @include -reduced-motion;
+  }
+
+  @media (prefers-contrast: more) {
+    .cyber-accordion,
+    .cyber-accordion__item + .cyber-accordion__item {
+      border-color: var(--cyber-chrome-400);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .cyber-accordion__trigger::after {
+      color: CanvasText;
+      forced-color-adjust: none;
+    }
+  }
+}

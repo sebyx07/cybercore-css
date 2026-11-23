@@ -1,0 +1,83 @@
+// ============================================================
+// Module manifest
+// ------------------------------------------------------------
+// Every stylesheet that emits CSS, as a path relative to src/scss, in
+// cascade (source) order. `cybercore.scss` loads all of them except
+// `$sass-only`, in this order. Mixin-only partials (components/kit) and
+// `_index` files are not modules.
+// tests/css-modules.test.ts holds the three in step: a partial on disk
+// that is missing here, an entry that drifts from this order, or a module
+// that does not compile on its own fails the suite.
+// ============================================================
+
+// Layer order, then tokens. Themes follow the tokens they override.
+$core: ("core/layers", "core/variables");
+$themes: ("themes/accents", "themes/contrast", "themes/motion");
+$base: ("core/reset", "core/base", "core/typography");
+$components: (
+  "components/buttons",
+  "components/cards",
+  "components/inputs",
+  "components/switch",
+  "components/progress",
+  "components/badges",
+  "components/alerts",
+  "components/toast",
+  "components/tables",
+  "components/nav",
+  "components/breadcrumb",
+  "components/pagination",
+  "components/tabs",
+  "components/accordion",
+  "components/modal",
+  "components/dropdown",
+  "components/tooltip",
+  "components/terminal",
+  "components/hud",
+  "components/spinner",
+  "components/skeleton"
+);
+$effects: (
+  "effects/noise",
+  "effects/scanlines",
+  "effects/glitch",
+  "effects/neon-border",
+  "effects/datastream"
+);
+
+// Later utilities win over earlier ones in the same layer.
+$utilities: (
+  "utilities/display",
+  "utilities/flex",
+  "utilities/grid",
+  "utilities/position",
+  "utilities/sizing",
+  "utilities/layout",
+  "utilities/spacing",
+  "utilities/text",
+  "utilities/backgrounds",
+  "utilities/borders",
+  "utilities/shadows",
+  "utilities/filters",
+  "utilities/transforms",
+  "utilities/transitions",
+  "utilities/animation",
+  "utilities/interactivity",
+  "utilities/accessibility",
+  "utilities/icons"
+);
+
+// Shipped as Sass source only, left out of the default bundle to keep the
+// CDN build small: `@use "cybercore-css/scss/utilities/position";`
+$sass-only: (
+  "utilities/position",
+  "utilities/sizing",
+  "utilities/layout",
+  "utilities/backgrounds",
+  "utilities/borders",
+  "utilities/shadows",
+  "utilities/filters",
+  "utilities/transforms",
+  "utilities/transitions",
+  "utilities/interactivity"
+);

@@ -1,46 +1,62 @@
 // ============================================================
-// CYBERCORE CSS Framework
-// A pure CSS cyberpunk design system
+// CYBERCORE CSS Framework - the default bundle
+// (dist/cybercore.css and dist/cybercore.min.css)
+// ------------------------------------------------------------
+// Loads every module in abstracts/_manifest.scss except `$sass-only`, in
+// the manifest's order. To build a smaller bundle, copy this file and drop
+// lines: keep core/layers first and core/variables before everything else.
 // ============================================================
 
-// Layer order for cascade control
+// Layer order and tokens
 @use "core/layers";
-
-// Core system (required)
 @use "core/variables";
+
+// Themes: data-theme accents, high contrast, reduced motion
+@use "themes/accents";
+@use "themes/contrast";
+@use "themes/motion";
+
+// Element defaults
 @use "core/reset";
 @use "core/base";
 @use "core/typography";
 
-// Components (modular - import what you need)
+// Components
 @use "components/buttons";
 @use "components/cards";
 @use "components/inputs";
+@use "components/switch";
 @use "components/progress";
 @use "components/badges";
 @use "components/alerts";
+@use "components/toast";
 @use "components/tables";
 @use "components/nav";
+@use "components/breadcrumb";
+@use "components/pagination";
 @use "components/tabs";
+@use "components/accordion";
 @use "components/modal";
 @use "components/dropdown";
+@use "components/tooltip";
 @use "components/terminal";
+@use "components/hud";
 @use "components/spinner";
 @use "components/skeleton";
 
-// Effects (modular - import what you need)
+// Effects
 @use "effects/noise";
 @use "effects/scanlines";
 @use "effects/glitch";
 @use "effects/neon-border";
 @use "effects/datastream";
 
-// Utilities
+// Utilities (the rest ship as Sass modules only, see the manifest)
 @use "utilities/display";
 @use "utilities/flex";
 @use "utilities/grid";
 @use "utilities/spacing";
 @use "utilities/text";
-@use "utilities/accessibility";
 @use "utilities/animation";
+@use "utilities/accessibility";
 @use "utilities/icons";

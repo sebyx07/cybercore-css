@@ -102,3 +102,7 @@ storybook-static/
 
 # Temporary files
 tmp/
+
+# Playwright output (baselines live in tests/visual/__snapshots__/)
+test-results/
+playwright-report/

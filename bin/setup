@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# Fresh clone -> ready to run bin/check and bin/dev. Idempotent: run it any time
+# (after a pull, after package-lock.json changed, when a script exits 75).
+#
+#   bin/setup
+#
+# 1. Node from .nvmrc (mise, else nvm; without either, a Node on PATH at least that new is accepted)
+# 2. npm ci: node_modules exactly as package-lock.json describes
+#
+# No services, no .env, no secrets: the framework is static CSS. Visual tests need Docker, not a
+# local browser install: scripts/visual.sh runs them in the image CI uses.
+# Exit 75 = a prerequisite is missing (no usable Node); the message says what to install.
+set -euo pipefail
+# shellcheck source-path=SCRIPTDIR source=_dx.sh
+source "$(dirname "${BASH_SOURCE[0]}")/_dx.sh"
+cd "$ROOT" || exit 1
+
+case "${1:-}" in
+  "") ;;
+  -h | --help) sed -n '2,11p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+  *) echo "usage: bin/setup" >&2; exit 2 ;;
+esac
+
+step "Node ($(wanted_node), from .nvmrc)"
+use_node install
+ok "node $(node -v), npm $(npm -v)"
+
+step "Dependencies (npm ci)"
+npm ci --no-audit --no-fund
+ok "node_modules matches package-lock.json"
+
+cat <<TXT
+
+Ready. Next steps:
+  bin/check fast    repo guards + stylelint + unit tests (seconds; run while iterating)
+  bin/check         the pre-PR gate, same as CI
+  bin/dev           the demo site with hot reload at http://127.0.0.1:5173/cybercore-css/
+TXT

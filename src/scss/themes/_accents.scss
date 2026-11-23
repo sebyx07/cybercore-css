@@ -1,0 +1,20 @@
+// ============================================================
+// Accent themes
+//   <html data-theme="magenta">  or scoped: <section data-theme="acid">
+// Swaps the three accent anchors; tints, glows, focus ring, links and
+// selection re-derive from them (see core/variables). "cyan" restores the
+// default inside another theme.
+// ============================================================
+
+@use "sass:map";
+@use "../abstracts/tokens";
+
+@layer theme {
+  @each $name, $accent in tokens.$themes {
+    [data-theme="#{$name}"] {
+      --color-accent: #{map.get($accent, base)};
+      --color-accent-light: #{map.get($accent, light)};
+      --color-accent-dark: #{map.get($accent, dark)};
+    }
+  }
+}

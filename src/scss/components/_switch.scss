@@ -1,0 +1,170 @@
+// ============================================================
+// Switch Component
+// An on/off toggle built on a native checkbox.
+// <label class="cyber-switch">
+//   <input type="checkbox" role="switch">
+//   <span class="cyber-switch__track"></span>
+//   <span class="cyber-switch__label">Stealth mode</span>
+// </label>
+// Use a switch for settings that apply immediately; use a checkbox in forms
+// that are submitted.
+// ============================================================
+
+@use "kit";
+
+// Reduced-motion overrides, shared by the media query and data-motion="reduce"
+@mixin -reduced-motion {
+  .cyber-switch__track,
+  .cyber-switch__track::before {
+    transition: none;
+  }
+}
+
+@layer components {
+  .cyber-switch {
+    --switch-color: var(--color-accent, var(--cyber-cyan-500));
+    --switch-width: 2.75rem;
+    --switch-height: 1.5rem;
+    --switch-thumb: calc(var(--switch-height) - 8px);
+
+    position: relative;
+    display: inline-flex;
+    gap: var(--space-xs);
+    align-items: center;
+    min-height: var(--switch-height);
+    cursor: pointer;
+    user-select: none;
+
+    @include kit.hover {
+      .cyber-switch__track {
+        border-color: var(--cyber-chrome-400);
+      }
+    }
+
+    // Native input covers the track, invisible, keeps focus + semantics
+    input {
+      position: absolute;
+      top: 50%;
+      width: var(--switch-width);
+      height: var(--switch-height);
+      margin: 0;
+      opacity: 0%;
+      transform: translateY(-50%);
+      cursor: inherit;
+      inset-inline-start: 0;
+    }
+
+    &__track {
+      position: relative;
+      flex: none;
+      width: var(--switch-width);
+      height: var(--switch-height);
+      border: 2px solid var(--color-border-strong, var(--cyber-chrome-600));
+      background: var(--color-bg-tertiary);
+      transition:
+        border-color var(--duration-fast) ease,
+        background-color var(--duration-fast) ease,
+        box-shadow var(--duration-fast) ease;
+
+      // Thumb: a square block that slides to the trailing edge when on.
+      // Animates the logical inset so RTL needs no override.
+      &::before {
+        content: "";
+        position: absolute;
+        top: 2px;
+        width: var(--switch-thumb);
+        height: var(--switch-thumb);
+        background: var(--cyber-chrome-400);
+        transition:
+          inset-inline-start var(--duration-normal) var(--ease-out-expo),
+          background-color var(--duration-fast) ease;
+        inset-inline-start: 2px;
+      }
+    }
+
+    &__label {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-text-primary);
+    }
+
+    input:checked ~ &__track {
+      border-color: var(--switch-color);
+      background: color-mix(in srgb, var(--switch-color) 18%, var(--color-bg-tertiary));
+      box-shadow: 0 0 0.6rem color-mix(in srgb, var(--switch-color) 45%, transparent);
+
+      &::before {
+        background: var(--switch-color);
+        inset-inline-start: calc(100% - var(--switch-thumb) - 2px);
+      }
+    }
+
+    input:focus-visible ~ &__track {
+      @include kit.focus-ring(var(--switch-color));
+    }
+
+    input:disabled ~ &__track,
+    input:disabled ~ &__label {
+      opacity: 50%;
+    }
+
+    &:has(input:disabled) {
+      cursor: not-allowed;
+    }
+
+    &--sm {
+      --switch-width: 2.25rem;
+      --switch-height: 1.25rem;
+    }
+
+    &--lg {
+      --switch-width: 3.5rem;
+      --switch-height: 1.875rem;
+    }
+
+    &--magenta {
+      --switch-color: var(--cyber-magenta-500);
+    }
+
+    &--yellow {
+      --switch-color: var(--cyber-yellow-500);
+    }
+
+    &--green {
+      --switch-color: var(--cyber-green-500);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    @include -reduced-motion;
+  }
+
+  [data-motion="reduce"] {
+    @include -reduced-motion;
+  }
+
+  @media (prefers-contrast: more) {
+    .cyber-switch__track {
+      border-color: var(--cyber-chrome-300);
+
+      &::before {
+        background: var(--cyber-chrome-100);
+      }
+    }
+  }
+
+  // On/off is carried by thumb position; keep the thumb visible
+  @media (forced-colors: active) {
+    .cyber-switch__track::before {
+      background: ButtonText;
+      forced-color-adjust: none;
+    }
+
+    .cyber-switch input:checked ~ .cyber-switch__track::before {
+      background: Highlight;
+    }
+  }
+}

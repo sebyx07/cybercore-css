@@ -1,80 +1,164 @@
 // ============================================================
 // Inputs Component
-// Form elements with cyber styling
+// Text input, textarea, select, checkbox, radio, range, field wrapper.
+// States on every control: hover, :focus-visible, disabled, read-only,
+// invalid (`aria-invalid="true"`, `:user-invalid` or `--error`),
+// `--success`, `--warning`.
+// A11y: every control needs a <label>. Link errors and hints with
+// `aria-describedby`; set `aria-invalid` only after blur or submit.
 // ============================================================
+
+@use "kit";
+
+// Variant + size modifiers shared by input, textarea and select
+@mixin control-modifiers {
+  &--error {
+    --input-accent: var(--cyber-magenta-500);
+    --input-border: var(--cyber-magenta-500);
+  }
+
+  &--success {
+    --input-accent: var(--cyber-green-500);
+    --input-border: var(--cyber-green-700);
+  }
+
+  &--warning {
+    --input-accent: var(--cyber-yellow-500);
+    --input-border: var(--cyber-yellow-700);
+  }
+
+  &--magenta {
+    --input-accent: var(--cyber-magenta-500);
+  }
+
+  &--yellow {
+    --input-accent: var(--cyber-yellow-500);
+  }
+
+  &--green {
+    --input-accent: var(--cyber-green-500);
+  }
+
+  &--sm {
+    --input-height: var(--control-height-sm, 2rem);
+
+    font-size: kit.$text-xs;
+  }
+
+  &--lg {
+    --input-height: var(--control-height-lg, 3.25rem);
+
+    font-size: var(--text-base);
+  }
+}
+
+// Reduced-motion overrides, shared by the media query and data-motion="reduce"
+@mixin -reduced-motion {
+  .cyber-input,
+  .cyber-textarea,
+  .cyber-select,
+  .cyber-input-group,
+  .cyber-checkbox__box,
+  .cyber-checkbox__box::before,
+  .cyber-radio__dot,
+  .cyber-radio__dot::before {
+    transition: none;
+  }
+}
 
 @layer components {
   // --------------------------------------------------------
-  // Base Input
+  // Preference + forced-colour handling
   // --------------------------------------------------------
 
-  .cyber-input {
-    --input-accent: var(--cyber-cyan-500);
+  // --------------------------------------------------------
+  // Shared control surface
+  // --------------------------------------------------------
+
+  %cyber-control {
+    --input-accent: var(--color-accent, var(--cyber-cyan-500));
+    --input-border: var(--color-border-strong, var(--cyber-chrome-600));
+    --input-bg: var(--color-bg-tertiary);
+    --input-height: var(--control-height-md, 2.75rem);
 
     display: block;
     width: 100%;
-    padding: var(--space-xs) var(--space-sm);
-    border: 1px solid var(--color-border-default);
-    border-left: 3px solid var(--input-accent);
+    min-height: var(--input-height);
+    padding: var(--space-3xs) var(--space-sm);
+    border: 1px solid var(--input-border);
+    border-radius: 0;
     font-family: var(--font-mono);
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
+    line-height: 1.5;
     color: var(--color-text-primary);
-    background: var(--color-bg-tertiary);
-    transition: all var(--duration-fast);
-    outline: none;
+    background-color: var(--input-bg);
+    transition:
+      border-color var(--duration-fast) ease,
+      background-color var(--duration-fast) ease,
+      box-shadow var(--duration-fast) ease;
+    border-inline-start: 3px solid var(--input-accent);
+    caret-color: var(--input-accent);
 
+    // Transparent outline becomes the visible ring in forced-colors mode
+    outline: 2px solid transparent;
+    outline-offset: 1px;
+
+    @include kit.hover {
+      --input-border: var(--cyber-chrome-400);
+    }
+
+    // chrome-400 is the darkest grey that keeps 4.5:1 on the input fill
+    // (--color-text-placeholder resolves to chrome-500, 4.2:1)
     &::placeholder {
-      color: var(--color-text-muted);
+      color: var(--cyber-chrome-400);
+      opacity: 100%;
     }
 
-    &:focus {
-      border-color: var(--input-accent);
+    &:focus-visible {
+      --input-border: var(--input-accent);
+
+      background-color: color-mix(in srgb, var(--input-accent) 4%, var(--input-bg));
       box-shadow:
-        0 0 0 3px color-mix(in srgb, var(--input-accent) 20%, transparent),
-        inset 0 0 15px color-mix(in srgb, var(--input-accent) 10%, transparent);
+        0 0 0 1px var(--input-accent),
+        0 0 0.9rem color-mix(in srgb, var(--input-accent) 35%, transparent);
     }
-  }
 
-  // --------------------------------------------------------
-  // Input group wrapper (icon + input)
-  // --------------------------------------------------------
+    &[readonly] {
+      --input-border: var(--color-border-default);
 
-  .cyber-input-group {
-    display: flex;
-    gap: var(--space-sm);
-    align-items: center;
-    padding: 0 var(--space-sm);
-    border: 1px solid var(--color-bg-default);
-    border-radius: var(--radius-cyber);
-    background: var(--color-bg-elevated);
-
-    &__addon {
-      flex-shrink: 0;
-    }
-  }
-
-  // --------------------------------------------------------
-  // Field wrapper (label + input)
-  // --------------------------------------------------------
-
-  .cyber-field {
-    margin-bottom: var(--space-md);
-
-    &__label {
-      display: block;
-      margin-bottom: var(--space-2xs);
-      font-family: var(--font-display);
-      font-size: var(--text-xs);
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
       color: var(--color-text-secondary);
-
-      &::before {
-        content: "> ";
-        color: var(--cyber-cyan-500);
-      }
+      border-inline-start-style: dashed;
     }
+
+    &:disabled {
+      --input-border: var(--color-border-default);
+      --input-accent: var(--cyber-chrome-600);
+
+      color: var(--color-text-secondary);
+      opacity: 60%;
+      cursor: not-allowed;
+    }
+
+    // Validation. Two rules, not one list: a browser without `:user-invalid`
+    // (below Chrome 119, Safari 16.5) drops a whole list that names it.
+    &[aria-invalid="true"] {
+      --input-accent: var(--cyber-magenta-500);
+      --input-border: var(--cyber-magenta-500);
+    }
+
+    &:user-invalid {
+      --input-accent: var(--cyber-magenta-500);
+      --input-border: var(--cyber-magenta-500);
+    }
+  }
+
+  // --------------------------------------------------------
+  // Text input
+  // --------------------------------------------------------
+
+  .cyber-input {
+    @extend %cyber-control;
+    @include control-modifiers;
   }
 
   // --------------------------------------------------------
@@ -82,32 +166,14 @@
   // --------------------------------------------------------
 
   .cyber-textarea {
-    display: block;
-    width: 100%;
-    min-height: 120px;
-    padding: var(--space-sm);
-    border: 1px solid var(--color-border-default);
-    border-left: 3px solid var(--cyber-cyan-500);
-    border-radius: var(--radius-sm);
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
+    @extend %cyber-control;
+    @include control-modifiers;
+    @include kit.scrollbar;
+
+    min-height: 7.5rem;
     line-height: 1.6;
-    color: var(--color-text-primary);
-    background: var(--color-bg-tertiary);
-    transition: all var(--duration-fast);
-    outline: none;
+    padding-block: var(--space-xs);
     resize: vertical;
-
-    &::placeholder {
-      color: var(--color-text-muted);
-    }
-
-    &:focus {
-      border-color: var(--cyber-cyan-500);
-      box-shadow:
-        0 0 0 3px color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent),
-        inset 0 0 15px color-mix(in srgb, var(--cyber-cyan-500) 10%, transparent);
-    }
   }
 
   // --------------------------------------------------------
@@ -115,97 +181,405 @@
   // --------------------------------------------------------
 
   .cyber-select {
-    display: block;
-    width: 100%;
-    padding: var(--space-xs) var(--space-lg) var(--space-xs) var(--space-sm);
-    border: 1px solid var(--color-border-default);
-    border-left: 3px solid var(--cyber-magenta-500);
-    font-family: var(--font-display);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--color-text-primary);
-    background: var(--color-bg-tertiary);
+    @extend %cyber-control;
+    @include control-modifiers;
+    @include kit.label-text(var(--text-sm), 0.05em);
 
-    // Custom dropdown arrow (uses --cyber-magenta-500 hex value as CSS vars don't work in data URIs)
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ff2a6d' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+    // Chevron drawn from two gradients so it follows --input-accent
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--input-accent) 50%),
+      linear-gradient(135deg, var(--input-accent) 50%, transparent 50%);
     background-repeat: no-repeat;
-    background-position: right var(--space-sm) center;
-    transition: all var(--duration-fast);
+    background-position:
+      right calc(var(--space-sm) + 6px) center,
+      right var(--space-sm) center;
+    background-size: 6px 6px;
     cursor: pointer;
     appearance: none;
-    outline: none;
+    padding-inline-end: calc(var(--space-sm) * 2 + 12px);
 
-    &:focus {
-      border-color: var(--cyber-magenta-500);
-      box-shadow:
-        0 0 0 3px color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent),
-        inset 0 0 15px color-mix(in srgb, var(--cyber-magenta-500) 10%, transparent);
+    &:dir(rtl) {
+      background-position:
+        left var(--space-sm) center,
+        left calc(var(--space-sm) + 6px) center;
     }
 
-    option {
-      padding: var(--space-xs);
+    option,
+    optgroup {
+      font-family: var(--font-body);
+      text-transform: none;
       color: var(--color-text-primary);
       background: var(--color-bg-secondary);
     }
   }
 
   // --------------------------------------------------------
-  // Checkbox
+  // Input group: addons (icon, unit, button) around a control
   // --------------------------------------------------------
 
-  .cyber-checkbox {
-    display: inline-flex;
-    gap: var(--space-xs);
-    align-items: center;
-    cursor: pointer;
-    user-select: none;
+  .cyber-input-group {
+    --input-accent: var(--color-accent, var(--cyber-cyan-500));
 
-    // Hidden native input
-    input {
-      position: absolute;
-      width: 0;
-      height: 0;
-      opacity: 0%;
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    border: 1px solid var(--color-border-strong, var(--cyber-chrome-600));
+    background: var(--color-bg-tertiary);
+    transition:
+      border-color var(--duration-fast) ease,
+      box-shadow var(--duration-fast) ease;
+    border-inline-start: 3px solid var(--input-accent);
+
+    &:focus-within {
+      border-color: var(--input-accent);
+      box-shadow:
+        0 0 0 1px var(--input-accent),
+        0 0 0.9rem color-mix(in srgb, var(--input-accent) 35%, transparent);
     }
 
-    &__box {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--cyber-cyan-500);
-      background: var(--color-bg-tertiary);
-      transition: all var(--duration-fast);
+    // The group owns border and ring; the control inside is bare
+    .cyber-input,
+    .cyber-select {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      background-color: transparent;
+      box-shadow: none;
+    }
 
-      // Inner square
+    &__addon {
+      display: flex;
+      flex: none;
+      gap: var(--space-3xs);
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--input-accent);
+      background: color-mix(in srgb, var(--input-accent) 8%, transparent);
+      padding-inline: var(--space-xs);
+
+      svg {
+        width: 1.1em;
+        height: 1.1em;
+      }
+    }
+  }
+
+  // --------------------------------------------------------
+  // Field: label + control + hint / error
+  // --------------------------------------------------------
+
+  .cyber-field {
+    margin-bottom: var(--space-md);
+
+    &__label {
+      @include kit.label-text(kit.$text-xs, 0.1em);
+
+      display: block;
+      margin-bottom: var(--space-2xs);
+      color: var(--color-text-secondary);
+
       &::before {
-        content: "";
-        width: 10px;
-        height: 10px;
-        background: var(--cyber-cyan-500);
-        transform: scale(0);
-        transition: transform var(--duration-fast) var(--ease-bounce);
+        content: "> ";
+        color: var(--cyber-cyan-500);
+      }
+
+      &--required::after {
+        content: " *";
+        color: var(--cyber-magenta-500);
       }
     }
 
-    // Checked state with glow
-    input:checked ~ &__box {
-      box-shadow: 0 0 10px var(--cyber-cyan-500);
+    &__hint,
+    &__error,
+    &__success {
+      display: flex;
+      gap: var(--space-3xs);
+      align-items: baseline;
+      margin-top: var(--space-2xs);
+      font-family: var(--font-mono);
+      font-size: kit.$text-xs;
+      line-height: 1.5;
+      color: var(--color-text-secondary);
+    }
+
+    // Colour is never the only signal: errors carry a glyph too
+    &__error {
+      color: var(--cyber-magenta-500);
+
+      &::before {
+        @include kit.mask-icon(kit.$icon-error, 0.8em);
+
+        content: "";
+        align-self: center;
+      }
+    }
+
+    &__success {
+      color: var(--cyber-green-500);
+
+      &::before {
+        @include kit.mask-icon(kit.$icon-success, 0.8em);
+
+        content: "";
+        align-self: center;
+      }
+    }
+  }
+
+  // --------------------------------------------------------
+  // Checkbox & radio
+  // <label class="cyber-checkbox">
+  //   <input type="checkbox"><span class="cyber-checkbox__box"></span>
+  //   <span class="cyber-checkbox__label">Label</span>
+  // </label>
+  // --------------------------------------------------------
+
+  .cyber-checkbox,
+  .cyber-radio {
+    --check-color: var(--color-accent, var(--cyber-cyan-500));
+
+    position: relative;
+    display: inline-flex;
+    gap: var(--space-xs);
+    align-items: center;
+    min-height: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+
+    @include kit.hover {
+      .cyber-checkbox__box,
+      .cyber-radio__dot {
+        background: color-mix(in srgb, var(--check-color) 12%, var(--color-bg-tertiary));
+      }
+    }
+
+    // Native input stays in place, invisible, so it keeps focus + semantics
+    input {
+      position: absolute;
+      top: 50%;
+      width: 1.25rem;
+      height: 1.25rem;
+      margin: 0;
+      opacity: 0%;
+      transform: translateY(-50%);
+      cursor: inherit;
+      inset-inline-start: 0;
+    }
+
+    &__box,
+    &__dot {
+      position: relative;
+      display: flex;
+      flex: none;
+      align-items: center;
+      justify-content: center;
+      width: 1.25rem;
+      height: 1.25rem;
+      border: 2px solid var(--check-color);
+      background: var(--color-bg-tertiary);
+      transition:
+        box-shadow var(--duration-fast) ease,
+        background-color var(--duration-fast) ease;
+
+      // Inner mark
+      &::before {
+        content: "";
+        width: 0.625rem;
+        height: 0.625rem;
+        background: var(--check-color);
+        transform: scale(0);
+        transition: transform var(--duration-fast) var(--ease-out-expo);
+      }
+    }
+
+    &__dot,
+    &__dot::before {
+      border-radius: 50%;
+    }
+
+    &__label {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-text-primary);
+    }
+
+    input:checked ~ &__box,
+    input:checked ~ &__dot {
+      box-shadow: 0 0 0.6rem color-mix(in srgb, var(--check-color) 70%, transparent);
 
       &::before {
         transform: scale(1);
       }
     }
 
-    &__label {
-      font-family: var(--font-display);
-      font-size: var(--text-sm);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+    // Indeterminate: a bar instead of a block
+    input:indeterminate ~ &__box::before {
+      height: 2px;
+      transform: scale(1);
+    }
+
+    input:focus-visible ~ &__box,
+    input:focus-visible ~ &__dot {
+      @include kit.focus-ring(var(--check-color));
+    }
+
+    input:disabled ~ &__box,
+    input:disabled ~ &__dot,
+    input:disabled ~ &__label {
+      opacity: 50%;
+    }
+
+    &:has(input:disabled) {
+      cursor: not-allowed;
+    }
+
+    input[aria-invalid="true"] ~ &__box,
+    input[aria-invalid="true"] ~ &__dot {
+      --check-color: var(--cyber-magenta-500);
+    }
+
+    &--magenta {
+      --check-color: var(--cyber-magenta-500);
+    }
+
+    &--yellow {
+      --check-color: var(--cyber-yellow-500);
+    }
+
+    &--green {
+      --check-color: var(--cyber-green-500);
+    }
+  }
+
+  // --------------------------------------------------------
+  // Range slider: <input type="range" class="cyber-range">
+  // Set --range-value (0–100%) to paint the filled part in WebKit.
+  // --------------------------------------------------------
+
+  .cyber-range {
+    --range-color: var(--color-accent, var(--cyber-cyan-500));
+    --range-value: 50%;
+
+    display: block;
+    width: 100%;
+    height: 1.5rem;
+    background: transparent;
+    cursor: pointer;
+    appearance: none;
+
+    &::-webkit-slider-runnable-track {
+      height: 6px;
+      border: 1px solid var(--color-border-strong, var(--cyber-chrome-600));
+      background: linear-gradient(
+        to right,
+        var(--range-color) var(--range-value),
+        var(--color-bg-tertiary) var(--range-value)
+      );
+    }
+
+    &::-moz-range-track {
+      height: 6px;
+      border: 1px solid var(--color-border-strong, var(--cyber-chrome-600));
+      background: var(--color-bg-tertiary);
+    }
+
+    &::-moz-range-progress {
+      height: 6px;
+      background: var(--range-color);
+    }
+
+    &::-webkit-slider-thumb {
+      width: 0.75rem;
+      height: 1.25rem;
+      margin-top: calc(-0.625rem + 2px);
+      border: 2px solid var(--range-color);
+      border-radius: 0;
+      background: var(--color-bg-primary);
+      box-shadow: 0 0 0.5rem color-mix(in srgb, var(--range-color) 60%, transparent);
+      appearance: none;
+    }
+
+    &::-moz-range-thumb {
+      width: 0.5rem;
+      height: 1rem;
+      border: 2px solid var(--range-color);
+      border-radius: 0;
+      background: var(--color-bg-primary);
+      box-shadow: 0 0 0.5rem color-mix(in srgb, var(--range-color) 60%, transparent);
+    }
+
+    &:dir(rtl)::-webkit-slider-runnable-track {
+      background: linear-gradient(
+        to left,
+        var(--range-color) var(--range-value),
+        var(--color-bg-tertiary) var(--range-value)
+      );
+    }
+
+    &:focus-visible {
+      @include kit.focus-ring(var(--range-color));
+    }
+
+    &:disabled {
+      opacity: 50%;
+      cursor: not-allowed;
+    }
+
+    &--magenta {
+      --range-color: var(--cyber-magenta-500);
+    }
+
+    &--yellow {
+      --range-color: var(--cyber-yellow-500);
+    }
+
+    &--green {
+      --range-color: var(--cyber-green-500);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    @include -reduced-motion;
+  }
+
+  [data-motion="reduce"] {
+    @include -reduced-motion;
+  }
+
+  @media (prefers-contrast: more) {
+    .cyber-input,
+    .cyber-textarea,
+    .cyber-select {
+      --input-border: var(--cyber-chrome-300);
+
+      &::placeholder {
+        color: var(--cyber-chrome-300);
+      }
+    }
+
+    .cyber-input-group {
+      border-color: var(--cyber-chrome-300);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .cyber-checkbox__box::before,
+    .cyber-radio__dot::before {
+      background: Highlight;
+      forced-color-adjust: none;
+    }
+
+    .cyber-select {
+      background-image: none;
+      appearance: auto;
+    }
+
+    .cyber-range {
+      appearance: auto;
     }
   }
 }

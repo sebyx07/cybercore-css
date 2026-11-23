@@ -41,7 +41,7 @@ export const categories = {
 };
 
 // Build registry from all definitions
-import type { IconRegistry, IconDefinition } from '../types';
+import type { IconRegistry } from '../types';
 
 export function buildRegistry(): IconRegistry {
   const registry: IconRegistry = {};
@@ -49,7 +49,7 @@ export function buildRegistry(): IconRegistry {
   Object.values(categories).forEach((category) => {
     Object.values(category).forEach((icon) => {
       if (icon && typeof icon === 'object' && 'name' in icon && 'svg' in icon) {
-        registry[(icon as IconDefinition).name] = icon as IconDefinition;
+        registry[icon.name] = icon;
       }
     });
   });

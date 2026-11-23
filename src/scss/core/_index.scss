@@ -1,6 +1,13 @@
-// Core module index - import all core styles
+// ============================================================
+// Core - everything a module builds on: layer order, tokens, themes,
+// reset, element defaults. Load it once, before any component:
+//   @use "cybercore-css/scss/core";
+//   @use "cybercore-css/scss/components/buttons";
+// ============================================================
+
 @forward "layers";
 @forward "variables";
+@forward "../themes";
 @forward "reset";
 @forward "base";
 @forward "typography";

@@ -1,23 +1,28 @@
 // ============================================================
 // Tabs Component
-// Tab navigation with active state glow
+// .cyber-tabs (tab strip) + .cyber-tab (one tab) + panels.
+// <div class="cyber-tabs" role="tablist" aria-label="Sections">
+//   <button class="cyber-tab" role="tab" aria-selected="true" aria-controls="p1">One</button>
+//   <button class="cyber-tab" role="tab" aria-selected="false" tabindex="-1">Two</button>
+// </div>
+// <div class="cyber-tabs__panel" role="tabpanel" id="p1" tabindex="0">…</div>
+// The selected tab is `aria-selected="true"` or `.cyber-tab--active`.
+// A11y: one Tab stop for the strip, arrow keys move between tabs (roving
+// tabindex), panels not shown carry the `hidden` attribute.
 // ============================================================
 
-// Local mixin for cyber scrollbar (avoids duplication)
-@mixin cyber-scrollbar {
-  scrollbar-width: thin;
+@use "kit";
 
-  &::-webkit-scrollbar {
-    height: 4px;
+// Reduced-motion overrides, shared by the media query and data-motion="reduce"
+@mixin -reduced-motion {
+  .cyber-tab,
+  .cyber-tab::after {
+    transition: none;
   }
 
-  &::-webkit-scrollbar-track {
-    background: var(--color-bg-secondary);
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 2px;
-    background: var(--cyber-chrome-600);
+  .cyber-tabs__panel--active,
+  .cyber-tabs__panel[role="tabpanel"] {
+    animation: none;
   }
 }
 
@@ -26,10 +31,9 @@
     display: flex;
     flex-wrap: wrap;
     gap: 2px;
-    padding: 2px;
-    background: var(--color-border-default);
+    border-bottom: 1px solid var(--color-border-default);
 
-    // Tab list container (for semantic list usage)
+    // Tab list wrapper, when the strip and its panels share one parent
     &__list {
       display: flex;
       flex-wrap: wrap;
@@ -39,115 +43,114 @@
       list-style: none;
     }
 
-    // Scrollable variant for mobile or constrained spaces
+    // Single row that scrolls sideways
     &--scrollable {
-      @include cyber-scrollbar;
+      @include kit.scrollbar(4px);
 
       flex-wrap: nowrap;
       overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
 
       .cyber-tabs__list {
         flex-wrap: nowrap;
       }
-
-      .cyber-tab {
-        flex: none;
-        white-space: nowrap;
-      }
     }
 
-    // Responsive: scroll on mobile by default
+    // Small screens scroll instead of wrapping into a wall of tabs
     @media (width <= 768px) {
-      @include cyber-scrollbar;
+      @include kit.scrollbar(4px);
 
       flex-wrap: nowrap;
       overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
 
-      .cyber-tab {
-        flex: none;
-        white-space: nowrap;
+      .cyber-tabs__list {
+        flex-wrap: nowrap;
       }
     }
 
-    // Tab panels container
     &__panels {
       padding: var(--space-md) 0;
     }
 
-    // Individual panel
+    // Panels show when active, or when they are a visible `role="tabpanel"`
     &__panel {
       display: none;
-      animation: tab-fade-in var(--transition-base) ease-out;
 
-      &--active {
+      &--active,
+      &[role="tabpanel"]:not([hidden]) {
         display: block;
+        animation: cyber-tab-in var(--duration-normal) var(--ease-out-expo);
+      }
+
+      &:focus-visible {
+        @include kit.focus-ring;
       }
     }
 
     // --------------------------------------------------------
-    // Variants
+    // Layout variants
     // --------------------------------------------------------
 
     &--vertical {
-      flex-direction: column;
-      gap: var(--space-md);
-      padding: 0;
-      background: transparent;
+      flex-flow: column nowrap;
+      border-bottom: 0;
+      overflow-x: visible;
+      border-inline-end: 1px solid var(--color-border-default);
 
       .cyber-tabs__list {
         flex-direction: column;
-        gap: 2px;
-        padding: 2px;
-        background: var(--color-border-default);
       }
 
       .cyber-tab {
-        flex: none;
+        justify-content: flex-start;
 
-        &--active::after {
+        // Marker runs down the trailing edge instead of along the bottom
+        &::after {
           width: 3px;
-          height: 100%;
+          height: auto;
+          transform: scaleY(0);
           inset: 0 0 0 auto;
         }
-      }
 
-      .cyber-tabs__panels {
-        flex: 1;
-        padding: 0;
+        &:dir(rtl)::after {
+          inset: 0 auto 0 0;
+        }
       }
     }
 
+    // Separate cut-corner pills instead of a joined strip
     &--pills {
-      gap: var(--space-xs);
-      padding: 0;
-      background: transparent;
+      gap: var(--space-2xs);
+      border-bottom: 0;
 
       .cyber-tabs__list {
-        gap: var(--space-xs);
-        background: transparent;
+        gap: var(--space-2xs);
       }
 
       .cyber-tab {
-        flex: none;
-        border: var(--border-thin) solid var(--color-border-default);
-        clip-path: polygon(
-          0 0,
-          calc(100% - 8px) 0,
-          100% 8px,
-          100% 100%,
-          8px 100%,
-          0 calc(100% - 8px)
-        );
+        --frame-cut: 8px;
+        --frame-border-color: var(--color-border-strong, var(--cyber-chrome-600));
+        --frame-bg: var(--color-bg-secondary);
 
-        &--active {
-          border-color: var(--cyber-cyan-500);
-          background: color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
+        @include kit.cut-frame;
 
-          &::after {
-            display: none;
-          }
+        background: transparent;
+
+        @include kit.hover {
+          --frame-border-color: var(--cyber-chrome-400);
+
+          background: transparent;
+        }
+
+        &::after {
+          display: none;
+        }
+
+        &--active,
+        &[aria-selected="true"] {
+          --frame-border-color: var(--tab-color);
+          --frame-bg: color-mix(in srgb, var(--tab-color) 14%, var(--color-bg-secondary));
+
+          background: transparent;
         }
       }
     }
@@ -158,170 +161,152 @@
       }
 
       .cyber-tab {
-        flex: 1 1 auto;
-        justify-content: center;
-        min-width: fit-content;
-      }
-
-      // On mobile, fullwidth tabs scroll instead of shrink
-      @media (width <= 768px) {
-        .cyber-tab {
-          flex: none;
-        }
+        flex: 1 0 auto;
       }
     }
   }
 
-  // Individual tab
+  // --------------------------------------------------------
+  // One tab
+  // --------------------------------------------------------
+
   .cyber-tab {
+    --tab-color: var(--color-accent, var(--cyber-cyan-500));
+
+    @include kit.label-text(var(--text-sm), 0.06em);
+
     position: relative;
     display: inline-flex;
     flex: none;
-    gap: var(--space-xs);
+    gap: var(--space-2xs);
     align-items: center;
     justify-content: center;
-    padding: var(--space-sm) var(--space-md);
-    border: none;
-    font-family: var(--font-display);
-    font-size: var(--text-sm);
-    font-weight: 700;
-    letter-spacing: 0.05em;
+    min-height: var(--control-height-md, 2.75rem);
+    padding: var(--space-3xs) var(--space-md);
+    border: 0;
     text-decoration: none;
-    text-transform: uppercase;
     white-space: nowrap;
     color: var(--color-text-secondary);
     background: var(--color-bg-secondary);
     transition:
-      color var(--duration-fast),
-      background-color var(--duration-fast);
+      color var(--duration-fast) ease,
+      background-color var(--duration-fast) ease;
     cursor: pointer;
 
-    &:hover {
+    @include kit.hover {
       color: var(--color-text-primary);
       background: var(--color-bg-tertiary);
     }
 
+    // Glowing marker, grows from the centre when the tab is selected
+    &::after {
+      content: "";
+      position: absolute;
+      height: 3px;
+      background: var(--tab-color);
+      box-shadow: 0 0 0.6rem var(--tab-color);
+      transform: scaleX(0);
+      transition: transform var(--duration-normal) var(--ease-out-expo);
+      inset: auto 0 0;
+    }
+
     &:focus-visible {
-      outline: 2px solid var(--cyber-cyan-500);
-      outline-offset: -2px;
+      @include kit.focus-ring(var(--tab-color), -3px);
+
+      z-index: 1;
+      color: var(--color-text-primary);
     }
 
-    // Touch devices: prevent stuck hover states
-    @media (hover: none) {
-      &:hover {
-        color: var(--color-text-secondary);
-        background: var(--color-bg-secondary);
-      }
-
-      &:active {
-        color: var(--color-text-primary);
-        background: var(--color-bg-tertiary);
-      }
-
-      &--active:hover {
-        color: var(--cyber-cyan-500);
-        background: var(--color-bg-tertiary);
-      }
-    }
-
-    // Active state
-    &--active {
-      color: var(--cyber-cyan-500);
+    // Listed with :hover so a selected tab keeps its colour under the pointer
+    &--active,
+    &--active:hover,
+    &[aria-selected="true"],
+    &[aria-selected="true"]:hover {
+      color: var(--tab-color);
       background: var(--color-bg-tertiary);
 
-      // Glow line under active tab
       &::after {
-        content: "";
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        height: 3px;
-        background: var(--cyber-cyan-500);
-        box-shadow: 0 0 10px var(--cyber-cyan-500);
+        transform: none;
       }
     }
 
-    // Disabled state
     &:disabled,
+    &[aria-disabled="true"],
     &--disabled {
       opacity: 50%;
       cursor: not-allowed;
       pointer-events: none;
     }
 
-    // Icon support
     svg,
     &__icon {
-      flex-shrink: 0;
+      flex: none;
       width: 1em;
       height: 1em;
     }
 
-    // Badge/count in tab
+    // Count next to the label
     &__badge {
-      padding: 2px 6px;
-      border: var(--border-thin) solid var(--cyber-cyan-500);
+      min-width: 1.25rem;
+      padding: 0 0.3rem;
+      border: 1px solid color-mix(in srgb, var(--tab-color) 70%, transparent);
       font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      color: var(--cyber-cyan-500);
-      background: color-mix(in srgb, var(--cyber-cyan-500) 20%, transparent);
+      font-size: kit.$text-xs;
+      line-height: 1.5;
+      letter-spacing: 0;
+      text-align: center;
+      color: var(--tab-color);
+      background: color-mix(in srgb, var(--tab-color) 14%, transparent);
     }
 
-    // --------------------------------------------------------
-    // Color Variants
-    // --------------------------------------------------------
-
     &--magenta {
-      &.cyber-tab--active {
-        color: var(--cyber-magenta-500);
-
-        &::after {
-          background: var(--cyber-magenta-500);
-          box-shadow: 0 0 10px var(--cyber-magenta-500);
-        }
-      }
-
-      .cyber-tab__badge {
-        border-color: var(--cyber-magenta-500);
-        color: var(--cyber-magenta-500);
-        background: color-mix(in srgb, var(--cyber-magenta-500) 20%, transparent);
-      }
+      --tab-color: var(--cyber-magenta-500);
     }
 
     &--yellow {
-      &.cyber-tab--active {
-        color: var(--cyber-yellow-500);
-
-        &::after {
-          background: var(--cyber-yellow-500);
-          box-shadow: 0 0 10px var(--cyber-yellow-500);
-        }
-      }
+      --tab-color: var(--cyber-yellow-500);
     }
 
     &--green {
-      &.cyber-tab--active {
-        color: var(--cyber-green-500);
-
-        &::after {
-          background: var(--cyber-green-500);
-          box-shadow: 0 0 10px var(--cyber-green-500);
-        }
-      }
+      --tab-color: var(--cyber-green-500);
     }
   }
 
-  // Tab panel fade animation
-  @keyframes tab-fade-in {
+  @keyframes cyber-tab-in {
     from {
       opacity: 0%;
       transform: translateY(4px);
     }
+  }
 
-    to {
-      opacity: 100%;
-      transform: translateY(0);
+  @media (prefers-reduced-motion: reduce) {
+    @include -reduced-motion;
+  }
+
+  [data-motion="reduce"] {
+    @include -reduced-motion;
+  }
+
+  @media (prefers-contrast: more) {
+    .cyber-tabs {
+      border-color: var(--cyber-chrome-400);
+    }
+
+    .cyber-tab {
+      color: var(--color-text-primary);
+    }
+  }
+
+  // Selection must not rest on colour alone when colours are forced
+  @media (forced-colors: active) {
+    .cyber-tab {
+      border: 1px solid ButtonBorder;
+
+      &--active,
+      &[aria-selected="true"] {
+        border-color: Highlight;
+        border-bottom-width: 4px;
+      }
     }
   }
 }

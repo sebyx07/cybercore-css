@@ -1,0 +1,231 @@
+// ============================================================
+// Toast Component
+// Transient notification. Styling only: adding, timing and removing toasts
+// is the job of your script.
+// <div class="cyber-toast-region" role="region" aria-label="Notifications">
+//   <div class="cyber-toast cyber-toast--success" role="status">
+//     <div class="cyber-toast__title">Uplink stable</div>
+//     <div class="cyber-toast__message">All nodes synced.</div>
+//     <button class="cyber-toast__close" aria-label="Dismiss"></button>
+//   </div>
+// </div>
+// A11y: mount the region empty, then insert toasts so they are announced.
+// `role="status"` for routine news, `role="alert"` for errors. A toast that
+// disappears on a timer must pause on hover/focus (`.cyber-toast__timer` does)
+// and must never hold the only copy of important information.
+// ============================================================
+
+@use "kit";
+
+@layer components {
+  // Fixed stack. Clicks pass through the gaps between toasts.
+  .cyber-toast-region {
+    position: fixed;
+    z-index: var(--z-toast, 1200);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    width: min(24rem, calc(100vw - var(--space-sm) * 2));
+    pointer-events: none;
+    inset-block-end: var(--space-sm);
+    inset-inline-end: var(--space-sm);
+
+    > * {
+      pointer-events: auto;
+    }
+
+    &--top {
+      inset-block: var(--space-sm) auto;
+    }
+
+    &--start {
+      inset-inline: var(--space-sm) auto;
+    }
+
+    &--center {
+      inset-inline: 0;
+      margin-inline: auto;
+    }
+  }
+
+  .cyber-toast {
+    --toast-color: var(--color-accent, var(--cyber-cyan-500));
+    --toast-icon: #{kit.icon-url(kit.$icon-info)};
+    --toast-duration: 5s;
+
+    // Frame wiring: accent bar on the leading edge
+    --frame-cut: 12px;
+    --frame-border-color: color-mix(in srgb, var(--toast-color) 60%, var(--color-border-default));
+    --frame-bg: var(--color-bg-elevated);
+    --frame-bg-image: linear-gradient(var(--toast-color), var(--toast-color));
+    --frame-bg-size: 4px 100%;
+
+    @include kit.cut-frame;
+
+    padding: var(--space-xs) var(--space-md);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+    filter: drop-shadow(0 0.5rem 1rem color-mix(in srgb, var(--cyber-void-900) 75%, transparent))
+      drop-shadow(0 0 0.6rem color-mix(in srgb, var(--toast-color) 22%, transparent));
+    padding-inline: calc(var(--space-md) + 1.25rem + var(--space-xs))
+      calc(var(--space-md) + 1.75rem);
+
+    @include kit.motion-safe {
+      animation: cyber-toast-in var(--duration-normal) var(--ease-out-expo);
+    }
+
+    // Status glyph
+    &::after {
+      content: "";
+      position: absolute;
+      top: calc(var(--space-xs) + 0.1rem);
+      width: 1.25rem;
+      height: 1.25rem;
+      background-color: var(--toast-color);
+      inset-inline-start: var(--space-md);
+      mask:
+        var(--toast-icon) center / 0.75rem no-repeat,
+        linear-gradient(#000, #000);
+      mask-composite: exclude;
+    }
+
+    &:dir(rtl) {
+      --frame-bg-position: 100% 0;
+    }
+
+    &__title {
+      @include kit.label-text(var(--text-sm), 0.06em);
+
+      color: var(--toast-color);
+    }
+
+    &__message {
+      color: var(--color-text-secondary);
+    }
+
+    &__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2xs);
+      margin-top: var(--space-2xs);
+    }
+
+    &__close {
+      position: absolute;
+      top: var(--space-2xs);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      padding: 0;
+      border: 1px solid transparent;
+      color: var(--color-text-secondary);
+      background: transparent;
+      transition:
+        color var(--duration-fast) ease,
+        border-color var(--duration-fast) ease;
+      cursor: pointer;
+      inset-inline-end: var(--space-2xs);
+
+      @include kit.hover {
+        border-color: var(--toast-color);
+        color: var(--toast-color);
+      }
+
+      &:empty::before {
+        @include kit.mask-icon(kit.$icon-error, 0.75rem);
+
+        content: "";
+      }
+
+      &:focus-visible {
+        @include kit.focus-ring(var(--toast-color), 1px);
+      }
+    }
+
+    // Countdown bar along the bottom edge:
+    // <span class="cyber-toast__timer" aria-hidden="true"></span>
+    // Runs for --toast-duration and pauses while the toast is hovered or focused.
+    &__timer {
+      position: absolute;
+      bottom: 1px;
+      height: 2px;
+      background: var(--toast-color);
+      inset-inline: 12px 1px;
+      transform-origin: left;
+
+      @include kit.motion-safe {
+        animation: cyber-toast-timer var(--toast-duration) linear forwards;
+      }
+    }
+
+    &:dir(rtl) &__timer {
+      transform-origin: right;
+    }
+
+    &:hover &__timer,
+    &:focus-within &__timer {
+      animation-play-state: paused;
+    }
+
+    // --------------------------------------------------------
+    // Semantic variants
+    // --------------------------------------------------------
+
+    &--success {
+      --toast-color: var(--cyber-green-500);
+      --toast-icon: #{kit.icon-url(kit.$icon-success)};
+    }
+
+    &--warning {
+      --toast-color: var(--cyber-yellow-500);
+      --toast-icon: #{kit.icon-url(kit.$icon-warning)};
+    }
+
+    &--error {
+      --toast-color: var(--cyber-magenta-500);
+      --toast-icon: #{kit.icon-url(kit.$icon-error)};
+    }
+  }
+
+  @keyframes cyber-toast-in {
+    from {
+      opacity: 0%;
+      transform: translateX(1rem);
+    }
+  }
+
+  @keyframes cyber-toast-timer {
+    to {
+      transform: scaleX(0);
+    }
+  }
+
+  [data-motion="reduce"] {
+    .cyber-toast,
+    .cyber-toast__timer {
+      animation: none;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .cyber-toast {
+      --frame-border-color: var(--toast-color);
+
+      color: var(--color-text-primary);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .cyber-toast {
+      filter: none;
+
+      &::after {
+        background-color: CanvasText;
+        forced-color-adjust: none;
+      }
+    }
+  }
+}

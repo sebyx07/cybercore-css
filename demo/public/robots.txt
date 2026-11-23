@@ -30,4 +30,4 @@ Allow: /
 Sitemap: https://sebyx07.github.io/cybercore-css/sitemap.xml
 
 # LLM context file
-# See: https://sebyx07.github.io/cybercore-css/llm.txt
+# See: https://sebyx07.github.io/cybercore-css/llms.txt

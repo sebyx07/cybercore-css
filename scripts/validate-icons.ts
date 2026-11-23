@@ -1,7 +1,6 @@
-#!/usr/bin/env npx ts-node
 /**
  * Icon Validation Script
- * Run with: npx ts-node scripts/validate-icons.ts
+ * Run with: npm run validate:icons
  *
  * Validates all icons in the registry for:
  * - Correct SVG structure
@@ -26,6 +25,13 @@ const REQUIRED_ATTRIBUTES = [
   { attr: 'stroke-width="1.5"', message: 'Must use 1.5 stroke width' },
 ];
 
+const FILLED_REQUIRED_ATTRIBUTES = [
+  { attr: 'viewBox="0 0 24 24"', message: 'Must have 24x24 viewBox' },
+  { attr: 'xmlns="http://www.w3.org/2000/svg"', message: 'Must have xmlns' },
+  { attr: 'fill="currentColor"', message: 'A -filled icon must use fill="currentColor"' },
+  { attr: 'stroke="none"', message: 'A -filled icon must set stroke="none"' },
+];
+
 const FORBIDDEN_PATTERNS = [
   { pattern: /<script/i, message: 'Contains script tag (security risk)' },
   { pattern: /javascript:/i, message: 'Contains javascript: URL (security risk)' },
@@ -47,8 +53,9 @@ function validateIcon(name: string, svg: string): ValidationResult {
   const errors: string[] = [];
   const warnings: string[] = [];
 
-  // Check required attributes
-  for (const { attr, message } of REQUIRED_ATTRIBUTES) {
+  // Check required attributes. A `-filled` variant is the solid twin of a stroke icon.
+  const required = name.endsWith('-filled') ? FILLED_REQUIRED_ATTRIBUTES : REQUIRED_ATTRIBUTES;
+  for (const { attr, message } of required) {
     if (!svg.includes(attr)) {
       errors.push(message);
     }
