@@ -1,0 +1,7 @@
+// Every component, effect and utility module, including the ones the default
+// bundle leaves out. Loaded only by the documentation pages, so their previews
+// work for Sass-only modules too. The home page runs on the default bundle
+// alone, exactly as the CDN build ships it.
+@use "../../../src/scss/components";
+@use "../../../src/scss/effects";
+@use "../../../src/scss/utilities";
