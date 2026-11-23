@@ -154,6 +154,12 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0 # history and tags, to find the commit that set the version
+      # npm pack below needs the Node that package.json devEngines requires (onFail: error);
+      # the runner's default Node fails it, which read as "npm does not serve it yet".
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
       - name: Create the tag and the release from CHANGELOG.md
         env:
           GH_TOKEN: ${{ github.token }}
@@ -189,7 +195,8 @@ jobs:
           fi
           # Attach the tarball npm serves, never a rebuild. The registry can lag a fresh publish.
           for attempt in 1 2 3 4 5 6; do
-            npm pack "$name@$VERSION" --silent >/dev/null && break
+            npm pack "$name@$VERSION" --silent >/dev/null 2>npm-pack.log && break
+            cat npm-pack.log >&2
             if [ "$attempt" = 6 ]; then
               echo "::error::npm does not serve $name@$VERSION yet; re-run this job in a few minutes."
               exit 1
