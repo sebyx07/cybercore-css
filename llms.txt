@@ -21,7 +21,7 @@
 ## Install
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cybercore-css@0.3.0/dist/cybercore.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cybercore-css@0.4.0/dist/cybercore.min.css">
 ```
 
 ```bash
