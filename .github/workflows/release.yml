@@ -146,7 +146,7 @@ jobs:
       (needs.publish.result == 'success' ||
        (needs.publish.result == 'skipped' && needs.version.outputs.publish == 'false'))
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 20
     permissions:
       contents: write # create the tag + GitHub Release
     steps:
@@ -193,15 +193,16 @@ jobs:
               exit 1
             fi
           fi
-          # Attach the tarball npm serves, never a rebuild. The registry can lag a fresh publish.
-          for attempt in 1 2 3 4 5 6; do
+          # Attach the tarball npm serves, never a rebuild. The registry can lag a fresh publish by
+          # several minutes: poll for up to ~10.
+          for attempt in $(seq 1 20); do
             npm pack "$name@$VERSION" --silent >/dev/null 2>npm-pack.log && break
             cat npm-pack.log >&2
-            if [ "$attempt" = 6 ]; then
+            if [ "$attempt" = 20 ]; then
               echo "::error::npm does not serve $name@$VERSION yet; re-run this job in a few minutes."
               exit 1
             fi
-            sleep 20
+            sleep 30
           done
           tarball="$name-$VERSION.tgz"
           tar -xzf "$tarball" package/dist/cybercore.css package/dist/cybercore.min.css
