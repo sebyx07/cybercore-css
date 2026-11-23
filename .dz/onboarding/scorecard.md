@@ -15,6 +15,7 @@
 - .dz/maintainer/maintainer.yml established (validates against maintainer.v1.json; `dz-contract` answers ok)
 - .dz/maintainer/reviewer.md established (CSS, accessibility and visual focus; community tone)
 - .dz/schedules/{health,release-due,security-release,improve}.md established
+- platform-standard briefs: repo-census and repo-score scheduled; hygiene, devops and fix-sweep offered (entries commented)
 - .dz/pipeline/agent-pipeline.json established
 
 ## `brain` — ok
@@ -71,6 +72,7 @@
 
 ## `docs_readme` — ok
 
+- docs/README.md indexes docs/idea/ (overview, principles, stack, data-model, deployment, direction draft) and docs/standards/
 - README.md rewritten; docs/UTILITIES.md, CONTRIBUTING.md, SECURITY.md, CODE_OF_CONDUCT.md, RELEASE.md, CHANGELOG.md
 
 ## `gate_proved` — pending

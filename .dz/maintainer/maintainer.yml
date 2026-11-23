@@ -166,8 +166,8 @@ escalate:
 # Modes. A `scout` firing (the default) is read-only: it reads the checkout and the platform's
 # signals and files asks, and an ask that names CI config or this policy is refused at ingest.
 # `mode: devops` runs the brief as one task with a shell and delivers a pull request (it needs
-# `handoff.mode: fleet`, set above). The three briefs that run commands and open a pull request
-# are devops; `health` only reports, so it stays a scout.
+# `handoff.mode: fleet`, set above). The briefs that run commands and open a pull request are
+# devops; `health`, `repo-census` and `repo-score` only read and report, so they stay scouts.
 schedules:
   - name: health
     days: [mon, tue, wed, thu, fri, sat, sun]
@@ -193,3 +193,32 @@ schedules:
     hours_utc: [8]
     brief_file: .dz/schedules/improve.md
     mode: devops
+  # The developerz.ai platform's standard checkups. Hours follow the platform's per-repo spread
+  # (sha256 of the repo name: hour 11 here), so the fleet is not hit at once.
+  # The repository census reports and files nothing: on for every repo.
+  - name: repo-census
+    days: [mon]
+    hours_utc: [11]
+    brief_file: .dz/schedules/repo-census.md
+  # Ten checks of whether this repo can be worked on unattended (gate, green main, tests in CI,
+  # agent file, direction page, nothing secret or built committed, aged work, deploy verdict);
+  # one ask per failing check.
+  - name: repo-score
+    days: [tue]
+    hours_utc: [5]
+    brief_file: .dz/schedules/repo-score.md
+  # Offered, off: each makes work, and health + improve already cover most of it. Drop the
+  # leading `# ` on each line of an entry to run it; its brief is committed beside the others.
+  # - name: hygiene
+  #   days: [sun]
+  #   hours_utc: [11]
+  #   brief_file: .dz/schedules/hygiene.md
+  # - name: devops
+  #   days: [sat]
+  #   hours_utc: [23]
+  #   brief_file: .dz/schedules/devops.md
+  # - name: fix-sweep
+  #   days: [thu]
+  #   hours_utc: [17]
+  #   brief_file: .dz/schedules/fix-sweep.md
+  #   mode: devops

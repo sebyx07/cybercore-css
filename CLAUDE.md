@@ -75,7 +75,7 @@ demo/                     documentation site (React + Vite), deployed to GitHub 
 examples/                 standalone HTML previews of dist/
 scripts/                  check-size, check-package, validate-icons, visual.sh, changelog-notes.sh
 bin/                      setup, dev, stop, check, repo-guards, api-diff, docs-check
-docs/                     UTILITIES.md (utility class reference)
+docs/                     UTILITIES.md, idea/ (intent, direction), standards/ (rule → guard)
 .github/                  ci.yml, release.yml, deploy.yml, dependabot, issue and PR forms
 .dz/                      developerz.ai maintainer policy, reviewer prompt, scheduled briefs
 llms.txt                  class and token reference for AI tools that use the framework
@@ -118,4 +118,5 @@ Branch `<type>/<slug>` off `main`. Conventional Commits (`feat:`, `fix:`, `docs:
 - Workflows, pinning, release lane → `.github/CLAUDE.md`, `RELEASE.md`
 - Maintainer policy, review rules, scheduled checkups → `.dz/README.md`
 - Icons → `src/icons/README.md`
+- Product intent and direction (draft) → `docs/idea/`, index `docs/README.md`
 - What users are told: `README.md`, `llms.txt`, `docs/UTILITIES.md`, `CONTRIBUTING.md`

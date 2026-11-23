@@ -1,0 +1,5 @@
+# CodeGraph data files: local to each machine, not for committing.
+# Ignore everything in .codegraph/ except this file, so the database, pid files, sockets and
+# logs never show up in git.
+*
+!.gitignore
