@@ -21,7 +21,7 @@ export interface Example {
 }
 
 export interface AriaNote {
-  /** `role="tablist"`, `aria-expanded`, … */
+  /** Shown as code. Several: 'role="dialog"` + `aria-modal="true"' (backticks close and reopen it). */
   attribute: string;
   /** Which element carries it. */
   on: string;

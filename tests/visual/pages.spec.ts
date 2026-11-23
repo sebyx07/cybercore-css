@@ -65,6 +65,13 @@ for (const index of INDEXES) {
     for (const route of routes) {
       await test.step(route, async () => {
         await screenshot(page, route);
+        // Docs data marks inline code with backticks; one that reaches the page was not parsed.
+        const stray = await page
+          .locator('table code')
+          .evaluateAll((codes) =>
+            codes.map((code) => code.textContent ?? '').filter((text) => text.includes('`'))
+          );
+        expect(stray, `unparsed backticks in tables on /${route}`).toEqual([]);
       });
     }
   });

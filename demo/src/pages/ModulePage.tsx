@@ -166,7 +166,8 @@ function ModulePage({ group }: { group: ModuleGroup }) {
                   {doc.aria.map((row) => (
                     <tr key={`${row.attribute}-${row.on}`}>
                       <td>
-                        <code>{row.attribute}</code>
+                        {/* The attribute is code; backticks inside it separate several. */}
+                        <RichText text={`\`${row.attribute}\``} />
                       </td>
                       <td>
                         <RichText text={row.on} />
