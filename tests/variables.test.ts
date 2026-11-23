@@ -3,6 +3,8 @@ import { execSync } from 'child_process';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
+import * as sass from 'sass';
+
 const ROOT_DIR = join(__dirname, '..');
 const DIST_DIR = join(ROOT_DIR, 'dist');
 
@@ -176,6 +178,43 @@ describe('CSS Custom Properties', () => {
   describe('CSS Layer Support', () => {
     it('should define theme layer', () => {
       expect(css).toMatch(/@layer\s+theme/);
+    });
+  });
+  describe('Accessible defaults', () => {
+    it('keeps placeholder text at chrome-400 (AA on the input fill)', () => {
+      expect(css).toMatch(/--color-text-placeholder:\s*var\(--cyber-chrome-400\)/);
+    });
+
+    it('never lets --text-xs fall below 11px', () => {
+      const min = /--text-xs:\s*clamp\(([\d.]+)rem/.exec(css)?.[1];
+      expect(Number(min) * 16).toBeGreaterThanOrEqual(11);
+    });
+  });
+
+  describe('Themes', () => {
+    it('defines every data-theme accent', () => {
+      for (const theme of ['cyan', 'magenta', 'acid', 'amber']) {
+        expect(css).toMatch(new RegExp(`\\[data-theme=${theme}\\]\\s*\\{\\s*--color-accent:`));
+      }
+    });
+
+    it('raises contrast on preference and on data-contrast="high"', () => {
+      expect(css).toMatch(/@media \(prefers-contrast: more\)\s*\{\s*:root\s*\{/);
+      expect(css).toMatch(/\[data-contrast=high\]\s*\{/);
+    });
+
+    it('collapses duration tokens under reduced motion', () => {
+      expect(css).toMatch(/\[data-motion=reduce\]\s*\{\s*--duration-instant:\s*0ms;/);
+    });
+  });
+
+  describe('Type definitions', () => {
+    it('list exactly the tokens core/variables defines', () => {
+      const built = sass.compile(join(ROOT_DIR, 'src/scss/core/_variables.scss')).css;
+      const tokens = new Set(built.match(/^\s+--[\w-]+(?=:)/gm)?.map((name) => name.trim()));
+      const dts = readFileSync(join(ROOT_DIR, 'src/cybercore.d.ts'), 'utf-8');
+      const typed = new Set(dts.match(/(?<=^\s+')--[\w-]+(?=': string;)/gm));
+      expect([...typed].sort()).toEqual([...tokens].sort());
     });
   });
 });

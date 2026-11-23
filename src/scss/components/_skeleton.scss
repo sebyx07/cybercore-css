@@ -1,7 +1,26 @@
 // ============================================================
 // Skeleton Component
 // Shimmer loading placeholders with cyberpunk aesthetics
+// A11y: placeholders are decoration, so `aria-hidden="true"` on them and
+// `aria-busy="true"` on the region being loaded.
 // ============================================================
+
+// Reduced-motion overrides, shared by the media query and data-motion="reduce"
+@mixin -reduced-motion {
+  .cyber-skeleton {
+    &::after {
+      background: var(--skeleton-shine);
+      opacity: 50%;
+      transform: none;
+      animation: none;
+    }
+
+    &--pulse,
+    &--glow {
+      animation: none;
+    }
+  }
+}
 
 @layer components {
   .cyber-skeleton {
@@ -230,19 +249,11 @@
 
   // Reduced motion support
   @media (prefers-reduced-motion: reduce) {
-    .cyber-skeleton {
-      &::after {
-        background: var(--skeleton-shine);
-        opacity: 50%;
-        transform: none;
-        animation: none;
-      }
+    @include -reduced-motion;
+  }
 
-      &--pulse,
-      &--glow {
-        animation: none;
-      }
-    }
+  [data-motion="reduce"] {
+    @include -reduced-motion;
   }
 
   // --------------------------------------------------------
@@ -332,6 +343,13 @@
       flex: 1;
       flex-direction: column;
       gap: var(--space-xs);
+    }
+  }
+
+  // Forced colours flatten backgrounds: outline the placeholder shapes instead
+  @media (forced-colors: active) {
+    .cyber-skeleton {
+      border: 1px solid GrayText;
     }
   }
 }

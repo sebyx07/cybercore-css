@@ -1,5 +1,7 @@
 // ============================================================
-// CSS Layers - Cascade control
+// CSS Layers - cascade order, lowest priority first.
+// Every Cybercore rule sits in one of these layers, so any unlayered CSS
+// you write wins without !important. Load this before anything else.
 // ============================================================
 
 @layer reset, base, theme, components, utilities;

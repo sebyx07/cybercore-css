@@ -1,12 +1,31 @@
 // ============================================================
 // Spinner Component
 // Dual-ring counter-rotating loading spinner
+// A11y: wrap in `role="status"` with visually hidden text ("Loading…"),
+// or mark the spinner `aria-hidden="true"` when nearby text says the same.
 // ============================================================
+
+// Reduced-motion overrides, shared by the media query and data-motion="reduce"
+@mixin -reduced-motion {
+  .cyber-spinner {
+    animation: cyber-spinner-breathe 1.6s ease-in-out infinite;
+
+    &::before,
+    &::after {
+      animation: none;
+    }
+  }
+
+  .cyber-spinner-dots span,
+  .cyber-spinner-bars span {
+    animation: cyber-spinner-breathe 1.6s ease-in-out infinite;
+  }
+}
 
 @layer components {
   .cyber-spinner {
     --spinner-size: 48px;
-    --spinner-color-primary: var(--cyber-cyan-500);
+    --spinner-color-primary: var(--color-accent, var(--cyber-cyan-500));
     --spinner-color-secondary: var(--cyber-magenta-500);
     --spinner-thickness: 3px;
 
@@ -28,13 +47,13 @@
 
     // Outer ring (clockwise) - cyan top border
     &::before {
-      animation: spin 1s linear infinite;
+      animation: cyber-spinner-spin 1s linear infinite;
       border-top-color: var(--spinner-color-primary);
     }
 
     // Inner ring (counter-clockwise) - magenta bottom border
     &::after {
-      animation: spin 1s linear infinite reverse;
+      animation: cyber-spinner-spin 1s linear infinite reverse;
       animation-delay: -0.5s;
       border-bottom-color: var(--spinner-color-secondary);
     }
@@ -134,7 +153,7 @@
   }
 
   // Spinner rotation
-  @keyframes spin {
+  @keyframes cyber-spinner-spin {
     to {
       transform: rotate(360deg);
     }
@@ -161,7 +180,7 @@
   // Dot spinner (three bouncing dots)
   .cyber-spinner-dots {
     --dot-size: 8px;
-    --dot-color: var(--cyber-cyan-500);
+    --dot-color: var(--color-accent, var(--cyber-cyan-500));
 
     display: inline-flex;
     gap: 4px;
@@ -218,7 +237,7 @@
   .cyber-spinner-bars {
     --bar-width: 4px;
     --bar-height: 24px;
-    --bar-color: var(--cyber-cyan-500);
+    --bar-color: var(--color-accent, var(--cyber-cyan-500));
 
     display: inline-flex;
     gap: 3px;
@@ -263,23 +282,26 @@
   }
 
   // Reduced motion support for accessibility
+  // Reduced motion: rotation and bouncing stop, the indicator breathes instead
+  // so "working" is still visible
   @media (prefers-reduced-motion: reduce) {
-    .cyber-spinner,
-    .cyber-spinner::before,
-    .cyber-spinner::after {
-      animation: none;
-    }
+    @include -reduced-motion;
+  }
 
-    .cyber-spinner-dots span,
-    .cyber-spinner-bars span {
-      animation: none;
+  [data-motion="reduce"] {
+    @include -reduced-motion;
+  }
+
+  @keyframes cyber-spinner-breathe {
+    50% {
+      opacity: 35%;
     }
   }
 
   // Loading overlay
   .cyber-spinner-overlay {
     position: absolute;
-    z-index: var(--z-modal);
+    z-index: var(--z-sticky, 100);
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);

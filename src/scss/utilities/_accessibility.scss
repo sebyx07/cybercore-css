@@ -13,7 +13,7 @@
     border: 0;
     overflow: hidden;
     white-space: nowrap;
-    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
   }
 
   // Un-hide for focus (for skip links)
@@ -26,7 +26,7 @@
     padding: inherit;
     overflow: visible;
     white-space: normal;
-    clip: auto;
+    clip-path: none;
   }
 
   // Not screen reader - hide from screen readers

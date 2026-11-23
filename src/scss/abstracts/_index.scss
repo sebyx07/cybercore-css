@@ -1,0 +1,9 @@
+// ============================================================
+// Abstracts - the Sass-only API: token maps, mixins, module manifest.
+// Emits no CSS:  @use "cybercore-css/scss/abstracts" as cyber;
+// ============================================================
+
+@forward "tokens";
+@forward "mixins";
+@forward "manifest" as manifest-*;
+@forward "../core/mixins";

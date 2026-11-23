@@ -1,0 +1,143 @@
+// ============================================================
+// Pagination Component
+// <nav class="cyber-pagination" aria-label="Pagination">
+//   <ul class="cyber-pagination__list">
+//     <li><a class="cyber-pagination__link" href="?p=1" aria-label="Previous page">&lt;</a></li>
+//     <li><a class="cyber-pagination__link" href="?p=2" aria-current="page">2</a></li>
+//     <li><span class="cyber-pagination__ellipsis">…</span></li>
+//   </ul>
+// </nav>
+// A link without a destination: drop `href` and add `aria-disabled="true"`.
+// ============================================================
+
+@use "kit";
+
+// Reduced-motion overrides, shared by the media query and data-motion="reduce"
+@mixin -reduced-motion {
+  .cyber-pagination__link {
+    transition: none;
+  }
+}
+
+@layer components {
+  .cyber-pagination {
+    --pagination-accent: var(--color-accent, var(--cyber-cyan-500));
+    --pagination-size: 2.5rem;
+
+    &__list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3xs);
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    &__link,
+    &__ellipsis {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: var(--pagination-size);
+      height: var(--pagination-size);
+      padding: 0 var(--space-2xs);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    &__ellipsis {
+      color: var(--color-text-secondary);
+    }
+
+    &__link {
+      border: 1px solid var(--color-border-strong, var(--cyber-chrome-600));
+      text-decoration: none;
+      color: var(--color-text-secondary);
+      background: var(--color-bg-secondary);
+      transition:
+        color var(--duration-fast) ease,
+        border-color var(--duration-fast) ease,
+        background-color var(--duration-fast) ease,
+        box-shadow var(--duration-fast) ease;
+      cursor: pointer;
+
+      @include kit.hover {
+        border-color: var(--pagination-accent);
+        color: var(--pagination-accent);
+        background: color-mix(in srgb, var(--pagination-accent) 10%, var(--color-bg-secondary));
+      }
+
+      &:focus-visible {
+        @include kit.focus-ring(var(--pagination-accent), 2px);
+
+        border-color: var(--pagination-accent);
+      }
+
+      &--active,
+      &--active:hover,
+      &[aria-current="page"],
+      &[aria-current="page"]:hover {
+        border-color: var(--pagination-accent);
+        color: var(--color-text-on-accent, var(--cyber-void-500));
+        background: var(--pagination-accent);
+        box-shadow: 0 0 0.75rem color-mix(in srgb, var(--pagination-accent) 50%, transparent);
+      }
+
+      &--disabled,
+      &:disabled,
+      &[aria-disabled="true"] {
+        border-style: dashed;
+        opacity: 45%;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+    }
+
+    &--sm {
+      --pagination-size: 2rem;
+    }
+
+    &--lg {
+      --pagination-size: 3rem;
+    }
+
+    &--magenta {
+      --pagination-accent: var(--cyber-magenta-500);
+    }
+
+    &--yellow {
+      --pagination-accent: var(--cyber-yellow-500);
+    }
+
+    &--green {
+      --pagination-accent: var(--cyber-green-500);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    @include -reduced-motion;
+  }
+
+  [data-motion="reduce"] {
+    @include -reduced-motion;
+  }
+
+  @media (prefers-contrast: more) {
+    .cyber-pagination__link {
+      border-color: var(--cyber-chrome-300);
+      color: var(--color-text-primary);
+    }
+  }
+
+  // Current page must not rely on a forced-away background
+  @media (forced-colors: active) {
+    .cyber-pagination__link--active,
+    .cyber-pagination__link[aria-current="page"] {
+      border: 3px solid Highlight;
+    }
+  }
+}

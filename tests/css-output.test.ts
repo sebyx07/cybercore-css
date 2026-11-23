@@ -3,6 +3,8 @@ import { execSync } from 'child_process';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
+import postcss from 'postcss';
+
 const ROOT_DIR = join(__dirname, '..');
 const DIST_DIR = join(ROOT_DIR, 'dist');
 
@@ -124,6 +126,22 @@ describe('CSS Output Classes', () => {
 
     it('should contain green theme class', () => {
       expect(css).toMatch(/\.cyber-green\b|--cyber-green/);
+    });
+  });
+
+  describe('Browser floor', () => {
+    // A browser drops a whole rule when one selector in its list is unknown to it. Pseudo-classes
+    // newer than the README's floor (Chrome 111, Safari 16.2) get a rule of their own, so the
+    // rest of the list still applies there: `[aria-invalid="true"]` must not need `:user-invalid`.
+    const NEWER_THAN_FLOOR = [':user-invalid', ':popover-open'];
+
+    it('never lists a pseudo-class newer than the floor beside older selectors', () => {
+      const shared: string[] = [];
+      postcss.parse(css).walkRules((rule) => {
+        const isNew = (selector: string) => NEWER_THAN_FLOOR.some((p) => selector.includes(p));
+        if (rule.selectors.some(isNew) && !rule.selectors.every(isNew)) shared.push(rule.selector);
+      });
+      expect(shared).toEqual([]);
     });
   });
 });

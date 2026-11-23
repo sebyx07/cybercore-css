@@ -17,8 +17,6 @@ export default {
     autoprefixer({
       // Use flexbox: 'no-2009' to avoid generating old flexbox syntax
       flexbox: 'no-2009',
-      // Grid layout prefixing for IE (autoplace enabled)
-      grid: 'autoplace',
     }),
 
     // Minify CSS only in production

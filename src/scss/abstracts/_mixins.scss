@@ -1,0 +1,59 @@
+// ============================================================
+// Public mixins (emit nothing until included)
+//   @use "cybercore-css/scss/abstracts" as cyber;
+//   .panel { @include cyber.cq-up(md) { ... } }
+// ============================================================
+
+@use "sass:map";
+@use "tokens";
+
+@function -lookup($map, $name, $kind) {
+  @if not map.has-key($map, $name) {
+    @error "cybercore: unknown #{$kind} `#{$name}`. Known: #{map.keys($map)}";
+  }
+
+  @return map.get($map, $name);
+}
+
+// Viewport breakpoints (prefer container queries for components)
+@mixin bp-up($name) {
+  @media (width >= #{-lookup(tokens.$breakpoints, $name, breakpoint)}) {
+    @content;
+  }
+}
+
+@mixin bp-down($name) {
+  @media (width < #{-lookup(tokens.$breakpoints, $name, breakpoint)}) {
+    @content;
+  }
+}
+
+// Container breakpoints. $container: null queries the nearest container.
+@mixin cq-up($name, $container: null) {
+  $size: -lookup(tokens.$container-breakpoints, $name, container breakpoint);
+
+  @if $container {
+    @container #{$container} (width >= #{$size}) {
+      @content;
+    }
+  } @else {
+    @container (width >= #{$size}) {
+      @content;
+    }
+  }
+}
+
+// Self-hosted web font. Cybercore ships no font files: the stacks in
+// --font-display / --font-body / --font-mono fall back to system fonts.
+// font-display: swap paints fallback text immediately (no invisible text);
+// preload the critical woff2 with <link rel="preload" as="font" crossorigin>.
+//   @include cyber.font-face("Orbitron", "/fonts/orbitron-var.woff2", 400 900);
+@mixin font-face($family, $woff2-url, $weight: 400, $style: normal, $display: swap) {
+  @font-face {
+    font-family: $family;
+    font-weight: $weight;
+    font-style: $style;
+    font-display: $display;
+    src: url($woff2-url) format("woff2");
+  }
+}

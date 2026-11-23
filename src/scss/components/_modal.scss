@@ -1,142 +1,173 @@
 // ============================================================
 // Modal Component
-// Dialog overlay with backdrop blur and entrance animation
+// Two ways to use the same dialog styling:
+// 1. Native <dialog> (preferred: focus trap, Esc and inert page for free)
+//      <dialog class="cyber-dialog" aria-labelledby="t">
+//        <div class="cyber-modal__header">
+//          <h2 class="cyber-modal__title" id="t">Title</h2>
+//          <button class="cyber-modal__close" aria-label="Close"></button>
+//        </div>
+//        <div class="cyber-modal__body">…</div>
+//        <div class="cyber-modal__footer">…</div>
+//      </dialog>
+//    Open with `dialog.showModal()`; return focus to the trigger on close.
+// 2. Class toggle: `.cyber-modal` backdrop + `.cyber-modal__dialog`, opened
+//    with `.cyber-modal--open`. Add `role="dialog" aria-modal="true"
+//    aria-labelledby` and manage focus yourself.
 // ============================================================
 
+@use "kit";
+
+// Reduced motion keeps a short fade so the dialog does not just pop
+@mixin -reduced-motion {
+  .cyber-modal,
+  .cyber-modal__dialog {
+    transition-duration: 0.01ms;
+  }
+
+  .cyber-modal__dialog,
+  .cyber-modal--slide-up .cyber-modal__dialog,
+  .cyber-modal--zoom .cyber-modal__dialog {
+    transform: none;
+  }
+
+  .cyber-dialog[open] {
+    animation: none;
+  }
+}
+
 @layer components {
-  // Modal backdrop
+  // --------------------------------------------------------
+  // Preferences
+  // --------------------------------------------------------
+
+  // --------------------------------------------------------
+  // Shared dialog surface
+  // --------------------------------------------------------
+
+  %cyber-dialog-surface {
+    // Frame wiring
+    --frame-cut: 20px;
+    --frame-border-color: color-mix(in srgb, var(--modal-accent) 45%, var(--color-border-default));
+    --frame-bg: var(--color-bg-secondary);
+
+    @include kit.cut-frame;
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: var(--modal-width, 500px);
+    max-height: calc(100dvh - var(--space-xl));
+    color: var(--color-text-secondary);
+    filter: drop-shadow(0 0 1.25rem color-mix(in srgb, var(--modal-accent) 28%, transparent))
+      drop-shadow(0 1.5rem 2rem color-mix(in srgb, var(--cyber-void-900) 80%, transparent));
+
+    // Corner brackets on the two square corners
+    &::after {
+      @include kit.corner-brackets(var(--modal-accent), 28px, 2px);
+
+      content: "";
+      position: absolute;
+      z-index: 1;
+      pointer-events: none;
+      inset: 0;
+    }
+  }
+
+  // --------------------------------------------------------
+  // Class-toggled modal
+  // --------------------------------------------------------
+
   .cyber-modal {
-    --modal-accent: var(--cyber-cyan-500);
+    --modal-accent: var(--color-accent, var(--cyber-cyan-500));
 
     position: fixed;
-    z-index: var(--z-modal, 9000);
+    z-index: var(--z-modal, 1000);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: var(--space-md);
-    background: color-mix(in srgb, var(--cyber-void-500) 80%, transparent);
+    background: color-mix(in srgb, var(--cyber-void-700) 78%, transparent);
     opacity: 0%;
     visibility: hidden;
     transition:
-      opacity var(--transition-base),
-      visibility var(--transition-base);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
+      opacity var(--duration-normal) ease,
+      visibility var(--duration-normal) ease;
+    backdrop-filter: blur(6px);
     inset: 0;
+    overscroll-behavior: contain;
 
-    // Open state
     &--open {
       opacity: 100%;
       visibility: visible;
 
       .cyber-modal__dialog {
         opacity: 100%;
-        transform: translateY(0) scale(1);
+        transform: none;
       }
     }
 
-    // Dialog box
     &__dialog {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      max-width: 500px;
-      max-height: calc(100vh - var(--space-xl));
-      border: var(--border-thin) solid var(--color-border-default);
-      background: var(--color-bg-secondary);
-      box-shadow:
-        0 25px 50px -12px color-mix(in srgb, var(--cyber-void-900) 80%, transparent),
-        0 0 20px color-mix(in srgb, var(--modal-accent) 30%, transparent),
-        0 0 40px color-mix(in srgb, var(--modal-accent) 15%, transparent);
+      @extend %cyber-dialog-surface;
+
       opacity: 0%;
-      transform: translateY(-20px) scale(0.95);
+      transform: translateY(-12px) scale(0.97);
       transition:
-        opacity var(--transition-base) var(--ease-out-expo),
-        transform var(--transition-base) var(--ease-out-expo);
-      clip-path: polygon(
-        0 0,
-        calc(100% - 20px) 0,
-        100% 20px,
-        100% 100%,
-        20px 100%,
-        0 calc(100% - 20px)
-      );
-
-      // Corner bracket decorations (matching cards)
-      &::before,
-      &::after {
-        content: "";
-        position: absolute;
-        z-index: 1;
-        width: 30px;
-        height: 30px;
-        border: 2px solid var(--modal-accent);
-        pointer-events: none;
-      }
-
-      &::before {
-        top: -1px;
-        left: -1px;
-        border-right: none;
-        border-bottom: none;
-      }
-
-      &::after {
-        right: -1px;
-        bottom: -1px;
-        border-top: none;
-        border-left: none;
-      }
+        opacity var(--duration-normal) var(--ease-out-expo),
+        transform var(--duration-normal) var(--ease-out-expo);
     }
 
-    // Modal header
     &__header {
       display: flex;
       gap: var(--space-sm);
       align-items: center;
-      padding: var(--space-md);
-      border-bottom: var(--border-thin) solid var(--color-border-default);
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 1px solid var(--color-border-default);
     }
 
     &__title {
+      @include kit.label-text(var(--text-lg), 0.05em);
+
       flex: 1;
+      min-width: 0;
       margin: 0;
-      font-family: var(--font-display);
-      font-size: var(--text-lg);
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
       color: var(--modal-accent);
-      text-shadow: 0 0 10px color-mix(in srgb, var(--modal-accent) 60%, transparent);
+      overflow-wrap: break-word;
     }
 
-    // Close button
+    // <button class="cyber-modal__close" aria-label="Close"> — the cross is
+    // drawn for you when the button is empty; an <svg> child replaces it.
     &__close {
       display: flex;
+      flex: none;
       align-items: center;
       justify-content: center;
-      width: 2rem;
-      height: 2rem;
+      width: 2.25rem;
+      height: 2.25rem;
       padding: 0;
-      border: var(--border-thin) solid var(--color-border-default);
+      border: 1px solid var(--color-border-strong, var(--cyber-chrome-600));
       color: var(--color-text-secondary);
       background: transparent;
       transition:
-        color var(--transition-fast),
-        border-color var(--transition-fast),
-        background var(--transition-fast);
+        color var(--duration-fast) ease,
+        border-color var(--duration-fast) ease,
+        background-color var(--duration-fast) ease;
       cursor: pointer;
 
-      &:hover {
+      @include kit.hover {
         border-color: var(--cyber-magenta-500);
         color: var(--cyber-magenta-500);
         background: color-mix(in srgb, var(--cyber-magenta-500) 10%, transparent);
       }
 
+      &:empty::before {
+        @include kit.mask-icon(kit.$icon-error, 0.875rem);
+
+        content: "";
+      }
+
       &:focus-visible {
-        outline: 2px solid var(--cyber-cyan-500);
-        outline-offset: 2px;
+        @include kit.focus-ring(var(--modal-accent), 2px);
       }
 
       svg {
@@ -145,50 +176,52 @@
       }
     }
 
-    // Modal body
     &__body {
+      @include kit.scrollbar;
+
       flex: 1;
+      min-height: 0;
       padding: var(--space-md);
       overflow-y: auto;
-      line-height: var(--leading-relaxed);
+      line-height: var(--leading-relaxed, 1.65);
       color: var(--color-text-secondary);
+      overscroll-behavior: contain;
     }
 
-    // Modal footer
     &__footer {
       display: flex;
-      gap: var(--space-sm);
+      flex-wrap: wrap;
+      gap: var(--space-xs);
       align-items: center;
       justify-content: flex-end;
-      padding: var(--space-md);
-      border-top: var(--border-thin) solid var(--color-border-default);
+      padding: var(--space-sm) var(--space-md);
+      border-top: 1px solid var(--color-border-default);
     }
 
     // --------------------------------------------------------
-    // Size Variants
+    // Sizes
     // --------------------------------------------------------
 
-    &--sm .cyber-modal__dialog {
-      max-width: 360px;
+    &--sm {
+      --modal-width: 360px;
     }
 
-    &--lg .cyber-modal__dialog {
-      max-width: 720px;
+    &--lg {
+      --modal-width: 720px;
     }
 
-    &--xl .cyber-modal__dialog {
-      max-width: 960px;
+    &--xl {
+      --modal-width: 960px;
     }
 
     &--fullscreen .cyber-modal__dialog {
-      width: calc(100% - var(--space-lg));
       max-width: none;
-      height: calc(100% - var(--space-lg));
+      height: 100%;
       max-height: none;
     }
 
     // --------------------------------------------------------
-    // Color Variants
+    // Colours
     // --------------------------------------------------------
 
     &--magenta {
@@ -204,27 +237,81 @@
     }
 
     // --------------------------------------------------------
-    // Animation Variants
+    // Entrance variants
     // --------------------------------------------------------
 
     &--slide-up .cyber-modal__dialog {
-      transform: translateY(40px) scale(1);
-    }
-
-    &--slide-up.cyber-modal--open .cyber-modal__dialog {
-      transform: translateY(0) scale(1);
+      transform: translateY(40px);
     }
 
     &--zoom .cyber-modal__dialog {
-      transform: scale(0.8);
+      transform: scale(0.85);
     }
 
+    &--slide-up.cyber-modal--open .cyber-modal__dialog,
     &--zoom.cyber-modal--open .cyber-modal__dialog {
-      transform: scale(1);
+      transform: none;
     }
   }
 
-  // Confirm modal specific styling
+  // --------------------------------------------------------
+  // Native <dialog>
+  // --------------------------------------------------------
+
+  .cyber-dialog {
+    --modal-accent: var(--color-accent, var(--cyber-cyan-500));
+
+    @extend %cyber-dialog-surface;
+
+    // The frame mixin sets position: relative, which would unpin a modal dialog
+    position: fixed;
+    height: fit-content;
+    margin: auto;
+    padding: 0;
+    border: 0;
+    overflow: visible;
+    background: transparent;
+    inset: 0;
+
+    // A closed dialog must stay hidden despite the flex display above
+    &:not([open]) {
+      display: none;
+    }
+
+    &::backdrop {
+      background: color-mix(in srgb, var(--cyber-void-700) 78%, transparent);
+      backdrop-filter: blur(6px);
+    }
+
+    &[open] {
+      animation: cyber-dialog-in var(--duration-normal) var(--ease-out-expo);
+    }
+
+    &--sm {
+      --modal-width: 360px;
+    }
+
+    &--lg {
+      --modal-width: 720px;
+    }
+
+    &--magenta {
+      --modal-accent: var(--cyber-magenta-500);
+    }
+
+    &--yellow {
+      --modal-accent: var(--cyber-yellow-500);
+    }
+
+    &--green {
+      --modal-accent: var(--cyber-green-500);
+    }
+  }
+
+  // --------------------------------------------------------
+  // Confirm layout: centred icon, title, message
+  // --------------------------------------------------------
+
   .cyber-modal-confirm {
     text-align: center;
 
@@ -232,17 +319,23 @@
       padding: var(--space-lg) var(--space-md);
     }
 
+    .cyber-modal__footer {
+      justify-content: center;
+    }
+
     &__icon {
+      --confirm-color: var(--color-accent, var(--cyber-cyan-500));
+
       display: flex;
       align-items: center;
       justify-content: center;
       width: 4rem;
       height: 4rem;
       margin: 0 auto var(--space-md);
-      border: var(--border-medium) solid var(--cyber-cyan-500);
-      color: var(--cyber-cyan-500);
-      background: color-mix(in srgb, var(--cyber-cyan-500) 15%, transparent);
-      box-shadow: 0 0 15px color-mix(in srgb, var(--cyber-cyan-500) 40%, transparent);
+      border: var(--border-medium) solid var(--confirm-color);
+      color: var(--confirm-color);
+      background: color-mix(in srgb, var(--confirm-color) 12%, transparent);
+      box-shadow: 0 0 1rem color-mix(in srgb, var(--confirm-color) 35%, transparent);
 
       svg {
         width: 2rem;
@@ -250,34 +343,22 @@
       }
 
       &--warning {
-        border-color: var(--cyber-yellow-500);
-        color: var(--cyber-yellow-500);
-        background: color-mix(in srgb, var(--cyber-yellow-500) 15%, transparent);
-        box-shadow: 0 0 15px color-mix(in srgb, var(--cyber-yellow-500) 40%, transparent);
+        --confirm-color: var(--cyber-yellow-500);
       }
 
       &--error {
-        border-color: var(--cyber-magenta-500);
-        color: var(--cyber-magenta-500);
-        background: color-mix(in srgb, var(--cyber-magenta-500) 15%, transparent);
-        box-shadow: 0 0 15px color-mix(in srgb, var(--cyber-magenta-500) 40%, transparent);
+        --confirm-color: var(--cyber-magenta-500);
       }
 
       &--success {
-        border-color: var(--cyber-green-500);
-        color: var(--cyber-green-500);
-        background: color-mix(in srgb, var(--cyber-green-500) 15%, transparent);
-        box-shadow: 0 0 15px color-mix(in srgb, var(--cyber-green-500) 40%, transparent);
+        --confirm-color: var(--cyber-green-500);
       }
     }
 
     &__title {
+      @include kit.label-text(var(--text-xl), 0.05em);
+
       margin: 0 0 var(--space-xs);
-      font-family: var(--font-display);
-      font-size: var(--text-xl);
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
       color: var(--color-text-primary);
     }
 
@@ -287,17 +368,40 @@
     }
   }
 
-  // --------------------------------------------------------
-  // Reduced motion support
-  // --------------------------------------------------------
+  @keyframes cyber-dialog-in {
+    from {
+      opacity: 0%;
+      transform: translateY(-12px) scale(0.97);
+    }
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .cyber-modal,
+    .cyber-dialog::backdrop {
+      background: var(--cyber-void-700);
+      backdrop-filter: none;
+    }
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    .cyber-modal {
-      transition: none;
+    @include -reduced-motion;
+  }
 
-      &__dialog {
-        transition: none;
-      }
+  [data-motion="reduce"] {
+    @include -reduced-motion;
+  }
+
+  @media (prefers-contrast: more) {
+    .cyber-modal__dialog,
+    .cyber-dialog {
+      --frame-border-color: var(--modal-accent);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .cyber-modal__dialog,
+    .cyber-dialog {
+      filter: none;
     }
   }
 }

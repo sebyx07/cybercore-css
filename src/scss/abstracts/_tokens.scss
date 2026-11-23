@@ -1,0 +1,305 @@
+// ============================================================
+// Token source maps
+// Sass-side source of truth for the scales that generate both CSS custom
+// properties (core/variables) and utilities. Emits no CSS.
+// Runtime overrides belong in CSS custom properties, not here.
+// ============================================================
+
+// --------------------------------------------------------
+// Palette
+// Hand-tuned anchor shades per hue. Every missing 100-900 step is derived
+// at runtime from the hue's 500 anchor with color-mix(), so overriding
+// --cyber-<hue>-500 at :root retints the derived steps too.
+// --------------------------------------------------------
+
+$palette-anchors: (
+  "cyan": (
+    300: #87eaf2,
+    400: #54d1db,
+    500: #00f0ff,
+    600: #00c4cc,
+    700: #0097a7,
+    900: #005d6a,
+  ),
+  "magenta": (
+    500: #ff2a6d,
+    700: #b31248,
+  ),
+  "yellow": (
+    500: #fcee0a,
+    700: #aca406,
+  ),
+  "green": (
+    400: #43ff83,
+    500: #05ffa1,
+    700: #03a969,
+    900: #015331,
+  ),
+  "acid": (
+    500: #b8ff1f,
+  ),
+  "amber": (
+    500: #ffb000,
+  ),
+  "violet": (
+    500: #a35cff,
+  ),
+);
+
+// Every palette step a hue exposes as --cyber-<hue>-<step>
+$shade-steps: (100, 200, 300, 400, 500, 600, 700, 800, 900);
+
+// How much of the 500 anchor survives in each derived step.
+// Lighter steps mix toward white, darker steps toward black.
+$shade-mix: (
+  100: (
+    "white",
+    20%,
+  ),
+  200: (
+    "white",
+    40%,
+  ),
+  300: (
+    "white",
+    60%,
+  ),
+  400: (
+    "white",
+    80%,
+  ),
+  600: (
+    "black",
+    80%,
+  ),
+  700: (
+    "black",
+    62%,
+  ),
+  800: (
+    "black",
+    45%,
+  ),
+  900: (
+    "black",
+    30%,
+  ),
+);
+
+// Neutrals are fully hand-tuned (they define surfaces and text contrast)
+$void: (
+  100: #2a2d3a,
+  200: #1f2230,
+  300: #181a25,
+  400: #12141d,
+  500: #0d0e14,
+  600: #0a0b10,
+  700: #07080c,
+  800: #040508,
+  900: #010204,
+  950: #000,
+);
+
+// Chrome: text and borders, light to dark
+$chrome: (
+  100: #f0f1f5,
+  200: #d1d4de,
+  300: #b2b7c7,
+  400: #939ab0,
+  500: #747d99,
+  600: #5c647a,
+  700: #454b5e,
+  800: #2f3443,
+  900: #1c1f29,
+);
+
+// --------------------------------------------------------
+// Accent themes (data-theme="<name>")
+// light / base / dark map onto --color-accent-light / --color-accent /
+// --color-accent-dark. "cyan" is the default and needs no attribute.
+// --------------------------------------------------------
+
+$themes: (
+  "cyan": (
+    light: var(--cyber-cyan-300),
+    base: var(--cyber-cyan-500),
+    dark: var(--cyber-cyan-700),
+  ),
+  "magenta": (
+    light: var(--cyber-magenta-300),
+    base: var(--cyber-magenta-500),
+    dark: var(--cyber-magenta-700),
+  ),
+  "acid": (
+    light: var(--cyber-acid-300),
+    base: var(--cyber-acid-500),
+    dark: var(--cyber-acid-700),
+  ),
+  "amber": (
+    light: var(--cyber-amber-300),
+    base: var(--cyber-amber-500),
+    dark: var(--cyber-amber-700),
+  ),
+);
+
+// --------------------------------------------------------
+// Spacing (fluid). Key = utility suffix and --space-<key>.
+// --------------------------------------------------------
+
+$spacing: (
+  3xs: clamp(0.25rem, 0.23rem + 0.09vw, 0.31rem),
+  2xs: clamp(0.5rem, 0.46rem + 0.18vw, 0.63rem),
+  xs: clamp(0.75rem, 0.7rem + 0.28vw, 0.94rem),
+  sm: clamp(1rem, 0.93rem + 0.37vw, 1.25rem),
+  md: clamp(1.5rem, 1.39rem + 0.56vw, 1.88rem),
+  lg: clamp(2rem, 1.86rem + 0.74vw, 2.5rem),
+  xl: clamp(3rem, 2.78rem + 1.11vw, 3.75rem),
+  2xl: clamp(4rem, 3.71rem + 1.48vw, 5rem),
+  3xl: clamp(6rem, 5.57rem + 2.22vw, 7.5rem),
+);
+
+// --------------------------------------------------------
+// Typography (fluid). Key = --text-<key> and .cyber-text-<key>.
+// --------------------------------------------------------
+
+$type-scale: (
+  xs: clamp(0.6875rem, 0.66rem + 0.14vw, 0.75rem),
+  sm: clamp(0.8rem, 0.74rem + 0.32vw, 0.94rem),
+  base: clamp(1rem, 0.93rem + 0.37vw, 1.18rem),
+  lg: clamp(1.25rem, 1.16rem + 0.47vw, 1.47rem),
+  xl: clamp(1.56rem, 1.45rem + 0.59vw, 1.84rem),
+  2xl: clamp(1.95rem, 1.81rem + 0.74vw, 2.3rem),
+  3xl: clamp(2.44rem, 2.26rem + 0.92vw, 2.87rem),
+  4xl: clamp(3.05rem, 2.83rem + 1.15vw, 3.58rem),
+  5xl: clamp(3.81rem, 3.54rem + 1.44vw, 4.48rem),
+);
+
+// Heading level -> type-scale step
+$headings: (
+  1: 5xl,
+  2: 4xl,
+  3: 3xl,
+  4: 2xl,
+  5: xl,
+  6: lg,
+);
+
+// --font-weight-<key>
+$font-weights: (
+  light: 300,
+  normal: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700,
+  "black": 900,
+);
+
+// Line heights: --leading-<key>
+$leading: (
+  none: 1,
+  tight: 1.1,
+  snug: 1.3,
+  normal: 1.6,
+  relaxed: 1.75,
+);
+
+// Letter spacing: --tracking-<key>
+$tracking: (
+  tight: -0.01em,
+  normal: 0,
+  wide: 0.05em,
+  wider: 0.1em,
+  widest: 0.2em,
+);
+
+// --------------------------------------------------------
+// Shape
+// --------------------------------------------------------
+
+$radii: (
+  none: 0,
+  sm: 2px,
+  md: 4px,
+  lg: 8px,
+  xl: 12px,
+  2xl: 16px,
+  full: 9999px,
+);
+
+// Cut-corner (clip-path chamfer) sizes
+$clip-sizes: (
+  xs: 4px,
+  sm: 8px,
+  md: 12px,
+  lg: 20px,
+  xl: 32px,
+);
+
+// Interactive control heights: --control-height-<key>
+$control-heights: (
+  sm: 2rem,
+  md: 2.75rem,
+  lg: 3.5rem,
+);
+
+// --------------------------------------------------------
+// Stacking. Relative order matches the historic .cyber-z-* utilities.
+// --------------------------------------------------------
+
+$z-index: (
+  base: 0,
+  raised: 10,
+  dropdown: 50,
+  sticky: 100,
+  fixed: 200,
+  overlay: 900,
+  modal-backdrop: 950,
+  modal: 1000,
+  popover: 1100,
+  toast: 1200,
+  tooltip: 1300,
+);
+
+// --------------------------------------------------------
+// Motion. Durations collapse to 0ms under reduced motion (themes/motion).
+// --------------------------------------------------------
+
+$durations: (
+  instant: 75ms,
+  fast: 150ms,
+  normal: 300ms,
+  slow: 500ms,
+  slower: 1000ms,
+);
+
+// --ease-<key>
+$easings: (
+  linear: linear,
+  in: cubic-bezier(0.4, 0, 1, 1),
+  out: cubic-bezier(0, 0, 0.2, 1),
+  in-out: cubic-bezier(0.4, 0, 0.2, 1),
+  smooth: cubic-bezier(0.4, 0, 0.2, 1),
+  cyber: cubic-bezier(0.77, 0, 0.175, 1),
+  bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55),
+  out-expo: cubic-bezier(0.16, 1, 0.3, 1),
+);
+
+// --------------------------------------------------------
+// Responsive breakpoints. Custom properties cannot be used inside
+// @media / @container conditions, so these stay Sass values.
+// --------------------------------------------------------
+
+$breakpoints: (
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+);
+
+// Container query sizes (cq-up mixin)
+$container-breakpoints: (
+  xs: 20rem,
+  sm: 30rem,
+  md: 48rem,
+  lg: 64rem,
+);
