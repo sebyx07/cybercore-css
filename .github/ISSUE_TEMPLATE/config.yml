@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Live demo and component docs
+    url: https://sebyx07.github.io/cybercore-css/
+    about: Every component, effect and utility with copy-paste markup.
+  - name: Class reference (also for AI agents)
+    url: https://github.com/sebyx07/cybercore-css/blob/main/llms.txt
+    about: All classes, tokens and usage rules in one file.
+  - name: Report a security vulnerability
+    url: https://github.com/sebyx07/cybercore-css/security/advisories/new
+    about: Please report vulnerabilities privately, not in a public issue.

@@ -33,13 +33,6 @@
       "options": {
         "trailingComma": "none"
       }
-    },
-    {
-      "files": "*.md",
-      "options": {
-        "proseWrap": "always",
-        "printWidth": 80
-      }
     }
   ]
 }

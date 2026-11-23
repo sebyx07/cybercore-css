@@ -1,0 +1,7 @@
+# zizmor (workflow security) runs in CI's "Lint / workflows" job.
+rules:
+  self-repository:
+    ignore:
+      # actionlint 1.7.12 rejects the `$/` self-repository form, and bin/repo-guards looks for
+      # `uses: ./.github/workflows/ci.yml`; keep `./` until actionlint accepts `$/`.
+      - release.yml

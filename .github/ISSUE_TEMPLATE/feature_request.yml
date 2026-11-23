@@ -1,0 +1,35 @@
+name: Feature request
+description: A new component, variant, utility, token, effect or icon
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to build?
+      description: The interface you want and what the framework is missing for it.
+    validations:
+      required: true
+  - type: textarea
+    id: markup
+    attributes:
+      label: The markup you would like to write
+      description: Proposed class names (cyber-block, cyber-block__element, cyber-block--modifier).
+      render: html
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Current workaround
+  - type: dropdown
+    id: js
+    attributes:
+      label: Can it work without JavaScript?
+      description: The framework ships no script. State comes from native HTML state or ARIA attributes the page sets.
+      options: ['Yes', 'No', 'Not sure']
+    validations:
+      required: true
+  - type: checkboxes
+    id: pr
+    attributes:
+      label: Contribution
+      options:
+        - label: I would like to send a pull request for this

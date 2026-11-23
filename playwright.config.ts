@@ -1,41 +1,50 @@
+// Visual regression of the demo site (built from the real framework CSS).
+//
+// Baselines are rendered in the official Playwright image so CI and every machine get the same
+// pixels: always run through scripts/visual.sh, never a bare `playwright test` on the host.
+//
+//   npm run build && scripts/visual.sh                      compare against the baselines
+//   npm run build && scripts/visual.sh --update-snapshots   accept the new rendering
 import { defineConfig, devices } from '@playwright/test';
+
+const PORT = 4319;
 
 export default defineConfig({
   testDir: './tests/visual',
+  snapshotPathTemplate: '{testDir}/__snapshots__/{testFilePath}/{arg}{ext}',
   fullyParallel: true,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
-  reporter: 'html',
+  forbidOnly: !!process.env['CI'],
+  retries: 0,
+  reporter: process.env['CI'] ? [['github'], ['html', { open: 'never' }]] : 'list',
+  updateSnapshots: 'none',
   use: {
-    baseURL: 'http://localhost:4173',
-    trace: 'on-first-retry',
+    baseURL: `http://localhost:${PORT}/cybercore-css/`,
+    viewport: { width: 1280, height: 800 },
+    deviceScaleFactor: 1,
+    colorScheme: 'dark',
+    reducedMotion: 'reduce',
+    trace: 'retain-on-failure',
   },
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 800 } },
     },
   ],
   webServer: {
-    command: 'npm run preview',
-    url: 'http://localhost:4173',
-    reuseExistingServer: !process.env.CI,
-    timeout: 120000,
+    command: `npx vite preview --config demo/vite.config.ts --port ${PORT} --strictPort`,
+    url: `http://localhost:${PORT}/cybercore-css/`,
+    reuseExistingServer: false,
+    timeout: 60_000,
   },
-  snapshotDir: './tests/visual/__snapshots__',
+  timeout: 60_000,
   expect: {
+    timeout: 30_000,
     toHaveScreenshot: {
-      maxDiffPixels: 100,
-      threshold: 0.2,
+      animations: 'disabled',
+      caret: 'hide',
+      scale: 'css',
+      maxDiffPixelRatio: 0.001,
     },
   },
 });

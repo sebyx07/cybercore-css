@@ -1,0 +1,148 @@
+#!/usr/bin/env bash
+# Repository guards that need no Node and no node_modules. bin/check runs them (full and fast),
+# and through it the CI gate.
+#
+#   1. Parity: ci.yml still runs the full bin/check and still has the aggregate "CI OK" job;
+#      release.yml still proves the commit before it publishes; bin/check still runs this
+#      script and bin/docs-check, and every npm script it names exists (and equals `npm run check`). Otherwise "green locally" stops meaning
+#      "green in CI", or an unproved commit is published to npm.
+#   2. Agent surface: the files an agent reads as instructions (CLAUDE.md, AGENTS.md, .claude/,
+#      .dz/, llms.txt, .mcp.json) carry no zero-width or bidi control characters and no HTML
+#      comments (both invisible in review, both read by the model); committed settings set
+#      neither ANTHROPIC_BASE_URL nor enableAllProjectMcpServers.
+#   3. Size: the root CLAUDE.md and .dz/maintainer/reviewer.md stay under 12,000 characters (the
+#      developerz.ai loader cuts the rest), and AGENTS.md is a symlink to CLAUDE.md.
+#   4. Package invariants: no runtime dependencies (the framework is CSS; a `dependencies` entry
+#      would be installed by every user), and dist/ is not committed (it is built at release).
+#   5. Versioned URLs: every `cybercore-css@<x.y.z>` in README.md and llms.txt names the version
+#      in package.json, so a copied CDN <link> is the release the docs describe.
+#   6. Workflows: every third-party action is pinned to a full commit SHA.
+#
+# Exit: 0 clean · 1 a guard failed (each failure names the file and the fix).
+set -uo pipefail
+cd "$(dirname "${BASH_SOURCE[0]}")/.." || exit 1
+export LC_ALL=C.UTF-8
+
+MAX_CHARS=12000
+ci=.github/workflows/ci.yml
+release=.github/workflows/release.yml
+failures=0
+
+fail() {
+  printf '✗ %s\n' "$1"
+  [ "$#" -lt 2 ] || printf '%s\n' "$2" | sed 's/^/    /'
+  failures=$((failures + 1))
+}
+
+# uncommented <file> — the file without its comment-only lines (nothing when it is missing).
+uncommented() { [ -f "$1" ] && grep -vE '^[[:space:]]*#' "$1"; }
+
+# 1. Parity. `bin/check` must end the command: `bin/check fast` or `files` is not the gate.
+[ -f "$ci" ] || fail "$ci is missing" "The gate has no CI: restore the workflow."
+uncommented "$ci" | grep -qE '(^|[[:space:]])bin/check[[:space:]]*$' ||
+  fail "$ci does not run the full bin/check" "CI must run the local gate: a step with 'run: bin/check'."
+uncommented "$ci" | grep -qE '^[[:space:]]*name:[[:space:]]*"?CI OK"?[[:space:]]*$' ||
+  fail "$ci has no job named 'CI OK'" "The ruleset and .dz/maintainer/maintainer.yml require that check: restore the aggregate job."
+[ -f "$release" ] || fail "$release is missing" "Merging a package.json version bump is the release; without the workflow nothing publishes."
+if [ -f "$release" ]; then
+  uncommented "$release" | grep -qE '(uses:[[:space:]]*\./\.github/workflows/ci\.yml|(^|[[:space:]])bin/check)[[:space:]]*$' ||
+    fail "$release publishes without the gate" "It must call ci.yml (uses: ./.github/workflows/ci.yml) or run bin/check before npm publish."
+  uncommented "$release" | grep -qE 'NPM_TOKEN|NODE_AUTH_TOKEN' &&
+    fail "$release uses an npm token" "Publishing is npm trusted publishing (OIDC, id-token: write): no token secret."
+fi
+uncommented bin/check | grep -qE '(^|[[:space:]])bin/repo-guards[[:space:]]*$' ||
+  fail "bin/check no longer runs bin/repo-guards" "Restore the 'run_step guards bin/repo-guards' lines."
+uncommented bin/check | grep -qE '(^|[[:space:]])bin/docs-check[[:space:]]*$' ||
+  fail "bin/check no longer runs bin/docs-check" "Restore the 'run_step docs bin/docs-check' line of the full tier."
+
+# steps <array name> — the npm scripts bin/check lists in that array.
+steps() { sed -nE "s/^$1=\((.*)\)[[:space:]]*\$/\1/p" bin/check | tr ' ' '\n' | grep -v '^$'; }
+full_steps="$(steps FULL_STEPS)"
+[ -n "$full_steps" ] || fail "bin/check has no FULL_STEPS list" "Restore the FULL_STEPS=(…) line."
+for script in $full_steps $(steps FAST_STEPS); do
+  grep -qE "^[[:space:]]*\"$script\"[[:space:]]*:" package.json ||
+    fail "bin/check runs 'npm run $script' but package.json has no such script" "Add the script, or fix the list in bin/check."
+done
+# `npm run check` is the same list in package.json (for people who do not use bin/): keep them equal.
+npm_check=$(sed -nE 's/^[[:space:]]*"check"[[:space:]]*:[[:space:]]*"(.*)",?[[:space:]]*$/\1/p' package.json | sed 's/ && /\n/g' | sed -E 's/^npm run //')
+if [ -n "$npm_check" ] && [ "$npm_check" != "$full_steps" ]; then
+  fail "bin/check's FULL_STEPS and package.json's \"check\" script list different steps" "bin/check:    $(printf '%s' "$full_steps" | tr '\n' ' ')
+package.json: $(printf '%s' "$npm_check" | tr '\n' ' ')
+Make them the same list, in the same order."
+fi
+for script in $(steps FAST_STEPS); do
+  printf '%s\n' "$full_steps" | grep -qxF "$script" ||
+    case "$script" in
+      lint:*) printf '%s\n' "$full_steps" | grep -qxF lint ||
+        fail "bin/check fast runs '$script' but the full gate runs neither it nor 'lint'" "FAST_STEPS must be a subset of what FULL_STEPS covers." ;;
+      *) fail "bin/check fast runs '$script' but the full gate does not" "FAST_STEPS must be a subset of FULL_STEPS." ;;
+    esac
+done
+
+# 2. Agent surface: tracked and untracked files, minus what .gitignore excludes.
+mapfile -t surface < <(git ls-files --cached --others --exclude-standard -- \
+  CLAUDE.md '*/CLAUDE.md' AGENTS.md '.claude/*' '.dz/*' llms.txt 'llms-*.txt' .mcp.json | sort -u)
+existing=()
+for path in "${surface[@]}"; do [ -f "$path" ] && existing+=("$path"); done
+[ "${#existing[@]}" -gt 0 ] || fail "no agent-surface file found" "CLAUDE.md is missing, or this is not a git checkout."
+
+if [ "${#existing[@]}" -gt 0 ]; then
+  hits=$(grep -nP '[\x{200B}-\x{200D}\x{2060}\x{FEFF}\x{202A}-\x{202E}\x{2066}-\x{2069}]' "${existing[@]}" /dev/null | cut -c1-160)
+  [ -z "$hits" ] || fail "zero-width or bidi control character in a file agents read" "$hits"
+
+  hits=$(grep -nF '<!--' "${existing[@]}" /dev/null | cut -c1-160)
+  [ -z "$hits" ] || fail "HTML comment in a file agents read (write it as visible text, or delete it)" "$hits"
+
+  settings=()
+  for path in "${existing[@]}"; do case "$path" in *.json) settings+=("$path") ;; esac; done
+  if [ "${#settings[@]}" -gt 0 ]; then
+    hits=$(grep -nE 'ANTHROPIC_BASE_URL|enableAllProjectMcpServers' "${settings[@]}" /dev/null | cut -c1-160)
+    [ -z "$hits" ] || fail "committed settings reroute the API or auto-start every MCP server" "$hits"
+  fi
+fi
+
+# 3. Size, and one brain under two names.
+for file in CLAUDE.md .dz/maintainer/reviewer.md; do
+  [ -f "$file" ] || { fail "$file is missing" "Restore it."; continue; }
+  chars=$(wc -m <"$file")
+  [ "$chars" -lt "$MAX_CHARS" ] ||
+    fail "$file is $chars characters; the limit is under $MAX_CHARS" "Move detail into a nested CLAUDE.md, docs/ or a skill under .claude/skills/."
+done
+[ "$(readlink AGENTS.md 2>/dev/null)" = CLAUDE.md ] ||
+  fail "AGENTS.md is not a symlink to CLAUDE.md" "ln -sf CLAUDE.md AGENTS.md"
+
+# 4. Package invariants.
+# Prints the first runtime dependency, if package.json's "dependencies" object has any entry.
+runtime_dep=$(awk '
+  /^[[:space:]]*"dependencies"[[:space:]]*:/ { if ($0 ~ /\{[[:space:]]*\}/) exit; inside = 1; next }
+  inside && /^[[:space:]]*\}/ { exit }
+  inside && /"/ { print; exit }
+' package.json)
+[ -z "$runtime_dep" ] ||
+  fail "package.json has runtime dependencies" "$runtime_dep
+The framework ships CSS and needs nothing at runtime: move the entry to devDependencies."
+tracked_dist=$(git ls-files -- dist | head -n 3)
+[ -z "$tracked_dist" ] || fail "dist/ is committed" "$tracked_dist
+dist/ is built at release (npm run build:css): git rm -r --cached dist"
+
+# 5. Versioned URLs.
+version=$(sed -nE 's/^[[:space:]]*"version"[[:space:]]*:[[:space:]]*"([^"]+)".*/\1/p' package.json | head -n 1)
+[ -n "$version" ] || fail "package.json has no version" "Restore the \"version\" field."
+for file in README.md llms.txt; do
+  [ -f "$file" ] || continue
+  hits=$(grep -noE 'cybercore-css@[0-9]+\.[0-9]+\.[0-9]+[A-Za-z0-9.-]*' "$file" | grep -vE "cybercore-css@${version//./\\.}\$" | cut -c1-160)
+  [ -z "$hits" ] || fail "$file names a version other than package.json's $version" "$hits
+Use cybercore-css@$version (a release pull request updates these with the version)."
+done
+
+# 6. Third-party actions pinned to a commit SHA (local `./` workflows and actions are exempt).
+hits=$(grep -nE '^[[:space:]]*(-[[:space:]]+)?uses:' .github/workflows/*.yml /dev/null |
+  grep -vE 'uses:[[:space:]]*\./' | grep -vE 'uses:[[:space:]]*[^@[:space:]]+@[0-9a-f]{40}([[:space:]]|$)' | cut -c1-160)
+[ -z "$hits" ] || fail "action not pinned to a full commit SHA" "$hits
+Look the SHA up: gh api repos/<owner>/<action>/git/ref/tags/<tag> --jq .object.sha  (keep the tag as a trailing comment)."
+
+if [ "$failures" -gt 0 ]; then
+  printf '\nbin/repo-guards: FAILED (%s)\n' "$failures"
+  exit 1
+fi
+printf 'bin/repo-guards: ok (%s agent-surface files, CLAUDE.md %s chars, version %s)\n' "${#existing[@]}" "$(wc -m <CLAUDE.md)" "$version"

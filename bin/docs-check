@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+# Docs truth check: every `cyber-*` class and every `--token` that README.md, llms.txt and
+# docs/*.md name must exist in the Sass sources. A reference that names a class the framework
+# does not have sends people (and the AI tools reading llms.txt) to markup that renders unstyled.
+#
+#   bin/docs-check            check README.md, llms.txt, docs/*.md, and that the class and
+#                             token lists in llms.txt are current (npm run docs:llms)
+#   bin/docs-check <file>…    check only these files
+#
+# It compiles every module (the default bundle plus the Sass-only modules) and compares names.
+# In prose, write a class in full (`cyber-btn--magenta`): a pattern such as `cyber-btn--{color}`
+# is read as the class `cyber-btn`. A name that ends in a placeholder or a wildcard is skipped:
+# `cyber-<block>`, `--cyber-cyan-<step>`, `--color-bg-*`.
+#
+# Exit: 0 every name exists · 1 a file names something that does not exist · 75 environment
+# missing (Node, node_modules: nothing was checked).
+set -uo pipefail
+# shellcheck source-path=SCRIPTDIR source=_dx.sh
+source "$(dirname "${BASH_SOURCE[0]}")/_dx.sh"
+cd "$ROOT" || exit 1
+
+case "${1:-}" in
+  -h | --help) sed -n '2,16p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+esac
+
+use_node require
+require_deps
+
+if [ "$#" -gt 0 ]; then
+  files=("$@")
+else
+  files=(README.md llms.txt)
+  for doc in docs/*.md; do [ -f "$doc" ] && files+=("$doc"); done
+fi
+
+work="$ROOT/tmp/docs-check"
+rm -rf "$work" && mkdir -p "$work"
+printf '@use "cybercore";\n@use "components";\n@use "effects";\n@use "utilities";\n' >"$work/all.scss"
+npx --no-install sass --quiet --no-source-map --load-path=src/scss "$work/all.scss" "$work/all.css" ||
+  { echo "bin/docs-check: the Sass sources do not compile" >&2; exit 1; }
+
+grep -oE '\.cyber-[A-Za-z0-9_-]+' "$work/all.css" | sed 's/^\.//' | LC_ALL=C sort -u >"$work/classes"
+grep -oE -e '--[A-Za-z0-9_-]+[[:space:]]*:' "$work/all.css" | grep -oE -e '--[A-Za-z0-9_-]+' | LC_ALL=C sort -u >"$work/tokens"
+grep -oE '@keyframes[[:space:]]+[A-Za-z0-9_-]+' "$work/all.css" | awk '{print $2}' | LC_ALL=C sort -u >"$work/keyframes"
+
+failures=0
+for file in "${files[@]}"; do
+  [ -f "$file" ] || { echo "bin/docs-check: no such file: $file" >&2; exit 2; }
+  # Class names: `cyber-…` not preceded by a name character, `-` (a token) or `/` `@` (a URL or
+  # package path) or `#` (an id), and not ending in a placeholder or wildcard.
+  named=$(grep -oE '(^|[^A-Za-z0-9_/@#-])cyber-[a-z0-9]+([_-]+[a-z0-9]+)*([_-]*[<*])?' "$file" |
+    grep -v '[<*]$' | grep -oE 'cyber-[a-z0-9]+([_-]+[a-z0-9]+)*' | LC_ALL=C sort -u)
+  unknown=$(printf '%s\n' "$named" | grep -v '^$' | LC_ALL=C comm -23 - "$work/classes" | LC_ALL=C comm -23 - "$work/keyframes")
+  tokens=$(grep -oE -e '(^|[^A-Za-z0-9_-])--(cyber|color|space|text|font|radius|duration|ease|glow|z|leading|tracking|clip|border|control-height|focus-ring|noise|scanline)-[a-z0-9]+(-[a-z0-9]+)*(-?[<*])?' "$file" |
+    grep -v '[<*]$' | grep -oE -e '--[a-z0-9-]+' | LC_ALL=C sort -u)
+  unknown_tokens=$(printf '%s\n' "$tokens" | grep -v '^$' | LC_ALL=C comm -23 - "$work/tokens")
+  if [ -n "$unknown" ] || [ -n "$unknown_tokens" ]; then
+    failures=$((failures + 1))
+    printf '✗ %s names what the framework does not have:\n' "$file"
+    [ -z "$unknown" ] || printf '%s\n' "$unknown" | sed 's/^/    class  ./'
+    [ -z "$unknown_tokens" ] || printf '%s\n' "$unknown_tokens" | sed 's/^/    token  /'
+  fi
+done
+
+# llms.txt's class and token lists are generated (npm run docs:llms): stale means they drifted.
+if [ "$#" -eq 0 ] && ! node scripts/gen-llms.ts --check; then
+  failures=$((failures + 1))
+fi
+
+if [ "$failures" -gt 0 ]; then
+  printf '\nbin/docs-check: FAILED (%s file(s)). Fix the doc, or add the class or token to src/scss/.\n' "$failures"
+  exit 1
+fi
+printf 'bin/docs-check: ok (%s files against %s classes, %s tokens)\n' "${#files[@]}" "$(wc -l <"$work/classes")" "$(wc -l <"$work/tokens")"

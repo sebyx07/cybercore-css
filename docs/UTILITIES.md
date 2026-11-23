@@ -1,31 +1,23 @@
 # Utility Classes Reference
 
-Quick reference for all CYBERCORE CSS utility classes.
+Every utility class in Cybercore CSS, by family. Live examples: [the demo's utilities pages](https://sebyx07.github.io/cybercore-css/utilities/).
 
-## Modular Import
+`bin/docs-check` (part of `bin/check`) fails when this file names a class the Sass sources do not define, so the lists below are the classes that exist.
 
-Import only the utilities you need:
+## What is in the CDN stylesheet
+
+`dist/cybercore.css` includes the families that `src/scss/cybercore.scss` loads. The others are Sass modules only: they ship as source, and you load the ones you use. [`llms.txt`](../llms.txt) marks each family, and each demo page says whether its classes are in the bundle.
+
+## Loading one family with Sass
 
 ```scss
-// Import specific utilities
-@use 'cybercore-css/utilities/display';
-@use 'cybercore-css/utilities/flex';
-@use 'cybercore-css/utilities/grid';
-@use 'cybercore-css/utilities/spacing';
-@use 'cybercore-css/utilities/text';
-@use 'cybercore-css/utilities/backgrounds';
-@use 'cybercore-css/utilities/borders';
-@use 'cybercore-css/utilities/shadows';
-@use 'cybercore-css/utilities/transforms';
-@use 'cybercore-css/utilities/animation';
-@use 'cybercore-css/utilities/transitions';
-@use 'cybercore-css/utilities/position';
-@use 'cybercore-css/utilities/sizing';
-@use 'cybercore-css/utilities/layout';
-@use 'cybercore-css/utilities/interactivity';
-@use 'cybercore-css/utilities/filters';
-@use 'cybercore-css/utilities/accessibility';
+// Bundlers that read package exports (Vite, webpack)
+@use 'cybercore-css/scss/utilities/display';
+@use 'cybercore-css/scss/utilities/backgrounds';
+@use 'cybercore-css/scss/utilities/transforms';
 ```
+
+The module name is the file name under `src/scss/utilities/`: `display`, `flex`, `grid`, `spacing`, `text`, `backgrounds`, `borders`, `shadows`, `transforms`, `animation`, `transitions`, `position`, `sizing`, `layout`, `interactivity`, `filters`, `accessibility`, `icons`. Utilities read the design tokens, so load the framework (or at least its tokens) first.
 
 ---
 

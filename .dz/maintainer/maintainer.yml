@@ -1,0 +1,195 @@
+# yaml-language-server: $schema=https://developerz.ai/schemas/maintainer.v1.json
+# developerz.ai maintainer policy for sebyx07/cybercore-css
+#
+# AI-MANAGED, COMMUNITY-FRIENDLY. A public CSS framework with outside contributors. The agent
+# handles issues, pull requests and updates end to end, for everyone: outside contributors,
+# collaborators, the owner and the dependency bots. It triages, answers, reviews, declines with a
+# reason, merges, and closes what has stalled on its reporter or author. A pull request merges
+# once its author says it is ready (out of draft / marked ready for review), it has been reviewed
+# and "CI OK" is green. A draft or a "WIP" / "DO NOT MERGE" title is never merged.
+#
+# Outside contributors' CSS, demo and docs pull requests are welcome and merge on green like
+# anyone's. A human is asked only for what `escalate` names, the platform's hardcoded categories
+# (security, license, CLA), and two holds on outside contributions: GitHub asks a maintainer to
+# approve a first-time contributor's CI run (a repository Actions setting), and changes to CI,
+# release or publish automation stay with the owner (the last `triage.non_goals` line).
+#
+# Each week the `release-due` checkup judges whether a release is needed and opens a release PR
+# when so, and merging it IS the release (.github/workflows/release.yml publishes to npm when the
+# version in package.json changes on main, then tags). Dependency-bot PRs merge through this
+# agent only: there is no second merger (no GitHub auto-merge workflow) that would skip review.
+#
+# The gate is the repository, not this file: CI's aggregate "CI OK" check. Verify the ruleset with
+# `gh api repos/sebyx07/cybercore-css/rulesets` before trusting any sentence here about it.
+version: 1
+
+tone:
+  voice: friendly
+  language: en
+
+triage:
+  skip_project_members: false
+  ask_for_repro: true
+  # A rendering bug is unreproducible without the markup, the framework version and the browser.
+  required_fields: [steps, expected, actual, version, environment]
+  qualify_into: [bug, feature, dupe, question, docs]
+  close_unanswered_repro_after_days: 14
+  # Proposals this project will not take (from CLAUDE.md "Invariants" and "What not to build").
+  non_goals:
+    - "Shipping JavaScript or a runtime dependency: state is styled from native state and ARIA attributes (:checked, <details>, <dialog>, [aria-expanded]); the page owns any script"
+    - "Renaming or removing a shipped cyber-* class or a --cyber-* / --space-* / --glow-* token outside a major release: both are public API"
+    - "Classes without the cyber- prefix, or a second naming scheme beside BEM (cyber-block__element--modifier)"
+    - "Motion with no prefers-reduced-motion fallback, or text and focus states under WCAG AA contrast"
+    - "A light theme by default, or a restyle away from the cyberpunk look (dark, neon, angular): theming is done by overriding tokens"
+    - "Framework wrappers in this package (React, Vue, Svelte components): the framework ships CSS, SCSS sources and the icon definitions only"
+    - "A runtime dependency, a CSS-in-JS build, Tailwind or PostCSS plugins required of users: dist/cybercore.css works from a <link> tag"
+    - "Hardcoded colours, spacing or fonts in a component where a token exists; styles outside their @layer"
+    - "Backwards-compatibility shims, deprecated aliases kept forever, commented-out code or speculative abstractions"
+    - "Outside changes to CI, release or publish automation (.github/, bin/, .dz/, package.json version or scripts): owner only. Dependency-bot bumps are exempt: merge on green"
+
+handoff:
+  mode: fleet
+  ask_reporter_first: false
+
+pr:
+  wait_for_other_bots: [copilot]
+  auto_merge: true
+  # Every author: the bot's own PRs, the dependency bots', outside contributors' and members'.
+  # "Ready" is the author's call: a PR merges only once it is out of draft, reviewed and green.
+  auto_merge_scope: any
+  require_review: true
+  # The one required check: ci.yml's aggregate job. Every CI job must pass.
+  required_checks:
+    - "CI OK"
+  close_awaiting_author_after_days: 21
+
+review:
+  enabled: true
+  force: true
+  depth: inline
+  profile: chill
+  request_changes: true
+  approval: false
+  high_level_summary: true
+  learnings: false
+  chat_auto_reply: true
+  auto_review:
+    enabled: true
+    incremental: true
+    drafts: false
+    base_branches: [main]
+    ignore_title_keywords: [WIP, "DO NOT MERGE"]
+  anti_noise:
+    severity_floor: minor
+    max_comments: 10
+    dedupe: true
+  path_filters: []
+  path_instructions:
+    - path: "src/scss/components/**"
+      instructions: >-
+        Every rule sits inside @layer components and every class is cyber-<block>,
+        cyber-<block>__<element> or cyber-<block>--<modifier>. A renamed or removed class is a
+        breaking change. Values come from tokens (var(--cyber-…), var(--space-…)): flag a
+        hardcoded colour, spacing or font. Interactive parts need :hover, :focus-visible and
+        disabled states, a visible focus ring, and text contrast at WCAG AA (4.5:1 body, 3:1
+        large text and UI). Any animation or transition longer than a state change needs a
+        prefers-reduced-motion: reduce rule. The framework ships no script: new state hooks are native state or ARIA attributes, not script-only classes. A new
+        component or modifier needs a test asserting the class is in the built CSS, a demo
+        example and a line in llms.txt.
+    - path: "src/scss/effects/**"
+      instructions: >-
+        Effects are decorative: they must not hide content or block pointer events
+        (pointer-events: none on overlays), must stop under prefers-reduced-motion: reduce, and
+        must not flash more than three times a second (WCAG 2.3.1). Animate transform and
+        opacity, not layout properties.
+    - path: "src/scss/utilities/**"
+      instructions: >-
+        Every rule sits inside @layer utilities. A utility does one thing and its name says
+        which; a renamed or removed utility is a breaking change. Check docs/UTILITIES.md and
+        llms.txt list what was added.
+    - path: "src/scss/core/**"
+      instructions: >-
+        Tokens (CSS custom properties) are public API: a renamed or removed token, or a changed
+        default that alters how an existing page looks, is breaking and needs the owner. A new
+        token needs a test and a line in llms.txt. The @layer order (reset, base, theme,
+        components, utilities) is a contract: changing it changes which user overrides win.
+        The reset and base rules must not raise specificity above a single class.
+    - path: "src/scss/abstracts/**"
+      instructions: >-
+        These Sass maps generate the custom properties and the utilities: a removed or renamed
+        key removes a token or a class (breaking, check bin/api-diff). The module manifest
+        decides what the default bundle contains and in which cascade order: a module added to
+        the bundle costs every CDN user bytes (the size budget in scripts/check-size.ts), a
+        module removed from it removes classes. Abstracts must emit no CSS.
+    - path: "src/scss/themes/**"
+      instructions: >-
+        A theme only reassigns tokens inside @layer theme; it never styles a component. Every
+        theme keeps text and focus-ring contrast at WCAG AA on the dark surfaces. The
+        reduced-motion and high-contrast rules must keep following the system preference as
+        well as the data-motion / data-contrast attributes.
+    - path: "src/icons/**"
+      instructions: >-
+        Icons are 24x24 viewBox, stroke currentColor, stroke-width 1.5, no inline style, script,
+        external reference or event handler attribute (SVG strings are injected as HTML by
+        consumers: anything executable is a security finding). A new icon is exported from the
+        registry and individual exports and passes npm run validate:icons. A renamed or removed
+        icon export is breaking.
+    - path: "demo/**"
+      instructions: >-
+        The demo is the documentation site, deployed to GitHub Pages under /cybercore-css/ with
+        hash routing. It consumes the framework's classes as a user would: flag demo-only CSS
+        that papers over a framework bug. Every example must be copy-pasteable HTML that works
+        without the demo's React code. Check keyboard access and alt text.
+    - path: "package.json"
+      instructions: >-
+        files, exports, main, style and sass are what npm users and CDNs resolve: a removed or
+        renamed entry is breaking. A new dependency must be a devDependency (the package has no
+        runtime dependencies). A version change is a release: it belongs in a release PR that
+        also moves CHANGELOG's Unreleased section, and in nothing else.
+    - path: ".github/workflows/**"
+      instructions: >-
+        release.yml must publish only when package.json's version changed on main, only after
+        the gate passed, through npm trusted publishing (id-token: write, no NPM_TOKEN). Actions
+        stay pinned to a commit SHA, permissions stay minimal, no pull_request_target, no
+        auto-merge workflow. ci.yml must keep running bin/check and keep the aggregate CI OK job.
+
+release:
+  # No release manager and no agent-published channels: release.yml owns the whole lane (npm
+  # first via trusted publishing, then the tag and the GitHub release from CHANGELOG).
+  manager: none
+  channels: []
+
+escalate:
+  # A breaking change asks the owner first: a major version is a maintainer's decision.
+  ask_before_acting: [breaking_change]
+
+# Modes. A `scout` firing (the default) is read-only: it reads the checkout and the platform's
+# signals and files asks, and an ask that names CI config or this policy is refused at ingest.
+# `mode: devops` runs the brief as one task with a shell and delivers a pull request (it needs
+# `handoff.mode: fleet`, set above). The three briefs that run commands and open a pull request
+# are devops; `health` only reports, so it stays a scout.
+schedules:
+  - name: health
+    days: [mon, tue, wed, thu, fri, sat, sun]
+    hours_utc: [6]
+    brief_file: .dz/schedules/health.md
+  # Weekly and judged, so a merge never cuts a release. One weekday per repo, so the fleet is not
+  # hit at once (zsv-ruby takes Wednesday, better_structure_sql Thursday, ruby2html Friday).
+  - name: release-due
+    days: [tue]
+    hours_utc: [3]
+    brief_file: .dz/schedules/release-due.md
+    mode: devops
+  # The one exception, so a confirmed security fix does not wait up to a week for the slot above.
+  - name: security-release
+    days: [mon, wed, thu, fri, sat, sun]
+    hours_utc: [2]
+    brief_file: .dz/schedules/security-release.md
+    mode: devops
+  # Monthly: the first Friday of the month (UTC days 1-7).
+  - name: improve
+    days: [fri]
+    weeks_of_month: [1]
+    hours_utc: [8]
+    brief_file: .dz/schedules/improve.md
+    mode: devops

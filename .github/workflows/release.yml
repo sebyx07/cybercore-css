@@ -1,0 +1,206 @@
+name: Release
+
+# Merging a version bump is the release. When "version" in package.json changes on main and
+# that version is not on npm yet, this runs the full CI workflow, publishes the package to npm,
+# then creates the tag v<version> and the GitHub Release with the notes from CHANGELOG.md.
+# Nobody tags or runs `npm publish` by hand. A version already on npm is never published
+# again; a run that published but failed before the GitHub Release is finished by a manual run
+# (workflow_dispatch on main). See RELEASE.md.
+#
+# Publishing uses npm trusted publishing (OIDC, with provenance), no token secret:
+# npmjs.com -> cybercore-css -> Settings -> Trusted publisher -> GitHub Actions,
+# repository sebyx07/cybercore-css, workflow release.yml, environment release.
+on:
+  push:
+    branches: [main]
+    paths: ['package.json']
+  workflow_dispatch:
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  version:
+    name: Is v<version> unreleased?
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      version: ${{ steps.v.outputs.version }}
+      tag: ${{ steps.v.outputs.tag }}
+      dist-tag: ${{ steps.v.outputs.dist-tag }}
+      publish: ${{ steps.v.outputs.publish }}
+      release: ${{ steps.v.outputs.release }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0 # tags, for the stray-tag check
+      - id: v
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "$GITHUB_REF" != refs/heads/main ]; then
+            echo "::error::Releases run from main only (got $GITHUB_REF)."
+            exit 1
+          fi
+          name=$(node -p 'require("./package.json").name')
+          version=$(node -p 'require("./package.json").version')
+          if ! printf '%s' "$version" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$'; then
+            echo "::error::package.json version '$version' is not a semantic version."
+            exit 1
+          fi
+          tag="v$version"
+          # A prerelease (1.0.0-rc.1) goes to the "next" dist-tag, never to "latest".
+          case "$version" in *-*) dist_tag=next ;; *) dist_tag=latest ;; esac
+
+          status=$(curl -s -o /dev/null -w '%{http_code}' "https://registry.npmjs.org/$name/$version")
+          case "$status" in
+            200) publish=false ;;
+            404) publish=true ;;
+            *) echo "::error::registry.npmjs.org answered HTTP $status; re-run later."; exit 1 ;;
+          esac
+
+          if gh release view "$tag" >/dev/null 2>&1; then release=false; else release=true; fi
+
+          # A tag that exists without a published version must point at this commit, or the
+          # release would publish one commit under another commit's tag.
+          if [ "$publish" = true ] && git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+            tagged=$(git rev-parse "refs/tags/$tag^{commit}")
+            if [ "$tagged" != "$GITHUB_SHA" ]; then
+              echo "::error::Tag $tag already points at $tagged, not $GITHUB_SHA, and $version is not on npm. Bump the version, or delete the stray tag."
+              exit 1
+            fi
+          fi
+
+          echo "version $version, tag $tag, dist-tag $dist_tag, publish to npm: $publish, create GitHub Release: $release"
+          {
+            echo "version=$version"
+            echo "tag=$tag"
+            echo "dist-tag=$dist_tag"
+            echo "publish=$publish"
+            echo "release=$release"
+          } >> "$GITHUB_OUTPUT"
+      - name: CHANGELOG.md has notes for this version
+        if: steps.v.outputs.release == 'true'
+        env:
+          VERSION: ${{ steps.v.outputs.version }}
+        run: scripts/changelog-notes.sh "$VERSION" > /dev/null
+
+  verify:
+    name: Verify
+    needs: version
+    if: needs.version.outputs.publish == 'true'
+    uses: ./.github/workflows/ci.yml
+
+  publish:
+    name: Publish ${{ needs.version.outputs.tag }} to npm
+    needs: [version, verify]
+    if: needs.version.outputs.publish == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment: release
+    permissions:
+      contents: read
+      id-token: write # npm trusted publishing (OIDC) and provenance
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # No dependency cache in the job that holds the OIDC token: a cache written by a pull
+      # request job must never be restored here.
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+          registry-url: https://registry.npmjs.org
+      - name: npm supports trusted publishing
+        run: |
+          npm_version=$(npm --version)
+          if [ "$(printf '%s\n' 11.5.1 "$npm_version" | sort -V | head -n 1)" != 11.5.1 ]; then
+            echo "::error::npm $npm_version is older than 11.5.1, the first with trusted publishing. Raise .nvmrc."
+            exit 1
+          fi
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Build the CSS
+        run: npm run build:css
+      # The package goes first: a tag or a GitHub Release with nothing behind it on npm would
+      # advertise a version `npm install` cannot serve. Already built: skip prepublishOnly.
+      - name: Publish
+        env:
+          DIST_TAG: ${{ needs.version.outputs.dist-tag }}
+        run: npm publish --provenance --access public --tag "$DIST_TAG" --ignore-scripts
+
+  github-release:
+    name: Tag + GitHub Release ${{ needs.version.outputs.tag }}
+    needs: [version, publish]
+    # Also runs when the version was already on npm (a re-run finishing a release whose GitHub
+    # step failed), but never after a failed publish.
+    if: >-
+      always() && needs.version.result == 'success' &&
+      needs.version.outputs.release == 'true' &&
+      (needs.publish.result == 'success' ||
+       (needs.publish.result == 'skipped' && needs.version.outputs.publish == 'false'))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write # create the tag + GitHub Release
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0 # history and tags, to find the commit that set the version
+      - name: Create the tag and the release from CHANGELOG.md
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.version.outputs.version }}
+          TAG: ${{ needs.version.outputs.tag }}
+          PUBLISH_RESULT: ${{ needs.publish.result }}
+        run: |
+          name=$(node -p 'require("./package.json").name')
+          if [ "$PUBLISH_RESULT" = success ]; then
+            # This run published the package from this commit.
+            target="$GITHUB_SHA"
+          else
+            # Finishing an earlier release: main may have moved on since. Tag the newest commit
+            # that set this version in package.json.
+            target=$(git log -1 --format=%H -S"\"version\": \"$VERSION\"" -- package.json)
+            if [ -z "$target" ]; then
+              echo "::error::No commit on main sets \"version\": \"$VERSION\" in package.json."
+              exit 1
+            fi
+            at_target=$(git show "$target:package.json" | node -p 'JSON.parse(require("fs").readFileSync(0, "utf8")).version')
+            if [ "$at_target" != "$VERSION" ]; then
+              echo "::error::$target has version '$at_target', expected '$VERSION'. Create the release by hand: RELEASE.md."
+              exit 1
+            fi
+          fi
+          # gh would silently reuse an existing tag and ignore --target.
+          if git rev-parse -q --verify "refs/tags/$TAG" >/dev/null; then
+            tagged=$(git rev-parse "refs/tags/$TAG^{commit}")
+            if [ "$tagged" != "$target" ]; then
+              echo "::error::Tag $TAG already points at $tagged, not $target."
+              exit 1
+            fi
+          fi
+          # Attach the tarball npm serves, never a rebuild. The registry can lag a fresh publish.
+          for attempt in 1 2 3 4 5 6; do
+            npm pack "$name@$VERSION" --silent >/dev/null && break
+            if [ "$attempt" = 6 ]; then
+              echo "::error::npm does not serve $name@$VERSION yet; re-run this job in a few minutes."
+              exit 1
+            fi
+            sleep 20
+          done
+          tarball="$name-$VERSION.tgz"
+          tar -xzf "$tarball" package/dist/cybercore.css package/dist/cybercore.min.css
+          echo "releasing $TAG at $target"
+          scripts/changelog-notes.sh "$VERSION" > release-notes.md
+          prerelease=()
+          case "$VERSION" in *-*) prerelease=(--prerelease) ;; esac
+          gh release create "$TAG" "$tarball" package/dist/cybercore.css package/dist/cybercore.min.css \
+            --title "$TAG" --target "$target" --notes-file release-notes.md "${prerelease[@]}"
