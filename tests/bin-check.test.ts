@@ -2,6 +2,7 @@ import { spawnSync } from 'node:child_process';
 import {
   chmodSync,
   copyFileSync,
+  existsSync,
   mkdtempSync,
   mkdirSync,
   readFileSync,
@@ -20,7 +21,7 @@ afterEach(() => {
   for (const dir of dirs.splice(0)) rmSync(dir, { recursive: true, force: true });
 });
 
-function runGate(mode: string[] = [], failure = '', pipx = false) {
+function runGate(mode: string[] = [], failure = '', pipx = false, docker = true) {
   const root = mkdtempSync(join(tmpdir(), 'cyber-check-'));
   dirs.push(root);
   const tools = join(root, 'tools');
@@ -43,7 +44,7 @@ function runGate(mode: string[] = [], failure = '', pipx = false) {
   const record =
     'echo "$(basename "$0") $*" >> "$LOG"\ncase "$*" in *"$FAIL"*) [ -z "$FAIL" ] || exit 42;; esac\nexit 0';
   symlinkSync('/usr/bin/basename', join(tools, 'basename'));
-  for (const command of ['npm', 'npx', 'docker', ...(pipx ? ['pipx'] : [])]) {
+  for (const command of ['npm', 'npx', ...(docker ? ['docker'] : []), ...(pipx ? ['pipx'] : [])]) {
     stub(join(tools, command), record);
   }
   for (const command of ['repo-guards', 'docs-check']) stub(join(root, 'bin', command), record);
@@ -53,31 +54,41 @@ function runGate(mode: string[] = [], failure = '', pipx = false) {
     encoding: 'utf8',
     env: { PATH: tools, HOME: root, LOG: log, FAIL: failure },
   });
-  return { result, calls: readFileSync(log, 'utf8') };
+  return { result, root, calls: existsSync(log) ? readFileSync(log, 'utf8') : '' };
 }
 
 describe('bin/check gate', () => {
   it('runs every full gate with Docker zizmor when pipx is absent', () => {
-    const { result, calls } = runGate();
+    const { result, root, calls } = runGate();
     expect(result.status, result.stderr).toBe(0);
-    for (const script of [
-      'lint',
-      'format:check',
-      'typecheck',
-      'test',
-      'validate:icons',
-      'build',
-      'check:size',
-      'check:package',
-    ]) {
-      expect(calls).toContain(`npm run --silent ${script}\n`);
-    }
-    expect(calls).toContain('repo-guards ');
-    expect(calls).toContain('docs-check ');
-    expect(calls).toContain('rhysd/actionlint:1.7.12 -color');
-    expect(calls).toContain('ghcr.io/zizmorcore/zizmor:1.33.1 --format=github .github/workflows');
-    expect(calls).toContain('npm audit --audit-level=low');
-    expect(calls).toContain('npm run --silent test:visual');
+    expect(calls.split('\n')).toEqual([
+      'docker info',
+      'repo-guards ',
+      ...[
+        'lint',
+        'format:check',
+        'typecheck',
+        'test',
+        'validate:icons',
+        'build',
+        'check:size',
+        'check:package',
+      ].map((script) => `npm run --silent ${script}`),
+      'docs-check ',
+      expect.stringMatching(
+        new RegExp(
+          `^docker run --rm -v ${root}:/repo:ro -w /repo rhysd/actionlint:1\\.7\\.12@sha256:[a-f0-9]{64} -color$`
+        )
+      ),
+      expect.stringMatching(
+        new RegExp(
+          `^docker run --rm -v ${root}:/repo:ro -w /repo ghcr\\.io/zizmorcore/zizmor:1\\.33\\.1@sha256:[a-f0-9]{64} --format=github \\.github/workflows$`
+        )
+      ),
+      'npm audit --audit-level=low',
+      'npm run --silent test:visual',
+      '',
+    ]);
   });
 
   it('uses the CI pipx invocation when available', () => {
@@ -99,20 +110,21 @@ describe('bin/check gate', () => {
     expect(result.stdout).toContain(failure);
   });
 
+  it('reports an unavailable Docker daemon before running any checks', () => {
+    const { result, calls } = runGate([], 'info');
+    expect(result.status).toBe(75);
+    expect(result.stderr).toContain('docker');
+    expect(calls).toBe('docker info\n');
+  });
+
   it('keeps fast and files tiers scoped', () => {
-    const fast = runGate(['fast']);
+    const fast = runGate(['fast'], '', false, false);
     expect(fast.result.status).toBe(0);
-    expect(fast.calls).toContain('npm run --silent lint:css');
-    expect(fast.calls).toContain('npm run --silent test');
-    expect(fast.calls).not.toContain('docker ');
-    expect(fast.calls).not.toContain('audit');
-    const files = runGate(['files', 'sample.md']);
+    expect(fast.calls).toBe('repo-guards \nnpm run --silent lint:css\nnpm run --silent test\n');
+    const files = runGate(['files', 'sample.md'], '', false, false);
     expect(files.result.status).toBe(0);
-    expect(files.calls).toContain('npx --no-install prettier --check --ignore-unknown sample.md');
-    expect(files.calls).toContain(
-      'npx --no-install vitest related --run --passWithNoTests sample.md'
+    expect(files.calls).toBe(
+      'npx --no-install prettier --check --ignore-unknown sample.md\nnpx --no-install vitest related --run --passWithNoTests sample.md\n'
     );
-    expect(files.calls).not.toContain('docker ');
-    expect(files.calls).not.toContain('npm ');
   });
 });

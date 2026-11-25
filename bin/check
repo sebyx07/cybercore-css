@@ -58,6 +58,7 @@ use_node require
 require_deps
 if [ "$mode" = full ]; then
   command -v docker >/dev/null 2>&1 || env_missing "docker is not installed" "install Docker for workflow lint and visual tests"
+  docker info >/dev/null 2>&1 || env_missing "docker daemon is unavailable" "start Docker for workflow lint and visual tests"
 fi
 
 case "$mode" in
@@ -65,11 +66,11 @@ case "$mode" in
     run_step guards bin/repo-guards
     for script in "${FULL_STEPS[@]}"; do run_step "$script" npm run --silent "$script"; done
     run_step docs bin/docs-check
-    run_step actionlint docker run --rm -v "$PWD:/repo" -w /repo rhysd/actionlint:1.7.12 -color
+    run_step actionlint docker run --rm -v "$PWD:/repo:ro" -w /repo rhysd/actionlint:1.7.12@sha256:b1934ee5f1c509618f2508e6eb47ee0d3520686341fec936f3b79331f9315667 -color
     if command -v pipx >/dev/null 2>&1; then
       run_step zizmor pipx run zizmor==1.33.1 --format=github .github/workflows
     else
-      run_step zizmor docker run --rm -v "$PWD:/repo" -w /repo ghcr.io/zizmorcore/zizmor:1.33.1 --format=github .github/workflows
+      run_step zizmor docker run --rm -v "$PWD:/repo:ro" -w /repo ghcr.io/zizmorcore/zizmor:1.33.1@sha256:ecd3ffe6158de1322e05a044ed43749bee12b1dccb7e1a7859bc6ac4b2a1c516 --format=github .github/workflows
     fi
     run_step audit npm audit --audit-level=low
     run_step visual npm run --silent test:visual
