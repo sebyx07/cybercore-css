@@ -41,7 +41,7 @@ failed=()
 
 # run_step <name> <command…> — runs the command, records a failure, keeps going.
 run_step() {
-  local name="$1" status
+  local name="$1" status command
   shift
   step "$name: $*"
   "$@"
@@ -50,7 +50,8 @@ run_step() {
     ok "$name"
   else
     printf '  ✗ %s (exit %s)\n' "$name" "$status"
-    failed+=("$name|$*")
+    printf -v command '%q ' "$@"
+    failed+=("$name|${command% }")
   fi
   return "$status"
 }

@@ -58,7 +58,7 @@ describe('full gate parity', () => {
 });
 
 // Isolate check's dispatch and failure handling from Node setup, installs and the Docker daemon.
-function runCheck(failure = '') {
+function runCheck(failure = '', mode = 'full') {
   const dir = mkdtempSync(join(tmpdir(), 'cybercore check-'));
   try {
     mkdirSync(join(dir, 'bin'));
@@ -75,6 +75,7 @@ ok() { :; }`;
     const docker = `if [ "$1" = info ]; then exit 0; fi
 printf 'docker argument: <%s>\\n' "$@"
 case "$*" in
+  *rhysd/actionlint:*) [ "$FAILURE" != actionlint ] || exit 14 ;;
   *ghcr.io/zizmorcore/zizmor:*) [ "$FAILURE" != zizmor ] || exit 14 ;;
 esac`;
     const npm = `printf 'npm command: %s\\n' "$*"
@@ -84,23 +85,55 @@ esac`;
     write('id', 'case "$1" in -u) echo 1001 ;; -g) echo 1002 ;; *) exit 2 ;; esac');
     write('repo-guards', 'exit 0');
     write('docs-check', 'exit 0');
-    write('docker', docker);
+    if (mode === 'full') write('docker', docker);
     write('npm', npm);
-    const result = spawnSync('/bin/bash', ['bin/check'], {
-      cwd: dir,
-      encoding: 'utf8',
-      env: { PATH: join(dir, 'bin'), FAILURE: failure },
-    });
+    write('npx', 'exit 0');
+    const result = spawnSync(
+      '/bin/bash',
+      ['bin/check', mode, ...(mode === 'files' ? ['bin/check'] : [])],
+      {
+        cwd: dir,
+        encoding: 'utf8',
+        env: { PATH: join(dir, 'bin'), FAILURE: failure },
+      }
+    );
     if (result.error) {
       throw result.error;
     }
-    return { ...result, dir: realpathSync(dir) };
+    const rerun = result.stdout.match(/rerun:\s+(docker run[^\n]+)/)?.[1];
+    const replay = rerun
+      ? spawnSync('/bin/bash', ['-c', rerun], {
+          cwd: dir,
+          encoding: 'utf8',
+          env: { PATH: join(dir, 'bin'), FAILURE: '' },
+        })
+      : undefined;
+    return { ...result, dir: realpathSync(dir), replay };
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
 }
 
 describe('full gate dispatch without host pipx', () => {
+  for (const mode of ['fast', 'files']) {
+    it(`runs ${mode} without Docker or pipx on PATH`, () => {
+      const { status, stdout, stderr } = runCheck('', mode);
+      expect(status, stderr).toBe(0);
+      expect(stdout).toContain(`bin/check ${mode}: GREEN`);
+    });
+  }
+
+  for (const lint of ['actionlint', 'zizmor']) {
+    it(`prints a runnable ${lint} command when the checkout path contains spaces`, () => {
+      const { dir, status, replay } = runCheck(lint);
+      expect(status).toBe(1);
+      expect(replay?.status).toBe(0);
+      expect(replay?.stdout).toContain(
+        `docker argument: <${dir}:/repo${lint === 'zizmor' ? ':ro' : ''}>`
+      );
+    });
+  }
+
   it('runs the pinned zizmor command and visual after build', () => {
     const { dir, status, stdout, stderr } = runCheck();
     expect(status, stderr).toBe(0);
