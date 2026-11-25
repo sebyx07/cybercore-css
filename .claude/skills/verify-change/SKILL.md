@@ -13,7 +13,7 @@ description: Use when proving a change in cybercore-css before a commit or pull 
 | fast | `bin/check fast` | after a slice works |
 | full | `bin/check` | once, before the pull request |
 
-`bin/check --help` lists exactly what each tier runs and what `fast` and `files` do not see.
+`bin/check --help` lists exactly what each tier runs and what `fast` and `files` do not see. The full gate includes workflow lint, npm audit and visual regression after the build. It requires a running Docker daemon and registry access; `bin/setup` installs Node dependencies only. Without pipx, zizmor runs in its pinned Docker image.
 
 Other commands: `bin/docs-check [files]` (every class and token named in README, `llms.txt` and `docs/` exists; part of the full tier) · `bin/setup` (install, idempotent) · `bin/dev [--detach]` (the demo, http://127.0.0.1:5173/cybercore-css/) · `bin/stop` · `bin/api-diff [version]` (classes and tokens removed or added against the published package).
 
@@ -22,7 +22,7 @@ Other commands: `bin/docs-check [files]` (every class and token named in README,
 | Exit | Means | Do |
 |---|---|---|
 | 0 | green | commit |
-| 75 | environment missing: Node, `node_modules`, Docker. Nothing was graded | `bin/setup`, rerun. Never treat it as a failing change |
+| 75 | environment missing: Node, `node_modules` or Docker. Nothing was graded | Run `bin/setup` for Node dependencies, install missing prerequisites, then rerun. Never treat it as a failing change |
 | other | a check ran and is red | read the `failing command` / `rerun` lines at the end of the output |
 
 ## Rules
@@ -42,7 +42,7 @@ Tests assert that rules exist, not how they look. After `bin/check`:
 
 1. `bin/dev --detach`, open the changed component's page with the browser tools at 1440 and 390 wide.
 2. Hand it to the `visual-a11y-reviewer` agent (contrast, focus, keyboard, reduced motion); fix every finding in one batch; recapture.
-3. `npm run build && npm run test:visual` (Docker: the pinned Playwright image CI uses; exit 75 without Docker, and CI's `visual` job is then the judge). Re-render a baseline only for an intended change (`npm run test:visual:update`) and say so in the pull request.
+3. The full `bin/check` already runs visual regression in the pinned Playwright image CI uses. To rerun it separately, use `npm run build && npm run test:visual` (requires Docker). Re-render a baseline only for an intended change (`npm run test:visual:update`) and say so in the pull request.
 4. `bin/stop`.
 
 A style that does not apply is almost always the cascade: the rule is in the wrong `@layer`, or the demo's own CSS outranks it. Check the computed style and the layer before raising specificity.

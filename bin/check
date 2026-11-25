@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
 # The gate. CI runs this script (bin/repo-guards fails when it stops), so green here is green there.
 #
-#   bin/check                 pre-PR gate: repo guards + every step in FULL_STEPS below + bin/docs-check
+#   bin/check                 full gate: FULL_STEPS, guards, docs, workflow lint, audit and visual tests
 #   bin/check fast            inner loop: repo guards + the FAST_STEPS subset (no demo, no typecheck)
 #   bin/check files <path>…   only the named files: stylelint on .scss, eslint on .ts/.tsx,
 #                             prettier on all of them, vitest on the tests related to them
 #
-# Exit: 0 green · 75 environment missing (nothing was graded — run bin/setup) · 1 a check failed.
+# Full mode also requires Docker and registry access; pipx is optional for zizmor.
+# Exit: 0 green · 75 environment missing (nothing was graded) · 1 a check failed.
 # Every failure prints the failing command and the command to rerun just that step.
 #
 # `fast` blind spots: the demo (its lint, types and build), formatting, the icon validation, the
-# bundle-size budget, the npm package contents and the docs truth check (bin/docs-check).
+# bundle-size budget, package contents, docs truth, workflow lint, audit and visual tests.
 # `files` also skips the repo guards and the Sass build of files no test compiles.
 # Agents sharing this checkout run `bin/check files <their paths>` only.
 set -uo pipefail
@@ -22,7 +23,7 @@ cd "$ROOT" || exit 1
 FULL_STEPS=(lint format:check typecheck test validate:icons build check:size check:package)
 FAST_STEPS=(lint:css test)
 
-usage() { sed -n '2,15p' "$0" | sed 's/^# \{0,1\}//'; }
+usage() { sed -n '2,16p' "$0" | sed 's/^# \{0,1\}//'; }
 
 mode="${1:-full}"
 case "$mode" in
@@ -55,12 +56,23 @@ run_step() {
 
 use_node require
 require_deps
+if [ "$mode" = full ]; then
+  command -v docker >/dev/null 2>&1 || env_missing "docker is not installed" "install Docker for workflow lint and visual tests"
+fi
 
 case "$mode" in
   full)
     run_step guards bin/repo-guards
     for script in "${FULL_STEPS[@]}"; do run_step "$script" npm run --silent "$script"; done
     run_step docs bin/docs-check
+    run_step actionlint docker run --rm -v "$PWD:/repo" -w /repo rhysd/actionlint:1.7.12 -color
+    if command -v pipx >/dev/null 2>&1; then
+      run_step zizmor pipx run zizmor==1.33.1 --format=github .github/workflows
+    else
+      run_step zizmor docker run --rm -v "$PWD:/repo" -w /repo ghcr.io/zizmorcore/zizmor:1.33.1 --format=github .github/workflows
+    fi
+    run_step audit npm audit --audit-level=low
+    run_step visual npm run --silent test:visual
     ;;
   fast)
     run_step guards bin/repo-guards

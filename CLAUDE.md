@@ -34,9 +34,9 @@ Breaking any of 2, 3 or 6, or raising the browser-support floor, is the owner's 
 |---|---|---|---|
 | tightest | `bin/check files <paths>` | stylelint / eslint / prettier on those files, vitest on what they affect | after each edit; the only tier allowed when agents share the checkout |
 | fast | `bin/check fast` | repo guards + stylelint + unit tests | after a slice works |
-| full | `bin/check` | repo guards, lint, format, typecheck, tests, icon validation, build (CSS + demo), size budget, package check, docs truth check. What CI's `check` job runs | once, before the PR |
+| full | `bin/check` | repo guards, lint, format, typecheck, tests, icon validation, build (CSS + demo), size budget, package check, docs truth check, workflow lint, audit and visual regression | once, before the PR |
 
-Exit 0 green · **75 environment missing, nothing was graded** (run `bin/setup`, never "fix" the code) · anything else a check failed, and the last lines name the failing command and how to rerun it. Never trust a piped exit code (`bin/check | tail` reports `tail`). CI adds three jobs `bin/check` does not run: workflow lint, `npm audit` and visual regression (Docker).
+Exit 0 green · **75 environment missing, nothing was graded** (run `bin/setup` for Node dependencies and install missing prerequisites) · other exits mean a check failed; see the last lines for the command and rerun. CI also runs workflow lint, `npm audit` and visual regression as separate jobs.
 
 ## Commands
 
@@ -55,7 +55,7 @@ npm run build && npm run test:visual             # screenshots against baselines
 npm run validate:icons         # icon registry rules
 ```
 
-No `.env`, no services, no secrets: nothing to configure.
+No `.env` or secrets are needed. The full gate needs Docker and registry access; `bin/setup` installs Node dependencies only. Without pipx, zizmor runs in its pinned Docker image.
 
 ## Layout
 
