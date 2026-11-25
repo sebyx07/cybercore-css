@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
 # The gate. CI runs this script (bin/repo-guards fails when it stops), so green here is green there.
 #
-#   bin/check                 pre-PR gate: repo guards + every step in FULL_STEPS below + bin/docs-check
+#   bin/check                 full gate: repo guards, FULL_STEPS, docs, workflow lint, audit and visual tests
 #   bin/check fast            inner loop: repo guards + the FAST_STEPS subset (no demo, no typecheck)
 #   bin/check files <path>…   only the named files: stylelint on .scss, eslint on .ts/.tsx,
 #                             prettier on all of them, vitest on the tests related to them
 #
-# Exit: 0 green · 75 environment missing (nothing was graded — run bin/setup) · 1 a check failed.
+# Full also requires a running Docker daemon and network access (images and npm audit).
+# Exit: 0 green · 75 environment missing (nothing was graded) · 1 a check failed.
 # Every failure prints the failing command and the command to rerun just that step.
 #
 # `fast` blind spots: the demo (its lint, types and build), formatting, the icon validation, the
-# bundle-size budget, the npm package contents and the docs truth check (bin/docs-check).
+# bundle-size budget, package contents, docs truth, workflow lint, audit and visual tests.
 # `files` also skips the repo guards and the Sass build of files no test compiles.
 # Agents sharing this checkout run `bin/check files <their paths>` only.
 set -uo pipefail
@@ -51,16 +52,34 @@ run_step() {
     printf '  ✗ %s (exit %s)\n' "$name" "$status"
     failed+=("$name|$*")
   fi
+  return "$status"
 }
 
 use_node require
 require_deps
+if [ "$mode" = full ]; then
+  command -v docker >/dev/null 2>&1 || env_missing "docker is required for workflow and visual tests" "install Docker and start its daemon"
+  docker info >/dev/null 2>&1 || env_missing "Docker daemon is unavailable" "start Docker and ensure it is accessible"
+fi
 
 case "$mode" in
   full)
     run_step guards bin/repo-guards
-    for script in "${FULL_STEPS[@]}"; do run_step "$script" npm run --silent "$script"; done
+    build_ok=false
+    for script in "${FULL_STEPS[@]}"; do
+      if run_step "$script" npm run --silent "$script"; then
+        [ "$script" != build ] || build_ok=true
+      fi
+    done
     run_step docs bin/docs-check
+    run_step actionlint docker run --rm -v "$PWD:/repo" -w /repo rhysd/actionlint:1.7.12 -color
+    run_step zizmor docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -v "$PWD:/repo:ro" -w /repo ghcr.io/zizmorcore/zizmor:1.33.1@sha256:ecd3ffe6158de1322e05a044ed43749bee12b1dccb7e1a7859bc6ac4b2a1c516 --format=github .github/workflows
+    run_step audit npm audit --audit-level=low
+    if [ "$build_ok" = true ]; then
+      run_step visual npm run --silent test:visual
+    else
+      printf '  visual: not run because the build failed\n'
+    fi
     ;;
   fast)
     run_step guards bin/repo-guards
