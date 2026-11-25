@@ -1,20 +1,24 @@
 # cybercore-css
 
-Pure CSS cyberpunk design framework: neon components, effects, utilities, design tokens, SVG icons. npm `cybercore-css`, served by jsDelivr and unpkg, demo at https://sebyx07.github.io/cybercore-css/. Sass sources → `dist/cybercore.css`. Public repo with outside contributors, default branch `main`, maintained by the developerz.ai agent (`.dz/`). Companion: cybercore-charts.
+Reader: every agent run on this repository loads this file as its project brain. Lead with the rule; load detailed guidance only when needed.
 
-## Response rules
+## Stack and distribution
 
-- Execute. No preamble. Lead with the action or the answer; disagree once, with the reason, when the request is wrong.
-- Read the code before claiming anything about it. Report what you verified, never what you assume.
-- Terse. Commands, paths, class names and token names stay exact.
+| Area | Facts |
+|---|---|
+| Product | Pure CSS cyberpunk design framework: neon components, effects, utilities, tokens and SVG icons. |
+| Build | Sass sources produce `dist/cybercore.css`; npm package `cybercore-css` is served by jsDelivr and unpkg. |
+| Demo | React and Vite, deployed at https://sebyx07.github.io/cybercore-css/. |
+| Repository | Public, default branch `main`, maintained by the developerz.ai agent (`.dz/`); companion: cybercore-charts. |
 
-## Coding rules
+## Working rules
 
-- Smallest change that solves the problem correctly. No abstraction before its second caller, no dead code, no shims.
-- Mirror the nearest existing partial before writing a new pattern.
-- A new class, modifier or token gets a test asserting it is in the built CSS. A bug fix starts with the failing test where one can express it.
-- Red gate → fix the cause. Never a `stylelint-disable`, `eslint-disable`, skipped test, raised size budget or removed guard to get to green.
-- Outside contributors are welcome here: finish their pull request rather than redo it, keep their authorship, thank them by handle.
+| Rule | Required practice |
+|---|---|
+| Execute and report | Lead with the action or answer, no preamble. Disagree once with the reason when the request is wrong. Read code before claims; report verified facts, not assumptions. Be terse and keep commands, paths, classes and tokens exact. |
+| Keep changes small | Solve the problem correctly; mirror the nearest partial. No abstraction before its second caller, dead code or shims. |
+| Guard changes | Test every new class, modifier or token in the built CSS. Start a bug fix with a failing test where expressible. Fix red gates; never use a `stylelint-disable`, `eslint-disable`, skipped test, raised size budget or removed guard to get green. |
+| Respect contributors | Finish outside contributors' pull requests rather than redo them; keep their authorship and thank them by handle. |
 
 ## Invariants (the product's promises)
 
