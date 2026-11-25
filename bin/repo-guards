@@ -59,6 +59,22 @@ uncommented bin/check | matches '(^|[[:space:]])bin/repo-guards[[:space:]]*$' ||
 uncommented bin/check | matches '(^|[[:space:]])bin/docs-check[[:space:]]*$' ||
   fail "bin/check no longer runs bin/docs-check" "Restore the 'run_step docs bin/docs-check' line of the full tier."
 
+# These commands must remain in the full tier, not just in another mode or a comment.
+full_gate=$(uncommented bin/check | sed -n '/^case "\$mode" in$/,/^esac$/p' |
+  sed -n '/^[[:space:]]*full)[[:space:]]*$/,/^[[:space:]]*;;[[:space:]]*$/p' |
+  sed 's/^[[:space:]]*//; s/[[:space:]]*$//')
+for command in \
+  'run_step actionlint docker run --rm -v "$PWD:/repo:ro" -w /repo rhysd/actionlint:1.7.12@sha256:b1934ee5f1c509618f2508e6eb47ee0d3520686341fec936f3b79331f9315667 -color' \
+  'run_step zizmor pipx run zizmor==1.33.1 --format=github .github/workflows' \
+  'run_step zizmor docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -v "$PWD:/repo:ro" -w /repo ghcr.io/zizmorcore/zizmor:1.33.1@sha256:ecd3ffe6158de1322e05a044ed43749bee12b1dccb7e1a7859bc6ac4b2a1c516 --format=github .github/workflows' \
+  'run_step audit npm audit --audit-level=low' \
+  'run_step visual npm run --silent test:visual'; do
+  if ! grep -qxF -- "$command" <<< "$full_gate"; then
+    gate=${command#run_step }
+    fail "bin/check full tier is missing a required CI gate: ${gate%% *}" "Restore the command: $command"
+  fi
+done
+
 # steps <array name> — the npm scripts bin/check lists in that array.
 steps() { sed -nE "s/^$1=\((.*)\)[[:space:]]*\$/\1/p" bin/check | tr ' ' '\n' | grep -v '^$'; }
 full_steps="$(steps FULL_STEPS)"

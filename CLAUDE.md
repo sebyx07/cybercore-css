@@ -38,9 +38,9 @@ Breaking any of 2, 3 or 6, or raising the browser-support floor, is the owner's 
 |---|---|---|---|
 | tightest | `bin/check files <paths>` | stylelint / eslint / prettier on those files, vitest on what they affect | after each edit; the only tier allowed when agents share the checkout |
 | fast | `bin/check fast` | repo guards + stylelint + unit tests | after a slice works |
-| full | `bin/check` | repo guards, lint, format, typecheck, tests, icon validation, build (CSS + demo), size budget, package check, docs truth check, workflow lint, audit and visual regression | once, before the PR |
+| full | `bin/check` | repo guards, lint, format, typecheck, tests, icon validation, build (CSS + demo), size budget, package check, docs truth check, workflow lint, npm audit and visual regression | once, before the PR |
 
-Exit 0 green · **75 environment missing, nothing was graded** (install prerequisites) · other exits mean a check failed; see the last lines for the command and rerun. CI also runs workflow lint, `npm audit` and visual regression as separate jobs.
+Exit 0 green. **75: prerequisite missing, nothing graded.** Other exits print rerun commands. Do not trust piped exit codes. Full needs a running Docker daemon and registry access, not host pipx. It includes CI's separate workflow lint, audit and visual checks.
 
 ## Commands
 

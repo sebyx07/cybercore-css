@@ -33,7 +33,7 @@ function runGate(mode: string[] = [], failure = '', pipx = false, docker = true)
   writeFileSync(join(root, '.nvmrc'), '24\n');
   writeFileSync(join(root, 'node_modules/.package-lock.json'), '');
   const log = join(root, 'calls');
-  for (const command of ['dirname', 'tr', 'grep', 'sed']) {
+  for (const command of ['dirname', 'tr', 'grep', 'sed', 'id']) {
     symlinkSync(`/usr/bin/${command}`, join(tools, command));
   }
   const stub = (path: string, body: string) => {
@@ -82,7 +82,7 @@ describe('bin/check gate', () => {
       ),
       expect.stringMatching(
         new RegExp(
-          `^docker run --rm -v ${root}:/repo:ro -w /repo ghcr\\.io/zizmorcore/zizmor:1\\.33\\.1@sha256:[a-f0-9]{64} --format=github \\.github/workflows$`
+          `^docker run --rm --user [0-9]+:[0-9]+ -e HOME=/tmp -v ${root}:/repo:ro -w /repo ghcr\\.io/zizmorcore/zizmor:1\\.33\\.1@sha256:[a-f0-9]{64} --format=github \\.github/workflows$`
         )
       ),
       'npm audit --audit-level=low',
