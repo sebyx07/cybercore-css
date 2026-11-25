@@ -128,9 +128,7 @@ describe('full gate dispatch without host pipx', () => {
       const { dir, status, replay } = runCheck(lint);
       expect(status).toBe(1);
       expect(replay?.status).toBe(0);
-      expect(replay?.stdout).toContain(
-        `docker argument: <${dir}:/repo${lint === 'zizmor' ? ':ro' : ''}>`
-      );
+      expect(replay?.stdout).toContain(`docker argument: <${dir}:/repo:ro>`);
     });
   }
 

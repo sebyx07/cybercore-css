@@ -59,7 +59,7 @@ npm run build && npm run test:visual             # screenshots against baselines
 npm run validate:icons         # icon registry rules
 ```
 
-No `.env`, no services, no secrets: nothing to configure.
+No `.env` or secrets are needed. The full gate needs Docker and registry access; `bin/setup` installs Node dependencies only. Without pipx, zizmor runs in its pinned Docker image.
 
 ## Layout
 
