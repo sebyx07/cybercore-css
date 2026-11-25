@@ -6,6 +6,7 @@ import {
   mkdtempSync,
   mkdirSync,
   readFileSync,
+  realpathSync,
   rmSync,
   symlinkSync,
   writeFileSync,
@@ -22,7 +23,7 @@ afterEach(() => {
 });
 
 function runGate(mode: string[] = [], failure = '', pipx = false, docker = true) {
-  const root = mkdtempSync(join(tmpdir(), 'cyber-check-'));
+  const root = realpathSync(mkdtempSync(join(tmpdir(), 'cyber-check+[fixture]-')));
   dirs.push(root);
   const tools = join(root, 'tools');
   mkdirSync(tools);
@@ -60,6 +61,7 @@ function runGate(mode: string[] = [], failure = '', pipx = false, docker = true)
 describe('bin/check gate', () => {
   it('runs every full gate with Docker zizmor when pipx is absent', () => {
     const { result, root, calls } = runGate();
+    const escapedRoot = root.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     expect(result.status, result.stderr).toBe(0);
     expect(calls.split('\n')).toEqual([
       'docker info',
@@ -77,12 +79,12 @@ describe('bin/check gate', () => {
       'docs-check ',
       expect.stringMatching(
         new RegExp(
-          `^docker run --rm -v ${root}:/repo:ro -w /repo rhysd/actionlint:1\\.7\\.12@sha256:[a-f0-9]{64} -color$`
+          `^docker run --rm -v ${escapedRoot}:/repo:ro -w /repo rhysd/actionlint:1\\.7\\.12@sha256:[a-f0-9]{64} -color$`
         )
       ),
       expect.stringMatching(
         new RegExp(
-          `^docker run --rm --user [0-9]+:[0-9]+ -e HOME=/tmp -v ${root}:/repo:ro -w /repo ghcr\\.io/zizmorcore/zizmor:1\\.33\\.1@sha256:[a-f0-9]{64} --format=github \\.github/workflows$`
+          `^docker run --rm --user [0-9]+:[0-9]+ -e HOME=/tmp -v ${escapedRoot}:/repo:ro -w /repo ghcr\\.io/zizmorcore/zizmor:1\\.33\\.1@sha256:[a-f0-9]{64} --format=github \\.github/workflows$`
         )
       ),
       'npm audit --audit-level=low',
