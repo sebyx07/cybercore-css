@@ -4,40 +4,6 @@
       "type": "stdio",
       "command": "npx",
       "args": ["-y", "@playwright/mcp@0.0.84", "--headless", "--isolated"]
-    },
-    "ui-debugger": {
-      "type": "stdio",
-      "command": "ui-debugger-mcp",
-      "env": {
-        "OPENAI_API_KEY": "${UI_DEBUGGER_API_KEY}",
-        "OPENAI_BASE_URL": "${UI_DEBUGGER_BASE_URL}"
-      }
-    },
-    "sentry-mcp": {
-      "type": "stdio",
-      "command": "bunx",
-      "args": ["@sentry/mcp-server@0.49.0"],
-      "env": {
-        "SENTRY_ACCESS_TOKEN": "${SENTRY_ACCESS_TOKEN}",
-        "SENTRY_HOST": "${SENTRY_HOST}"
-      }
-    },
-    "codegraph": {
-      "type": "stdio",
-      "command": "codegraph",
-      "args": ["serve", "--mcp"],
-      "env": {
-        "DO_NOT_TRACK": "1",
-        "CODEGRAPH_TELEMETRY": "0",
-        "CODEGRAPH_NO_UPDATE_CHECK": "1"
-      }
-    },
-    "developerz": {
-      "type": "http",
-      "url": "https://mcp.developerz.ai/v1/mcp",
-      "headers": {
-        "Authorization": "Bearer ${DEVELOPERZ_API_KEY}"
-      }
     }
   }
 }
