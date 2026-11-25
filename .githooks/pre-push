@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# pre-push gate — established by the developerz.ai maintainer agent for the maintainers of this repository. Runs the SAME
+# `bin/check` CI runs, so a push that would fail CI fails here first.
+# ACTIVATE IT (once, per clone): git config core.hooksPath .githooks
+set -euo pipefail
+cd "$(dirname "$0")/.."
+exec bin/check </dev/null
