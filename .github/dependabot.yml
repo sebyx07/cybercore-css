@@ -28,6 +28,11 @@ updates:
       # would turn the gate back on.
       exclude: ['typescript', 'typescript-eslint', '@typescript-eslint/*']
     open-pull-requests-limit: 3
+    ignore:
+      # typescript-eslint (latest 8.74.0) peers typescript <6.1.0, so a TypeScript 7 bump fails CI.
+      # Re-enable when typescript-eslint's peerDependencies accept typescript 7.
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
     groups:
       npm-typescript:
         patterns: ['typescript', 'typescript-eslint', '@typescript-eslint/*']
