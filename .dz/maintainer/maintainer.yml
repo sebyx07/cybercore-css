@@ -183,8 +183,8 @@ schedules:
     hours_utc: [3]
     brief_file: .dz/schedules/release-due.md
     mode: devops
-  # The one exception, a published high/critical advisory fix that reaches users, so it does not
-  # wait up to a week for the slot above. A scout: it files a release ask only on those criteria.
+  # The one exception, a published high/critical or KEV-listed advisory fix that reaches users,
+  # so it does not wait up to a week for the slot above. A scout: it files a release ask only on those criteria.
   - name: security-release
     days: [tue, wed, thu, fri, sat, sun]
     hours_utc: [2]
