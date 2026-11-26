@@ -7,7 +7,8 @@ version: 2
 #
 # cooldown: a release must be 14 days old before it is proposed, so broken or compromised
 # releases are usually yanked first. Security updates skip it, and so do typescript and the
-# typescript-eslint packages (reason at the npm entry); those batch in their own group.
+# typescript-eslint packages (reason at the npm entry); those batch in their own group, so npm
+# can open two minor+patch pull requests a week (npm-typescript and npm-minor), not one.
 #
 # The Playwright Docker image pinned in ci.yml and scripts/visual.sh is not tracked here:
 # bump it together with @playwright/test (same version), then re-render the baselines.
