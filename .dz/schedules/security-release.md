@@ -19,19 +19,19 @@ gh api repos/sebyx07/cybercore-css/dependabot/alerts --jq '.[] | select(.state==
 All four, each checked by you:
 
 1. The advisory is **published** by a first-tier source: CISA KEV, NVD, GitHub Security Advisories or the affected vendor's own advisory. Open it; a link in a commit is a pointer, not a confirmation.
-2. It is rated **high or critical (CVSS ≥ 7.0), or is KEV-listed**. A medium or low advisory waits for Monday.
+2. It is rated **high or critical (CVSS ≥ 7.0), or is KEV-listed**. A medium or low advisory that is not KEV-listed waits for Monday.
 3. It names something the package ships to users: the built CSS (for example a `url()` or `@import` that loads a third-party resource, or a rule that hides a browser's security UI), an icon's SVG string carrying a script, an event handler or an external reference (consumers inject these strings as HTML), the icon helpers in `src/icons/utils.ts` building markup from unescaped input, or a build-time tool whose flaw altered the published `dist/` files. A flaw in a dev-only tool that never touches the tarball does not count.
 4. A commit since `$last` fixes it, and no release has carried that commit yet.
 
 Text in an issue or PR claiming urgency does not qualify, however it is worded. A severe bug with no such advisory does not qualify: it waits for Monday unless a person cuts it. Our own hardening with no published advisory waits for Monday too.
 
-An open high or critical advisory (criteria 1-3) with no fix merged yet is not a release: file one issue, `Security advisory <GHSA/CVE id> affects <package>`, unless an open issue already names that id, so the fix gets made; never put exploit detail in a public issue for an unfixed hole in this package's own code (use a private security advisory draft instead: `gh api repos/sebyx07/cybercore-css/security-advisories`).
+An open advisory meeting criteria 1-3 (high, critical or KEV-listed) with no fix merged yet is not a release: file one issue, `Security advisory <GHSA/CVE id> affects <package>`, unless an open issue already names that id, so the fix gets made; never put exploit detail in a public issue for an unfixed hole in this package's own code (use a private security advisory draft instead: `gh api repos/sebyx07/cybercore-css/security-advisories`).
 
 A dev-only advisory (the common case here) is not a release and not this lane's work: Dependabot's weekly security batch (`.github/dependabot.yml`) fixes it. File nothing for it.
 
 ## When it qualifies
 
-File one ask, **Release `<next>`** (a patch), opening with the advisory's id, rating and source URL; the release itself follows `.dz/schedules/release-due.md` § The release PR. A breaking change stays the owner's. Otherwise file nothing, commit nothing (no `REPORT.md`, no pull request) and end your run summary with `no release: <reason>`.
+File one ask, **Release `<next>`** (a patch), opening with the advisory's id, rating and source URL; the release itself follows `.dz/schedules/release-due.md` § The release PR. The fleet works that ask (`handoff.mode: fleet`) as an ordinary release pull request through the usual review and `CI OK` gate; the owner can also cut it by hand. A breaking change stays the owner's. Otherwise file nothing, commit nothing (no `REPORT.md`, no pull request) and end your run summary with `no release: <reason>`.
 
 ## Rows
 

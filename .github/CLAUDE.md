@@ -9,7 +9,7 @@ Read before editing anything here. A change under `.github/` never shares a pull
 | `workflows/ci.yml` | every pull request, push to `main`, and `workflow_call` from `release.yml` | jobs `workflows` (actionlint + zizmor), `check` (`bin/check`), `audit` (`npm audit`; the size budget and `npm pack` + install run inside `bin/check`), `visual` (Playwright in a pinned Docker image), then the aggregate **`CI OK`** |
 | `workflows/release.yml` | push to `main` touching `package.json`, or manual on `main` | publishes to npm only when the version is not on npm yet: `version` → `verify` (calls `ci.yml`) → `publish` (trusted publishing, environment `release`) → `github-release` (tag + release from CHANGELOG) |
 | `workflows/deploy.yml` | push to `main` touching `demo/`, `src/`, `package*.json`; pull requests build only | builds the CSS and the demo, deploys `demo/dist` to GitHub Pages |
-| `dependabot.yml` | weekly, Monday | npm and GitHub Actions: minor+patch as one PR per ecosystem, security updates batched into one more, majors individually, at most 3 open, 14-day cooldown; no auto-merge workflow |
+| `dependabot.yml` | weekly, Monday | npm and GitHub Actions: minor+patch as one PR per ecosystem, security updates batched into one more, majors individually, at most 3 open version-update PRs (security updates have Dependabot's own cap), 14-day cooldown; no auto-merge workflow |
 | `zizmor.yml` | read by the `workflows` job | the one accepted zizmor exception, with its reason |
 
 The release procedure, its failure modes and the one-time setup: `RELEASE.md`.

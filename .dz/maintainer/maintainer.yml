@@ -235,7 +235,8 @@ branches:
 scout:
   survey: broken_only
 
-# devops: off (owner, 2026-11-26): dependency advisories arrive through Dependabot, batched weekly
-# (.github/dependabot.yml), instead of one pull request per advisory.
+# devops: off (owner, 2026-11-26): dependency advisories arrive through Dependabot instead of one
+# pull request per advisory (.github/dependabot.yml: version updates weekly, security updates
+# grouped into one pull request per ecosystem).
 devops:
   watch: off

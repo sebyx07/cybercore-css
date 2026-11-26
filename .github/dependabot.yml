@@ -1,7 +1,8 @@
 version: 2
 # Weekly, grouped, quiet (owner, 2026-11-26: "not so damn much daily prs"): every ecosystem on
 # Monday, minor+patch as ONE pull request per ecosystem, security updates batched into one more per
-# ecosystem, majors individually, at most 3 open per ecosystem. A maintainer (human or agent)
+# ecosystem, majors individually, at most 3 open version-update PRs per ecosystem (security updates
+# open when an alert fires, under Dependabot's own separate cap). A maintainer (human or agent)
 # merges them on a green "CI OK"; there is no auto-merge workflow.
 #
 # cooldown: a release must be 14 days old before it is proposed, so broken or compromised
