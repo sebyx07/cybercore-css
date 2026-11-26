@@ -18,6 +18,11 @@ updates:
       day: monday
     cooldown:
       default-days: 14
+      # Dependabot also hands the cooldown to npm as --min-release-age, for the whole tree, unless
+      # every package in the update is excluded. typescript-eslint ships weekly and its packages
+      # require each other at ^<latest>, so a locked release younger than 14 days cannot resolve
+      # and every typescript / typescript-eslint update failed (ETARGET). Those three skip it.
+      exclude: ['typescript', 'typescript-eslint', '@typescript-eslint/*']
     open-pull-requests-limit: 3
     groups:
       npm-minor:
