@@ -6,7 +6,9 @@ version: 2
 # merges them on a green "CI OK"; there is no auto-merge workflow.
 #
 # cooldown: a release must be 14 days old before it is proposed, so broken or compromised
-# releases are usually yanked first. Security updates skip it.
+# releases are usually yanked first. Security updates skip it, and so do typescript and the
+# typescript-eslint packages (reason at the npm entry); those batch in their own group, so npm
+# can open two minor+patch pull requests a week (npm-typescript and npm-minor), not one.
 #
 # The Playwright Docker image pinned in ci.yml and scripts/visual.sh is not tracked here:
 # bump it together with @playwright/test (same version), then re-render the baselines.
@@ -18,8 +20,18 @@ updates:
       day: monday
     cooldown:
       default-days: 14
+      # Dependabot also hands the cooldown to npm as --min-release-age, for the whole tree, unless
+      # every package in the update is excluded. typescript-eslint ships weekly and its packages
+      # require each other at ^<latest>, so a locked release younger than 14 days cannot resolve
+      # and every typescript / typescript-eslint update failed (ETARGET). Those three skip it, in
+      # their own group (listed first, so it takes them): a batch mixed with cooldown packages
+      # would turn the gate back on.
+      exclude: ['typescript', 'typescript-eslint', '@typescript-eslint/*']
     open-pull-requests-limit: 3
     groups:
+      npm-typescript:
+        patterns: ['typescript', 'typescript-eslint', '@typescript-eslint/*']
+        update-types: ['minor', 'patch']
       npm-minor:
         update-types: ['minor', 'patch']
       npm-security:

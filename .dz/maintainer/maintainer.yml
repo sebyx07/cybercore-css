@@ -33,7 +33,9 @@ triage:
   # A rendering bug is unreproducible without the markup, the framework version and the browser.
   required_fields: [steps, expected, actual, version, environment]
   qualify_into: [bug, feature, dupe, question, docs]
-  close_unanswered_repro_after_days: 14
+  close_unanswered_repro_after_days: 60
+  stale_after_days: 60
+  stale_action: comment_then_close
   # Proposals this project will not take (from CLAUDE.md "Invariants" and "What not to build").
   non_goals:
     - "Shipping JavaScript or a runtime dependency: state is styled from native state and ARIA attributes (:checked, <details>, <dialog>, [aria-expanded]); the page owns any script"
@@ -61,7 +63,7 @@ pr:
   # The one required check: ci.yml's aggregate job. Every CI job must pass.
   required_checks:
     - "CI OK"
-  close_awaiting_author_after_days: 21
+  close_awaiting_author_after_days: 60
 
 review:
   enabled: true
@@ -226,10 +228,11 @@ schedules:
   #   brief_file: .dz/schedules/fix-sweep.md
   #   mode: devops
 
-# branches: a branch with no new commit for 14 days is tagged archive/<branch>/<date> at its last
-# commit, then deleted (owner, 2026-11-26: branch hygiene).
+# Inactivity: 60 days for branches, stale issues and PRs, and awaiting-author / unanswered-repro
+# closes (owner, 2026-11-26: 60-day stale rule on the open-source repos). A stale branch is tagged
+# archive/<branch>/<date> at its last commit, then deleted.
 branches:
-  close_inactive_after_days: 14
+  close_inactive_after_days: 60
 
 # scout: the platform's daily survey files only what is already BROKEN, never an improvement idea.
 scout:
