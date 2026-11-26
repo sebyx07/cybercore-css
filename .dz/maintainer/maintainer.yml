@@ -166,26 +166,29 @@ escalate:
 # Modes. A `scout` firing (the default) is read-only: it reads the checkout and the platform's
 # signals and files asks, and an ask that names CI config or this policy is refused at ingest.
 # `mode: devops` runs the brief as one task with a shell and delivers a pull request (it needs
-# `handoff.mode: fleet`, set above). The briefs that run commands and open a pull request are
-# devops; `health`, `repo-census` and `repo-score` only read and report, so they stay scouts.
+# `handoff.mode: fleet`, set above). `release-due` and `improve` run commands and may open a pull
+# request, so they are devops; `security-release`, `health`, `repo-census` and `repo-score` only
+# read and file asks, so they stay scouts.
+#
+# Cadence (owner, 2026-11-26: "it should be weekly not to the damn commits ... not so damn much
+# daily prs"): health and release-due weekly on Monday, improve monthly, nothing daily opens a PR.
 schedules:
   - name: health
-    days: [mon, tue, wed, thu, fri, sat, sun]
+    days: [mon]
     hours_utc: [6]
     brief_file: .dz/schedules/health.md
-  # Weekly and judged, so a merge never cuts a release. One weekday per repo, so the fleet is not
-  # hit at once (zsv-ruby takes Wednesday, better_structure_sql Thursday, ruby2html Friday).
+  # Weekly and judged, so a merge never cuts a release. At most one release a week.
   - name: release-due
-    days: [tue]
+    days: [mon]
     hours_utc: [3]
     brief_file: .dz/schedules/release-due.md
     mode: devops
-  # The one exception, so a confirmed security fix does not wait up to a week for the slot above.
+  # The one exception, a published high/critical advisory fix that reaches users, so it does not
+  # wait up to a week for the slot above. A scout: it files a release ask only on those criteria.
   - name: security-release
-    days: [mon, wed, thu, fri, sat, sun]
+    days: [tue, wed, thu, fri, sat, sun]
     hours_utc: [2]
     brief_file: .dz/schedules/security-release.md
-    mode: devops
   # Monthly: the first Friday of the month (UTC days 1-7).
   - name: improve
     days: [fri]
@@ -222,3 +225,17 @@ schedules:
   #   hours_utc: [17]
   #   brief_file: .dz/schedules/fix-sweep.md
   #   mode: devops
+
+# branches: a branch with no new commit for 14 days is tagged archive/<branch>/<date> at its last
+# commit, then deleted (owner, 2026-11-26: branch hygiene).
+branches:
+  close_inactive_after_days: 14
+
+# scout: the platform's daily survey files only what is already BROKEN, never an improvement idea.
+scout:
+  survey: broken_only
+
+# devops: off (owner, 2026-11-26): dependency advisories arrive through Dependabot, batched weekly
+# (.github/dependabot.yml), instead of one pull request per advisory.
+devops:
+  watch: off

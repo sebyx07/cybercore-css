@@ -1,6 +1,6 @@
 # Brief: is the project healthy?
 
-Daily checkup, fired by `schedules: health` in `.dz/maintainer/maintainer.yml`. cybercore-css is
+Weekly checkup (Mondays 06:00 UTC), fired by `schedules: health` in `.dz/maintainer/maintainer.yml`. cybercore-css is
 maintained so that nobody has to watch it. This covers the failures no issue or PR announces.
 Read-only (a scout): it reports failing rows, it never re-runs a publish, tags, or pushes. A row
 whose only fix is under `.github/` or `.dz/` is stated in the run's answer instead of filed: the
