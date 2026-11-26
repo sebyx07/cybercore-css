@@ -1,6 +1,8 @@
 version: 2
-# Weekly, grouped updates. A maintainer (human or agent) merges them on a green "CI OK";
-# there is no auto-merge workflow.
+# Weekly, grouped, quiet (owner, 2026-11-26: "not so damn much daily prs"): every ecosystem on
+# Monday, minor+patch as ONE pull request per ecosystem, security updates batched into one more per
+# ecosystem, majors individually, at most 3 open per ecosystem. A maintainer (human or agent)
+# merges them on a green "CI OK"; there is no auto-merge workflow.
 #
 # cooldown: a release must be 14 days old before it is proposed, so broken or compromised
 # releases are usually yanked first. Security updates skip it.
@@ -15,26 +17,12 @@ updates:
       day: monday
     cooldown:
       default-days: 14
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 3
     groups:
-      lint:
-        patterns: ['eslint*', '@eslint*', 'typescript-eslint', 'globals', 'stylelint*', 'prettier']
-      test:
-        patterns: ['vitest', '@vitest/*', '@playwright/test']
-      css-build:
-        patterns: ['sass', 'postcss*', 'autoprefixer', 'cssnano']
-      demo:
-        patterns:
-          [
-            'react',
-            'react-dom',
-            'react-router',
-            '@types/react*',
-            'vite',
-            '@vitejs/*',
-            'prism-react-renderer',
-          ]
-      other:
+      npm-minor:
+        update-types: ['minor', 'patch']
+      npm-security:
+        applies-to: security-updates
         patterns: ['*']
 
   - package-ecosystem: github-actions
@@ -44,6 +32,10 @@ updates:
       day: monday
     cooldown:
       default-days: 14
+    open-pull-requests-limit: 3
     groups:
-      github-actions:
+      actions-minor:
+        update-types: ['minor', 'patch']
+      actions-security:
+        applies-to: security-updates
         patterns: ['*']
