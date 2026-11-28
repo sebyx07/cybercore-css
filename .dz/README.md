@@ -6,8 +6,8 @@ this repository as an AI-managed project.
 - `maintainer/maintainer.yml`: the maintainer policy (triage, PRs, review, releases, schedules).
 - `maintainer/reviewer.md`: this repo's layer of the reviewer prompt (what to reject, what never to flag).
 - `pipeline/agent-pipeline.json`: the agent pipeline definition.
-- `schedules/`: the scheduled checkup briefs the policy fires: this repo's own (`health`, `release-due`,
-  `security-release`, `improve`) and the developerz.ai platform's standard ones (`repo-census` and
+- `schedules/`: the scheduled checkup briefs the policy fires: this repo's own (`release-due`,
+  `improve`) and the developerz.ai platform's standard ones (`repo-census` and
   `repo-score` on; `hygiene`, `devops` and `fix-sweep` offered, their entries commented out).
 - `onboarding/scorecard.md`: the AI-first scorecard; each onboarding run rewrites it.
 

@@ -11,6 +11,9 @@ name: CI
 #   audit     npm audit --audit-level=low      (needs the registry, so not part of bin/check)
 #   visual    npm run build && npm run test:visual   (Docker; same image as below)
 #   workflows the actionlint and zizmor commands below
+#
+# A change that touches only prose (`*.md`, `docs/`) skips the visual job: the `changes` job
+# decides, and "CI OK" still reports. bin/check always runs (it holds the docs check).
 on:
   pull_request:
   push:
@@ -29,6 +32,37 @@ env:
   CI: '1'
 
 jobs:
+  # Decides whether the change can affect the gated jobs. Anything it cannot
+  # read (API error, a truncated file list, a manual run) counts as code.
+  changes:
+    name: Changes / code or docs only
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      code: ${{ steps.detect.outputs.code }}
+    steps:
+      - id: detect
+        env:
+          GH_TOKEN: ${{ github.token }}
+          # The commits this run tests: the base and the commit that is checked out (for a pull
+          # request that is the merge commit, so a file main moved is seen where it lands).
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD: ${{ github.sha }}
+        run: |
+          code=true
+          # "<files> <paths outside the docs filter>"; a rename counts under its old and its
+          # new name, and the filter tests whole paths (prefix or suffix, no line anchors). The compare API lists at most 300 files: 300 means "truncated".
+          # shellcheck disable=SC2016  # $paths is a jq variable, not a shell one
+          counts=$(gh api "repos/$GITHUB_REPOSITORY/compare/$BASE...$HEAD" --jq '
+            [.files[] | .filename, (.previous_filename // empty)] as $paths
+            | "\(.files | length) \($paths | map(select((endswith(".md") or startswith("docs/")) | not)) | length)"') || counts=''
+          read -r files other <<<"$counts" || true
+          if [ -n "$files" ] && [ "$files" -gt 0 ] && [ "$files" -lt 300 ] && [ "$other" = 0 ]; then
+            code=false
+          fi
+          echo "files changed: ${files:-unreadable}, outside the docs filter: ${other:-unreadable}"
+          echo "code=$code" | tee -a "$GITHUB_OUTPUT"
+
   workflows:
     name: Lint / workflows (actionlint + zizmor)
     runs-on: ubuntu-24.04
@@ -81,6 +115,8 @@ jobs:
 
   visual:
     name: Visual / Playwright screenshots of the demo
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     # The pinned Playwright image renders the baselines in tests/visual/__snapshots__/;
@@ -113,8 +149,10 @@ jobs:
   ci-ok:
     name: CI OK
     if: always()
-    # Every job above must succeed; skipped or cancelled counts as failed.
+    # Every job above must succeed; cancelled counts as failed, and so does
+    # skipped unless the change is docs-only (changes.outputs.code == 'false').
     needs:
+      - changes
       - workflows
       - check
       - audit
@@ -125,9 +163,11 @@ jobs:
       - name: All required jobs passed
         env:
           RESULTS: ${{ join(needs.*.result, ' ') }}
+          CODE: ${{ needs.changes.outputs.code }}
         run: |
-          echo "Results: $RESULTS"
+          echo "Results: $RESULTS (code change: $CODE)"
           for r in $RESULTS; do
+            if [ "$r" = skipped ] && [ "$CODE" = false ]; then continue; fi
             if [ "$r" != success ]; then
               echo "::error::A required job finished with '$r'. Open the failed job above: its log names the check and the command to reproduce it locally."
               exit 1
