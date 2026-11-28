@@ -232,14 +232,11 @@ branches:
 scout:
   survey: broken_only
 
-# devops: advisories. First-tier security advisories are read against what this repo ships, and a
-# fix is filed when a shipped version is inside a vulnerable range. It replaces the daily
-# `security-release` schedule (removed 2026-11-28) and supersedes the `off` set on 2026-11-26:
-# across the fleet the watch merged 91 pull requests in 14 days, 83 of them product fixes, where
-# the schedule fired 170 times in 30 days for 3. Routine updates still arrive weekly and grouped
-# through Dependabot (.github/dependabot.yml).
+# devops: off (owner, 2026-11-26): dependency advisories arrive through Dependabot instead of one
+# pull request per advisory (.github/dependabot.yml: version updates weekly, security updates
+# grouped into one pull request per ecosystem).
 devops:
-  watch: advisories
+  watch: off
 
 # care: no docs-citation tasks. Across the fleet they were 47 tasks in 30 days for 8 docs-only
 # merges and 33 failures.
