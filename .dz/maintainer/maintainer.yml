@@ -169,28 +169,22 @@ escalate:
 # signals and files asks, and an ask that names CI config or this policy is refused at ingest.
 # `mode: devops` runs the brief as one task with a shell and delivers a pull request (it needs
 # `handoff.mode: fleet`, set above). `release-due` and `improve` run commands and may open a pull
-# request, so they are devops; `security-release`, `health`, `repo-census` and `repo-score` only
+# request, so they are devops; `repo-census` and `repo-score` only
 # read and file asks, so they stay scouts.
 #
 # Cadence (owner, 2026-11-26: "it should be weekly not to the damn commits ... not so damn much
-# daily prs"): health and release-due weekly on Monday, improve monthly, nothing daily opens a PR.
+# daily prs"): release-due weekly on Monday, improve monthly, nothing fires daily.
+#
+# Removed on 2026-11-28, from the platform's 30-day record across the fleet: `security-release`
+# (170 firings: 3 product merges and 17 pull requests that only rewrote REPORT.md) and `health`
+# (270 firings, 8 asks, no merged fix; the platform already files a fix when `main` is red).
 schedules:
-  - name: health
-    days: [mon]
-    hours_utc: [6]
-    brief_file: .dz/schedules/health.md
   # Weekly and judged, so a merge never cuts a release. At most one release a week.
   - name: release-due
     days: [mon]
     hours_utc: [3]
     brief_file: .dz/schedules/release-due.md
     mode: devops
-  # The one exception, a published high/critical or KEV-listed advisory fix that reaches users,
-  # so it does not wait up to a week for the slot above. A scout: it files a release ask only on those criteria.
-  - name: security-release
-    days: [tue, wed, thu, fri, sat, sun]
-    hours_utc: [2]
-    brief_file: .dz/schedules/security-release.md
   # Monthly: the first Friday of the month (UTC days 1-7).
   - name: improve
     days: [fri]
@@ -212,7 +206,7 @@ schedules:
     days: [tue]
     hours_utc: [5]
     brief_file: .dz/schedules/repo-score.md
-  # Offered, off: each makes work, and health + improve already cover most of it. Drop the
+  # Offered, off: each makes work, and improve already covers most of it. Drop the
   # leading `# ` on each line of an entry to run it; its brief is committed beside the others.
   # - name: hygiene
   #   days: [sun]
@@ -243,3 +237,8 @@ scout:
 # grouped into one pull request per ecosystem).
 devops:
   watch: off
+
+# care: no docs-citation tasks. Across the fleet they were 47 tasks in 30 days for 8 docs-only
+# merges and 33 failures.
+care:
+  docs_drift: off

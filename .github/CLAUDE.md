@@ -23,7 +23,7 @@ The release procedure, its failure modes and the one-time setup: `RELEASE.md`.
 - **No token publishes.** `release.yml` uses npm trusted publishing (`id-token: write`, environment `release`). Never add `NPM_TOKEN` or `NODE_AUTH_TOKEN`. Guard: `bin/repo-guards`.
 - **`permissions: contents: read` at the top** of every workflow; a job widens only what it needs. `persist-credentials: false` on every checkout. Never `pull_request_target`. Never an auto-merge workflow: the maintainer agent is the only merger.
 - **The Playwright image is pinned three times**: `ci.yml` (`visual` job), `scripts/visual.sh`, and it must match `@playwright/test` in `package.json`. Bump all three together, then re-render the baselines (`npm run build && npm run test:visual:update`). Dependabot does not track the image.
-- **`deploy.yml` keeps its file name**: the health checkup (`.dz/schedules/health.md`) and Pages read it by name. Same for `ci.yml` and `release.yml`.
+- **`deploy.yml` keeps its file name**: the `repo-score` brief (`.dz/schedules/repo-score.md`) and Pages read it by name. Same for `ci.yml` and `release.yml`.
 - **Untrusted input never reaches a `run:` line by interpolation.** Pass `${{ … }}` values through `env:` and quote the variable, as the existing steps do. zizmor enforces it.
 
 ## Lint a workflow change locally

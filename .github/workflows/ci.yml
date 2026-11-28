@@ -33,37 +33,33 @@ env:
 
 jobs:
   # Decides whether the change can affect the gated jobs. Anything it cannot
-  # read (API error, a truncated file list, a manual or called run) counts as code.
+  # read (API error, a truncated file list, a manual run) counts as code.
   changes:
     name: Changes / code or docs only
     runs-on: ubuntu-24.04
     timeout-minutes: 5
-    permissions:
-      contents: read
-      pull-requests: read
     outputs:
       code: ${{ steps.detect.outputs.code }}
     steps:
       - id: detect
         env:
           GH_TOKEN: ${{ github.token }}
-          EVENT: ${{ github.event_name }}
-          PR: ${{ github.event.pull_request.number }}
-          BEFORE: ${{ github.event.before }}
+          # The commits this run tests: the pull request's base and head, or the pushed range.
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           code=true
-          files=''
-          case "$EVENT" in
-            pull_request)
-              files=$(gh api --paginate "repos/$GITHUB_REPOSITORY/pulls/$PR/files" --jq '.[].filename') || files='' ;;
-            push)
-              files=$(gh api "repos/$GITHUB_REPOSITORY/compare/$BEFORE...$GITHUB_SHA" \
-                --jq 'if (.files | length) >= 300 then empty else .files[].filename end') || files='' ;;
-          esac
-          if [ -n "$files" ] && ! printf '%s\n' "$files" | grep -qvE '(\.md$|^docs/)'; then
+          # "<files> <paths outside the docs filter>"; a rename counts under its old and its
+          # new name. The compare API lists at most 300 files: 300 means "truncated".
+          # shellcheck disable=SC2016  # $paths is a jq variable, not a shell one
+          counts=$(gh api "repos/$GITHUB_REPOSITORY/compare/$BASE...$HEAD" --jq '
+            [.files[] | .filename, (.previous_filename // empty)] as $paths
+            | "\(.files | length) \($paths | map(select(test("(\\.md$|^docs/)") | not)) | length)"') || counts=''
+          read -r files other <<<"$counts" || true
+          if [ -n "$files" ] && [ "$files" -gt 0 ] && [ "$files" -lt 300 ] && [ "$other" = 0 ]; then
             code=false
           fi
-          printf '%s\n' "$files"
+          echo "files changed: ${files:-unreadable}, outside the docs filter: ${other:-unreadable}"
           echo "code=$code" | tee -a "$GITHUB_OUTPUT"
 
   workflows:

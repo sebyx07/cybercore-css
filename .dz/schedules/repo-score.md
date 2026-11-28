@@ -38,8 +38,7 @@ estimate, and is left out of the total.
 9. **Issues are decided.** No issue open over 30 days with no triage decision.
 10. **Deploy verdict wired.** Two lanes ship here: `.github/workflows/release.yml` publishes to npm
     and creates the GitHub release, and `.github/workflows/deploy.yml` publishes the demo to GitHub
-    Pages. Each must report its outcome (a failed run, and the daily `health` checkup's npm, CDN
-    and site rows in `.dz/schedules/health.md`). Fails when a lane ships and nothing reports.
+    Pages. Each must report its outcome (a failed workflow run is that report). Fails when a lane ships and nothing reports.
 
 No file holds checks 7, 8 and 9: grade each from its Signals section; a missing one is `not read`.
 Ages count from opening, not last activity. Branches are not listed: check 8 says so.
@@ -69,7 +68,7 @@ One per check; a handoff reports one failing row.
 - Confirm before you claim: read the file that does the thing, not only a file that mentions it.
 - A check that does not apply here passes, and keeps its 10 points.
 - One handoff per failing row: every site of the failure goes in it, worst first.
-- A row the daily `health` checkup already filed (an open issue with its title) is scored, not
+- A row that already has an open issue (its title) is scored, not
   filed again.
 
 ## Every finding

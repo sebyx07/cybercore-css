@@ -11,6 +11,4 @@ Two lanes, both from `main`, both through GitHub Actions. Nothing is published b
 - **The demo site.** `.github/workflows/deploy.yml` builds the CSS and the demo on every push to
   `main` and deploys it to GitHub Pages at https://sebyx07.github.io/cybercore-css/.
 
-Outcome checks: the daily `health` checkup (`.dz/schedules/health.md`) verifies that `main` is
-green, the site answers, npm serves the `package.json` version, the release is tagged and the CDN
-serves the file.
+Outcome checks: a workflow run is its own verdict, and the platform files a fix when `main` is red. Nothing polls the published package or the site on a schedule: the `health` checkup was removed on 2026-11-28 (across the fleet it fired 270 times in 30 days and produced no merged fix).
