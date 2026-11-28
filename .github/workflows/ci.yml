@@ -44,17 +44,18 @@ jobs:
       - id: detect
         env:
           GH_TOKEN: ${{ github.token }}
-          # The commits this run tests: the pull request's base and head, or the pushed range.
+          # The commits this run tests: the base and the commit that is checked out (for a pull
+          # request that is the merge commit, so a file main moved is seen where it lands).
           BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
-          HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+          HEAD: ${{ github.sha }}
         run: |
           code=true
           # "<files> <paths outside the docs filter>"; a rename counts under its old and its
-          # new name. The compare API lists at most 300 files: 300 means "truncated".
+          # new name, and the filter tests whole paths (prefix or suffix, no line anchors). The compare API lists at most 300 files: 300 means "truncated".
           # shellcheck disable=SC2016  # $paths is a jq variable, not a shell one
           counts=$(gh api "repos/$GITHUB_REPOSITORY/compare/$BASE...$HEAD" --jq '
             [.files[] | .filename, (.previous_filename // empty)] as $paths
-            | "\(.files | length) \($paths | map(select(test("(\\.md$|^docs/)") | not)) | length)"') || counts=''
+            | "\(.files | length) \($paths | map(select((endswith(".md") or startswith("docs/")) | not)) | length)"') || counts=''
           read -r files other <<<"$counts" || true
           if [ -n "$files" ] && [ "$files" -gt 0 ] && [ "$files" -lt 300 ] && [ "$other" = 0 ]; then
             code=false
